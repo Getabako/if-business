@@ -24,7 +24,7 @@ on:
     branches:
       - main
     paths:
-      - 'index.html'
+      - 'WorkFlow_origin/index.html'
 
 jobs:
   generate-content:

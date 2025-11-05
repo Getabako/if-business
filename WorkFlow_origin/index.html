@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if(Business) - AI × ヒトの力で、成長と効率化を実現する</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #111827;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Navigation Styles */
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            padding: 80px 2rem 2rem;
+            list-style: none;
+            transition: right 0.3s ease;
+            z-index: 999;
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu li {
+            margin-bottom: 1rem;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 1rem 0;
+            display: block;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #60a5fa;
+            padding-left: 1rem;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            opacity: 0.7;
+        }
+
+        /* Service Navigation Section */
+        .service-nav-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .service-nav-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        .service-description {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* AI Personal Advisor Section */
+        .ai-advisor-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            padding: 5rem 2rem;
+        }
+
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .service-section-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+
+        .content-column {
+            animation: fadeInLeft 1s ease;
+        }
+
+        .image-column {
+            animation: fadeInRight 1s ease;
+        }
+
+        .image-column img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            margin-right: 1rem;
+            color: #3b82f6;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3b82f6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* AI Training Section */
+        .ai-training-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f3e7fc 0%, #e0e7ff 100%);
+            padding: 5rem 2rem;
+        }
+
+        /* AI Development Section */
+        .ai-development-section {
+            min-height: 100vh;
+            background: #111827;
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-development-section .section-title {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark-feature-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* ICT Development Section */
+        .ict-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            padding: 5rem 2rem;
+        }
+
+        .ict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .ict-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ict-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .ict-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .ict-card-content {
+            padding: 2rem;
+        }
+
+        .ict-card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .ict-card-price {
+            font-size: 1.2rem;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        /* AI Marketing Section */
+        .ai-marketing-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fef2f2 0%, #fce7f3 100%);
+            padding: 5rem 2rem;
+        }
+
+        /* AI Courses Section */
+        .ai-courses-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 5rem 2rem;
+        }
+
+        .course-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .course-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .course-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .course-tab.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            border-color: transparent;
+        }
+
+        .course-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+        }
+
+        .course-info {
+            flex: 2;
+        }
+
+        .course-actions {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .course-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .course-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .course-details {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .course-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #60a5fa;
+            text-align: center;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Takumi Workshop Section */
+        .takumi-section {
+            min-height: 100vh;
+            background: #0a0f1b;
+            padding: 5rem 2rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Yu Gothic', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .takumi-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .takumi-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.9) 0%, rgba(15, 30, 50, 0.85) 100%);
+            z-index: 1;
+        }
+
+        .takumi-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .takumi-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .takumi-title {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+            letter-spacing: 0.2em;
+        }
+
+        .takumi-subtitle {
+            color: #00ff88;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .takumi-description-box {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff88;
+            border-radius: 8px;
+            padding: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .takumi-description-box::before {
+            content: '●●●';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            color: #ff5f56;
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+        }
+
+        .takumi-description-box::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 45px;
+            width: 12px;
+            height: 12px;
+            background: #ffbd2e;
+            border-radius: 50%;
+        }
+
+        .takumi-description {
+            color: #ffffff;
+            line-height: 1.8;
+            margin-top: 1rem;
+        }
+
+        .takumi-features-title {
+            font-size: 1.2rem;
+            color: #00ff88;
+            margin-bottom: 1.5rem;
+        }
+
+        .takumi-features {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+        }
+
+        .takumi-feature {
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .takumi-feature-icon {
+            font-size: 1.2rem;
+        }
+
+        .takumi-services-title {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #00ff88;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+        }
+
+        .takumi-services {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .takumi-service-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .takumi-service-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00ff88, #00ffdd, #00ff88);
+            border-radius: 8px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .takumi-service-card:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .takumi-service-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .takumi-service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .takumi-service-name {
+            font-size: 1.3rem;
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+        }
+
+        .takumi-service-desc {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .takumi-service-price {
+            font-size: 1.5rem;
+            color: #00ffdd;
+            font-weight: bold;
+        }
+
+        /* Inokura Section (Minecraft Style) */
+        .inokura-section {
+            min-height: 100vh;
+            background: #0a0f1b;
+            padding: 5rem 2rem;
+            position: relative;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Yu Gothic', sans-serif;
+        }
+
+        .inokura-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            z-index: 0;
+        }
+
+        .inokura-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.85) 0%, rgba(15, 30, 50, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .inokura-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .inokura-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            letter-spacing: 0.2em;
+        }
+
+        .inokura-subtitle {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .inokura-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .inokura-item {
+            background: linear-gradient(135deg, #2c5f88 0%, #1a3a52 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .inokura-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .inokura-item:hover {
+            transform: translateY(-5px);
+            border-color: #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .inokura-item:hover::before {
+            opacity: 1;
+        }
+
+        .inokura-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .inokura-icon {
+            width: 40px;
+            height: 40px;
+            image-rendering: pixelated;
+            margin-right: 0.5rem;
+        }
+
+        .inokura-name {
+            font-size: 0.9rem;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .inokura-price {
+            font-size: 1rem;
+            color: #ffd700;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Specific item colors */
+        .inokura-item:nth-child(1) { background: linear-gradient(135deg, #4a90e2 0%, #2c5f88 100%); }
+        .inokura-item:nth-child(2) { background: linear-gradient(135deg, #5cb85c 0%, #3d7e3d 100%); }
+        .inokura-item:nth-child(3) { background: linear-gradient(135deg, #f0ad4e 0%, #d58512 100%); }
+        .inokura-item:nth-child(4) { background: linear-gradient(135deg, #d9534f 0%, #ac2925 100%); }
+        .inokura-item:nth-child(5) { background: linear-gradient(135deg, #868e96 0%, #495057 100%); }
+        .inokura-item:nth-child(6) { background: linear-gradient(135deg, #9b59b6 0%, #6c3483 100%); }
+        .inokura-item:nth-child(7) { background: linear-gradient(135deg, #6c757d 0%, #343a40 100%); }
+        .inokura-item:nth-child(8) { background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); }
+        .inokura-item:nth-child(9) { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); }
+
+        .inokura-item-emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* AI Implementation Section */
+        .implementation-section {
+            min-height: 100vh;
+            background: #0a0f1b;
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .implementation-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .implementation-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.8) 0%, rgba(15, 30, 50, 0.75) 100%);
+            z-index: 1;
+        }
+
+        .implementation-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .case-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .case-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.8);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .case-tab:hover {
+            background: rgba(59, 130, 246, 1);
+            transform: translateY(-2px);
+        }
+
+        .case-tab.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .case-content {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .case-phase {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 4px solid;
+            position: relative;
+        }
+
+        .case-phase:nth-child(1) {
+            border-left-color: #ef4444;
+        }
+
+        .case-phase:nth-child(2) {
+            border-left-color: #f59e0b;
+        }
+
+        .case-phase:nth-child(3) {
+            border-left-color: #10b981;
+        }
+
+        .case-phase::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .case-phase:nth-child(1)::before {
+            background: #ef4444;
+        }
+
+        .case-phase:nth-child(2)::before {
+            background: #f59e0b;
+        }
+
+        .case-phase:nth-child(3)::before {
+            background: #10b981;
+        }
+
+        .case-phase-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            margin-left: 1.5rem;
+            font-weight: 600;
+        }
+
+        .case-phase-content {
+            line-height: 1.8;
+            margin-left: 1.5rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            min-height: 100vh;
+            background: #0a0f1b;
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .faq-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .faq-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.85) 0%, rgba(15, 30, 50, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .faq-question::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #3b82f6;
+            border-radius: 50%;
+        }
+
+        .faq-question-content {
+            margin-left: 1rem;
+            flex: 1;
+        }
+
+        .faq-arrow {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid #3b82f6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: #3b82f6;
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+            background: #3b82f6;
+            color: white;
+        }
+
+        .faq-answer {
+            padding: 0 3rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 3rem 2rem;
+            opacity: 1;
+        }
+
+        .faq-answer-content {
+            padding-top: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Company Info Section */
+        .company-section {
+            min-height: 100vh;
+            background: #0a0f1b;
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .company-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.85) 0%, rgba(15, 30, 50, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .company-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .company-card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .company-card-content {
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            padding: 5rem 2rem;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 3rem;
+        }
+
+        .contact-form-section {
+            flex: 1;
+            text-align: center;
+        }
+
+        .contact-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form-banner {
+            text-decoration: none;
+        }
+
+        .contact-form-banner:hover div {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(0, 255, 0, 1), 0 0 40px rgba(0, 255, 0, 0.8);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .two-column-layout,
+            .contact-container {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .service-grid,
+            .ict-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .minecraft-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .course-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .course-actions {
+                align-items: center;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 2000;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation" id="navigation">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <img src="images/-1.png" alt="if(Business) Logo">
+            </a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#services">サービス一覧</a></li>
+            <li><a href="#ai-advisor">AIパーソナル顧問</a></li>
+            <li><a href="#ai-training">AI人材育成</a></li>
+            <li><a href="#development">AI開発支援</a></li>
+            <li><a href="#ict">ICT開発</a></li>
+            <li><a href="#marketing">AIマーケティング</a></li>
+            <li><a href="#courses">AI講座</a></li>
+            <li><a href="#takumi">パソコンのことなら匠工房</a></li>
+            <li><a href="#inokura">オリジナルワールド開発</a></li>
+            <li><a href="#inokura">イノクラ</a></li>
+            <li><a href="#implementation">AI導入実績</a></li>
+            <li><a href="#faq">よくあるご質問</a></li>
+            <li><a href="#company">会社情報</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <video class="hero-video" autoplay muted loop playsinline id="heroVideo">
+            <source src="videos/lpmoviepc.mp4" type="video/mp4">
+            <img src="images/0.png" alt="Hero Background">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">売上拡大と業務効率化を最大に</h1>
+            <p class="hero-subtitle">AI × ヒトの力で、成長と効率化を実現する</p>
+            <a href="#contact" class="hero-cta">無料相談を申し込む</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Service Navigation Section -->
+    <section id="services" class="service-nav-section">
+        <img src="images/An_abstract_background_representing_data_analysis_-1745739047865-scaled.png" alt="Background" class="service-nav-bg">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">提供サービス</h2>
+                <p class="section-subtitle">AI技術とヒトの専門性を組み合わせた包括的なビジネスソリューション</p>
+            </div>
+            <div class="service-grid">
+                <div class="service-card" onclick="scrollToSection('ai-advisor')">
+                    <div class="service-icon">👨‍💼</div>
+                    <h3 class="service-name">AIパーソナル顧問プラン</h3>
+                    <p class="service-description">経営者・個人事業主の右腕となるAI活用支援</p>
+                </div>
+                <div class="service-card" onclick="scrollToSection('ai-training')">
+                    <div class="service-icon">🎓</div>
+                    <h3 class="service-name">AI人材育成プラン</h3>
+                    <p class="service-description">組織全体のAI活用スキル向上</p>
+                </div>
+                <div class="service-card" onclick="scrollToSection('development')">
+                    <div class="service-icon">⚙️</div>
+                    <h3 class="service-name">AI開発支援プラン</h3>
+                    <p class="service-description">カスタムAIソリューションの開発</p>
+                </div>
+                <div class="service-card" onclick="scrollToSection('ict')">
+                    <div class="service-icon">💻</div>
+                    <h3 class="service-name">ICT開発サービス</h3>
+                    <p class="service-description">Web・アプリ・ゲーム開発</p>
+                </div>
+                <div class="service-card" onclick="scrollToSection('marketing')">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-name">AIマーケティングサポート</h3>
+                    <p class="service-description">SNS運用・LINE開発・広報デザイン</p>
+                </div>
+                <div class="service-card" onclick="scrollToSection('courses')">
+                    <div class="service-icon">📚</div>
+                    <h3 class="service-name">AI講座プログラム</h3>
+                    <p class="service-description">目的別カスタマイズ研修</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Personal Advisor Section -->
+    <section id="ai-advisor" class="ai-advisor-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AIパーソナル顧問プラン</h2>
+                <p class="section-subtitle">経営者・個人事業主の右腕となるAI活用支援</p>
+            </div>
+            <div class="two-column-layout">
+                <div class="content-column">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="feature-icon">📄</span>
+                            <span>資料作成支援</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">📱</span>
+                            <span>SNS・ブログ運用サポート</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🤖</span>
+                            <span>AIツール導入伴走</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">💬</span>
+                            <span>チャット相談48h以内返信</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🎥</span>
+                            <span>月1回60分オンラインMTG</span>
+                        </li>
+                    </ul>
+                    <div class="service-section-bottom">
+                        <div class="price-tag">¥55,000/月</div>
+                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
+                    </div>
+                </div>
+                <div class="image-column">
+                    <img src="images/1.png" alt="AI Personal Advisor">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Training Section -->
+    <section id="ai-training" class="ai-training-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI人材育成プラン</h2>
+                <p class="section-subtitle">組織全体のAI活用スキル向上</p>
+            </div>
+            <div class="two-column-layout">
+                <div class="image-column">
+                    <img src="images/2.png" alt="AI Training">
+                </div>
+                <div class="content-column">
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>月1回の個別最適研修</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">💬</span>
+                            <span>日常チャットQ&A対応</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon">🔄</span>
+                            <span>研修後アフターフォロー付き</span>
+                        </li>
+                    </ul>
+                    <div class="service-section-bottom">
+                        <div class="price-tag">¥33,000/月 (1名)</div>
+                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Development Section -->
+    <section id="development" class="ai-development-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI開発支援プラン</h2>
+                <p class="section-subtitle">カスタムAIソリューションの開発</p>
+            </div>
+            <div class="two-column-layout">
+                <div class="content-column">
+                    <ul class="feature-list">
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon">📋</span>
+                            <span>月次相談で最優先課題を決定</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon">🚀</span>
+                            <span>即応アジャイル開発で実装・運用</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon">📊</span>
+                            <span>月次レビューで成果を可視化＆次アクションを策定</span>
+                        </li>
+                    </ul>
+                    <div class="service-section-bottom">
+                        <div class="price-tag" style="color: #60a5fa;">¥110,000/月</div>
+                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
+                    </div>
+                </div>
+                <div class="image-column">
+                    <img src="images/3.png" alt="AI Development">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ICT Development Section -->
+    <section id="ict" class="ict-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ICT開発サービス</h2>
+                <p class="section-subtitle">Web・アプリ・ゲーム開発</p>
+            </div>
+            <div class="ict-grid">
+                <div class="ict-card">
+                    <img src="images/4.png" alt="LP Development">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">LP開発</h3>
+                        <p class="ict-card-price">¥150,000〜</p>
+                    </div>
+                </div>
+                <div class="ict-card">
+                    <img src="images/5.png" alt="Web Development">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">Web開発</h3>
+                        <p class="ict-card-price">¥300,000〜</p>
+                    </div>
+                </div>
+                <div class="ict-card">
+                    <img src="images/6.png" alt="Game Development">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">ゲーム開発</h3>
+                        <p class="ict-card-price">¥500,000〜</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Marketing Section -->
+    <section id="marketing" class="ai-marketing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AIマーケティングサポート</h2>
+                <p class="section-subtitle">SNS運用・LINE開発・広報デザイン</p>
+            </div>
+            <div class="ict-grid">
+                <div class="ict-card">
+                    <img src="images/7.png" alt="SNS Management">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">SNS運用</h3>
+                        <p class="ict-card-price">¥80,000〜/月</p>
+                    </div>
+                </div>
+                <div class="ict-card">
+                    <img src="images/8.png" alt="LINE Development">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">LINE開発</h3>
+                        <p class="ict-card-price">¥50,000〜</p>
+                    </div>
+                </div>
+                <div class="ict-card">
+                    <img src="images/9.png" alt="PR Design">
+                    <div class="ict-card-content">
+                        <h3 class="ict-card-title">広報デザイン</h3>
+                        <p class="ict-card-price">¥100,000〜</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Courses Section -->
+    <section id="courses" class="ai-courses-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI講座プログラム</h2>
+            </div>
+            <div class="course-tabs">
+                <button class="course-tab active" onclick="showCourse(0)">ビジネス向け</button>
+                <button class="course-tab" onclick="showCourse(1)">クリエイター向け</button>
+                <button class="course-tab" onclick="showCourse(2)">開発者向け</button>
+                <button class="course-tab" onclick="showCourse(3)">ゲームクリエイター向け</button>
+                <button class="course-tab" onclick="showCourse(4)">学生向け</button>
+            </div>
+            <div class="course-content" id="courseContent">
+                <div class="course-info">
+                    <div class="course-icon">💼</div>
+                    <h3 class="course-title">ビジネス向けAI講座</h3>
+                    <div class="course-details">
+                        <p>・AI基礎知識とビジネス活用方法</p>
+                        <p>・ChatGPT等の生成AI活用術</p>
+                        <p>・業務効率化の実践的手法</p>
+                        <p>・データ分析と意思決定支援</p>
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <div class="course-price">¥200,000/名</div>
+                    <a href="#contact" class="cta-button">お問い合わせ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Takumi Workshop Section -->
+    <section id="takumi" class="takumi-section">
+        <img src="images/10.png" alt="Takumi Workshop Background" class="takumi-bg">
+        <div class="takumi-overlay"></div>
+        <div class="takumi-content">
+            <div class="takumi-header">
+                <h2 class="takumi-title">匠工房</h2>
+            </div>
+
+            <div class="takumi-description-box">
+                <div class="takumi-description">
+                    パソコン組み立てやネットワーク環境設定はもちろん、「どんな用途で使いたいか」を丁寧にヒアリングし、ご要望に合わせて最適な構成・組み立てをご提案。トラブル解決やメンテナンスもサポートします。事前相談は無料なので、初めての方も安心してご相談ください。
+                </div>
+            </div>
+
+            <div class="takumi-features">
+                <div class="takumi-feature">
+                    <span class="takumi-feature-icon">🖥️</span>
+                    <span>Wi-Fi設定・配線整理</span>
+                </div>
+                <div class="takumi-feature">
+                    <span class="takumi-feature-icon">🔧</span>
+                    <span>パーツ選定〜組立</span>
+                </div>
+                <div class="takumi-feature">
+                    <span class="takumi-feature-icon">💬</span>
+                    <span>オンライン・対面相談無料</span>
+                </div>
+            </div>
+
+            <div class="takumi-services">
+                <div class="takumi-service-card">
+                    <div class="takumi-service-icon">🔧</div>
+                    <div class="takumi-service-name">PCパーツ選定・組み立てサポート</div>
+                    <div class="takumi-service-desc">あなたの用途に最適なパーツ選定から組み立てまで完全サポート</div>
+                    <div class="takumi-service-price">¥20,000 (パーツ代別途)</div>
+                </div>
+                <div class="takumi-service-card">
+                    <div class="takumi-service-icon">🎌</div>
+                    <div class="takumi-service-name">秋葉原ツアー付きプレミアム</div>
+                    <div class="takumi-service-desc">秋葉原での部品調達から組み立てまで、特別体験付きプラン</div>
+                    <div class="takumi-service-price">¥100,000 (パーツ代別途)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inokura Section -->
+    <section id="inokura" class="inokura-section">
+        <img src="images/11.png" alt="Inokura Background" class="inokura-bg">
+        <div class="inokura-overlay"></div>
+        <div class="inokura-content">
+            <h2 class="inokura-title">イノクラ</h2>
+            <p class="inokura-subtitle">Minecraftを活用したサーバー運用や空間開発サービスです。</p>
+            <div class="inokura-grid">
+                <div class="inokura-item">
+                    <div class="inokura-name">大きめの建築物</div>
+                    <div class="inokura-price">¥150,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">キャラクター配布</div>
+                    <div class="inokura-price">¥100,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">集合マンション</div>
+                    <div class="inokura-price">¥80,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">装飾イベント実装</div>
+                    <div class="inokura-price">¥150,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">アイテム追加</div>
+                    <div class="inokura-price">¥80,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">巡り物追加</div>
+                    <div class="inokura-price">¥100,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">データパック・プラグイン開発</div>
+                    <div class="inokura-price">¥300,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">パーティクル実装</div>
+                    <div class="inokura-price">¥200,000</div>
+                </div>
+                <div class="inokura-item">
+                    <div class="inokura-name">構造物追加</div>
+                    <div class="inokura-price">¥100,000</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Implementation Section -->
+    <section id="implementation" class="implementation-section">
+        <img src="images/12.png" alt="AI Implementation Background" class="implementation-bg">
+        <div class="implementation-overlay"></div>
+        <div class="implementation-content">
+            <div class="section-header">
+                <h2 class="section-title">AI導入実績</h2>
+                <p class="section-subtitle">様々な業界でのAI活用成功事例</p>
+            </div>
+            <div class="case-tabs">
+                <button class="case-tab active" onclick="showCase(0)">製造業A社</button>
+                <button class="case-tab" onclick="showCase(1)">小売業B社</button>
+                <button class="case-tab" onclick="showCase(2)">歯科医院C院</button>
+            </div>
+            <div class="case-content">
+                <div class="case-grid" id="caseContent">
+                    <div class="case-phase">
+                        <h3 class="case-phase-title">BEFORE</h3>
+                        <div class="case-phase-content">
+                            品質検査に多くの人員と時間を要し、ヒューマンエラーによる不良品の見逃しが発生していた
+                        </div>
+                    </div>
+                    <div class="case-phase">
+                        <h3 class="case-phase-title">手法で</h3>
+                        <div class="case-phase-content">
+                            画像認識AIによる自動品質検査システムを導入。リアルタイムで不良品を検出し、アラート通知
+                        </div>
+                    </div>
+                    <div class="case-phase">
+                        <h3 class="case-phase-title">AFTER</h3>
+                        <div class="case-phase-content">
+                            検査時間を70%削減、不良品検出率を99.8%まで向上。年間2000万円のコスト削減を実現
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <img src="images/14.png" alt="FAQ Background" class="faq-bg">
+        <div class="faq-overlay"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">よくあるご質問</h2>
+                <p class="section-subtitle">お客様からよくいただくご質問にお答えします</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(0)">
+                        <div class="faq-question-content">AIツールの導入には技術的な知識が必要ですか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            いいえ、技術的な知識は必要ありません。弊社の専門スタッフが、お客様のレベルに合わせて丁寧にサポートいたします。基本的な操作から応用的な活用方法まで、段階的に習得できるよう支援します。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(1)">
+                        <div class="faq-question-content">どのような業種でもAI導入は可能ですか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            はい、あらゆる業種でAI導入が可能です。製造業、小売業、サービス業、医療、教育など、各業界の特性に合わせたAIソリューションをご提案します。まずは無料相談で、お客様の業界に最適な活用方法をご提案させていただきます。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(2)">
+                        <div class="faq-question-content">導入後のサポート体制はどうなっていますか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            導入後も充実したサポート体制を整えています。チャットサポート（48時間以内返信）、定期的なオンラインミーティング、継続的なスキルアップ研修など、お客様が安心してAIを活用できるよう長期的にサポートいたします。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(3)">
+                        <div class="faq-question-content">費用対効果はどの程度期待できますか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            業種や導入内容により異なりますが、多くのお客様が3〜6ヶ月で投資回収を実現しています。業務効率化による人件費削減、売上向上、エラー削減など、複数の観点から費用対効果を実現します。無料相談で具体的な試算をご提示します。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(4)">
+                        <div class="faq-question-content">契約期間や解約条件はどうなっていますか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            基本的に最短1ヶ月からご契約いただけます。長期契約による割引もご用意しています。解約は1ヶ月前までにお申し出いただければ、違約金等は発生いたしません。まずはお試しいただき、効果を実感してから継続をご検討ください。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Info Section -->
+    <section id="company" class="company-section">
+        <img src="images/13.png" alt="Company Background" class="company-bg">
+        <div class="company-overlay"></div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">会社情報</h2>
+            </div>
+            <div class="company-grid">
+                <div class="company-card">
+                    <h3 class="company-card-title">
+                        <span>🏢</span> 運営母体
+                    </h3>
+                    <div class="company-card-content">
+                        <p>一般社団法人IFラボ</p>
+                        <p>AIとヒトの力を組み合わせ、企業の成長と効率化を支援</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <h3 class="company-card-title">
+                        <span>💪</span> 私たちの強み
+                    </h3>
+                    <div class="company-card-content">
+                        <p>・最新AI技術の実装力</p>
+                        <p>・業界別カスタマイズ提案</p>
+                        <p>・継続的なサポート体制</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <h3 class="company-card-title">
+                        <span>🚀</span> ビジネス展開
+                    </h3>
+                    <div class="company-card-content">
+                        <p>全国対応のオンラインサービス</p>
+                        <p>100社以上の導入実績</p>
+                    </div>
+                </div>
+                <div class="company-card">
+                    <h3 class="company-card-title">
+                        <span>🔧</span> 活用テクノロジー
+                    </h3>
+                    <div class="company-card-content">
+                        <p>OpenAI, Google Cloud, Microsoft Azure, Anthropic等</p>
+                        <p>最先端AIプラットフォームを活用</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">お問い合わせ</h2>
+                <p class="section-subtitle">まずは無料相談からお気軽にご連絡ください</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-form-section">
+                    <a href="https://forms.gle/R5Dktgyx44J3L7p77" target="_blank" class="contact-form-banner">
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+                                    color: white;
+                                    padding: 3rem 2rem;
+                                    border-radius: 20px;
+                                    text-decoration: none;
+                                    display: block;
+                                    transition: all 0.3s ease;
+                                    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">
+                            <h3 style="font-size: 2rem; margin-bottom: 1rem; font-weight: bold;">お問い合わせフォーム</h3>
+                            <p style="font-size: 1.2rem; margin-bottom: 1.5rem; opacity: 0.9;">無料相談・サービスのご質問はこちらから</p>
+                            <div style="display: inline-block;
+                                       background: rgba(255, 255, 255, 0.2);
+                                       padding: 1rem 2rem;
+                                       border-radius: 50px;
+                                       font-size: 1.1rem;
+                                       font-weight: 600;">
+                                フォームを開く →
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="contact-info-section">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #374151;">🕐 営業時間</h3>
+                        <p style="color: #6b7280;">平日 9:00 - 18:00</p>
+                    </div>
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                        <h3 style="margin-bottom: 1rem; color: #374151;">📍 対応エリア</h3>
+                        <p style="color: #6b7280;">全国対応（オンライン）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Message Modal -->
+    <div class="success-message" id="successMessage">
+        <h3>送信完了</h3>
+        <p>お問い合わせありがとうございます。<br>内容を確認後、担当者よりご連絡させていただきます。</p>
+    </div>
+
+    <script>
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navigation');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.8)';
+            } else {
+                nav.style.background = 'transparent';
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            mobileMenuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+        }
+
+        mobileMenuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking on a link
+        navMenu.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A') {
+                toggleMenu();
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Function to scroll to sections
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        // Video source update based on screen size
+        const heroVideo = document.getElementById('heroVideo');
+        function updateVideoSource() {
+            if (window.innerWidth <= 768) {
+                heroVideo.src = 'videos/lpmoviesp.mp4';
+            } else {
+                heroVideo.src = 'videos/lpmoviepc.mp4';
+            }
+            heroVideo.load();
+        }
+
+        updateVideoSource();
+        window.addEventListener('resize', updateVideoSource);
+
+        // Course tabs functionality
+        const courses = [
+            {
+                icon: '💼',
+                title: 'ビジネス向けAI講座',
+                details: [
+                    'AI基礎知識とビジネス活用方法',
+                    'ChatGPT等の生成AI活用術',
+                    '業務効率化の実践的手法',
+                    'データ分析と意思決定支援'
+                ],
+                price: '¥200,000/名'
+            },
+            {
+                icon: '🎨',
+                title: 'クリエイター向けAI講座',
+                details: [
+                    '画像生成AIの活用方法',
+                    '動画編集AIツールの実践',
+                    'デザイン作業の効率化',
+                    'クリエイティブワークフローの最適化'
+                ],
+                price: '¥150,000/名'
+            },
+            {
+                icon: '⚡',
+                title: '開発者向けAI講座',
+                details: [
+                    'AIモデルの構築と実装',
+                    '機械学習フレームワークの活用',
+                    'API連携とシステム統合',
+                    'AIアプリケーション開発実践'
+                ],
+                price: '¥200,000/名'
+            },
+            {
+                icon: '🎮',
+                title: 'ゲームクリエイター向けAI講座',
+                details: [
+                    'ゲームAIの設計と実装',
+                    'プロシージャル生成技術',
+                    'NPCの行動AI開発',
+                    'ゲームバランス調整へのAI活用'
+                ],
+                price: '¥200,000/名'
+            },
+            {
+                icon: '🎓',
+                title: '学生向けAI講座',
+                details: [
+                    'AI基礎理論と実践',
+                    'プログラミング基礎とAI実装',
+                    '就職に役立つAIスキル',
+                    'ポートフォリオ作成支援'
+                ],
+                price: '¥100,000/名'
+            }
+        ];
+
+        function showCourse(index) {
+            const course = courses[index];
+            const courseContent = document.getElementById('courseContent');
+            const tabs = document.querySelectorAll('.course-tab');
+
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            courseContent.innerHTML = `
+                <div class="course-info">
+                    <div class="course-icon">${course.icon}</div>
+                    <h3 class="course-title">${course.title}</h3>
+                    <div class="course-details">
+                        ${course.details.map(detail => `<p>・${detail}</p>`).join('')}
+                    </div>
+                </div>
+                <div class="course-actions">
+                    <div class="course-price">${course.price}</div>
+                    <a href="#contact" class="cta-button">お問い合わせ</a>
+                </div>
+            `;
+        }
+
+        // Case studies functionality
+        const cases = [
+            {
+                before: '品質検査に多くの人員と時間を要し、ヒューマンエラーによる不良品の見逃しが発生していた',
+                solution: '画像認識AIによる自動品質検査システムを導入。リアルタイムで不良品を検出し、アラート通知',
+                after: '検査時間を70%削減、不良品検出率を99.8%まで向上。年間2000万円のコスト削減を実現'
+            },
+            {
+                before: '在庫管理が属人化し、過剰在庫と欠品が頻発。売上機会の損失が発生していた',
+                solution: 'AI需要予測システムと自動発注システムを導入。過去データから最適な在庫量を算出',
+                after: '在庫回転率が40%向上、欠品率を5%以下に削減。年間1500万円の在庫コスト削減'
+            },
+            {
+                before: '予約管理と顧客対応に多くの時間を取られ、診療に集中できない状況だった',
+                solution: 'AIチャットボットと自動予約システムを導入。24時間対応可能な体制を構築',
+                after: '事務作業時間を60%削減、患者満足度が30%向上。月間新規患者数が20%増加'
+            }
+        ];
+
+        function showCase(index) {
+            const caseData = cases[index];
+            const caseContent = document.getElementById('caseContent');
+            const tabs = document.querySelectorAll('.implementation-section .case-tab');
+
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+
+            caseContent.innerHTML = `
+                <div class="case-phase">
+                    <h3 class="case-phase-title">BEFORE</h3>
+                    <div class="case-phase-content">${caseData.before}</div>
+                </div>
+                <div class="case-phase">
+                    <h3 class="case-phase-title">手法で</h3>
+                    <div class="case-phase-content">${caseData.solution}</div>
+                </div>
+                <div class="case-phase">
+                    <h3 class="case-phase-title">AFTER</h3>
+                    <div class="case-phase-content">${caseData.after}</div>
+                </div>
+            `;
+        }
+
+        // FAQ toggle functionality
+        function toggleFAQ(index) {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems[index].classList.toggle('active');
+        }
+
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(contactForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Here you would normally send the data to a server
+            // For now, we'll just show a success message
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+                contactForm.reset();
+            }, 3000);
+        });
+
+        // Add intersection observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animation
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 1s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
