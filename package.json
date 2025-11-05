@@ -1,0 +1,34 @@
+{
+  "name": "sns-workflow",
+  "version": "1.0.0",
+  "description": "Instagram自動投稿ワークフロー - カレンダーから画像生成、Publer CSV作成まで",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "analyze-homepage": "node src/analyze-homepage.js",
+    "generate-imagerule": "node src/generate-imagerule.js",
+    "generate-character-csv": "node src/generate-character-csv.js",
+    "generate-calendar": "node src/generate-calendar.js",
+    "generate-images": "node src/generate-images.js",
+    "compose-images": "node src/compose-images.js",
+    "setup": "npm run analyze-homepage && npm run generate-imagerule && npm run generate-character-csv",
+    "workflow": "npm run setup && npm run generate-calendar",
+    "workflow-with-images": "npm run setup && npm run generate-calendar && npm run generate-images && npm run compose-images"
+  },
+  "keywords": [
+    "instagram",
+    "automation",
+    "social-media",
+    "github-actions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@napi-rs/canvas": "^0.1.81",
+    "dotenv": "^16.3.1",
+    "form-data": "^4.0.4",
+    "jsdom": "^23.0.0",
+    "node-fetch": "^3.3.2"
+  }
+}
