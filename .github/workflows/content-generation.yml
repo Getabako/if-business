@@ -24,14 +24,14 @@ on:
     branches:
       - main
     paths:
-      - 'WorkFlow_origin/index.html'
+      - 'index.html'
 
 jobs:
   generate-content:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: WorkFlow_origin
+        working-directory: .
 
     steps:
       # リポジトリのチェックアウト
@@ -44,7 +44,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: 'WorkFlow_origin/package.json'
+          cache-dependency-path: 'package.json'
 
       # 依存関係のインストール
       - name: 依存関係をインストール
@@ -91,14 +91,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: calendar-csv
-          path: WorkFlow_origin/output/calendar.csv
+          path: output/calendar.csv
           retention-days: 90
 
       - name: ビジネスサマリーをアップロード
         uses: actions/upload-artifact@v4
         with:
           name: business-summary
-          path: WorkFlow_origin/output/business-summary.txt
+          path: output/business-summary.txt
           retention-days: 90
 
       - name: AI生成画像をアップロード
@@ -106,7 +106,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ai-generated-images
-          path: WorkFlow_origin/output/images/
+          path: output/images/
           retention-days: 90
 
       - name: 合成済み画像をアップロード
@@ -114,7 +114,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: composed-images
-          path: WorkFlow_origin/output/composed/
+          path: output/composed/
           retention-days: 90
 
       - name: 一括投稿データ.CSVをアップロード
@@ -122,7 +122,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bulk-post-csv
-          path: WorkFlow_origin/output/一括投稿データ.csv
+          path: output/一括投稿データ.csv
           retention-days: 90
 
       # 結果をコミット（オプション）
@@ -134,8 +134,8 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
           # 変更があればコミット
-          if [[ -n $(git status -s WorkFlow_origin/output/) ]]; then
-            git add WorkFlow_origin/output/
+          if [[ -n $(git status -s output/) ]]; then
+            git add output/
             git commit -m "🤖 自動生成: Instagram投稿カレンダー $(date '+%Y-%m-%d')"
             git push
           else
