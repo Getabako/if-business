@@ -42,7 +42,7 @@ async function generateImageRule() {
     }
 
     // index.htmlの読み込み
-    const indexPath = join(__dirname, '..', 'index.html');
+    const indexPath = join(__dirname, '..', '..', 'index.html');
     if (!existsSync(indexPath)) {
       throw new Error('index.htmlが見つかりません。プロジェクトルートにindex.htmlを配置してください。');
     }

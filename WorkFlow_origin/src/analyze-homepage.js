@@ -14,7 +14,7 @@ async function analyzeHomepage() {
     console.log('🔍 ホームページを解析中...\n');
 
     // ホームページのHTMLファイルを読み込む
-    const homepagePath = join(__dirname, '..', 'index.html');
+    const homepagePath = join(__dirname, '..', '..', 'index.html');
     const htmlContent = readFileSync(homepagePath, 'utf-8');
 
     // JSDOMでHTMLをパース
