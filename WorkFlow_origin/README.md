@@ -134,7 +134,69 @@ WorkFlow_originフォルダ内で実行：
 npm install
 ```
 
-## 📖 使い方
+## 🤖 GitHub Actionsでの自動実行（推奨）
+
+### セットアップ手順
+
+新しいリポジトリでGitHub Actionsを使って自動実行する場合：
+
+**ステップ1: WorkFlow_originフォルダを配置**
+```bash
+# リポジトリのルートにWorkFlow_originフォルダを配置
+cp -r WorkFlow_origin /path/to/your/new-repository/
+cd /path/to/your/new-repository
+```
+
+**ステップ2: GitHub Actionsワークフローをセットアップ**
+```bash
+# セットアップスクリプトを実行
+cd WorkFlow_origin
+./setup-github-actions.sh
+```
+
+このスクリプトは自動的に：
+- リポジトリのルートに `.github/workflows/` ディレクトリを作成
+- ワークフローファイルをコピー
+
+**ステップ3: Gemini APIキーを設定**
+1. GitHubリポジトリの `Settings` > `Secrets and variables` > `Actions` へ移動
+2. `New repository secret` をクリック
+3. 名前: `GEMINI_API_KEY`
+4. 値: あなたのGemini APIキーを貼り付け
+
+**ステップ4: プッシュ**
+```bash
+cd ..  # リポジトリのルートに戻る
+git add .github/workflows/content-generation.yml WorkFlow_origin/
+git commit -m "Add Instagram content generation workflow"
+git push
+```
+
+### GitHub Actionsワークフローの使い方
+
+ワークフローは以下の3つの方法で実行されます：
+
+1. **手動実行**:
+   - GitHubの `Actions` タブ > `Instagram投稿コンテンツ生成` を選択
+   - `Run workflow` をクリック
+   - パラメータ設定:
+     - 生成する投稿日数: デフォルト30日
+     - 画像も自動生成する: チェックでGemini API使用
+
+2. **スケジュール実行**: 毎月1日の午前9時（JST）に自動実行
+
+3. **自動実行**: `WorkFlow_origin/index.html` を更新してプッシュすると自動実行
+
+### 生成結果の取得
+
+実行完了後、Artifactsから以下をダウンロード可能：
+- `calendar-csv`: 投稿カレンダー（CSV形式）
+- `business-summary`: ビジネスサマリー
+- `ai-generated-images`: AI生成画像（画像生成を有効にした場合）
+- `composed-images`: 合成済み画像（Instagram投稿用）
+- `bulk-post-csv`: 一括投稿データ.CSV
+
+## 📖 ローカルでの使い方
 
 ### 🚀 クイックスタート（自動セットアップ）
 
