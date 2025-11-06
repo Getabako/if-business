@@ -1,0 +1,162 @@
+name: Instagram投稿コンテンツ生成
+
+on:
+  # 手動実行を許可
+  workflow_dispatch:
+    inputs:
+      calendar_days:
+        description: '生成する投稿日数（デフォルト: 30日）'
+        required: false
+        type: number
+        default: 30
+      generate_images:
+        description: '画像も自動生成する（Gemini API使用）'
+        required: false
+        type: boolean
+        default: false
+
+  # スケジュール実行（毎月1日の午前9時 JST = 午前0時 UTC）
+  schedule:
+    - cron: '0 0 1 * *'
+
+  # ホームページが更新されたときに実行
+  push:
+    branches:
+      - main
+    paths:
+      - 'WorkFlow_origin/index.html'
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: WorkFlow_origin
+
+    steps:
+      # リポジトリのチェックアウト
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      # Node.jsのセットアップ
+      - name: Node.jsをセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'WorkFlow_origin/package.json'
+
+      # 依存関係のインストール
+      - name: 依存関係をインストール
+        run: npm ci
+
+      # 日本語フォントのインストール
+      - name: 日本語フォントをインストール
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-noto-cjk fonts-mplus
+          echo "📝 インストールされたフォント一覧:"
+          fc-list | grep -i "noto\|mplus" | head -20
+
+      # 出力ディレクトリの作成
+      - name: 出力ディレクトリを作成
+        run: |
+          mkdir -p output/images
+
+      # ホームページ解析
+      - name: ホームページを解析
+        run: npm run analyze-homepage
+
+      # 投稿カレンダー生成
+      - name: 投稿カレンダーを生成
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CALENDAR_DAYS: ${{ github.event.inputs.calendar_days || '1' }}
+        run: npm run generate-calendar
+
+      # 画像自動生成（オプション）
+      - name: 画像を自動生成
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm run generate-images
+
+      # 画像合成とアップロード（オプション）
+      - name: 画像にテキストを合成してアップロード
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        run: npm run compose-images
+
+      # 生成物をArtifactとしてアップロード（個別に分けて選択可能に）
+      - name: カレンダーCSVをアップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: calendar-csv
+          path: WorkFlow_origin/output/calendar.csv
+          retention-days: 90
+
+      - name: ビジネスサマリーをアップロード
+        uses: actions/upload-artifact@v4
+        with:
+          name: business-summary
+          path: WorkFlow_origin/output/business-summary.txt
+          retention-days: 90
+
+      - name: AI生成画像をアップロード
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-generated-images
+          path: WorkFlow_origin/output/images/
+          retention-days: 90
+
+      - name: 合成済み画像をアップロード
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: composed-images
+          path: WorkFlow_origin/output/composed/
+          retention-days: 90
+
+      - name: 一括投稿データ.CSVをアップロード
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: bulk-post-csv
+          path: WorkFlow_origin/output/一括投稿データ.csv
+          retention-days: 90
+
+      # 結果をコミット（オプション）
+      - name: 結果をコミット
+        if: success()
+        working-directory: .
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          # 変更があればコミット
+          if [[ -n $(git status -s WorkFlow_origin/output/) ]]; then
+            git add WorkFlow_origin/output/
+            git commit -m "🤖 自動生成: Instagram投稿カレンダー $(date '+%Y-%m-%d')"
+            git push
+          else
+            echo "変更がないため、コミットをスキップします"
+          fi
+
+      # 完了メッセージ
+      - name: 完了
+        run: |
+          echo "✅ Instagram投稿カレンダー生成完了"
+          echo ""
+          echo "📦 以下のArtifactから必要なものを選択してダウンロードできます:"
+          echo "   1️⃣ calendar-csv - 投稿カレンダー（CSV形式）"
+          echo "   2️⃣ business-summary - ビジネスサマリー"
+          if [ "${{ github.event.inputs.generate_images }}" == "true" ] || [ "${{ github.event_name }}" == "push" ]; then
+            echo "   3️⃣ ai-generated-images - AI生成画像（元画像）"
+            echo "   4️⃣ composed-images - 合成済み画像（テキスト入り、3:4サイズ）"
+            echo "   5️⃣ bulk-post-csv - 一括投稿データ.CSV（Instagram予約投稿用）"
+            echo ""
+            echo "🌐 合成済み画像はサーバーにもアップロードされています:"
+            echo "   https://images.if-juku.net/juku_post_$(date '+%Y_%m')/"
+          fi
+          echo ""
+          echo "💡 各Artifactは個別にダウンロード可能です（zipファイルとして）"
