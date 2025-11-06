@@ -29,6 +29,8 @@ on:
 jobs:
   generate-content:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     defaults:
       run:
         working-directory: WorkFlow_origin
@@ -62,6 +64,7 @@ jobs:
       - name: 出力ディレクトリを作成
         run: |
           mkdir -p output/images
+          mkdir -p calendar
 
       # ホームページ解析
       - name: ホームページを解析
@@ -134,8 +137,8 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
           # 変更があればコミット
-          if [[ -n $(git status -s WorkFlow_origin/output/) ]]; then
-            git add WorkFlow_origin/output/
+          if [[ -n $(git status -s WorkFlow_origin/calendar/) ]]; then
+            git add WorkFlow_origin/calendar/
             git commit -m "🤖 自動生成: Instagram投稿カレンダー $(date '+%Y-%m-%d')"
             git push
           else

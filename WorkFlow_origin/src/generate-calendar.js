@@ -131,10 +131,10 @@ function loadAllImageRules() {
  * 既存のカレンダーを読み込む
  */
 function loadExistingCalendars() {
-  const calendarDir = join(__dirname, '..', 'calender');
+  const calendarDir = join(__dirname, '..', 'calendar');
   if (!existsSync(calendarDir)) {
     mkdirSync(calendarDir, { recursive: true });
-    console.log('📁 calenderフォルダを作成しました');
+    console.log('📁 calendarフォルダを作成しました');
     return [];
   }
 
@@ -402,8 +402,8 @@ ${calendarDays > 3 ? '...（中略）...\n' + calendarDays + '日目の13列デ�
     const now = new Date();
     const timestamp = now.toISOString().replace(/T/, '_').replace(/:/g, '-').split('.')[0];
 
-    // calenderフォルダに保存
-    const calendarDir = join(__dirname, '..', 'calender');
+    // calendarフォルダに保存
+    const calendarDir = join(__dirname, '..', 'calendar');
     if (!existsSync(calendarDir)) {
       mkdirSync(calendarDir, { recursive: true });
     }
