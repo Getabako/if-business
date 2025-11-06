@@ -41,7 +41,7 @@ function getImageMimeType(filename) {
 /**
  * 画像から人物/キャラクター/素材の特徴を抽出してCSVを生成
  */
-async function analyzeImageAndGenerateCSV(imagePath, characterName, genAI) {
+async function analyzeImageAndGenerateCSV(imagePath, characterName, genAI, customPrompt = '') {
   try {
     console.log(`   📸 画像を分析中: ${imagePath}`);
 
@@ -50,8 +50,10 @@ async function analyzeImageAndGenerateCSV(imagePath, characterName, genAI) {
 
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
-    const prompt = `
+    const basePrompt = `
 この画像を詳細に分析して、以下の情報をCSV形式で出力してください。
+
+${customPrompt ? `\n# 追加の指示\n${customPrompt}\n` : ''}
 
 # 分析対象
 画像に写っている人物、キャラクター、または素材の視覚的特徴を抽出してください。
@@ -81,7 +83,7 @@ ${characterName},20代後半男性,黒髪短髪,黒い瞳,優しい笑顔,中肉
 `;
 
     const result = await model.generateContent([
-      prompt,
+      basePrompt,
       {
         inlineData: {
           data: imageBase64,
@@ -120,6 +122,12 @@ async function generateCharacterCSVs() {
     // APIキーの確認
     if (!process.env.GEMINI_API_KEY) {
       throw new Error('GEMINI_API_KEYが設定されていません。.envファイルを確認してください。');
+    }
+
+    // 修正プロンプトの取得（環境変数から）
+    const customPrompt = process.env.CUSTOM_PROMPT || '';
+    if (customPrompt) {
+      console.log(`📝 カスタムプロンプト: ${customPrompt}\n`);
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -167,7 +175,7 @@ async function generateCharacterCSVs() {
       console.log(`   🖼️  使用する画像: ${imageFiles[0]}`);
 
       // 画像を分析してCSVデータを生成
-      const csvData = await analyzeImageAndGenerateCSV(imagePath, folderName, genAI);
+      const csvData = await analyzeImageAndGenerateCSV(imagePath, folderName, genAI, customPrompt);
 
       if (!csvData) {
         console.log(`   ❌ CSV生成に失敗しました。スキップします。`);

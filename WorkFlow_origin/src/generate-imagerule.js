@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -9,6 +9,43 @@ dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+/**
+ * 画像ファイルかどうかを判定
+ */
+function isImageFile(filename) {
+  const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
+  return imageExtensions.some(ext => filename.toLowerCase().endsWith(ext));
+}
+
+/**
+ * characterフォルダから全キャラクター情報を読み込む
+ */
+function loadAllCharacters() {
+  const characterDir = join(__dirname, '..', 'character');
+  if (!existsSync(characterDir)) return [];
+
+  const folders = readdirSync(characterDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .map(dirent => dirent.name);
+
+  const characters = [];
+  for (const folderName of folders) {
+    const csvPath = join(characterDir, folderName, `${folderName}.csv`);
+    if (existsSync(csvPath)) {
+      try {
+        const content = readFileSync(csvPath, 'utf-8');
+        const lines = content.split('\n').filter(line => line.trim());
+        if (lines.length > 1) {
+          characters.push({ name: folderName, csv: lines[1] });
+        }
+      } catch (error) {
+        console.warn(`⚠️  ${folderName}の読み込みをスキップ:`, error.message);
+      }
+    }
+  }
+  return characters;
+}
 
 /**
  * HTMLから事業名を抽出
@@ -41,17 +78,35 @@ async function generateImageRule() {
       throw new Error('GEMINI_API_KEYが設定されていません。.envファイルを確認してください。');
     }
 
+    // 修正プロンプトの取得（環境変数から）
+    const customPrompt = process.env.CUSTOM_PROMPT || '';
+    if (customPrompt) {
+      console.log(`📝 カスタムプロンプト: ${customPrompt}\n`);
+    }
+
     // index.htmlの読み込み
-    const indexPath = join(__dirname, '..', '..', 'index.html');
+    const indexPath = join(__dirname, '..', 'index.html');
     if (!existsSync(indexPath)) {
-      throw new Error('index.htmlが見つかりません。プロジェクトルートにindex.htmlを配置してください。');
+      throw new Error('index.htmlが見つかりません。WorkFlow_origin/index.htmlを配置してください。');
     }
 
     const htmlContent = readFileSync(indexPath, 'utf-8');
     console.log('✅ index.htmlを読み込みました\n');
 
-    // 事業名を抽出
-    const businessName = extractBusinessName(htmlContent);
+    // キャラクター情報の読み込み
+    const characters = loadAllCharacters();
+    console.log(`✅ キャラクター情報を読み込みました（${characters.length}人）\n`);
+
+    // /imagesフォルダの画像一覧
+    const imagesDir = join(__dirname, '..', '..', 'images');
+    let imagesList = [];
+    if (existsSync(imagesDir)) {
+      imagesList = readdirSync(imagesDir).filter(file => isImageFile(file));
+      console.log(`✅ ホームページ画像を確認しました（${imagesList.length}枚）\n`);
+    }
+
+    // 事業名を固定
+    const businessName = 'if-business';
     console.log(`📝 事業名: ${businessName}\n`);
 
     // business-summary.txtの読み込み（既に分析済みの場合）
@@ -69,12 +124,26 @@ async function generateImageRule() {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
+    // キャラクター情報をフォーマット
+    const charactersSection = characters.length > 0
+      ? `\n# 登場人物の特徴\n以下のキャラクターが利用可能です:\n${characters.map(c => `- ${c.name}: ${c.csv}`).join('\n')}\n`
+      : '';
+
+    // 画像情報をフォーマット
+    const imagesSection = imagesList.length > 0
+      ? `\n# ホームページで使用されている画像\n${imagesList.join(', ')}\n（これらの画像の雰囲気やスタイルを参考にしてください）\n`
+      : '';
+
     // プロンプトの作成
-    const prompt = `
+    const basePrompt = `
 あなたはビジュアルブランディングの専門家です。以下の事業内容を分析して、Instagram投稿用の画像一貫性ルールを3〜5個作成してください。
+
+${customPrompt ? `\n# 追加の指示\n${customPrompt}\n` : ''}
 
 # 事業情報
 ${businessSummary || htmlContent}
+${charactersSection}
+${imagesSection}
 
 # 画像一貫性ルールの目的
 - ブランドの統一感を保つ
@@ -112,7 +181,7 @@ ${businessSummary || htmlContent}
 
     console.log('🤖 Gemini AIで画像一貫性ルールを生成中...\n');
 
-    const result = await model.generateContent(prompt);
+    const result = await model.generateContent(basePrompt);
     const response = await result.response;
     let rulesCSV = response.text().trim();
 
