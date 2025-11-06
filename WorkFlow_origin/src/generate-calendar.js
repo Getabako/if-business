@@ -221,7 +221,7 @@ async function generateCalendar() {
 
     console.log('\n🎨 読み込んだ一貫性ルール:');
     imageRules.forEach(rule => {
-      console.log(`   - ${rule.name}`);
+      console.log(`   - ${rule.setting_name || rule.name}`);
     });
     console.log();
 
@@ -244,12 +244,12 @@ async function generateCalendar() {
 
     // 画像ルール情報をプロンプト用にフォーマット
     const imageRulesSection = imageRules.map((rule, idx) => `
-## 一貫性ルール${idx + 1}: ${rule.name}
-- 場所: ${rule.location}
-- キャラクター: ${rule.characters}
-- 照明: ${rule.lighting}
-- スタイル: ${rule.style}
-- 追加情報: ${rule.additional}
+## 一貫性ルール${idx + 1}: ${rule.setting_name || rule.name}
+- 場所・環境: ${rule.location_environment || rule.location}
+- キャラクター・人物: ${rule.characters_people || rule.characters}
+- 時間帯・照明: ${rule.time_lighting || rule.lighting}
+- 雰囲気・スタイル: ${rule.atmosphere_style || rule.style}
+- 追加の詳細設定: ${rule.additional_details || rule.additional}
 `).join('\n');
 
     // 既存投稿情報をプロンプト用にフォーマット

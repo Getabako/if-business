@@ -155,10 +155,23 @@ async function generateCharacterCSVs() {
 
     let processedCount = 0;
     let skippedCount = 0;
+    let updatedCount = 0;
 
     for (const folderName of folders) {
       const folderPath = join(characterDir, folderName);
+      const csvPath = join(folderPath, `${folderName}.csv`);
+
       console.log(`\n📂 処理中: ${folderName}`);
+
+      // 既存のCSVファイルをチェック
+      const existingCSV = existsSync(csvPath);
+
+      // 既存CSVがあり、カスタムプロンプトがない場合はスキップ
+      if (existingCSV && !customPrompt) {
+        console.log(`   ℹ️  既存のCSVがあります。カスタムプロンプトが指定されていないためスキップします。`);
+        skippedCount++;
+        continue;
+      }
 
       // フォルダ内の画像ファイルを探す
       const files = readdirSync(folderPath);
@@ -174,8 +187,26 @@ async function generateCharacterCSVs() {
       const imagePath = join(folderPath, imageFiles[0]);
       console.log(`   🖼️  使用する画像: ${imageFiles[0]}`);
 
+      // 既存CSVがある場合は内容を読み込む
+      let existingContent = '';
+      if (existingCSV) {
+        const csvContent = readFileSync(csvPath, 'utf-8');
+        const lines = csvContent.split('\n').filter(line => line.trim() && !line.startsWith('name,'));
+        if (lines.length > 0) {
+          existingContent = lines[0];
+          console.log(`   📄 既存のCSV内容を読み込みました`);
+        }
+      }
+
+      // プロンプトを調整（既存内容がある場合）
+      let finalPrompt = customPrompt;
+      if (existingContent && customPrompt) {
+        finalPrompt = `既存のキャラクター情報:\n${existingContent}\n\n上記の既存情報に以下の指示を反映して、内容を修正・追記してください:\n${customPrompt}`;
+        console.log(`   ✏️  既存内容の更新モード`);
+      }
+
       // 画像を分析してCSVデータを生成
-      const csvData = await analyzeImageAndGenerateCSV(imagePath, folderName, genAI, customPrompt);
+      const csvData = await analyzeImageAndGenerateCSV(imagePath, folderName, genAI, finalPrompt);
 
       if (!csvData) {
         console.log(`   ❌ CSV生成に失敗しました。スキップします。`);
@@ -187,22 +218,27 @@ async function generateCharacterCSVs() {
       const header = 'name,appearance,hair,eyes,face,body,clothing,personality,additional';
       const fullCSV = header + '\n' + csvData;
 
-      const csvPath = join(folderPath, `${folderName}.csv`);
       writeFileSync(csvPath, fullCSV, 'utf-8');
 
-      console.log(`   ✅ CSVを生成しました: ${csvPath}`);
-      processedCount++;
+      if (existingCSV) {
+        console.log(`   ✅ CSVを更新しました: ${csvPath}`);
+        updatedCount++;
+      } else {
+        console.log(`   ✅ CSVを生成しました: ${csvPath}`);
+        processedCount++;
+      }
 
       // APIレート制限を避けるため、少し待機
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     console.log('\n\n📊 処理結果:');
-    console.log(`   ✅ 成功: ${processedCount}個`);
+    console.log(`   ✅ 新規作成: ${processedCount}個`);
+    console.log(`   ✏️  更新: ${updatedCount}個`);
     console.log(`   ⚠️  スキップ: ${skippedCount}個`);
     console.log(`   📁 合計: ${folders.length}個\n`);
 
-    if (processedCount > 0) {
+    if (processedCount > 0 || updatedCount > 0) {
       console.log('✨ キャラクター/素材のCSV生成が完了しました！\n');
     }
 
