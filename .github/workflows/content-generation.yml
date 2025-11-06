@@ -1,7 +1,7 @@
 name: Instagram投稿コンテンツ生成
 
 on:
-  # 手動実行を許可
+  # 手動実行のみ
   workflow_dispatch:
     inputs:
       calendar_days:
@@ -14,17 +14,6 @@ on:
         required: false
         type: boolean
         default: false
-
-  # スケジュール実行（毎月1日の午前9時 JST = 午前0時 UTC）
-  schedule:
-    - cron: '0 0 1 * *'
-
-  # ホームページが更新されたときに実行
-  push:
-    branches:
-      - main
-    paths:
-      - 'WorkFlow_origin/index.html'
 
 jobs:
   generate-content:
