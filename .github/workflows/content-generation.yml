@@ -57,6 +57,8 @@ jobs:
 
       # ホームページ解析
       - name: ホームページを解析
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: npm run analyze-homepage
 
       # 投稿カレンダー生成
