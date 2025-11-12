@@ -84,10 +84,12 @@ async function generateImageRule() {
       console.log(`📝 カスタムプロンプト: ${customPrompt}\n`);
     }
 
-    // index.htmlの読み込み（リポジトリルート）
+    // index.htmlの読み込み（if-Business直下）
     const indexPath = join(__dirname, '..', '..', 'index.html');
+    console.log(`🔍 index.htmlを探しています: ${indexPath}\n`);
+
     if (!existsSync(indexPath)) {
-      throw new Error('index.htmlが見つかりません。リポジトリルートにindex.htmlを配置してください。');
+      throw new Error(`index.htmlが見つかりません。if-Business直下にindex.htmlを配置してください。\n確認パス: ${indexPath}`);
     }
 
     const htmlContent = readFileSync(indexPath, 'utf-8');
