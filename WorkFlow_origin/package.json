@@ -1,0 +1,27 @@
+{
+  "name": "workflow-origin",
+  "version": "1.0.0",
+  "description": "キャラクター自動生成とコンテンツ生成のためのワークフロースクリプト",
+  "type": "module",
+  "scripts": {
+    "generate-character": "node src/generate-character-csv.js",
+    "generate-imagerule": "node src/generate-imagerule.js",
+    "compose-images": "node src/compose-images.js",
+    "generate-calendar": "node src/generate-calendar.js"
+  },
+  "keywords": [
+    "character",
+    "generation",
+    "workflow",
+    "ai"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.21.0",
+    "@napi-rs/canvas": "^0.1.59",
+    "dotenv": "^16.4.7",
+    "form-data": "^4.0.1",
+    "node-fetch": "^3.3.2"
+  }
+}
