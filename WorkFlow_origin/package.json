@@ -4,6 +4,7 @@
   "description": "キャラクター自動生成とコンテンツ生成のためのワークフロースクリプト",
   "type": "module",
   "scripts": {
+    "analyze-homepage": "node src/analyze-homepage.js",
     "generate-character": "node src/generate-character-csv.js",
     "generate-imagerule": "node src/generate-imagerule.js",
     "compose-images": "node src/compose-images.js",
