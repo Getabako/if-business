@@ -160,6 +160,25 @@ function getRandomColor(isTitle) {
 }
 
 /**
+ * GitリポジトリのURLからリポジトリ名を取得
+ */
+function getRepositoryName() {
+  try {
+    const gitConfigPath = join(__dirname, '..', '..', '.git', 'config');
+    if (existsSync(gitConfigPath)) {
+      const gitConfig = readFileSync(gitConfigPath, 'utf-8');
+      const urlMatch = gitConfig.match(/url\s*=\s*.*\/([^\/\s]+?)(\.git)?\s*$/m);
+      if (urlMatch && urlMatch[1]) {
+        return urlMatch[1];
+      }
+    }
+  } catch (error) {
+    console.warn('⚠️  リポジトリ名の取得に失敗:', error.message);
+  }
+  return 'repository';
+}
+
+/**
  * CSV行をパース（クォート対応）
  */
 function parseCSVLine(line) {
@@ -453,9 +472,17 @@ async function composeAndUploadImages() {
       mkdirSync(composedDir, { recursive: true });
     }
 
-    // 現在の年月を取得（フォルダ名用）
+    // リポジトリ名を取得
+    const repositoryName = getRepositoryName();
+
+    // 現在の日時を取得（フォルダ名用）
     const now = new Date();
-    const folderName = `juku_post_${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, '0')}`;
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const folderName = `${repositoryName}_post_${year}_${month}_${day}_${hour}_${minute}`;
 
     let totalComposed = 0;
     let totalUploaded = 0;
