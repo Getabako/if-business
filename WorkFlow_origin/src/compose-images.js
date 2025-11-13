@@ -663,14 +663,20 @@ async function composeAndUploadImages() {
     // リポジトリ名を取得
     const repositoryName = getRepositoryName();
 
-    // 現在の日時を取得（フォルダ名用）
+    // 日本時間（JST）を取得（フォルダ名用）
+    // UTCから9時間を加算
     const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hour = String(now.getHours()).padStart(2, '0');
-    const minute = String(now.getMinutes()).padStart(2, '0');
+    const jstOffset = 9 * 60 * 60 * 1000; // 9時間をミリ秒に変換
+    const jstTime = new Date(now.getTime() + jstOffset);
+
+    const year = jstTime.getUTCFullYear();
+    const month = String(jstTime.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(jstTime.getUTCDate()).padStart(2, '0');
+    const hour = String(jstTime.getUTCHours()).padStart(2, '0');
+    const minute = String(jstTime.getUTCMinutes()).padStart(2, '0');
     const folderName = `${repositoryName}_post_${year}_${month}_${day}_${hour}_${minute}`;
+
+    console.log(`📁 フォルダ名: ${folderName}（日本時間）`);
 
     let totalComposed = 0;
     let totalUploaded = 0;
@@ -834,11 +840,11 @@ async function composeAndUploadImages() {
 
         // 各日の投稿データを作成
         for (let i = 0; i < postsCount; i++) {
-          // 投稿日時（今日から順番に18:00で設定）
-          const postDate = new Date(now);
-          postDate.setDate(postDate.getDate() + i);
-          postDate.setHours(18, 0, 0, 0);
-          const dateStr = `${postDate.getFullYear()}-${String(postDate.getMonth() + 1).padStart(2, '0')}-${String(postDate.getDate()).padStart(2, '0')} 18:00`;
+          // 投稿日時（日本時間の今日から順番に18:00で設定）
+          const postDate = new Date(jstTime.getTime());
+          postDate.setUTCDate(postDate.getUTCDate() + i);
+          postDate.setUTCHours(18, 0, 0, 0);
+          const dateStr = `${postDate.getUTCFullYear()}-${String(postDate.getUTCMonth() + 1).padStart(2, '0')}-${String(postDate.getUTCDate()).padStart(2, '0')} 18:00`;
 
           // カレンダーのM列（13列目）のテキストを取得
           const calendarLine = lines[i];
