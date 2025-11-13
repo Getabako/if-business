@@ -4,6 +4,7 @@ import { dirname, join } from 'path';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -412,6 +413,76 @@ async function composeImage(imagePath, titleText, contentText) {
 }
 
 /**
+ * AI画像を生成（プレースホルダー背景画像）
+ * 画像説明テキストに基づいて背景色を選択
+ */
+async function generatePlaceholderImage(imageDescription, dayNum, imgNum) {
+  const width = 1080;
+  const height = 1080;
+
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext('2d');
+
+  // 画像説明から雰囲気を判断して背景色を選択
+  const description = imageDescription.toLowerCase();
+  let gradient;
+
+  if (description.includes('明るい') || description.includes('自然光') || description.includes('朝')) {
+    // 明るい雰囲気 - 暖色系グラデーション
+    gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#FFE5B4');
+    gradient.addColorStop(0.5, '#FFD4A3');
+    gradient.addColorStop(1, '#FFC89F');
+  } else if (description.includes('サイバー') || description.includes('未来') || description.includes('デジタル')) {
+    // サイバーパンク - 暗めの寒色系
+    gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#1a1a2e');
+    gradient.addColorStop(0.5, '#16213e');
+    gradient.addColorStop(1, '#0f3460');
+  } else if (description.includes('オフィス') || description.includes('会議') || description.includes('ビジネス')) {
+    // ビジネスシーン - ニュートラルな色
+    gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#E8EAF6');
+    gradient.addColorStop(0.5, '#C5CAE9');
+    gradient.addColorStop(1, '#9FA8DA');
+  } else if (description.includes('夕方') || description.includes('夜') || description.includes('暗')) {
+    // 夕方・夜 - 暗めの暖色
+    gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#2C3E50');
+    gradient.addColorStop(0.5, '#34495E');
+    gradient.addColorStop(1, '#566573');
+  } else {
+    // デフォルト - 爽やかな青系
+    gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#667eea');
+    gradient.addColorStop(0.5, '#764ba2');
+    gradient.addColorStop(1, '#f093fb');
+  }
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  // 微妙なパターンを追加（オプション）
+  ctx.globalAlpha = 0.05;
+  for (let i = 0; i < 50; i++) {
+    const x = Math.random() * width;
+    const y = Math.random() * height;
+    const radius = Math.random() * 100 + 50;
+
+    const patternGradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+    patternGradient.addColorStop(0, '#ffffff');
+    patternGradient.addColorStop(1, 'transparent');
+
+    ctx.fillStyle = patternGradient;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  return canvas.toBuffer('image/png');
+}
+
+/**
  * 画像をサーバーにアップロード
  */
 async function uploadImage(imageBuffer, path) {
@@ -519,10 +590,28 @@ async function composeAndUploadImages() {
         // AI生成画像のパス
         const aiImagePath = join(imagesDir, `day${dayNum}_${imgNum}.png`);
 
+        // AI生成画像が存在しない場合は生成する
         if (!existsSync(aiImagePath)) {
-          console.log(`  ⚠️  ${config.name}: AI生成画像が見つかりません - スキップ`);
-          totalFailed++;
-          continue;
+          console.log(`  🎨 ${config.name}: AI画像が見つかりません - 生成中...`);
+
+          // 画像説明を取得（A,D,G,J列）
+          const imageDescriptionCol = config.index === 1 ? 0 :
+                                       config.index === 2 ? 3 :
+                                       config.index === 3 ? 6 : 9;
+          const imageDescription = columns[imageDescriptionCol] || '';
+
+          console.log(`     画像説明: ${imageDescription.substring(0, 60)}...`);
+
+          try {
+            // プレースホルダー画像を生成
+            const generatedImage = await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+            writeFileSync(aiImagePath, generatedImage);
+            console.log(`  ✅ AI画像を生成しました: day${dayNum}_${imgNum}.png`);
+          } catch (error) {
+            console.log(`  ❌ AI画像生成に失敗: ${error.message} - スキップ`);
+            totalFailed++;
+            continue;
+          }
         }
 
         // テキストを取得
