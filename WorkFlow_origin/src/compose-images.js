@@ -413,7 +413,124 @@ async function composeImage(imagePath, titleText, contentText) {
 }
 
 /**
- * AI画像を生成（プレースホルダー背景画像）
+ * 画像説明からキーワードを抽出
+ */
+function extractKeywordsFromDescription(description) {
+  const keywords = [];
+
+  // 人物関連
+  if (description.includes('高崎') || description.includes('井上') || description.includes('山﨑') ||
+      description.includes('山崎') || description.includes('人') || description.includes('担当者') ||
+      description.includes('社員') || description.includes('開発者')) {
+    keywords.push('professional', 'business person', 'developer');
+  }
+
+  // ビジネス関連キーワード
+  if (description.includes('オフィス') || description.includes('会議')) {
+    keywords.push('office', 'meeting');
+  }
+  if (description.includes('ビジネス')) {
+    keywords.push('business');
+  }
+
+  // 技術関連
+  if (description.includes('AI') || description.includes('人工知能')) {
+    keywords.push('artificial intelligence', 'AI');
+  }
+  if (description.includes('技術') || description.includes('デジタル') || description.includes('IT')) {
+    keywords.push('technology', 'digital');
+  }
+  if (description.includes('パソコン') || description.includes('PC') || description.includes('画面') ||
+      description.includes('モニター') || description.includes('ラップトップ')) {
+    keywords.push('computer', 'laptop', 'workspace');
+  }
+  if (description.includes('プログラミング') || description.includes('コード') || description.includes('開発')) {
+    keywords.push('programming', 'coding', 'developer');
+  }
+
+  // 雰囲気
+  if (description.includes('明るい') || description.includes('笑顔') || description.includes('前向き')) {
+    keywords.push('bright', 'positive', 'happy');
+  }
+  if (description.includes('サイバー') || description.includes('未来')) {
+    keywords.push('cyberpunk', 'futuristic', 'digital art');
+  }
+  if (description.includes('自然光') || description.includes('窓')) {
+    keywords.push('natural light', 'window');
+  }
+
+  // 教育関連
+  if (description.includes('教育') || description.includes('学習') || description.includes('研修')) {
+    keywords.push('education', 'learning', 'training');
+  }
+
+  // データ・グラフ
+  if (description.includes('グラフ') || description.includes('データ') || description.includes('分析')) {
+    keywords.push('data', 'analytics', 'chart');
+  }
+
+  // デフォルト
+  if (keywords.length === 0) {
+    keywords.push('business', 'technology', 'office');
+  }
+
+  // 重複を削除して返す
+  return [...new Set(keywords)].slice(0, 5).join(',');
+}
+
+/**
+ * Unsplash APIから画像を取得
+ */
+async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum) {
+  try {
+    const keywords = extractKeywordsFromDescription(imageDescription);
+    console.log(`     🔍 キーワード: ${keywords}`);
+
+    // Unsplash API (無料、認証不要の場合)
+    const unsplashUrl = `https://source.unsplash.com/1080x1080/?${encodeURIComponent(keywords)}`;
+
+    const response = await fetch(unsplashUrl);
+
+    if (!response.ok) {
+      throw new Error(`Unsplash API error: ${response.status}`);
+    }
+
+    const imageBuffer = await response.buffer();
+    console.log(`     ✅ Unsplashから画像を取得しました`);
+
+    return imageBuffer;
+
+  } catch (error) {
+    console.log(`     ⚠️  Unsplash画像取得エラー: ${error.message}`);
+    throw error;
+  }
+}
+
+/**
+ * AI画像を生成（Unsplash APIまたはプレースホルダー）
+ */
+async function generateAIImage(imageDescription, dayNum, imgNum) {
+  try {
+    console.log(`     🤖 AI画像を生成中...`);
+
+    // まずUnsplash APIを試す
+    try {
+      const imageBuffer = await fetchImageFromUnsplash(imageDescription, dayNum, imgNum);
+      return imageBuffer;
+    } catch (unsplashError) {
+      console.log(`     ℹ️  Unsplash利用不可、プレースホルダーを生成します`);
+      return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+    }
+
+  } catch (error) {
+    console.log(`     ⚠️  AI画像生成エラー: ${error.message}`);
+    console.log(`     ℹ️  プレースホルダー画像を生成します`);
+    return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+  }
+}
+
+/**
+ * プレースホルダー背景画像を生成
  * 画像説明テキストに基づいて背景色を選択
  */
 async function generatePlaceholderImage(imageDescription, dayNum, imgNum) {
@@ -603,10 +720,13 @@ async function composeAndUploadImages() {
           console.log(`     画像説明: ${imageDescription.substring(0, 60)}...`);
 
           try {
-            // プレースホルダー画像を生成
-            const generatedImage = await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+            // AI画像を生成（Unsplashまたはプレースホルダー）
+            const generatedImage = await generateAIImage(imageDescription, dayNum, imgNum);
             writeFileSync(aiImagePath, generatedImage);
             console.log(`  ✅ AI画像を生成しました: day${dayNum}_${imgNum}.png`);
+
+            // API制限を考慮して少し待機
+            await new Promise(resolve => setTimeout(resolve, 1000));
           } catch (error) {
             console.log(`  ❌ AI画像生成に失敗: ${error.message} - スキップ`);
             totalFailed++;
