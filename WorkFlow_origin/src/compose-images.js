@@ -479,68 +479,150 @@ function extractKeywordsFromDescription(description) {
 }
 
 /**
- * Lorem Picsumから画像を取得
+ * キャラクターフォルダから画像を取得
  */
-async function fetchImageFromLoremPicsum(dayNum, imgNum) {
+async function fetchImageFromCharacterFolder(imageDescription) {
   try {
-    // Lorem Picsum API - ランダムな実写画像
-    const seed = `${dayNum}-${imgNum}-${Date.now()}`;
-    const picsumUrl = `https://picsum.photos/seed/${seed}/1080/1080`;
-
-    console.log(`     🔍 Lorem Picsumから画像を取得中...`);
-
-    const response = await fetch(picsumUrl);
-
-    if (!response.ok) {
-      throw new Error(`Lorem Picsum API error: ${response.status}`);
+    const characterDir = join(__dirname, '..', 'character');
+    if (!existsSync(characterDir)) {
+      throw new Error('characterフォルダが見つかりません');
     }
 
-    const imageBuffer = await response.buffer();
-    console.log(`     ✅ Lorem Picsumから画像を取得しました`);
+    // キャラクター名を検出
+    const characterNames = ['井上', '山﨑', '山崎', '高崎'];
+    const detectedCharacter = characterNames.find(name => imageDescription.includes(name));
 
-    return imageBuffer;
+    if (!detectedCharacter) {
+      throw new Error('画像説明にキャラクター名が含まれていません');
+    }
+
+    console.log(`     🔍 キャラクター「${detectedCharacter}」の画像を検索中...`);
+
+    // characterフォルダ内のサブフォルダを検索
+    const folders = readdirSync(characterDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+
+    for (const folder of folders) {
+      if (folder.includes(detectedCharacter)) {
+        const characterPath = join(characterDir, folder);
+        const files = readdirSync(characterPath).filter(file =>
+          file.toLowerCase().endsWith('.png') ||
+          file.toLowerCase().endsWith('.jpg') ||
+          file.toLowerCase().endsWith('.jpeg')
+        );
+
+        if (files.length > 0) {
+          // ランダムに画像を選択
+          const randomFile = files[Math.floor(Math.random() * files.length)];
+          const imagePath = join(characterPath, randomFile);
+          const imageBuffer = readFileSync(imagePath);
+          console.log(`     ✅ キャラクター画像を取得: ${randomFile}`);
+          return imageBuffer;
+        }
+      }
+    }
+
+    throw new Error(`${detectedCharacter}の画像が見つかりません`);
 
   } catch (error) {
-    console.log(`     ⚠️  Lorem Picsum画像取得エラー: ${error.message}`);
+    console.log(`     ⚠️  キャラクター画像取得エラー: ${error.message}`);
     throw error;
   }
 }
 
 /**
- * Unsplash APIから画像を取得
+ * Lorem Picsumから画像を取得（リトライ付き）
  */
-async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum) {
-  try {
-    const keywords = extractKeywordsFromDescription(imageDescription);
-    console.log(`     🔍 キーワード: ${keywords}`);
+async function fetchImageFromLoremPicsum(dayNum, imgNum, retries = 3) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      // Lorem Picsum API - ランダムな実写画像
+      const seed = `${dayNum}-${imgNum}-${Date.now()}-${attempt}`;
+      const picsumUrl = `https://picsum.photos/seed/${seed}/1080/1080`;
 
-    // Unsplash API (無料、認証不要の場合)
-    const unsplashUrl = `https://source.unsplash.com/1080x1080/?${encodeURIComponent(keywords)}`;
+      console.log(`     🔍 Lorem Picsumから画像を取得中... (試行 ${attempt}/${retries})`);
 
-    const response = await fetch(unsplashUrl, { timeout: 10000 });
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒タイムアウト
 
-    if (!response.ok) {
-      throw new Error(`Unsplash API error: ${response.status}`);
+      const response = await fetch(picsumUrl, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Lorem Picsum API error: ${response.status}`);
+      }
+
+      const imageBuffer = await response.buffer();
+      console.log(`     ✅ Lorem Picsumから画像を取得しました`);
+
+      return imageBuffer;
+
+    } catch (error) {
+      console.log(`     ⚠️  試行 ${attempt} 失敗: ${error.message}`);
+      if (attempt === retries) {
+        throw error;
+      }
+      // 次の試行まで少し待つ
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
     }
+  }
+}
 
-    const imageBuffer = await response.buffer();
-    console.log(`     ✅ Unsplashから画像を取得しました`);
+/**
+ * Unsplash APIから画像を取得（リトライ付き）
+ */
+async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum, retries = 2) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const keywords = extractKeywordsFromDescription(imageDescription);
+      console.log(`     🔍 キーワード: ${keywords} (試行 ${attempt}/${retries})`);
 
-    return imageBuffer;
+      // Unsplash API (無料、認証不要の場合)
+      const unsplashUrl = `https://source.unsplash.com/1080x1080/?${encodeURIComponent(keywords)}`;
 
-  } catch (error) {
-    console.log(`     ⚠️  Unsplash画像取得エラー: ${error.message}`);
-    throw error;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒タイムアウト
+
+      const response = await fetch(unsplashUrl, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`Unsplash API error: ${response.status}`);
+      }
+
+      const imageBuffer = await response.buffer();
+      console.log(`     ✅ Unsplashから画像を取得しました`);
+
+      return imageBuffer;
+
+    } catch (error) {
+      console.log(`     ⚠️  試行 ${attempt} 失敗: ${error.message}`);
+      if (attempt === retries) {
+        throw error;
+      }
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+    }
   }
 }
 
 /**
  * AI画像を生成（複数ソースからフォールバック）
+ * 優先順位: キャラクター画像 → Unsplash → Lorem Picsum → プレースホルダー
  */
 async function generateAIImage(imageDescription, dayNum, imgNum) {
-  console.log(`     🤖 実写画像を取得中...`);
+  console.log(`     🤖 画像を取得中...`);
+  console.log(`     📝 画像説明: ${imageDescription.substring(0, 80)}...`);
 
-  // 1. まずUnsplash APIを試す
+  // 1. キャラクター名が含まれている場合、characterフォルダから画像を取得
+  try {
+    const imageBuffer = await fetchImageFromCharacterFolder(imageDescription);
+    return imageBuffer;
+  } catch (characterError) {
+    console.log(`     ℹ️  キャラクター画像利用不可: ${characterError.message}`);
+  }
+
+  // 2. Unsplash APIを試す
   try {
     const imageBuffer = await fetchImageFromUnsplash(imageDescription, dayNum, imgNum);
     return imageBuffer;
@@ -548,7 +630,7 @@ async function generateAIImage(imageDescription, dayNum, imgNum) {
     console.log(`     ℹ️  Unsplash利用不可、Lorem Picsumを試します`);
   }
 
-  // 2. Lorem Picsumを試す
+  // 3. Lorem Picsumを試す
   try {
     const imageBuffer = await fetchImageFromLoremPicsum(dayNum, imgNum);
     return imageBuffer;
@@ -556,18 +638,19 @@ async function generateAIImage(imageDescription, dayNum, imgNum) {
     console.log(`     ℹ️  Lorem Picsum利用不可、プレースホルダーを生成します`);
   }
 
-  // 3. 最終手段：プレースホルダー
+  // 4. 最終手段：プレースホルダー
   try {
+    console.log(`     ⚠️  すべての画像ソースが失敗、プレースホルダーを生成します`);
     return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
   } catch (error) {
-    console.log(`     ⚠️  プレースホルダー生成エラー: ${error.message}`);
+    console.log(`     ❌ プレースホルダー生成エラー: ${error.message}`);
     throw new Error('すべての画像取得方法が失敗しました');
   }
 }
 
 /**
  * プレースホルダー背景画像を生成
- * 画像説明テキストに基づいて背景色を選択
+ * 画像説明テキストに基づいてビジネスシーンに適した背景を生成
  */
 async function generatePlaceholderImage(imageDescription, dayNum, imgNum) {
   const width = 1080;
@@ -576,60 +659,98 @@ async function generatePlaceholderImage(imageDescription, dayNum, imgNum) {
   const canvas = createCanvas(width, height);
   const ctx = canvas.getContext('2d');
 
-  // 画像説明から雰囲気を判断して背景色を選択
+  // 画像説明から雰囲気を判断して背景を選択
   const description = imageDescription.toLowerCase();
-  let gradient;
 
-  if (description.includes('明るい') || description.includes('自然光') || description.includes('朝')) {
-    // 明るい雰囲気 - 暖色系グラデーション
-    gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#FFE5B4');
-    gradient.addColorStop(0.5, '#FFD4A3');
-    gradient.addColorStop(1, '#FFC89F');
-  } else if (description.includes('サイバー') || description.includes('未来') || description.includes('デジタル')) {
-    // サイバーパンク - 暗めの寒色系
-    gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#1a1a2e');
-    gradient.addColorStop(0.5, '#16213e');
-    gradient.addColorStop(1, '#0f3460');
-  } else if (description.includes('オフィス') || description.includes('会議') || description.includes('ビジネス')) {
-    // ビジネスシーン - ニュートラルな色
-    gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#E8EAF6');
-    gradient.addColorStop(0.5, '#C5CAE9');
-    gradient.addColorStop(1, '#9FA8DA');
-  } else if (description.includes('夕方') || description.includes('夜') || description.includes('暗')) {
-    // 夕方・夜 - 暗めの暖色
-    gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#2C3E50');
-    gradient.addColorStop(0.5, '#34495E');
-    gradient.addColorStop(1, '#566573');
+  // オフィス・ビジネスシーン風の背景
+  if (description.includes('オフィス') || description.includes('会議') || description.includes('ビジネス') ||
+      description.includes('企業') || description.includes('担当') || description.includes('社員')) {
+    // 明るいオフィス風
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+    bgGradient.addColorStop(0, '#f5f7fa');
+    bgGradient.addColorStop(1, '#c3cfe2');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // オフィス風の矩形パターン（窓や家具風）
+    ctx.globalAlpha = 0.1;
+    for (let i = 0; i < 15; i++) {
+      const x = (i % 5) * (width / 5) + Math.random() * 50;
+      const y = Math.floor(i / 5) * (height / 3) + Math.random() * 50;
+      const w = width / 6 + Math.random() * 100;
+      const h = height / 4 + Math.random() * 100;
+
+      ctx.fillStyle = i % 2 === 0 ? '#4a5568' : '#718096';
+      ctx.fillRect(x, y, w, h);
+    }
+  } else if (description.includes('AI') || description.includes('技術') || description.includes('デジタル') || description.includes('開発')) {
+    // テクノロジー風の背景
+    const bgGradient = ctx.createLinearGradient(0, 0, width, height);
+    bgGradient.addColorStop(0, '#0f2027');
+    bgGradient.addColorStop(0.5, '#203a43');
+    bgGradient.addColorStop(1, '#2c5364');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // デジタル風の格子パターン
+    ctx.globalAlpha = 0.2;
+    ctx.strokeStyle = '#00d4ff';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 20; i++) {
+      ctx.beginPath();
+      ctx.moveTo(i * (width / 20), 0);
+      ctx.lineTo(i * (width / 20), height);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, i * (height / 20));
+      ctx.lineTo(width, i * (height / 20));
+      ctx.stroke();
+    }
+  } else if (description.includes('教育') || description.includes('学習') || description.includes('研修') || description.includes('講座')) {
+    // 教育風の明るい背景
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+    bgGradient.addColorStop(0, '#ffecd2');
+    bgGradient.addColorStop(1, '#fcb69f');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, width, height);
+
+    // 優しい円パターン
+    ctx.globalAlpha = 0.15;
+    for (let i = 0; i < 30; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const radius = Math.random() * 150 + 50;
+
+      ctx.fillStyle = '#ff9a56';
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
   } else {
-    // デフォルト - 爽やかな青系
-    gradient = ctx.createLinearGradient(0, 0, width, height);
-    gradient.addColorStop(0, '#667eea');
-    gradient.addColorStop(0.5, '#764ba2');
-    gradient.addColorStop(1, '#f093fb');
-  }
+    // デフォルト: プロフェッショナルな青系背景
+    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
+    bgGradient.addColorStop(0, '#4facfe');
+    bgGradient.addColorStop(1, '#00f2fe');
+    ctx.fillStyle = bgGradient;
+    ctx.fillRect(0, 0, width, height);
 
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  // 微妙なパターンを追加（オプション）
-  ctx.globalAlpha = 0.05;
-  for (let i = 0; i < 50; i++) {
-    const x = Math.random() * width;
-    const y = Math.random() * height;
-    const radius = Math.random() * 100 + 50;
-
-    const patternGradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    patternGradient.addColorStop(0, '#ffffff');
-    patternGradient.addColorStop(1, 'transparent');
-
-    ctx.fillStyle = patternGradient;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
+    // 波パターン
+    ctx.globalAlpha = 0.2;
+    for (let i = 0; i < 10; i++) {
+      const y = i * (height / 10) + Math.random() * 50;
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 20;
+      ctx.beginPath();
+      for (let x = 0; x < width; x += 10) {
+        const yOffset = Math.sin((x + i * 50) / 50) * 30;
+        if (x === 0) {
+          ctx.moveTo(x, y + yOffset);
+        } else {
+          ctx.lineTo(x, y + yOffset);
+        }
+      }
+      ctx.stroke();
+    }
   }
 
   return canvas.toBuffer('image/png');
