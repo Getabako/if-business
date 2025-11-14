@@ -68,6 +68,13 @@ jobs:
           CALENDAR_DAYS: ${{ github.event.inputs.calendar_days || '9' }}
         run: npm run generate-calendar
 
+      # 画像自動生成（オプション）
+      - name: 画像を自動生成
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: npm run generate-images
+
       # 画像合成とアップロード（オプション）
       - name: 画像にテキストを合成してアップロード
         if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}

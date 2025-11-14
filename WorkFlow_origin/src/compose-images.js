@@ -4,7 +4,6 @@ import { dirname, join } from 'path';
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import FormData from 'form-data';
 import fetch from 'node-fetch';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -158,25 +157,6 @@ function getRandomColor(isTitle) {
   }
 
   return color;
-}
-
-/**
- * GitリポジトリのURLからリポジトリ名を取得
- */
-function getRepositoryName() {
-  try {
-    const gitConfigPath = join(__dirname, '..', '..', '.git', 'config');
-    if (existsSync(gitConfigPath)) {
-      const gitConfig = readFileSync(gitConfigPath, 'utf-8');
-      const urlMatch = gitConfig.match(/url\s*=\s*.*\/([^\/\s]+?)(\.git)?\s*$/m);
-      if (urlMatch && urlMatch[1]) {
-        return urlMatch[1];
-      }
-    }
-  } catch (error) {
-    console.warn('⚠️  リポジトリ名の取得に失敗:', error.message);
-  }
-  return 'repository';
 }
 
 /**
@@ -412,174 +392,6 @@ async function composeImage(imagePath, titleText, contentText) {
   return canvas.toBuffer('image/png');
 }
 
-
-/**
- * キャラクターフォルダからベース画像を取得（image-to-image用）
- */
-function getCharacterBaseImage(imageDescription) {
-  try {
-    const characterDir = join(__dirname, '..', 'character');
-    if (!existsSync(characterDir)) {
-      return null;
-    }
-
-    // キャラクター名を検出
-    const characterNames = ['井上', '山﨑', '山崎', '高崎'];
-    const detectedCharacter = characterNames.find(name => imageDescription.includes(name));
-
-    if (!detectedCharacter) {
-      return null;
-    }
-
-    console.log(`     👤 キャラクター「${detectedCharacter}」を検出`);
-
-    // characterフォルダ内のサブフォルダを検索
-    const folders = readdirSync(characterDir, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
-
-    for (const folder of folders) {
-      if (folder.includes(detectedCharacter)) {
-        const characterPath = join(characterDir, folder);
-        const files = readdirSync(characterPath).filter(file =>
-          file.toLowerCase().endsWith('.png') ||
-          file.toLowerCase().endsWith('.jpg') ||
-          file.toLowerCase().endsWith('.jpeg')
-        );
-
-        if (files.length > 0) {
-          // ランダムに画像を選択
-          const randomFile = files[Math.floor(Math.random() * files.length)];
-          const imagePath = join(characterPath, randomFile);
-          console.log(`     📸 ベース画像: ${randomFile}`);
-          return imagePath;
-        }
-      }
-    }
-
-    return null;
-  } catch (error) {
-    console.log(`     ⚠️  キャラクター画像取得エラー: ${error.message}`);
-    return null;
-  }
-}
-
-/**
- * Gemini APIでtext-to-image画像生成
- */
-async function generateImageWithGemini(imageDescription, baseImagePath = null) {
-  try {
-    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
-    if (baseImagePath) {
-      // Image-to-image: キャラクター画像をベースに生成
-      console.log(`     🎨 Gemini APIでimage-to-image生成中...`);
-
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
-
-      // ベース画像を読み込み
-      const imageBuffer = readFileSync(baseImagePath);
-      const base64Image = imageBuffer.toString('base64');
-      const mimeType = baseImagePath.endsWith('.png') ? 'image/png' : 'image/jpeg';
-
-      // プロンプト作成
-      const prompt = `この画像をベースに、以下の説明に従った画像を生成してください。人物の特徴は維持しつつ、背景やシチュエーションを説明に合わせてください。
-
-画像説明:
-${imageDescription}
-
-要件:
-- 人物の顔や特徴は元の画像を維持
-- 背景とシチュエーションは説明に従う
-- ビジネスシーンに適したプロフェッショナルな雰囲気
-- 1080x1080pxの正方形画像
-- 写実的で高品質`;
-
-      const result = await model.generateContent([
-        {
-          inlineData: {
-            mimeType: mimeType,
-            data: base64Image
-          }
-        },
-        { text: prompt }
-      ]);
-
-      const response = await result.response;
-      const text = response.text();
-
-      // Gemini 2.0では画像生成の方法が異なるため、imagen-3を使用
-      const imagenModel = genAI.getGenerativeModel({ model: 'imagen-3.0-generate-001' });
-      const imagenResult = await imagenModel.generateContent(prompt);
-
-      // 画像データを取得
-      const imageData = imagenResult.response.candidates[0].content.parts[0].inlineData;
-      const generatedImageBuffer = Buffer.from(imageData.data, 'base64');
-
-      console.log(`     ✅ Gemini APIでimage-to-image生成完了`);
-      return generatedImageBuffer;
-
-    } else {
-      // Text-to-image: 説明文のみから生成
-      console.log(`     🎨 Gemini APIでtext-to-image生成中...`);
-
-      const model = genAI.getGenerativeModel({ model: 'imagen-3.0-generate-001' });
-
-      // プロンプト作成
-      const prompt = `以下の説明に従った画像を生成してください:
-
-${imageDescription}
-
-要件:
-- 1080x1080pxの正方形画像
-- ビジネスシーンに適したプロフェッショナルな雰囲気
-- 写実的で高品質
-- 日本のビジネス環境に適した内容`;
-
-      const result = await model.generateContent(prompt);
-
-      // 画像データを取得
-      const imageData = result.response.candidates[0].content.parts[0].inlineData;
-      const generatedImageBuffer = Buffer.from(imageData.data, 'base64');
-
-      console.log(`     ✅ Gemini APIでtext-to-image生成完了`);
-      return generatedImageBuffer;
-    }
-
-  } catch (error) {
-    console.log(`     ❌ Gemini API画像生成エラー: ${error.message}`);
-    throw error;
-  }
-}
-
-/**
- * AI画像を生成
- * カレンダーの画像説明から Gemini API で画像を生成
- */
-async function generateAIImage(imageDescription, dayNum, imgNum) {
-  console.log(`     🤖 AI画像を生成中...`);
-  console.log(`     📝 画像説明: ${imageDescription}`);
-
-  // 1. キャラクター名が含まれている場合、image-to-imageで生成
-  const baseImagePath = getCharacterBaseImage(imageDescription);
-
-  try {
-    if (baseImagePath) {
-      console.log(`     🎯 Image-to-Image モード（キャラクター画像ベース）`);
-      const imageBuffer = await generateImageWithGemini(imageDescription, baseImagePath);
-      return imageBuffer;
-    } else {
-      console.log(`     🎯 Text-to-Image モード`);
-      const imageBuffer = await generateImageWithGemini(imageDescription, null);
-      return imageBuffer;
-    }
-  } catch (error) {
-    console.log(`     ❌ Gemini API画像生成失敗: ${error.message}`);
-    throw new Error(`画像生成に失敗しました: ${error.message}`);
-  }
-}
-
-
 /**
  * 画像をサーバーにアップロード
  */
@@ -641,23 +453,14 @@ async function composeAndUploadImages() {
       mkdirSync(composedDir, { recursive: true });
     }
 
-    // リポジトリ名を取得
-    const repositoryName = getRepositoryName();
-
-    // 日本時間（JST）を取得（フォルダ名用）
-    // UTCから9時間を加算
+    // 現在の日時を取得（フォルダ名用）
     const now = new Date();
-    const jstOffset = 9 * 60 * 60 * 1000; // 9時間をミリ秒に変換
-    const jstTime = new Date(now.getTime() + jstOffset);
-
-    const year = jstTime.getUTCFullYear();
-    const month = String(jstTime.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(jstTime.getUTCDate()).padStart(2, '0');
-    const hour = String(jstTime.getUTCHours()).padStart(2, '0');
-    const minute = String(jstTime.getUTCMinutes()).padStart(2, '0');
-    const folderName = `${repositoryName}_post_${year}_${month}_${day}_${hour}_${minute}`;
-
-    console.log(`📁 フォルダ名: ${folderName}（日本時間）`);
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hour = String(now.getHours()).padStart(2, '0');
+    const minute = String(now.getMinutes()).padStart(2, '0');
+    const folderName = `if-juku_post_${year}_${month}_${day}_${hour}_${minute}`;
 
     let totalComposed = 0;
     let totalUploaded = 0;
@@ -665,7 +468,6 @@ async function composeAndUploadImages() {
 
     // アップロードされた画像URLを記録（一括投稿CSV用）
     const uploadedImageUrls = [];
-    const thanksMessageUrls = [];
 
     // 各日の画像を合成
     for (let dayIndex = 0; dayIndex < lines.length; dayIndex++) {
@@ -694,31 +496,10 @@ async function composeAndUploadImages() {
         // AI生成画像のパス
         const aiImagePath = join(imagesDir, `day${dayNum}_${imgNum}.png`);
 
-        // AI生成画像が存在しない場合は生成する
         if (!existsSync(aiImagePath)) {
-          console.log(`  🎨 ${config.name}: AI画像が見つかりません - 生成中...`);
-
-          // 画像説明を取得（A,D,G,J列）
-          const imageDescriptionCol = config.index === 1 ? 0 :
-                                       config.index === 2 ? 3 :
-                                       config.index === 3 ? 6 : 9;
-          const imageDescription = columns[imageDescriptionCol] || '';
-
-          console.log(`     画像説明: ${imageDescription.substring(0, 60)}...`);
-
-          try {
-            // AI画像を生成（Unsplashまたはプレースホルダー）
-            const generatedImage = await generateAIImage(imageDescription, dayNum, imgNum);
-            writeFileSync(aiImagePath, generatedImage);
-            console.log(`  ✅ AI画像を生成しました: day${dayNum}_${imgNum}.png`);
-
-            // Gemini API制限を考慮して待機（2秒）
-            await new Promise(resolve => setTimeout(resolve, 2000));
-          } catch (error) {
-            console.log(`  ❌ AI画像生成に失敗: ${error.message} - スキップ`);
-            totalFailed++;
-            continue;
-          }
+          console.log(`  ⚠️  ${config.name}: AI生成画像が見つかりません - スキップ`);
+          totalFailed++;
+          continue;
         }
 
         // テキストを取得
@@ -765,6 +546,7 @@ async function composeAndUploadImages() {
     // サンクスメッセージ画像をアップロード
     console.log('\n📮 サンクスメッセージ画像をアップロード中...');
     const thanksMessageDir = join(__dirname, '..', 'thanks_message');
+    let thanksMessageUrl = null;
 
     // thanks_messageフォルダが存在しない場合は作成
     if (!existsSync(thanksMessageDir)) {
@@ -772,36 +554,27 @@ async function composeAndUploadImages() {
       console.log('  📁 thanks_messageフォルダを作成しました');
     }
 
-    if (existsSync(thanksMessageDir)) {
-      const thanksFiles = readdirSync(thanksMessageDir).filter(file =>
-        file.toLowerCase().endsWith('.png') ||
-        file.toLowerCase().endsWith('.jpg') ||
-        file.toLowerCase().endsWith('.jpeg')
-      );
+    // juku_thanks.pngを優先的にアップロード
+    const thanksImagePath = join(thanksMessageDir, 'juku_thanks.png');
+    if (existsSync(thanksImagePath)) {
+      try {
+        const thanksImageBuffer = readFileSync(thanksImagePath);
 
-      for (const file of thanksFiles) {
-        try {
-          const thanksImagePath = join(thanksMessageDir, file);
-          const thanksImageBuffer = readFileSync(thanksImagePath);
+        // サーバーにアップロード（同じフォルダに）
+        const uploadPath = `${folderName}/juku_thanks.png`;
+        console.log(`  ⬆️  juku_thanks.pngをアップロード中...`);
 
-          // サーバーにアップロード（同じフォルダに）
-          const uploadPath = `${folderName}/${file}`;
-          console.log(`  ⬆️  ${file}をアップロード中...`);
+        thanksMessageUrl = await uploadImage(thanksImageBuffer, uploadPath);
+        console.log(`  ✅ アップロード完了: ${thanksMessageUrl}`);
+        totalUploaded++;
 
-          const uploadedUrl = await uploadImage(thanksImageBuffer, uploadPath);
-          console.log(`  ✅ アップロード完了: ${uploadedUrl}`);
-          totalUploaded++;
-
-          // サンクスメッセージURLを記録
-          thanksMessageUrls.push(uploadedUrl);
-
-          await new Promise(resolve => setTimeout(resolve, 500));
-        } catch (error) {
-          console.error(`  ❌ ${file}のアップロードに失敗:`, error.message);
-        }
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (error) {
+        console.error(`  ❌ juku_thanks.pngのアップロードに失敗:`, error.message);
       }
     } else {
-      console.log('  ℹ️  thanks_messageフォルダが見つかりません - スキップ');
+      console.log('  ⚠️  juku_thanks.pngが見つかりません');
+      console.log(`     期待されるパス: ${thanksImagePath}`);
     }
 
     // 一括投稿データ.CSV作成
@@ -821,11 +594,11 @@ async function composeAndUploadImages() {
 
         // 各日の投稿データを作成
         for (let i = 0; i < postsCount; i++) {
-          // 投稿日時（日本時間の今日から順番に18:00で設定）
-          const postDate = new Date(jstTime.getTime());
-          postDate.setUTCDate(postDate.getUTCDate() + i);
-          postDate.setUTCHours(18, 0, 0, 0);
-          const dateStr = `${postDate.getUTCFullYear()}-${String(postDate.getUTCMonth() + 1).padStart(2, '0')}-${String(postDate.getUTCDate()).padStart(2, '0')} 18:00`;
+          // 投稿日時（今日から順番に18:00で設定）
+          const postDate = new Date(now);
+          postDate.setDate(postDate.getDate() + i);
+          postDate.setHours(18, 0, 0, 0);
+          const dateStr = `${postDate.getFullYear()}-${String(postDate.getMonth() + 1).padStart(2, '0')}-${String(postDate.getDate()).padStart(2, '0')} 18:00`;
 
           // カレンダーのM列（13列目）のテキストを取得
           const calendarLine = lines[i];
@@ -835,8 +608,11 @@ async function composeAndUploadImages() {
           // この日の4枚の画像URL
           const dayImageUrls = uploadedImageUrls.slice(i * 4, i * 4 + 4);
 
-          // サンクスメッセージURLを追加
-          const mediaUrls = [...dayImageUrls, ...thanksMessageUrls].join(',');
+          // サンクスメッセージURLを最後に追加（存在する場合）
+          const allMediaUrls = thanksMessageUrl
+            ? [...dayImageUrls, thanksMessageUrl]
+            : dayImageUrls;
+          const mediaUrls = allMediaUrls.join(',');
 
           // CSV行を作成（テキストにカンマが含まれるのでダブルクォートで囲む）
           const csvLine = `${dateStr},"${postText.replace(/"/g, '""')}",,"${mediaUrls}"`;
@@ -860,20 +636,22 @@ async function composeAndUploadImages() {
     console.log(`💾 ローカル保存先: ${composedDir}`);
     console.log(`🌐 サーバー保存先: https://images.if-juku.net/${folderName}/\n`);
 
-    // GitHub Actions用の画像URLリストをJSONファイルに保存
+
+    // ========================================
+    // 画像ギャラリー用: 画像URLリストをJSONファイルに保存
+    // ========================================
     const imageUrlsData = {
       folderName: folderName,
       serverUrl: `https://images.if-juku.net/${folderName}/`,
       totalImages: uploadedImageUrls.length,
       composedImages: uploadedImageUrls,
-      thanksMessages: thanksMessageUrls,
+      thanksMessages: thanksMessageUrl ? [thanksMessageUrl] : [],
       generatedAt: new Date().toISOString()
     };
 
     const imageUrlsPath = join(__dirname, '..', 'output', 'image-urls.json');
     writeFileSync(imageUrlsPath, JSON.stringify(imageUrlsData, null, 2), 'utf-8');
     console.log(`📄 画像URLリストを保存: ${imageUrlsPath}\n`);
-
     return composedDir;
   } catch (error) {
     console.error('❌ エラーが発生しました:', error.message);

@@ -7,8 +7,9 @@
     "analyze-homepage": "node src/analyze-homepage.js",
     "generate-character": "node src/generate-character-csv.js",
     "generate-imagerule": "node src/generate-imagerule.js",
-    "compose-images": "node src/compose-images.js",
-    "generate-calendar": "node src/generate-calendar.js"
+    "generate-calendar": "node src/generate-calendar.js",
+    "generate-images": "node src/generate-images.js",
+    "compose-images": "node src/compose-images.js"
   },
   "keywords": [
     "character",
