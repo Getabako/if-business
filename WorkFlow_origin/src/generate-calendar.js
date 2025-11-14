@@ -457,12 +457,87 @@ ${calendarDays > 9 ? '...（中略）...\n' + calendarDays + '日目の13列デ�
     console.log('🤖 Gemini AIでカレンダーを生成中...');
     console.log('⏳ 処理には1〜2分かかる場合があります\n');
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    let calendarCSV = response.text().trim();
+    let calendarCSV = '';
+    let lines = [];
+    const maxRetries = 3;
 
-    // コードブロックのマークダウンを削除
-    calendarCSV = calendarCSV.replace(/```csv\n/g, '').replace(/```\n/g, '').replace(/```/g, '');
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      console.log(`📝 生成試行 ${attempt}/${maxRetries}...`);
+
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      calendarCSV = response.text().trim();
+
+      // コードブロックのマークダウンを削除
+      calendarCSV = calendarCSV.replace(/```csv\n/g, '').replace(/```\n/g, '').replace(/```/g, '');
+
+      // CSVをパースして検証
+      lines = calendarCSV.split('\n').filter(line => line.trim());
+      console.log(`📊 生成された投稿数: ${lines.length}日分`);
+
+      if (lines.length >= calendarDays) {
+        // 必要な行数以上生成された場合、必要な分だけ取得
+        if (lines.length > calendarDays) {
+          console.log(`⚠️  ${lines.length}日分生成されました。最初の${calendarDays}日分を使用します。`);
+          lines = lines.slice(0, calendarDays);
+          calendarCSV = lines.join('\n');
+        }
+        console.log(`✅ ${calendarDays}日分の生成に成功しました\n`);
+        break;
+      } else {
+        console.log(`⚠️  ${calendarDays}日分必要ですが、${lines.length}日分しか生成されませんでした`);
+
+        if (attempt < maxRetries) {
+          const remainingDays = calendarDays - lines.length;
+          console.log(`🔄 残り${remainingDays}日分を追加生成します...\n`);
+
+          // 残りの日数分を生成するシンプルなプロンプト
+          const supplementPrompt = `
+以下の続きとして、残り${remainingDays}日分のInstagram投稿カレンダー（カルーセル形式）を作成してください。
+
+**最重要**: 必ず${remainingDays}行を出力してください。${remainingDays}行未満は不可です。
+
+フォーマット: 13列のCSVデータを${remainingDays}行出力
+- 各行は改行で区切る
+- ヘッダーは不要
+- フィールドにカンマが含まれる場合はダブルクォートで囲む
+
+既存のテーマと重複しないよう、以下のようなAIビジネスに関連するテーマで作成:
+- AI導入コスト削減事例
+- DX推進支援サービス
+- AI活用成功事例
+- 無料相談案内
+- AIワークフロー構築
+
+必ず${remainingDays}行のCSVデータのみを出力してください:
+`;
+
+          const suppResult = await model.generateContent(supplementPrompt);
+          const suppResponse = await suppResult.response;
+          let suppCSV = suppResponse.text().trim();
+          suppCSV = suppCSV.replace(/```csv\n/g, '').replace(/```\n/g, '').replace(/```/g, '');
+
+          const suppLines = suppCSV.split('\n').filter(line => line.trim());
+          console.log(`📊 追加で${suppLines.length}日分生成されました`);
+
+          // 既存のデータに追加
+          calendarCSV = calendarCSV + '\n' + suppCSV;
+          lines = calendarCSV.split('\n').filter(line => line.trim());
+
+          if (lines.length >= calendarDays) {
+            if (lines.length > calendarDays) {
+              lines = lines.slice(0, calendarDays);
+              calendarCSV = lines.join('\n');
+            }
+            console.log(`✅ 合計${calendarDays}日分の生成に成功しました\n`);
+            break;
+          }
+        } else {
+          console.error(`❌ ${maxRetries}回試行しましたが、${calendarDays}日分生成できませんでした`);
+          throw new Error(`生成された投稿数が不足しています（期待: ${calendarDays}日分、実際: ${lines.length}日分）`);
+        }
+      }
+    }
 
     // タイムスタンプを生成
     const now = new Date();
@@ -484,16 +559,8 @@ ${calendarDays > 9 ? '...（中略）...\n' + calendarDays + '日目の13列デ�
     console.log(`💾 保存先（メイン）: ${calendarPath}`);
     console.log(`💾 保存先（バックアップ）: ${csvPath}\n`);
 
-    // CSVをパースして検証
-    const lines = calendarCSV.split('\n').filter(line => line.trim());
-    console.log(`📊 生成された投稿数: ${lines.length}日分\n`);
-
-    // 行数チェック
-    if (lines.length < calendarDays) {
-      console.error(`❌ エラー: 期待される行数は${calendarDays}日分ですが、${lines.length}日分しか生成されませんでした`);
-      console.error(`⚠️  プロンプトを調整して再実行してください`);
-      throw new Error(`生成された投稿数が不足しています（期待: ${calendarDays}日分、実際: ${lines.length}日分）`);
-    }
+    // 最終確認
+    console.log(`📊 最終的な投稿数: ${lines.length}日分\n`);
 
     // サンプルを表示
     if (lines.length > 0) {
