@@ -479,6 +479,34 @@ function extractKeywordsFromDescription(description) {
 }
 
 /**
+ * Lorem Picsumから画像を取得
+ */
+async function fetchImageFromLoremPicsum(dayNum, imgNum) {
+  try {
+    // Lorem Picsum API - ランダムな実写画像
+    const seed = `${dayNum}-${imgNum}-${Date.now()}`;
+    const picsumUrl = `https://picsum.photos/seed/${seed}/1080/1080`;
+
+    console.log(`     🔍 Lorem Picsumから画像を取得中...`);
+
+    const response = await fetch(picsumUrl);
+
+    if (!response.ok) {
+      throw new Error(`Lorem Picsum API error: ${response.status}`);
+    }
+
+    const imageBuffer = await response.buffer();
+    console.log(`     ✅ Lorem Picsumから画像を取得しました`);
+
+    return imageBuffer;
+
+  } catch (error) {
+    console.log(`     ⚠️  Lorem Picsum画像取得エラー: ${error.message}`);
+    throw error;
+  }
+}
+
+/**
  * Unsplash APIから画像を取得
  */
 async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum) {
@@ -489,7 +517,7 @@ async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum) {
     // Unsplash API (無料、認証不要の場合)
     const unsplashUrl = `https://source.unsplash.com/1080x1080/?${encodeURIComponent(keywords)}`;
 
-    const response = await fetch(unsplashUrl);
+    const response = await fetch(unsplashUrl, { timeout: 10000 });
 
     if (!response.ok) {
       throw new Error(`Unsplash API error: ${response.status}`);
@@ -507,25 +535,33 @@ async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum) {
 }
 
 /**
- * AI画像を生成（Unsplash APIまたはプレースホルダー）
+ * AI画像を生成（複数ソースからフォールバック）
  */
 async function generateAIImage(imageDescription, dayNum, imgNum) {
+  console.log(`     🤖 実写画像を取得中...`);
+
+  // 1. まずUnsplash APIを試す
   try {
-    console.log(`     🤖 AI画像を生成中...`);
+    const imageBuffer = await fetchImageFromUnsplash(imageDescription, dayNum, imgNum);
+    return imageBuffer;
+  } catch (unsplashError) {
+    console.log(`     ℹ️  Unsplash利用不可、Lorem Picsumを試します`);
+  }
 
-    // まずUnsplash APIを試す
-    try {
-      const imageBuffer = await fetchImageFromUnsplash(imageDescription, dayNum, imgNum);
-      return imageBuffer;
-    } catch (unsplashError) {
-      console.log(`     ℹ️  Unsplash利用不可、プレースホルダーを生成します`);
-      return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
-    }
+  // 2. Lorem Picsumを試す
+  try {
+    const imageBuffer = await fetchImageFromLoremPicsum(dayNum, imgNum);
+    return imageBuffer;
+  } catch (picsumError) {
+    console.log(`     ℹ️  Lorem Picsum利用不可、プレースホルダーを生成します`);
+  }
 
-  } catch (error) {
-    console.log(`     ⚠️  AI画像生成エラー: ${error.message}`);
-    console.log(`     ℹ️  プレースホルダー画像を生成します`);
+  // 3. 最終手段：プレースホルダー
+  try {
     return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+  } catch (error) {
+    console.log(`     ⚠️  プレースホルダー生成エラー: ${error.message}`);
+    throw new Error('すべての画像取得方法が失敗しました');
   }
 }
 
