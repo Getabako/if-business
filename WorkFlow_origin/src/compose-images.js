@@ -412,80 +412,15 @@ async function composeImage(imagePath, titleText, contentText) {
   return canvas.toBuffer('image/png');
 }
 
-/**
- * 画像説明からキーワードを抽出
- */
-function extractKeywordsFromDescription(description) {
-  const keywords = [];
-
-  // 人物関連
-  if (description.includes('高崎') || description.includes('井上') || description.includes('山﨑') ||
-      description.includes('山崎') || description.includes('人') || description.includes('担当者') ||
-      description.includes('社員') || description.includes('開発者')) {
-    keywords.push('professional', 'business person', 'developer');
-  }
-
-  // ビジネス関連キーワード
-  if (description.includes('オフィス') || description.includes('会議')) {
-    keywords.push('office', 'meeting');
-  }
-  if (description.includes('ビジネス')) {
-    keywords.push('business');
-  }
-
-  // 技術関連
-  if (description.includes('AI') || description.includes('人工知能')) {
-    keywords.push('artificial intelligence', 'AI');
-  }
-  if (description.includes('技術') || description.includes('デジタル') || description.includes('IT')) {
-    keywords.push('technology', 'digital');
-  }
-  if (description.includes('パソコン') || description.includes('PC') || description.includes('画面') ||
-      description.includes('モニター') || description.includes('ラップトップ')) {
-    keywords.push('computer', 'laptop', 'workspace');
-  }
-  if (description.includes('プログラミング') || description.includes('コード') || description.includes('開発')) {
-    keywords.push('programming', 'coding', 'developer');
-  }
-
-  // 雰囲気
-  if (description.includes('明るい') || description.includes('笑顔') || description.includes('前向き')) {
-    keywords.push('bright', 'positive', 'happy');
-  }
-  if (description.includes('サイバー') || description.includes('未来')) {
-    keywords.push('cyberpunk', 'futuristic', 'digital art');
-  }
-  if (description.includes('自然光') || description.includes('窓')) {
-    keywords.push('natural light', 'window');
-  }
-
-  // 教育関連
-  if (description.includes('教育') || description.includes('学習') || description.includes('研修')) {
-    keywords.push('education', 'learning', 'training');
-  }
-
-  // データ・グラフ
-  if (description.includes('グラフ') || description.includes('データ') || description.includes('分析')) {
-    keywords.push('data', 'analytics', 'chart');
-  }
-
-  // デフォルト
-  if (keywords.length === 0) {
-    keywords.push('business', 'technology', 'office');
-  }
-
-  // 重複を削除して返す
-  return [...new Set(keywords)].slice(0, 5).join(',');
-}
 
 /**
- * キャラクターフォルダから画像を取得
+ * キャラクターフォルダからベース画像を取得（image-to-image用）
  */
-async function fetchImageFromCharacterFolder(imageDescription) {
+function getCharacterBaseImage(imageDescription) {
   try {
     const characterDir = join(__dirname, '..', 'character');
     if (!existsSync(characterDir)) {
-      throw new Error('characterフォルダが見つかりません');
+      return null;
     }
 
     // キャラクター名を検出
@@ -493,10 +428,10 @@ async function fetchImageFromCharacterFolder(imageDescription) {
     const detectedCharacter = characterNames.find(name => imageDescription.includes(name));
 
     if (!detectedCharacter) {
-      throw new Error('画像説明にキャラクター名が含まれていません');
+      return null;
     }
 
-    console.log(`     🔍 キャラクター「${detectedCharacter}」の画像を検索中...`);
+    console.log(`     👤 キャラクター「${detectedCharacter}」を検出`);
 
     // characterフォルダ内のサブフォルダを検索
     const folders = readdirSync(characterDir, { withFileTypes: true })
@@ -516,245 +451,134 @@ async function fetchImageFromCharacterFolder(imageDescription) {
           // ランダムに画像を選択
           const randomFile = files[Math.floor(Math.random() * files.length)];
           const imagePath = join(characterPath, randomFile);
-          const imageBuffer = readFileSync(imagePath);
-          console.log(`     ✅ キャラクター画像を取得: ${randomFile}`);
-          return imageBuffer;
+          console.log(`     📸 ベース画像: ${randomFile}`);
+          return imagePath;
         }
       }
     }
 
-    throw new Error(`${detectedCharacter}の画像が見つかりません`);
-
+    return null;
   } catch (error) {
     console.log(`     ⚠️  キャラクター画像取得エラー: ${error.message}`);
+    return null;
+  }
+}
+
+/**
+ * Gemini APIでtext-to-image画像生成
+ */
+async function generateImageWithGemini(imageDescription, baseImagePath = null) {
+  try {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+    if (baseImagePath) {
+      // Image-to-image: キャラクター画像をベースに生成
+      console.log(`     🎨 Gemini APIでimage-to-image生成中...`);
+
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+
+      // ベース画像を読み込み
+      const imageBuffer = readFileSync(baseImagePath);
+      const base64Image = imageBuffer.toString('base64');
+      const mimeType = baseImagePath.endsWith('.png') ? 'image/png' : 'image/jpeg';
+
+      // プロンプト作成
+      const prompt = `この画像をベースに、以下の説明に従った画像を生成してください。人物の特徴は維持しつつ、背景やシチュエーションを説明に合わせてください。
+
+画像説明:
+${imageDescription}
+
+要件:
+- 人物の顔や特徴は元の画像を維持
+- 背景とシチュエーションは説明に従う
+- ビジネスシーンに適したプロフェッショナルな雰囲気
+- 1080x1080pxの正方形画像
+- 写実的で高品質`;
+
+      const result = await model.generateContent([
+        {
+          inlineData: {
+            mimeType: mimeType,
+            data: base64Image
+          }
+        },
+        { text: prompt }
+      ]);
+
+      const response = await result.response;
+      const text = response.text();
+
+      // Gemini 2.0では画像生成の方法が異なるため、imagen-3を使用
+      const imagenModel = genAI.getGenerativeModel({ model: 'imagen-3.0-generate-001' });
+      const imagenResult = await imagenModel.generateContent(prompt);
+
+      // 画像データを取得
+      const imageData = imagenResult.response.candidates[0].content.parts[0].inlineData;
+      const generatedImageBuffer = Buffer.from(imageData.data, 'base64');
+
+      console.log(`     ✅ Gemini APIでimage-to-image生成完了`);
+      return generatedImageBuffer;
+
+    } else {
+      // Text-to-image: 説明文のみから生成
+      console.log(`     🎨 Gemini APIでtext-to-image生成中...`);
+
+      const model = genAI.getGenerativeModel({ model: 'imagen-3.0-generate-001' });
+
+      // プロンプト作成
+      const prompt = `以下の説明に従った画像を生成してください:
+
+${imageDescription}
+
+要件:
+- 1080x1080pxの正方形画像
+- ビジネスシーンに適したプロフェッショナルな雰囲気
+- 写実的で高品質
+- 日本のビジネス環境に適した内容`;
+
+      const result = await model.generateContent(prompt);
+
+      // 画像データを取得
+      const imageData = result.response.candidates[0].content.parts[0].inlineData;
+      const generatedImageBuffer = Buffer.from(imageData.data, 'base64');
+
+      console.log(`     ✅ Gemini APIでtext-to-image生成完了`);
+      return generatedImageBuffer;
+    }
+
+  } catch (error) {
+    console.log(`     ❌ Gemini API画像生成エラー: ${error.message}`);
     throw error;
   }
 }
 
 /**
- * Lorem Picsumから画像を取得（リトライ付き）
- */
-async function fetchImageFromLoremPicsum(dayNum, imgNum, retries = 3) {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      // Lorem Picsum API - ランダムな実写画像
-      const seed = `${dayNum}-${imgNum}-${Date.now()}-${attempt}`;
-      const picsumUrl = `https://picsum.photos/seed/${seed}/1080/1080`;
-
-      console.log(`     🔍 Lorem Picsumから画像を取得中... (試行 ${attempt}/${retries})`);
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15秒タイムアウト
-
-      const response = await fetch(picsumUrl, { signal: controller.signal });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Lorem Picsum API error: ${response.status}`);
-      }
-
-      const imageBuffer = await response.buffer();
-      console.log(`     ✅ Lorem Picsumから画像を取得しました`);
-
-      return imageBuffer;
-
-    } catch (error) {
-      console.log(`     ⚠️  試行 ${attempt} 失敗: ${error.message}`);
-      if (attempt === retries) {
-        throw error;
-      }
-      // 次の試行まで少し待つ
-      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
-    }
-  }
-}
-
-/**
- * Unsplash APIから画像を取得（リトライ付き）
- */
-async function fetchImageFromUnsplash(imageDescription, dayNum, imgNum, retries = 2) {
-  for (let attempt = 1; attempt <= retries; attempt++) {
-    try {
-      const keywords = extractKeywordsFromDescription(imageDescription);
-      console.log(`     🔍 キーワード: ${keywords} (試行 ${attempt}/${retries})`);
-
-      // Unsplash API (無料、認証不要の場合)
-      const unsplashUrl = `https://source.unsplash.com/1080x1080/?${encodeURIComponent(keywords)}`;
-
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10秒タイムアウト
-
-      const response = await fetch(unsplashUrl, { signal: controller.signal });
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        throw new Error(`Unsplash API error: ${response.status}`);
-      }
-
-      const imageBuffer = await response.buffer();
-      console.log(`     ✅ Unsplashから画像を取得しました`);
-
-      return imageBuffer;
-
-    } catch (error) {
-      console.log(`     ⚠️  試行 ${attempt} 失敗: ${error.message}`);
-      if (attempt === retries) {
-        throw error;
-      }
-      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
-    }
-  }
-}
-
-/**
- * AI画像を生成（複数ソースからフォールバック）
- * 優先順位: キャラクター画像 → Unsplash → Lorem Picsum → プレースホルダー
+ * AI画像を生成
+ * カレンダーの画像説明から Gemini API で画像を生成
  */
 async function generateAIImage(imageDescription, dayNum, imgNum) {
-  console.log(`     🤖 画像を取得中...`);
-  console.log(`     📝 画像説明: ${imageDescription.substring(0, 80)}...`);
+  console.log(`     🤖 AI画像を生成中...`);
+  console.log(`     📝 画像説明: ${imageDescription}`);
 
-  // 1. キャラクター名が含まれている場合、characterフォルダから画像を取得
-  try {
-    const imageBuffer = await fetchImageFromCharacterFolder(imageDescription);
-    return imageBuffer;
-  } catch (characterError) {
-    console.log(`     ℹ️  キャラクター画像利用不可: ${characterError.message}`);
-  }
+  // 1. キャラクター名が含まれている場合、image-to-imageで生成
+  const baseImagePath = getCharacterBaseImage(imageDescription);
 
-  // 2. Unsplash APIを試す
   try {
-    const imageBuffer = await fetchImageFromUnsplash(imageDescription, dayNum, imgNum);
-    return imageBuffer;
-  } catch (unsplashError) {
-    console.log(`     ℹ️  Unsplash利用不可、Lorem Picsumを試します`);
-  }
-
-  // 3. Lorem Picsumを試す
-  try {
-    const imageBuffer = await fetchImageFromLoremPicsum(dayNum, imgNum);
-    return imageBuffer;
-  } catch (picsumError) {
-    console.log(`     ℹ️  Lorem Picsum利用不可、プレースホルダーを生成します`);
-  }
-
-  // 4. 最終手段：プレースホルダー
-  try {
-    console.log(`     ⚠️  すべての画像ソースが失敗、プレースホルダーを生成します`);
-    return await generatePlaceholderImage(imageDescription, dayNum, imgNum);
+    if (baseImagePath) {
+      console.log(`     🎯 Image-to-Image モード（キャラクター画像ベース）`);
+      const imageBuffer = await generateImageWithGemini(imageDescription, baseImagePath);
+      return imageBuffer;
+    } else {
+      console.log(`     🎯 Text-to-Image モード`);
+      const imageBuffer = await generateImageWithGemini(imageDescription, null);
+      return imageBuffer;
+    }
   } catch (error) {
-    console.log(`     ❌ プレースホルダー生成エラー: ${error.message}`);
-    throw new Error('すべての画像取得方法が失敗しました');
+    console.log(`     ❌ Gemini API画像生成失敗: ${error.message}`);
+    throw new Error(`画像生成に失敗しました: ${error.message}`);
   }
 }
 
-/**
- * プレースホルダー背景画像を生成
- * 画像説明テキストに基づいてビジネスシーンに適した背景を生成
- */
-async function generatePlaceholderImage(imageDescription, dayNum, imgNum) {
-  const width = 1080;
-  const height = 1080;
-
-  const canvas = createCanvas(width, height);
-  const ctx = canvas.getContext('2d');
-
-  // 画像説明から雰囲気を判断して背景を選択
-  const description = imageDescription.toLowerCase();
-
-  // オフィス・ビジネスシーン風の背景
-  if (description.includes('オフィス') || description.includes('会議') || description.includes('ビジネス') ||
-      description.includes('企業') || description.includes('担当') || description.includes('社員')) {
-    // 明るいオフィス風
-    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
-    bgGradient.addColorStop(0, '#f5f7fa');
-    bgGradient.addColorStop(1, '#c3cfe2');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, width, height);
-
-    // オフィス風の矩形パターン（窓や家具風）
-    ctx.globalAlpha = 0.1;
-    for (let i = 0; i < 15; i++) {
-      const x = (i % 5) * (width / 5) + Math.random() * 50;
-      const y = Math.floor(i / 5) * (height / 3) + Math.random() * 50;
-      const w = width / 6 + Math.random() * 100;
-      const h = height / 4 + Math.random() * 100;
-
-      ctx.fillStyle = i % 2 === 0 ? '#4a5568' : '#718096';
-      ctx.fillRect(x, y, w, h);
-    }
-  } else if (description.includes('AI') || description.includes('技術') || description.includes('デジタル') || description.includes('開発')) {
-    // テクノロジー風の背景
-    const bgGradient = ctx.createLinearGradient(0, 0, width, height);
-    bgGradient.addColorStop(0, '#0f2027');
-    bgGradient.addColorStop(0.5, '#203a43');
-    bgGradient.addColorStop(1, '#2c5364');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, width, height);
-
-    // デジタル風の格子パターン
-    ctx.globalAlpha = 0.2;
-    ctx.strokeStyle = '#00d4ff';
-    ctx.lineWidth = 2;
-    for (let i = 0; i < 20; i++) {
-      ctx.beginPath();
-      ctx.moveTo(i * (width / 20), 0);
-      ctx.lineTo(i * (width / 20), height);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0, i * (height / 20));
-      ctx.lineTo(width, i * (height / 20));
-      ctx.stroke();
-    }
-  } else if (description.includes('教育') || description.includes('学習') || description.includes('研修') || description.includes('講座')) {
-    // 教育風の明るい背景
-    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
-    bgGradient.addColorStop(0, '#ffecd2');
-    bgGradient.addColorStop(1, '#fcb69f');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, width, height);
-
-    // 優しい円パターン
-    ctx.globalAlpha = 0.15;
-    for (let i = 0; i < 30; i++) {
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      const radius = Math.random() * 150 + 50;
-
-      ctx.fillStyle = '#ff9a56';
-      ctx.beginPath();
-      ctx.arc(x, y, radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  } else {
-    // デフォルト: プロフェッショナルな青系背景
-    const bgGradient = ctx.createLinearGradient(0, 0, 0, height);
-    bgGradient.addColorStop(0, '#4facfe');
-    bgGradient.addColorStop(1, '#00f2fe');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, width, height);
-
-    // 波パターン
-    ctx.globalAlpha = 0.2;
-    for (let i = 0; i < 10; i++) {
-      const y = i * (height / 10) + Math.random() * 50;
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 20;
-      ctx.beginPath();
-      for (let x = 0; x < width; x += 10) {
-        const yOffset = Math.sin((x + i * 50) / 50) * 30;
-        if (x === 0) {
-          ctx.moveTo(x, y + yOffset);
-        } else {
-          ctx.lineTo(x, y + yOffset);
-        }
-      }
-      ctx.stroke();
-    }
-  }
-
-  return canvas.toBuffer('image/png');
-}
 
 /**
  * 画像をサーバーにアップロード
@@ -888,8 +712,8 @@ async function composeAndUploadImages() {
             writeFileSync(aiImagePath, generatedImage);
             console.log(`  ✅ AI画像を生成しました: day${dayNum}_${imgNum}.png`);
 
-            // API制限を考慮して少し待機
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Gemini API制限を考慮して待機（2秒）
+            await new Promise(resolve => setTimeout(resolve, 2000));
           } catch (error) {
             console.log(`  ❌ AI画像生成に失敗: ${error.message} - スキップ`);
             totalFailed++;
