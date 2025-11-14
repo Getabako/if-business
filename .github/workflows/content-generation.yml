@@ -112,6 +112,14 @@ jobs:
           path: WorkFlow_origin/output/一括投稿データ.csv
           retention-days: 90
 
+      - name: 画像URLリストをアップロード
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-urls
+          path: WorkFlow_origin/output/image-urls.json
+          retention-days: 90
+
       # 結果をコミット（オプション）
       - name: 結果をコミット
         if: success()
@@ -129,6 +137,73 @@ jobs:
             echo "変更がないため、コミットをスキップします"
           fi
 
+      # 画像ギャラリーをJob Summaryに表示
+      - name: 画像ギャラリーを生成
+        if: ${{ github.event.inputs.generate_images == 'true' || github.event_name == 'push' }}
+        working-directory: WorkFlow_origin
+        run: |
+          echo "# 📸 生成された画像ギャラリー" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # image-urls.jsonが存在するか確認
+          if [ -f "output/image-urls.json" ]; then
+            # JSONから情報を取得
+            FOLDER_NAME=$(cat output/image-urls.json | grep -o '"folderName": "[^"]*"' | cut -d'"' -f4)
+            SERVER_URL=$(cat output/image-urls.json | grep -o '"serverUrl": "[^"]*"' | cut -d'"' -f4)
+            TOTAL_IMAGES=$(cat output/image-urls.json | grep -o '"totalImages": [0-9]*' | grep -o '[0-9]*')
+
+            echo "## 📊 概要" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "- **サーバーフォルダ**: \`${FOLDER_NAME}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- **合成画像数**: ${TOTAL_IMAGES}枚" >> $GITHUB_STEP_SUMMARY
+            echo "- **サーバーURL**: [${SERVER_URL}](${SERVER_URL})" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            echo "## 🖼️ 画像プレビュー（4枚ずつ表示）" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            # 画像URLを配列として読み込み
+            URLS=$(cat output/image-urls.json | grep -o '"https://images.if-juku.net/[^"]*"' | tr -d '"')
+
+            # カウンター
+            COUNT=0
+            POST_NUM=1
+
+            # 各画像URLをループ
+            for URL in $URLS; do
+              # 4枚ごとに投稿番号を表示
+              if [ $((COUNT % 4)) -eq 0 ]; then
+                if [ $COUNT -gt 0 ]; then
+                  echo "" >> $GITHUB_STEP_SUMMARY
+                fi
+                echo "### 📅 投稿 ${POST_NUM}" >> $GITHUB_STEP_SUMMARY
+                echo "" >> $GITHUB_STEP_SUMMARY
+                echo "| 表紙 | 内容1 | 内容2 | 内容3 |" >> $GITHUB_STEP_SUMMARY
+                echo "|------|-------|-------|-------|" >> $GITHUB_STEP_SUMMARY
+                echo -n "| " >> $GITHUB_STEP_SUMMARY
+                POST_NUM=$((POST_NUM + 1))
+              fi
+
+              # 画像を表示（サムネイル）
+              echo -n "[![]($URL)]($URL) | " >> $GITHUB_STEP_SUMMARY
+
+              # 4枚目の後に改行
+              if [ $((COUNT % 4)) -eq 3 ]; then
+                echo "" >> $GITHUB_STEP_SUMMARY
+              fi
+
+              COUNT=$((COUNT + 1))
+            done
+
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "---" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "💡 **画像をクリックすると拡大表示されます**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ 画像URLリストが見つかりませんでした" >> $GITHUB_STEP_SUMMARY
+          fi
+
       # 完了メッセージ
       - name: 完了
         run: |
@@ -142,8 +217,8 @@ jobs:
             echo "   4️⃣ composed-images - 合成済み画像（テキスト入り、3:4サイズ）"
             echo "   5️⃣ bulk-post-csv - 一括投稿データ.CSV（Instagram予約投稿用）"
             echo ""
-            echo "🌐 合成済み画像はサーバーにもアップロードされています:"
-            echo "   https://images.if-juku.net/juku_post_$(date '+%Y_%m')/"
+            echo "🌐 合成済み画像はサーバーにもアップロードされています（Job Summaryで確認可能）"
           fi
           echo ""
           echo "💡 各Artifactは個別にダウンロード可能です（zipファイルとして）"
+          echo "💡 生成された画像は、このワークフローのSummaryタブで確認できます"

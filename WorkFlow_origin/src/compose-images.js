@@ -879,6 +879,20 @@ async function composeAndUploadImages() {
     console.log(`💾 ローカル保存先: ${composedDir}`);
     console.log(`🌐 サーバー保存先: https://images.if-juku.net/${folderName}/\n`);
 
+    // GitHub Actions用の画像URLリストをJSONファイルに保存
+    const imageUrlsData = {
+      folderName: folderName,
+      serverUrl: `https://images.if-juku.net/${folderName}/`,
+      totalImages: uploadedImageUrls.length,
+      composedImages: uploadedImageUrls,
+      thanksMessages: thanksMessageUrls,
+      generatedAt: new Date().toISOString()
+    };
+
+    const imageUrlsPath = join(__dirname, '..', 'output', 'image-urls.json');
+    writeFileSync(imageUrlsPath, JSON.stringify(imageUrlsData, null, 2), 'utf-8');
+    console.log(`📄 画像URLリストを保存: ${imageUrlsPath}\n`);
+
     return composedDir;
   } catch (error) {
     console.error('❌ エラーが発生しました:', error.message);
