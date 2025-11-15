@@ -171,11 +171,10 @@ async function generateImage(apiKey, prompt, index, characterName = null) {
         return null;
       }
     } else {
-      // キャラクターが指定されていない場合はnullを返す（エラーで止めない）
-      console.log(`  ⚠️  警告: プロンプト内にキャラクターが指定されていません - スキップ`);
-      console.log(`  💡 画像生成には登録済みキャラクターの指定が必須です`);
-      console.log(`  📝 利用可能なキャラクター: ${getCharacterNames().join(', ')}`);
-      return null;
+      // キャラクターが指定されていない場合は通常のtext-to-image生成
+      console.log(`  🎨 Text-to-Image モード: キャラクターなしで生成`);
+      const enhancedPrompt = `${prompt}. IMPORTANT: NO TEXT, NO LETTERS, NO WORDS, NO WRITING, NO SIGNS WITH TEXT in the image, use blank signs and clean surfaces without any text or characters. High quality, professional, detailed.`;
+      parts.push({ text: enhancedPrompt });
     }
 
     const requestBody = {
