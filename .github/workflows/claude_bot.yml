@@ -34,7 +34,7 @@ jobs:
 
       # 3. claude-code CLI をサーバーにインストール
       - name: Install claude-code CLI
-        run: npm install -g @anthropic/claude-code
+        run: npm install -g @anthropic-ai/claude-code
 
       # 4. Issueのコメント内容をプロンプトとしてファイルに保存
       - name: Prepare prompt
