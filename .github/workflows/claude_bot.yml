@@ -36,21 +36,16 @@ jobs:
       - name: Install claude-code CLI
         run: npm install -g @anthropic-ai/claude-code
 
-      # 4. Issueのコメント内容をプロンプトとしてファイルに保存
-      - name: Prepare prompt
-        run: |
-          # "@claude " の部分を除去して、指示内容だけをファイルに保存
-          echo "${{ github.event.comment.body }}" | sed 's/^@claude //' > prompt.txt
-
-      # 5. claude-code CLI を実行（★ここで認証トークンを使用）
+      # 4. claude-code CLI を実行（★ここで認証トークンを使用）
       - name: Run claude-code
         env:
           # ステップ2で登録した合鍵（トークン）をここで渡す
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         run: |
-          # ファイル（prompt.txt）から指示を読み込ませる
-          # --yes オプションで、確認ステップをスキップし自動で変更を適用
-          claude code --prompt-file prompt.txt --yes
+          # "@claude " の部分を除去して、指示内容だけを抽出
+          PROMPT=$(echo "${{ github.event.comment.body }}" | sed 's/^@claude //')
+          # プロンプトを引数として渡し、確認をスキップして自動実行
+          claude --print --dangerously-skip-permissions "$PROMPT"
 
       # 6. AIによる変更をコミット＆プッシュ
       - name: Commit and push changes
