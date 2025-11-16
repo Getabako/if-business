@@ -281,59 +281,214 @@
             color: #6b7280;
         }
 
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        /* 診断ツールスタイル */
+        .diagnostic-tool {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .service-card {
-            background: white;
+        .diagnostic-questions {
+            display: none;
+        }
+
+        .diagnostic-questions.active {
+            display: block;
+        }
+
+        .question-container {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .question-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+
+        .option-btn:hover {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
+            border-color: #3b82f6;
+            transform: translateX(10px);
+        }
+
+        .option-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .option-text {
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .diagnostic-result {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .diagnostic-result.active {
+            display: block;
+        }
+
+        .result-content {
+            text-align: center;
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 2rem;
+        }
+
+        .result-plan {
+            background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
             border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 2rem;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
+        .result-plan-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
         }
 
-        .service-name {
-            font-size: 1.5rem;
+        .result-plan-name {
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
             color: #1f2937;
+            margin-bottom: 1rem;
         }
 
-        .service-description {
+        .result-plan-description {
             color: #6b7280;
-            line-height: 1.6;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .result-cta-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .result-cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .result-reset-btn {
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .result-reset-btn:hover {
+            background: #f0f9ff;
+        }
+
+        .diagnostic-progress {
+            margin-top: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .diagnostic-tool {
+                padding: 2rem 1.5rem;
+            }
+
+            .question-title {
+                font-size: 1.2rem;
+            }
+
+            .option-btn {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .result-cta-btn,
+            .result-reset-btn {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
         }
 
         /* AI Personal Advisor Section */
@@ -1452,29 +1607,98 @@
         <img src="images/An_abstract_background_representing_data_analysis_-1745739047865-scaled.png" alt="Background" class="service-nav-bg">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">提供サービス</h2>
-                <p class="section-subtitle">AI技術とヒトの専門性を組み合わせた包括的なビジネスソリューション</p>
+                <h2 class="section-title">最適なプランを診断</h2>
+                <p class="section-subtitle">簡単な質問に答えて、あなたに最適なプランを見つけましょう</p>
             </div>
-            <div class="service-grid">
-                <div class="service-card" onclick="scrollToSection('ai-advisor')">
-                    <div class="service-icon">👨‍💼</div>
-                    <h3 class="service-name">AIパーソナル顧問プラン</h3>
-                    <p class="service-description">AIを導入するか悩んでいる企業や個人に最適な提案</p>
+
+            <!-- 診断ツール -->
+            <div class="diagnostic-tool">
+                <!-- 質問画面 -->
+                <div id="diagnostic-questions" class="diagnostic-questions active">
+                    <div class="question-container" data-question="1">
+                        <h3 class="question-title">質問1: AIの利用状況について教えてください</h3>
+                        <div class="question-options">
+                            <button class="option-btn" data-answer="beginner">
+                                <span class="option-icon">🌱</span>
+                                <span class="option-text">これからAIを使い始めたい</span>
+                            </button>
+                            <button class="option-btn" data-answer="individual">
+                                <span class="option-icon">💼</span>
+                                <span class="option-text">単発でツールを使っている程度</span>
+                            </button>
+                            <button class="option-btn" data-answer="team">
+                                <span class="option-icon">👥</span>
+                                <span class="option-text">チームや従業員に使えるようにしたい</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="question-container" data-question="2" style="display: none;">
+                        <h3 class="question-title">質問2: あなたの立場を教えてください</h3>
+                        <div class="question-options">
+                            <button class="option-btn" data-answer="individual">
+                                <span class="option-icon">👤</span>
+                                <span class="option-text">個人事業主・フリーランス</span>
+                            </button>
+                            <button class="option-btn" data-answer="business">
+                                <span class="option-icon">🏢</span>
+                                <span class="option-text">事業者（従業員がいる）</span>
+                            </button>
+                            <button class="option-btn" data-answer="developer">
+                                <span class="option-icon">⚙️</span>
+                                <span class="option-text">AIを組み込んだ開発が必要</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="question-container" data-question="3" style="display: none;">
+                        <h3 class="question-title">質問3: 何を実現したいですか？</h3>
+                        <div class="question-options">
+                            <button class="option-btn" data-answer="consulting">
+                                <span class="option-icon">💡</span>
+                                <span class="option-text">AIの活用方法を相談したい</span>
+                            </button>
+                            <button class="option-btn" data-answer="training">
+                                <span class="option-icon">🎓</span>
+                                <span class="option-text">社員をAI人材に育成したい</span>
+                            </button>
+                            <button class="option-btn" data-answer="development">
+                                <span class="option-icon">🔧</span>
+                                <span class="option-text">AI機能を開発・実装したい</span>
+                            </button>
+                            <button class="option-btn" data-answer="automation">
+                                <span class="option-icon">⚡</span>
+                                <span class="option-text">業務の完全自動化を目指したい</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-card" onclick="scrollToSection('ai-training')">
-                    <div class="service-icon">🎓</div>
-                    <h3 class="service-name">AI人材育成プラン</h3>
-                    <p class="service-description">社内で能動的に動けるAI人材を育成</p>
+
+                <!-- 結果画面 -->
+                <div id="diagnostic-result" class="diagnostic-result">
+                    <div class="result-content">
+                        <div class="result-icon">✨</div>
+                        <h3 class="result-title">あなたにおすすめのプランは...</h3>
+                        <div class="result-plan">
+                            <div class="result-plan-icon"></div>
+                            <h4 class="result-plan-name"></h4>
+                            <p class="result-plan-description"></p>
+                        </div>
+                        <button class="result-cta-btn" onclick="scrollToPlan()">
+                            詳細を見る
+                        </button>
+                        <button class="result-reset-btn" onclick="resetDiagnostic()">
+                            もう一度診断する
+                        </button>
+                    </div>
                 </div>
-                <div class="service-card" onclick="scrollToSection('development')">
-                    <div class="service-icon">⚙️</div>
-                    <h3 class="service-name">AI開発支援プラン</h3>
-                    <p class="service-description">ICT開発+AIを統合したシステム開発</p>
-                </div>
-                <div class="service-card" onclick="scrollToSection('courses')">
-                    <div class="service-icon">📚</div>
-                    <h3 class="service-name">AI講座プログラム</h3>
-                    <p class="service-description">目的別カスタマイズ研修</p>
+
+                <!-- プログレスバー -->
+                <div class="diagnostic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 33.33%;"></div>
+                    </div>
+                    <div class="progress-text">質問 <span id="current-question">1</span> / 3</div>
                 </div>
             </div>
         </div>
@@ -2039,6 +2263,173 @@
                     block: 'start'
                 });
             }
+        }
+
+        // 診断ツールのロジック
+        let diagnosticData = {
+            currentQuestion: 1,
+            answers: {},
+            recommendedPlan: null
+        };
+
+        const planInfo = {
+            'ai-advisor': {
+                icon: '👨‍💼',
+                name: 'AIパーソナル顧問プラン',
+                description: 'GeminiやChatGPTを活用して、業務効率化や売上拡大を目指します。AIツールの最適な選定と導入サポート、具体的な使い方のレクチャーを提供します。',
+                sectionId: 'ai-advisor'
+            },
+            'ai-training': {
+                icon: '🎓',
+                name: 'AI人材育成プラン',
+                description: '企業のメンバーが能動的にAIを活用できるよう育成します。カスタマイズ可能な研修プログラムで、社内のAI人材を育てます。',
+                sectionId: 'ai-training'
+            },
+            'development': {
+                icon: '⚙️',
+                name: 'AI開発支援プラン',
+                description: 'AIを組み込んだアプリ開発や業務の完全自動化を実現します。ICT開発とAIを統合したシステム開発をサポートします。',
+                sectionId: 'development'
+            }
+        };
+
+        // 質問の選択肢がクリックされた時の処理
+        document.addEventListener('DOMContentLoaded', function() {
+            const optionButtons = document.querySelectorAll('.option-btn');
+
+            optionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const answer = this.getAttribute('data-answer');
+                    const currentQuestionNum = diagnosticData.currentQuestion;
+
+                    // 回答を保存
+                    diagnosticData.answers[`question${currentQuestionNum}`] = answer;
+
+                    // 次の質問に進む
+                    if (currentQuestionNum < 3) {
+                        showNextQuestion(currentQuestionNum + 1);
+                    } else {
+                        // 全ての質問が終了したら結果を表示
+                        showResult();
+                    }
+                });
+            });
+        });
+
+        function showNextQuestion(questionNumber) {
+            const currentQuestionContainer = document.querySelector(`.question-container[data-question="${diagnosticData.currentQuestion}"]`);
+            const nextQuestionContainer = document.querySelector(`.question-container[data-question="${questionNumber}"]`);
+
+            if (currentQuestionContainer) {
+                currentQuestionContainer.style.display = 'none';
+            }
+
+            if (nextQuestionContainer) {
+                nextQuestionContainer.style.display = 'block';
+                diagnosticData.currentQuestion = questionNumber;
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const progressFill = document.querySelector('.progress-fill');
+            const currentQuestionSpan = document.getElementById('current-question');
+
+            const percentage = (diagnosticData.currentQuestion / 3) * 100;
+            if (progressFill) {
+                progressFill.style.width = percentage + '%';
+            }
+
+            if (currentQuestionSpan) {
+                currentQuestionSpan.textContent = diagnosticData.currentQuestion;
+            }
+        }
+
+        function determinePlan() {
+            const answers = diagnosticData.answers;
+
+            // 質問1: AIの利用状況
+            // 質問2: 立場
+            // 質問3: 実現したいこと
+
+            // AI開発プラン: 開発が必要、または完全自動化を目指したい
+            if (answers.question2 === 'developer' || answers.question3 === 'development' || answers.question3 === 'automation') {
+                return 'development';
+            }
+
+            // 人材育成プラン: チーム/従業員向け、または社員育成を希望
+            if (answers.question1 === 'team' || answers.question2 === 'business' || answers.question3 === 'training') {
+                return 'ai-training';
+            }
+
+            // パーソナル顧問プラン: 個人向けまたは相談が必要
+            return 'ai-advisor';
+        }
+
+        function showResult() {
+            const diagnosticQuestions = document.getElementById('diagnostic-questions');
+            const diagnosticResult = document.getElementById('diagnostic-result');
+
+            // プランを決定
+            diagnosticData.recommendedPlan = determinePlan();
+            const plan = planInfo[diagnosticData.recommendedPlan];
+
+            // 結果画面に情報を設定
+            const resultPlanIcon = document.querySelector('.result-plan-icon');
+            const resultPlanName = document.querySelector('.result-plan-name');
+            const resultPlanDescription = document.querySelector('.result-plan-description');
+
+            if (resultPlanIcon) resultPlanIcon.textContent = plan.icon;
+            if (resultPlanName) resultPlanName.textContent = plan.name;
+            if (resultPlanDescription) resultPlanDescription.textContent = plan.description;
+
+            // 質問画面を非表示、結果画面を表示
+            diagnosticQuestions.classList.remove('active');
+            diagnosticResult.classList.add('active');
+
+            // プログレスバーを100%に
+            const progressFill = document.querySelector('.progress-fill');
+            if (progressFill) {
+                progressFill.style.width = '100%';
+            }
+        }
+
+        function scrollToPlan() {
+            const plan = planInfo[diagnosticData.recommendedPlan];
+            if (plan && plan.sectionId) {
+                scrollToSection(plan.sectionId);
+            }
+        }
+
+        function resetDiagnostic() {
+            // データをリセット
+            diagnosticData = {
+                currentQuestion: 1,
+                answers: {},
+                recommendedPlan: null
+            };
+
+            // 全ての質問を非表示
+            const questionContainers = document.querySelectorAll('.question-container');
+            questionContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+
+            // 最初の質問を表示
+            const firstQuestion = document.querySelector('.question-container[data-question="1"]');
+            if (firstQuestion) {
+                firstQuestion.style.display = 'block';
+            }
+
+            // 結果画面を非表示、質問画面を表示
+            const diagnosticQuestions = document.getElementById('diagnostic-questions');
+            const diagnosticResult = document.getElementById('diagnostic-result');
+
+            diagnosticResult.classList.remove('active');
+            diagnosticQuestions.classList.add('active');
+
+            // プログレスバーをリセット
+            updateProgress();
         }
 
         // Video source update based on screen size
