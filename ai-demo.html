@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIビジネス診断 | if(Business)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #00ffcc 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #06C755 0%, #04a647 100%);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .question-number {
+            color: #00ffcc;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            border-color: #00ffcc;
+            background: rgba(0, 255, 204, 0.1);
+        }
+
+        .option.selected {
+            border-color: #00ffcc;
+            background: rgba(0, 255, 204, 0.15);
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #00ffcc, #3b82f6);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00ffcc 0%, #3b82f6 100%);
+            color: #0a0a0a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-line {
+            background: linear-gradient(135deg, #06C755 0%, #04a647 100%);
+            color: white;
+        }
+
+        .btn-line:hover {
+            box-shadow: 0 10px 30px rgba(6, 199, 85, 0.4);
+        }
+
+        .result-card {
+            display: none;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#00ffcc var(--score-percent), rgba(255,255,255,0.1) 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #0a0a0a;
+            border-radius: 50%;
+        }
+
+        .score-value {
+            position: relative;
+            z-index: 1;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .result-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .result-description {
+            color: #9ca3af;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation {
+            background: rgba(0, 255, 204, 0.1);
+            border-left: 4px solid #00ffcc;
+            padding: 1rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .recommendation h4 {
+            color: #00ffcc;
+            margin-bottom: 0.5rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cta-section p {
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .analyzing {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .analyzing.show {
+            display: block;
+        }
+
+        .analyzing-animation {
+            width: 80px;
+            height: 80px;
+            border: 4px solid rgba(0, 255, 204, 0.2);
+            border-top-color: #00ffcc;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .analyzing-text {
+            color: #00ffcc;
+            font-size: 1.1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .ai-insights {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-insights h4 {
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ai-insights ul {
+            list-style: none;
+            color: #d1d5db;
+        }
+
+        .ai-insights li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .ai-insights li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+        }
+
+        .logo {
+            text-align: center;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .score-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .score-circle::before {
+                width: 95px;
+                height: 95px;
+            }
+
+            .score-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="badge"><i class="fab fa-line"></i> LINE登録特典</span>
+            <h1><i class="fas fa-robot"></i> AIビジネス診断</h1>
+            <p>5つの質問であなたのビジネスのAI活用度を診断</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        </div>
+
+        <!-- 質問カード -->
+        <div class="card question-card" id="questionCard">
+            <div class="question-number" id="questionNumber">質問 1 / 5</div>
+            <div class="question" id="questionText"></div>
+            <div class="options" id="optionsContainer"></div>
+        </div>
+
+        <!-- 分析中アニメーション -->
+        <div class="analyzing" id="analyzing">
+            <div class="analyzing-animation"></div>
+            <p class="analyzing-text">AIがあなたのビジネスを分析中...</p>
+        </div>
+
+        <!-- 結果カード -->
+        <div class="card result-card" id="resultCard">
+            <div class="score-circle" id="scoreCircle">
+                <span class="score-value" id="scoreValue">0</span>
+            </div>
+            <h2 class="result-title" id="resultTitle"></h2>
+            <p class="result-description" id="resultDescription"></p>
+
+            <div class="ai-insights">
+                <h4><i class="fas fa-lightbulb"></i> AI分析による改善ポイント</h4>
+                <ul id="insightsList"></ul>
+            </div>
+
+            <div class="recommendation">
+                <h4><i class="fas fa-check-circle"></i> おすすめのプラン</h4>
+                <p id="recommendedPlan"></p>
+            </div>
+
+            <div class="cta-section">
+                <p>詳しい診断結果と具体的な改善提案をお伝えします</p>
+                <a href="https://lin.ee/I4dbdzC" class="btn btn-line" target="_blank">
+                    <i class="fab fa-line"></i> LINEで詳細を受け取る
+                </a>
+            </div>
+        </div>
+
+        <div class="logo">
+            <p>Powered by</p>
+            <img src="images/logo.png" alt="if(Business)">
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "現在、業務でAIツールを使っていますか？",
+                options: [
+                    { text: "毎日使っている", score: 4 },
+                    { text: "週に数回使う", score: 3 },
+                    { text: "試したことがある程度", score: 2 },
+                    { text: "まだ使ったことがない", score: 1 }
+                ]
+            },
+            {
+                question: "AIを導入したい業務は何ですか？",
+                options: [
+                    { text: "顧客対応・カスタマーサポート", score: 4, category: "support" },
+                    { text: "文書作成・コンテンツ制作", score: 3, category: "content" },
+                    { text: "データ分析・レポート作成", score: 4, category: "analysis" },
+                    { text: "まだ具体的には決まっていない", score: 2, category: "general" }
+                ]
+            },
+            {
+                question: "月間の業務時間のうち、どれくらいが定型作業ですか？",
+                options: [
+                    { text: "70%以上", score: 4 },
+                    { text: "50〜70%", score: 3 },
+                    { text: "30〜50%", score: 2 },
+                    { text: "30%未満", score: 1 }
+                ]
+            },
+            {
+                question: "AI導入の予算感はどのくらいですか？",
+                options: [
+                    { text: "月10万円以上", score: 4, plan: "pro" },
+                    { text: "月5〜10万円", score: 3, plan: "standard" },
+                    { text: "月5万円未満", score: 2, plan: "light" },
+                    { text: "まずは無料で試したい", score: 1, plan: "trial" }
+                ]
+            },
+            {
+                question: "AI導入で最も期待することは？",
+                options: [
+                    { text: "人件費の削減", score: 4 },
+                    { text: "業務効率の向上", score: 3 },
+                    { text: "新しいサービスの提供", score: 4 },
+                    { text: "競合との差別化", score: 3 }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answers = [];
+        let totalScore = 0;
+
+        function renderQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = `質問 ${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+            document.getElementById('progressFill').style.width = `${(currentQuestion / questions.length) * 100}%`;
+
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, index) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.textContent = opt.text;
+                div.onclick = () => selectOption(index);
+                container.appendChild(div);
+            });
+        }
+
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+
+            answers.push({
+                question: currentQuestion,
+                answer: index,
+                score: questions[currentQuestion].options[index].score,
+                data: questions[currentQuestion].options[index]
+            });
+
+            totalScore += questions[currentQuestion].options[index].score;
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    renderQuestion();
+                } else {
+                    showAnalyzing();
+                }
+            }, 500);
+        }
+
+        function showAnalyzing() {
+            document.getElementById('questionCard').classList.add('hidden');
+            document.getElementById('analyzing').classList.add('show');
+            document.getElementById('progressFill').style.width = '100%';
+
+            setTimeout(showResult, 2500);
+        }
+
+        function showResult() {
+            document.getElementById('analyzing').classList.remove('show');
+            document.getElementById('resultCard').classList.add('show');
+
+            const maxScore = questions.length * 4;
+            const percentage = Math.round((totalScore / maxScore) * 100);
+
+            document.getElementById('scoreCircle').style.setProperty('--score-percent', `${percentage}%`);
+
+            let displayScore = 0;
+            const interval = setInterval(() => {
+                displayScore += 2;
+                if (displayScore >= percentage) {
+                    displayScore = percentage;
+                    clearInterval(interval);
+                }
+                document.getElementById('scoreValue').textContent = displayScore;
+            }, 30);
+
+            // 結果タイトルと説明
+            let title, description;
+            if (percentage >= 80) {
+                title = "AI活用度: エキスパート";
+                description = "すでにAIを効果的に活用されています！さらなる高度化や自動化で、ビジネスを次のステージへ進められます。カスタムAI開発やAPI連携で、競合との差をさらに広げましょう。";
+            } else if (percentage >= 60) {
+                title = "AI活用度: アドバンス";
+                description = "AI活用の素地が整っています。定型業務の自動化や、AIチャットボットの導入で大幅な効率化が期待できます。今がAI本格導入の好機です！";
+            } else if (percentage >= 40) {
+                title = "AI活用度: ビギナー";
+                description = "AI導入のポテンシャルが高いビジネスです！まずは小さく始めて、効果を実感しながらステップアップしていくことをおすすめします。";
+            } else {
+                title = "AI活用度: スターター";
+                description = "AIの活用でビジネスが大きく変わる可能性があります！無料相談で、あなたのビジネスに最適なAI活用法をご提案します。";
+            }
+
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultDescription').textContent = description;
+
+            // AI分析による改善ポイント
+            const insights = generateInsights();
+            const insightsList = document.getElementById('insightsList');
+            insightsList.innerHTML = insights.map(i => `<li>${i}</li>`).join('');
+
+            // おすすめプラン
+            const plan = recommendPlan();
+            document.getElementById('recommendedPlan').textContent = plan;
+        }
+
+        function generateInsights() {
+            const insights = [];
+            const routineAnswer = answers[2];
+            const budgetAnswer = answers[3];
+            const goalAnswer = answers[4];
+
+            if (routineAnswer && routineAnswer.score >= 3) {
+                insights.push("定型作業が多いため、AI自動化で月20〜40時間の削減が見込めます");
+            }
+            if (answers[1] && answers[1].data.category === "support") {
+                insights.push("AIチャットボット導入で、問い合わせ対応コストを50%削減可能");
+            }
+            if (answers[1] && answers[1].data.category === "content") {
+                insights.push("AI文章生成で、コンテンツ制作時間を1/3に短縮可能");
+            }
+            if (goalAnswer && goalAnswer.answer === 0) {
+                insights.push("AI導入により、年間人件費を15〜30%削減した事例があります");
+            }
+
+            if (insights.length < 3) {
+                insights.push("まずは無料トライアルで効果を実感することをおすすめします");
+            }
+
+            return insights.slice(0, 3);
+        }
+
+        function recommendPlan() {
+            const budgetAnswer = answers[3];
+            if (budgetAnswer) {
+                switch (budgetAnswer.data.plan) {
+                    case "pro":
+                        return "プロプラン - カスタムAI開発と専任サポートで、ビジネスを変革";
+                    case "standard":
+                        return "スタンダードプラン - 本格的なAI導入で業務効率を大幅改善";
+                    case "light":
+                        return "ライトプラン - まずは特定業務からAI導入をスタート";
+                    default:
+                        return "無料相談 - あなたのビジネスに最適なプランをご提案します";
+                }
+            }
+            return "無料相談 - あなたのビジネスに最適なプランをご提案します";
+        }
+
+        // 初期化
+        renderQuestion();
+    </script>
+</body>
+</html>
