@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>if(Business) - AI × ヒトの力で、成長と効率化を実現する</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* Reset and Base Styles */
         * {
@@ -121,7 +122,7 @@
         }
 
         .mobile-menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
+            transform: rotate(45deg) translate(5px, 5px);
         }
 
         .mobile-menu-toggle.active span:nth-child(2) {
@@ -129,7 +130,7 @@
         }
 
         .mobile-menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
+            transform: rotate(-45deg) translate(5px, -5px);
         }
 
         .menu-overlay {
@@ -238,9 +239,24 @@
         /* Service Navigation Section */
         .service-nav-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
             padding: 5rem 2rem;
             position: relative;
+            overflow: hidden;
+        }
+
+        .service-nav-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            z-index: 0;
         }
 
         .service-nav-bg {
@@ -249,7 +265,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.05;
+            opacity: 0.15;
             object-fit: cover;
             z-index: 0;
         }
@@ -276,6 +292,37 @@
             background-clip: text;
         }
 
+        .service-nav-section .section-title {
+            color: white;
+            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            position: relative;
+            display: inline-block;
+        }
+
+        .service-nav-section .section-title::before,
+        .service-nav-section .section-title::after {
+            content: '\f005';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #fbbf24;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .service-nav-section .section-title::before {
+            left: -3rem;
+        }
+
+        .service-nav-section .section-title::after {
+            right: -3rem;
+        }
+
         .section-subtitle {
             font-size: 1.2rem;
             color: #6b7280;
@@ -283,12 +330,17 @@
 
         /* 診断ツールスタイル */
         .diagnostic-tool {
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            background: white;
-            border-radius: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
         }
 
         .diagnostic-questions {
@@ -315,11 +367,12 @@
         }
 
         .question-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #1f2937;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f1f5f9;
             margin-bottom: 2rem;
             text-align: center;
+            letter-spacing: 0.02em;
         }
 
         .question-options {
@@ -332,25 +385,34 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border: 2px solid #e5e7eb;
-            border-radius: 15px;
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
-            font-size: 1.1rem;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         .option-btn:hover {
-            background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
-            border-color: #3b82f6;
-            transform: translateX(10px);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
         }
 
         .option-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 10px;
+            color: white;
         }
 
         .option-text {
@@ -372,40 +434,43 @@
         }
 
         .result-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            color: #fbbf24;
         }
 
         .result-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #1f2937;
+            color: #f1f5f9;
             margin-bottom: 2rem;
         }
 
         .result-plan {
-            background: linear-gradient(135deg, #f0f9ff 0%, #f5f3ff 100%);
-            border-radius: 20px;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
             padding: 2rem;
             margin-bottom: 2rem;
         }
 
         .result-plan-icon {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            color: #60a5fa;
         }
 
         .result-plan-name {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #1f2937;
+            color: #f1f5f9;
             margin-bottom: 1rem;
         }
 
         .result-plan-description {
-            color: #6b7280;
+            color: #cbd5e1;
             line-height: 1.8;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .result-cta-btn {
@@ -427,9 +492,9 @@
         }
 
         .result-reset-btn {
-            background: white;
-            color: #3b82f6;
-            border: 2px solid #3b82f6;
+            background: transparent;
+            color: #94a3b8;
+            border: 2px solid #475569;
             padding: 1rem 3rem;
             border-radius: 50px;
             font-size: 1.1rem;
@@ -440,7 +505,9 @@
         }
 
         .result-reset-btn:hover {
-            background: #f0f9ff;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #60a5fa;
+            color: #60a5fa;
         }
 
         .diagnostic-progress {
@@ -450,21 +517,22 @@
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #e5e7eb;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
             transition: width 0.3s ease;
+            border-radius: 10px;
         }
 
         .progress-text {
             text-align: center;
-            color: #6b7280;
+            color: #94a3b8;
             font-size: 0.9rem;
         }
 
@@ -475,12 +543,12 @@
             }
 
             .question-title {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .option-btn {
                 padding: 1rem;
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
 
             .result-cta-btn,
@@ -489,13 +557,83 @@
                 width: 100%;
                 margin: 0.5rem 0;
             }
+
+            .service-nav-section .section-title::before,
+            .service-nav-section .section-title::after {
+                display: none;
+            }
         }
 
-        /* AI Personal Advisor Section */
+        /* AI Personal Advisor Section - Purple/Magenta Theme */
         .ai-advisor-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 50%, #4a1d6b 100%);
             padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        .ai-advisor-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(219, 39, 119, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .ai-advisor-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-advisor-section .section-title {
+            background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-advisor-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ai-advisor-section .feature-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .ai-advisor-section .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(192, 132, 252, 0.5);
+        }
+
+        .ai-advisor-section .feature-icon {
+            color: #c084fc;
+        }
+
+        .ai-advisor-section .price-tag {
+            color: #f0abfc;
+        }
+
+        .ai-advisor-section .cta-button {
+            background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+        }
+
+        .ai-advisor-section .cta-button:hover {
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .ai-advisor-section .image-column img {
+            border: 3px solid rgba(192, 132, 252, 0.4);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
         }
 
         .two-column-layout {
@@ -576,33 +714,147 @@
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
-        /* AI Training Section */
+        /* AI Training Section - Teal/Green Theme */
         .ai-training-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f3e7fc 0%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #042f2e 0%, #134e4a 50%, #115e59 100%);
             padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            color: white;
         }
 
-        /* AI Development Section */
+        .ai-training-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 80% 30%, rgba(20, 184, 166, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 70%, rgba(45, 212, 191, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .ai-training-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-training-section .section-title {
+            background: linear-gradient(135deg, #2dd4bf 0%, #5eead4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-training-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ai-training-section .feature-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .ai-training-section .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(45, 212, 191, 0.5);
+        }
+
+        .ai-training-section .feature-icon {
+            color: #2dd4bf;
+        }
+
+        .ai-training-section .price-tag {
+            color: #5eead4;
+        }
+
+        .ai-training-section .cta-button {
+            background: linear-gradient(135deg, #14b8a6 0%, #10b981 100%);
+        }
+
+        .ai-training-section .cta-button:hover {
+            box-shadow: 0 8px 25px rgba(20, 184, 166, 0.4);
+        }
+
+        .ai-training-section .image-column img {
+            border: 3px solid rgba(45, 212, 191, 0.4);
+            box-shadow: 0 20px 40px rgba(20, 184, 166, 0.3);
+        }
+
+        /* AI Development Section - Orange/Red Theme */
         .ai-development-section {
             min-height: 100vh;
-            background: #111827;
+            background: linear-gradient(135deg, #1c0a00 0%, #431407 50%, #7c2d12 100%);
             color: white;
             padding: 5rem 2rem;
             position: relative;
             overflow: hidden;
         }
 
+        .ai-development-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 20%, rgba(251, 146, 60, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(239, 68, 68, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .ai-development-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
         .ai-development-section .section-title {
-            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-development-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .dark-feature-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(251, 146, 60, 0.3);
             backdrop-filter: blur(10px);
+        }
+
+        .dark-feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(251, 146, 60, 0.5);
+        }
+
+        .ai-development-section .feature-icon {
+            color: #fb923c;
+        }
+
+        .ai-development-section .price-tag {
+            color: #fdba74 !important;
+        }
+
+        .ai-development-section .cta-button {
+            background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+        }
+
+        .ai-development-section .cta-button:hover {
+            box-shadow: 0 8px 25px rgba(249, 115, 22, 0.4);
+        }
+
+        .ai-development-section .image-column img {
+            border: 3px solid rgba(251, 146, 60, 0.4);
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);
         }
 
         /* ICT Development Section */
@@ -725,6 +977,7 @@
             font-size: 4rem;
             margin-bottom: 2rem;
             text-align: center;
+            color: #60a5fa;
         }
 
         .course-title {
@@ -1284,15 +1537,15 @@
                         <h3 class="question-title">質問1: AIの利用状況について教えてください</h3>
                         <div class="question-options">
                             <button class="option-btn" data-answer="beginner">
-                                <span class="option-icon">🌱</span>
+                                <span class="option-icon"><i class="fas fa-seedling"></i></span>
                                 <span class="option-text">これからAIを使い始めたい</span>
                             </button>
                             <button class="option-btn" data-answer="individual">
-                                <span class="option-icon">💼</span>
+                                <span class="option-icon"><i class="fas fa-wrench"></i></span>
                                 <span class="option-text">単発でツールを使っている程度</span>
                             </button>
                             <button class="option-btn" data-answer="team">
-                                <span class="option-icon">👥</span>
+                                <span class="option-icon"><i class="fas fa-users"></i></span>
                                 <span class="option-text">チームや従業員に使えるようにしたい</span>
                             </button>
                         </div>
@@ -1302,15 +1555,15 @@
                         <h3 class="question-title">質問2: あなたの立場を教えてください</h3>
                         <div class="question-options">
                             <button class="option-btn" data-answer="individual">
-                                <span class="option-icon">👤</span>
+                                <span class="option-icon"><i class="fas fa-user"></i></span>
                                 <span class="option-text">個人事業主・フリーランス</span>
                             </button>
                             <button class="option-btn" data-answer="business">
-                                <span class="option-icon">🏢</span>
+                                <span class="option-icon"><i class="fas fa-building"></i></span>
                                 <span class="option-text">事業者（従業員がいる）</span>
                             </button>
                             <button class="option-btn" data-answer="developer">
-                                <span class="option-icon">⚙️</span>
+                                <span class="option-icon"><i class="fas fa-cogs"></i></span>
                                 <span class="option-text">AIを組み込んだ開発が必要</span>
                             </button>
                         </div>
@@ -1320,19 +1573,19 @@
                         <h3 class="question-title">質問3: 何を実現したいですか？</h3>
                         <div class="question-options">
                             <button class="option-btn" data-answer="consulting">
-                                <span class="option-icon">💡</span>
+                                <span class="option-icon"><i class="fas fa-lightbulb"></i></span>
                                 <span class="option-text">AIの活用方法を相談したい</span>
                             </button>
                             <button class="option-btn" data-answer="training">
-                                <span class="option-icon">🎓</span>
+                                <span class="option-icon"><i class="fas fa-user-graduate"></i></span>
                                 <span class="option-text">社員をAI人材に育成したい</span>
                             </button>
                             <button class="option-btn" data-answer="development">
-                                <span class="option-icon">🔧</span>
+                                <span class="option-icon"><i class="fas fa-code"></i></span>
                                 <span class="option-text">AI機能を開発・実装したい</span>
                             </button>
                             <button class="option-btn" data-answer="automation">
-                                <span class="option-icon">⚡</span>
+                                <span class="option-icon"><i class="fas fa-bolt"></i></span>
                                 <span class="option-text">業務の完全自動化を目指したい</span>
                             </button>
                         </div>
@@ -1342,7 +1595,7 @@
                 <!-- 結果画面 -->
                 <div id="diagnostic-result" class="diagnostic-result">
                     <div class="result-content">
-                        <div class="result-icon">✨</div>
+                        <div class="result-icon"><i class="fas fa-star"></i></div>
                         <h3 class="result-title">あなたにおすすめのプランは...</h3>
                         <div class="result-plan">
                             <div class="result-plan-icon"></div>
@@ -1383,23 +1636,23 @@
                     </p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">🎯</span>
+                            <span class="feature-icon"><i class="fas fa-bullseye"></i></span>
                             <span>AIツールの最適な選定と導入サポート</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">📈</span>
+                            <span class="feature-icon"><i class="fas fa-chart-line"></i></span>
                             <span>業務効率化・売上拡大の具体的な活用法</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">💡</span>
+                            <span class="feature-icon"><i class="fas fa-lightbulb"></i></span>
                             <span>GeminiやChatGPT等の実践的な使い方レクチャー</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">💬</span>
+                            <span class="feature-icon"><i class="fas fa-comments"></i></span>
                             <span>チャット相談48h以内返信</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">🎥</span>
+                            <span class="feature-icon"><i class="fas fa-video"></i></span>
                             <span>月1回60分オンラインMTG</span>
                         </li>
                     </ul>
@@ -1432,19 +1685,19 @@
                     </p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">🎯</span>
+                            <span class="feature-icon"><i class="fas fa-bullseye"></i></span>
                             <span>月1回の個別最適研修</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">💬</span>
+                            <span class="feature-icon"><i class="fas fa-comments"></i></span>
                             <span>日常チャットQ&A対応</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">🔄</span>
+                            <span class="feature-icon"><i class="fas fa-sync-alt"></i></span>
                             <span>研修後アフターフォロー付き</span>
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">🚀</span>
+                            <span class="feature-icon"><i class="fas fa-rocket"></i></span>
                             <span>業務に即した実践的なAI活用法を習得</span>
                         </li>
                     </ul>
@@ -1471,27 +1724,27 @@
                     </p>
                     <ul class="feature-list">
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">🌐</span>
+                            <span class="feature-icon"><i class="fas fa-globe"></i></span>
                             <span>Web・アプリ開発+AI統合</span>
                         </li>
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">🤖</span>
+                            <span class="feature-icon"><i class="fas fa-robot"></i></span>
                             <span>自動化システムの構築(SNS投稿・動画・資料作成)</span>
                         </li>
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">🎯</span>
+                            <span class="feature-icon"><i class="fas fa-bullseye"></i></span>
                             <span>事業に最適化されたカスタムAIソリューション</span>
                         </li>
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">📋</span>
+                            <span class="feature-icon"><i class="fas fa-clipboard-list"></i></span>
                             <span>月次相談で最優先課題を決定</span>
                         </li>
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">🚀</span>
+                            <span class="feature-icon"><i class="fas fa-rocket"></i></span>
                             <span>即応アジャイル開発で実装・運用</span>
                         </li>
                         <li class="feature-item dark-feature-item">
-                            <span class="feature-icon">📊</span>
+                            <span class="feature-icon"><i class="fas fa-chart-bar"></i></span>
                             <span>月次レビューで成果を可視化＆次アクションを策定</span>
                         </li>
                     </ul>
@@ -1518,7 +1771,7 @@
             <!-- 料金プラン -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
                 <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">📹</div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: #60a5fa;"><i class="fas fa-play-circle"></i></div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">動画見放題プラン</h3>
                     <div style="font-size: 2.5rem; font-weight: bold; color: #60a5fa; margin-bottom: 1rem;">¥11,000<span style="font-size: 1rem; font-weight: normal;">/月</span></div>
                     <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 1.5rem;">
@@ -1528,7 +1781,7 @@
                 </div>
 
                 <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">👨‍🏫</div>
+                    <div style="font-size: 3rem; margin-bottom: 1rem; color: #60a5fa;"><i class="fas fa-chalkboard-teacher"></i></div>
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">個人レッスン</h3>
                     <div style="font-size: 2.5rem; font-weight: bold; color: #60a5fa; margin-bottom: 1rem;">¥33,000<span style="font-size: 1rem; font-weight: normal;">/1時間</span></div>
                     <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 1.5rem;">
@@ -1689,7 +1942,7 @@
             <div class="company-grid">
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span>🏢</span> 運営母体
+                        <span><i class="fas fa-building"></i></span> 運営母体
                     </h3>
                     <div class="company-card-content">
                         <p>一般社団法人IFラボ</p>
@@ -1698,7 +1951,7 @@
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span>💪</span> 私たちの強み
+                        <span><i class="fas fa-hand-fist"></i></span> 私たちの強み
                     </h3>
                     <div class="company-card-content">
                         <p>・最新AI技術の実装力</p>
@@ -1708,7 +1961,7 @@
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span>🚀</span> ビジネス展開
+                        <span><i class="fas fa-rocket"></i></span> ビジネス展開
                     </h3>
                     <div class="company-card-content">
                         <p>全国対応のオンラインサービス</p>
@@ -1717,7 +1970,7 @@
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span>🔧</span> 活用テクノロジー
+                        <span><i class="fas fa-wrench"></i></span> 活用テクノロジー
                     </h3>
                     <div class="company-card-content">
                         <p>OpenAI, Google Cloud, Microsoft Azure, Anthropic等</p>
@@ -1761,11 +2014,11 @@
                 </div>
                 <div class="contact-info-section">
                     <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #374151;">🕐 営業時間</h3>
+                        <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-clock" style="color: #3b82f6; margin-right: 0.5rem;"></i>営業時間</h3>
                         <p style="color: #6b7280;">平日 9:00 - 18:00</p>
                     </div>
                     <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
-                        <h3 style="margin-bottom: 1rem; color: #374151;">📍 対応エリア</h3>
+                        <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-map-marker-alt" style="color: #3b82f6; margin-right: 0.5rem;"></i>対応エリア</h3>
                         <p style="color: #6b7280;">全国対応（オンライン）</p>
                     </div>
                 </div>
@@ -1845,19 +2098,19 @@
 
         const planInfo = {
             'ai-advisor': {
-                icon: '👨‍💼',
+                icon: '<i class="fas fa-user-tie"></i>',
                 name: 'AIパーソナル顧問プラン',
                 description: 'GeminiやChatGPTを活用して、業務効率化や売上拡大を目指します。AIツールの最適な選定と導入サポート、具体的な使い方のレクチャーを提供します。',
                 sectionId: 'ai-advisor'
             },
             'ai-training': {
-                icon: '🎓',
+                icon: '<i class="fas fa-user-graduate"></i>',
                 name: 'AI人材育成プラン',
                 description: '企業のメンバーが能動的にAIを活用できるよう育成します。カスタマイズ可能な研修プログラムで、社内のAI人材を育てます。',
                 sectionId: 'ai-training'
             },
             'development': {
-                icon: '⚙️',
+                icon: '<i class="fas fa-cogs"></i>',
                 name: 'AI開発支援プラン',
                 description: 'AIを組み込んだアプリ開発や業務の完全自動化を実現します。ICT開発とAIを統合したシステム開発をサポートします。',
                 sectionId: 'development'
@@ -1950,7 +2203,7 @@
             const resultPlanName = document.querySelector('.result-plan-name');
             const resultPlanDescription = document.querySelector('.result-plan-description');
 
-            if (resultPlanIcon) resultPlanIcon.textContent = plan.icon;
+            if (resultPlanIcon) resultPlanIcon.innerHTML = plan.icon;
             if (resultPlanName) resultPlanName.textContent = plan.name;
             if (resultPlanDescription) resultPlanDescription.textContent = plan.description;
 
@@ -2020,7 +2273,7 @@
         // Course tabs functionality
         const courses = [
             {
-                icon: '💼',
+                icon: '<i class="fas fa-briefcase"></i>',
                 title: 'ビジネス向けAI講座',
                 details: [
                     'AI基礎知識とビジネス活用方法',
@@ -2031,7 +2284,7 @@
                 price: '¥200,000/名'
             },
             {
-                icon: '🎨',
+                icon: '<i class="fas fa-palette"></i>',
                 title: 'クリエイター向けAI講座',
                 details: [
                     '画像生成AIの活用方法',
@@ -2042,7 +2295,7 @@
                 price: '¥150,000/名'
             },
             {
-                icon: '⚡',
+                icon: '<i class="fas fa-code"></i>',
                 title: '開発者向けAI講座',
                 details: [
                     'AIモデルの構築と実装',
@@ -2053,7 +2306,7 @@
                 price: '¥200,000/名'
             },
             {
-                icon: '🎮',
+                icon: '<i class="fas fa-gamepad"></i>',
                 title: 'ゲームクリエイター向けAI講座',
                 details: [
                     'ゲームAIの設計と実装',
@@ -2064,7 +2317,7 @@
                 price: '¥200,000/名'
             },
             {
-                icon: '🎓',
+                icon: '<i class="fas fa-user-graduate"></i>',
                 title: '学生向けAI講座',
                 details: [
                     'AI基礎理論と実践',
