@@ -1867,8 +1867,39 @@
         /* Contact Section */
         .contact-section {
             min-height: 100vh;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
             padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .contact-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 15, 30, 0.7) 0%, rgba(20, 30, 60, 0.6) 100%);
+            z-index: 1;
+        }
+
+        .contact-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-section .section-title,
+        .contact-section .section-subtitle {
+            color: white;
         }
 
         .contact-container {
@@ -1893,11 +1924,43 @@
 
         .contact-form-banner {
             text-decoration: none;
+            display: block;
         }
 
-        .contact-form-banner:hover div {
+        .contact-form-banner-inner {
+            background-image: url('images/15.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-banner-inner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(147, 51, 234, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .contact-form-banner-inner > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-form-banner:hover .contact-form-banner-inner {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
         }
 
         /* Animations */
@@ -2824,6 +2887,8 @@
 
     <!-- Contact Section -->
     <section id="contact" class="contact-section">
+        <img src="images/hadou.png" alt="Contact Background" class="contact-bg">
+        <div class="contact-overlay"></div>
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">お問い合わせ</h2>
@@ -2832,14 +2897,7 @@
             <div class="contact-container">
                 <div class="contact-form-section">
                     <a href="https://forms.gle/R5Dktgyx44J3L7p77" target="_blank" class="contact-form-banner">
-                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
-                                    color: white;
-                                    padding: 3rem 2rem;
-                                    border-radius: 20px;
-                                    text-decoration: none;
-                                    display: block;
-                                    transition: all 0.3s ease;
-                                    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">
+                        <div class="contact-form-banner-inner">
                             <h3 style="font-size: 2rem; margin-bottom: 1rem; font-weight: bold;">お問い合わせフォーム</h3>
                             <p style="font-size: 1.2rem; margin-bottom: 1.5rem; opacity: 0.9;">無料相談・サービスのご質問はこちらから</p>
                             <div style="display: inline-block;
@@ -2854,11 +2912,11 @@
                     </a>
                 </div>
                 <div class="contact-info-section">
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                    <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
                         <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-clock" style="color: #3b82f6; margin-right: 0.5rem;"></i>営業時間</h3>
                         <p style="color: #6b7280;">平日 9:00 - 18:00</p>
                     </div>
-                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                    <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
                         <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-map-marker-alt" style="color: #3b82f6; margin-right: 0.5rem;"></i>対応エリア</h3>
                         <p style="color: #6b7280;">全国対応（オンライン）</p>
                     </div>
