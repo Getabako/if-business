@@ -801,6 +801,120 @@
             opacity: 0.8;
         }
 
+        /* Image with Overlay Button and Price */
+        .image-with-overlay {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .image-with-overlay img {
+            width: 100%;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .image-overlay-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            border-radius: 0 0 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .image-overlay-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .image-overlay-price {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* AI Courses Section - Yellow/Gold Theme */
+        .ai-courses-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1c1a00 0%, #3d3800 50%, #5c5400 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-courses-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(250, 204, 21, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(234, 179, 8, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .ai-courses-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-courses-section .section-title {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ai-courses-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ai-courses-section .feature-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .ai-courses-section .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(250, 204, 21, 0.5);
+        }
+
+        .ai-courses-section .feature-icon {
+            color: #fbbf24;
+        }
+
+        .ai-courses-section .price-tag {
+            color: #fde047;
+        }
+
+        .ai-courses-section .cta-button {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .ai-courses-section .cta-button:hover {
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        .ai-courses-section .image-column img {
+            border: 3px solid rgba(250, 204, 21, 0.4);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+        }
+
         /* AI Training Section - Teal/Green Theme */
         .ai-training-section {
             min-height: 100vh;
@@ -1513,54 +1627,62 @@
             /* SP時のプランセクション順序制御 */
             .ai-advisor-section .two-column-layout,
             .ai-training-section .two-column-layout,
-            .ai-development-section .two-column-layout {
+            .ai-development-section .two-column-layout,
+            .ai-courses-section .two-column-layout {
                 display: flex;
                 flex-direction: column;
             }
 
             .ai-advisor-section .two-column-layout .image-column,
             .ai-training-section .two-column-layout .image-column,
-            .ai-development-section .two-column-layout .image-column {
+            .ai-development-section .two-column-layout .image-column,
+            .ai-courses-section .two-column-layout .image-column {
                 order: 1;
             }
 
             .ai-advisor-section .two-column-layout .content-column,
             .ai-training-section .two-column-layout .content-column,
-            .ai-development-section .two-column-layout .content-column {
+            .ai-development-section .two-column-layout .content-column,
+            .ai-courses-section .two-column-layout .content-column {
                 order: 2;
             }
 
             /* SP時のセクション最適化 */
             .ai-advisor-section,
             .ai-training-section,
-            .ai-development-section {
+            .ai-development-section,
+            .ai-courses-section {
                 min-height: auto;
                 padding: 3rem 1rem;
             }
 
             .ai-advisor-section .section-header,
             .ai-training-section .section-header,
-            .ai-development-section .section-header {
+            .ai-development-section .section-header,
+            .ai-courses-section .section-header {
                 margin-bottom: 2rem;
             }
 
             .ai-advisor-section .section-title,
             .ai-training-section .section-title,
-            .ai-development-section .section-title {
+            .ai-development-section .section-title,
+            .ai-courses-section .section-title {
                 font-size: 1.5rem;
                 line-height: 1.4;
             }
 
             .ai-advisor-section .section-subtitle,
             .ai-training-section .section-subtitle,
-            .ai-development-section .section-subtitle {
+            .ai-development-section .section-subtitle,
+            .ai-courses-section .section-subtitle {
                 font-size: 0.9rem;
             }
 
             /* SP時の画像 */
             .ai-advisor-section .image-column img,
             .ai-training-section .image-column img,
-            .ai-development-section .image-column img {
+            .ai-development-section .image-column img,
+            .ai-courses-section .image-column img {
                 border-radius: 15px;
                 margin-bottom: 1.5rem;
             }
@@ -1575,13 +1697,15 @@
             /* SP時のfeature-list */
             .ai-advisor-section .feature-list,
             .ai-training-section .feature-list,
-            .ai-development-section .feature-list {
+            .ai-development-section .feature-list,
+            .ai-courses-section .feature-list {
                 margin: 1rem 0;
             }
 
             .ai-advisor-section .feature-item,
             .ai-training-section .feature-item,
-            .ai-development-section .feature-item {
+            .ai-development-section .feature-item,
+            .ai-courses-section .feature-item {
                 padding: 0.75rem 1rem;
                 margin-bottom: 0.5rem;
                 font-size: 0.85rem;
@@ -1590,7 +1714,8 @@
 
             .ai-advisor-section .feature-icon,
             .ai-training-section .feature-icon,
-            .ai-development-section .feature-icon {
+            .ai-development-section .feature-icon,
+            .ai-courses-section .feature-icon {
                 font-size: 0.9rem;
                 width: 20px;
                 min-width: 20px;
@@ -1606,13 +1731,15 @@
 
             .ai-advisor-section .price-tag,
             .ai-training-section .price-tag,
-            .ai-development-section .price-tag {
+            .ai-development-section .price-tag,
+            .ai-courses-section .price-tag {
                 font-size: 1.5rem;
             }
 
             .ai-advisor-section .cta-button,
             .ai-training-section .cta-button,
-            .ai-development-section .cta-button {
+            .ai-development-section .cta-button,
+            .ai-courses-section .cta-button {
                 width: 100%;
                 text-align: center;
                 padding: 0.875rem 1.5rem;
@@ -1625,6 +1752,18 @@
 
             .comic-section img {
                 border-radius: 10px;
+            }
+
+            /* SP時の画像オーバーレイ調整 */
+            .image-overlay-price {
+                font-size: 1.3rem;
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .image-overlay-btn {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.85rem;
             }
 
             .service-grid,
@@ -1864,13 +2003,13 @@
                             <span>月1回60分オンラインMTG</span>
                         </li>
                     </ul>
-                    <div class="service-section-bottom">
-                        <div class="price-tag">¥55,000/月</div>
-                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
-                    </div>
                 </div>
                 <div class="image-column">
-                    <img src="images/1.png" alt="AI Personal Advisor">
+                    <div class="image-with-overlay">
+                        <img src="images/1.png" alt="AI Personal Advisor">
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag">¥55,000/月</div>
+                    </div>
                 </div>
             </div>
             <!-- 漫画セクション -->
@@ -1889,7 +2028,11 @@
             </div>
             <div class="two-column-layout">
                 <div class="image-column">
-                    <img src="images/2.png" alt="AI Training">
+                    <div class="image-with-overlay">
+                        <img src="images/2.png" alt="AI Training">
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag">¥33,000/月 (1名)</div>
+                    </div>
                 </div>
                 <div class="content-column">
                     <p style="margin-bottom: 2rem; line-height: 1.8;">
@@ -1913,10 +2056,6 @@
                             <span>業務に即した実践的なAI活用法を習得</span>
                         </li>
                     </ul>
-                    <div class="service-section-bottom">
-                        <div class="price-tag">¥33,000/月 (1名)</div>
-                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
-                    </div>
                 </div>
             </div>
             <!-- 漫画セクション -->
@@ -1964,13 +2103,13 @@
                             <span>月次レビューで成果を可視化＆次アクションを策定</span>
                         </li>
                     </ul>
-                    <div class="service-section-bottom">
-                        <div class="price-tag" style="color: #60a5fa;">¥110,000/月〜</div>
-                        <a href="#contact" class="cta-button">詳細を問い合わせる</a>
-                    </div>
                 </div>
                 <div class="image-column">
-                    <img src="images/3.png" alt="AI Development">
+                    <div class="image-with-overlay">
+                        <img src="images/3.png" alt="AI Development">
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag">¥110,000/月〜</div>
+                    </div>
                 </div>
             </div>
             <!-- 漫画セクション -->
@@ -1985,59 +2124,51 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">AI講座プログラム</h2>
-                <p class="section-subtitle">目的に合わせて選べる学習プラン</p>
+                <p class="section-subtitle">動画見放題で実践的なAIスキルを習得</p>
             </div>
-
-            <!-- 料金プラン -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem; max-width: 900px; margin-left: auto; margin-right: auto;">
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; color: #60a5fa;"><i class="fas fa-play-circle"></i></div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">動画見放題プラン</h3>
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #60a5fa; margin-bottom: 1rem;">¥11,000<span style="font-size: 1rem; font-weight: normal;">/月</span></div>
-                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 1.5rem;">
-                        豊富なAI講座動画を見放題で学習できるプラン。自分のペースで学びたい方に最適です。
-                    </p>
-                    <a href="#contact" class="cta-button">お問い合わせ</a>
-                </div>
-
-                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem; color: #60a5fa;"><i class="fas fa-chalkboard-teacher"></i></div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: white;">個人レッスン</h3>
-                    <div style="font-size: 2.5rem; font-weight: bold; color: #60a5fa; margin-bottom: 1rem;">¥33,000<span style="font-size: 1rem; font-weight: normal;">/1時間</span></div>
-                    <p style="color: rgba(255, 255, 255, 0.8); line-height: 1.6; margin-bottom: 1.5rem;">
-                        専門講師によるマンツーマンレッスン。個別の課題に合わせた集中的な指導を受けられます。
-                    </p>
-                    <a href="#contact" class="cta-button">お問い合わせ</a>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-bottom: 3rem;">
-                <h3 style="font-size: 1.8rem; color: white; margin-bottom: 1rem;">カスタマイズ研修プログラム</h3>
-                <p style="color: rgba(255, 255, 255, 0.8);">企業・団体向けの目的別カスタマイズ研修も承っております</p>
-            </div>
-
-            <div class="course-tabs">
-                <button class="course-tab active" onclick="showCourse(0)">ビジネス向け</button>
-                <button class="course-tab" onclick="showCourse(1)">クリエイター向け</button>
-                <button class="course-tab" onclick="showCourse(2)">開発者向け</button>
-                <button class="course-tab" onclick="showCourse(3)">ゲームクリエイター向け</button>
-                <button class="course-tab" onclick="showCourse(4)">学生向け</button>
-            </div>
-            <div class="course-content" id="courseContent">
-                <div class="course-info">
-                    <div class="course-icon">💼</div>
-                    <h3 class="course-title">ビジネス向けAI講座</h3>
-                    <div class="course-details">
-                        <p>・AI基礎知識とビジネス活用方法</p>
-                        <p>・ChatGPT等の生成AI活用術</p>
-                        <p>・業務効率化の実践的手法</p>
-                        <p>・データ分析と意思決定支援</p>
+            <div class="two-column-layout">
+                <div class="image-column">
+                    <div class="image-with-overlay">
+                        <img src="images/16.png" alt="AI講座プログラム">
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag">¥11,000/月</div>
                     </div>
                 </div>
-                <div class="course-actions">
-                    <div class="course-price">¥200,000/名</div>
-                    <a href="#contact" class="cta-button">お問い合わせ</a>
+                <div class="content-column">
+                    <p style="margin-bottom: 2rem; line-height: 1.8;">
+                        豊富なAI講座動画を見放題で学習できるプラン。自分のペースで学びたい方に最適です。動画を見て不明点があればいつでも質問可能。実践的なスキルを身につけましょう。
+                    </p>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-image"></i></span>
+                            <span>画像生成・バナー作成</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-search"></i></span>
+                            <span>リサーチ・レポート作成</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-table"></i></span>
+                            <span>スプレッドシート作成・データ分析</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-code"></i></span>
+                            <span>コーディング・ホームページ作成</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-file-powerpoint"></i></span>
+                            <span>スライド・プレゼン資料作成</span>
+                        </li>
+                        <li class="feature-item">
+                            <span class="feature-icon"><i class="fas fa-question-circle"></i></span>
+                            <span>動画視聴後の質問対応付き</span>
+                        </li>
+                    </ul>
                 </div>
+            </div>
+            <!-- 漫画セクション -->
+            <div class="comic-section">
+                <img src="images/comic4.png" alt="AI講座プログラム 活用イメージ">
             </div>
         </div>
     </section>
