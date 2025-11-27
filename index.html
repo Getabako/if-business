@@ -1444,7 +1444,7 @@
         }
 
 
-        /* AI Implementation Section */
+        /* AI Implementation Section - 3D Cylinder Slider */
         .implementation-section {
             min-height: 100vh;
             background: #0a0f1b;
@@ -1471,7 +1471,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(10, 15, 27, 0.8) 0%, rgba(15, 30, 50, 0.75) 100%);
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.9) 0%, rgba(15, 30, 50, 0.85) 100%);
             z-index: 1;
         }
 
@@ -1482,102 +1482,214 @@
             z-index: 2;
         }
 
-        .case-tabs {
+        /* 3D Cylinder Slider Container */
+        .case-slider-container {
+            perspective: 1200px;
+            margin: 3rem auto;
+            position: relative;
+            max-width: 900px;
+        }
+
+        .case-slider {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 3rem;
+            gap: 3rem;
+            align-items: center;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .case-tab {
-            padding: 0.75rem 1.5rem;
-            background: rgba(59, 130, 246, 0.8);
-            border: none;
-            border-radius: 25px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 500;
+        /* 3D回転シリンダー */
+        .case-cylinder {
+            width: 320px;
+            height: 550px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .case-tab:hover {
-            background: rgba(59, 130, 246, 1);
-            transform: translateY(-2px);
+        .case-cylinder.rotating {
+            animation: cylinderSpin 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .case-tab.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        @keyframes cylinderSpin {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
         }
 
-        .case-content {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 3rem;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .case-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .case-phase {
-            background: rgba(255, 255, 255, 0.05);
+        /* 漫画画像（縦長） */
+        .case-comic {
+            width: 100%;
+            height: 100%;
             border-radius: 15px;
-            padding: 2rem;
-            border-left: 4px solid;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             position: relative;
         }
 
-        .case-phase:nth-child(1) {
+        .case-comic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .case-comic:hover img {
+            transform: scale(1.02);
+        }
+
+        /* テキストコンテンツ */
+        .case-text-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-text-container.rotating {
+            animation: textRotate 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes textRotate {
+            0% { transform: rotateY(0deg); opacity: 1; }
+            50% { transform: rotateY(90deg); opacity: 0; }
+            51% { transform: rotateY(-90deg); opacity: 0; }
+            100% { transform: rotateY(0deg); opacity: 1; }
+        }
+
+        .case-text-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .case-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .case-phase-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .case-phase-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+            border-left: 4px solid;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .case-phase-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .case-phase-item.before {
             border-left-color: #ef4444;
         }
 
-        .case-phase:nth-child(2) {
+        .case-phase-item.tool {
             border-left-color: #f59e0b;
         }
 
-        .case-phase:nth-child(3) {
+        .case-phase-item.after {
             border-left-color: #10b981;
         }
 
-        .case-phase::before {
-            content: '';
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
+        .case-phase-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-phase-item.before .case-phase-label { color: #ef4444; }
+        .case-phase-item.tool .case-phase-label { color: #f59e0b; }
+        .case-phase-item.after .case-phase-label { color: #10b981; }
+
+        .case-phase-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* スライダーナビゲーション */
+        .case-slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            align-items: center;
+        }
+
+        .case-slider-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .case-slider-btn:hover {
+            background: rgba(59, 130, 246, 0.6);
+            transform: scale(1.1);
+        }
+
+        .case-slider-dots {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .case-slider-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
         }
 
-        .case-phase:nth-child(1)::before {
-            background: #ef4444;
+        .case-slider-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
 
-        .case-phase:nth-child(2)::before {
-            background: #f59e0b;
+        .case-slider-dot.active {
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            transform: scale(1.3);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
         }
 
-        .case-phase:nth-child(3)::before {
-            background: #10b981;
-        }
-
-        .case-phase-title {
-            font-size: 1.2rem;
+        /* スライダーインジケーター */
+        .case-indicator {
+            text-align: center;
             margin-bottom: 1rem;
-            margin-left: 1.5rem;
-            font-weight: 600;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        .case-phase-content {
-            line-height: 1.8;
-            margin-left: 1.5rem;
+        .case-indicator-current {
+            color: #60a5fa;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
         /* FAQ Section */
@@ -2015,8 +2127,50 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .case-grid {
-                grid-template-columns: 1fr;
+            /* SP時の事例スライダー */
+            .case-slider-container {
+                margin: 2rem auto;
+            }
+
+            .case-slider {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .case-cylinder {
+                width: 280px;
+                height: 480px;
+            }
+
+            .case-text-container {
+                min-width: 100%;
+            }
+
+            .case-text-card {
+                padding: 1.5rem;
+            }
+
+            .case-title {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .case-phase-item {
+                padding: 1rem;
+            }
+
+            .case-phase-label {
+                font-size: 0.8rem;
+            }
+
+            .case-phase-text {
+                font-size: 0.85rem;
+            }
+
+            .case-slider-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
             }
 
             .hero-title {
@@ -2082,7 +2236,7 @@
             <li><a href="#ai-training">AI人材育成</a></li>
             <li><a href="#development">AI開発支援</a></li>
             <li><a href="#courses">AI講座</a></li>
-            <li><a href="#implementation">AI導入実績</a></li>
+            <li><a href="#implementation">AI導入事例</a></li>
             <li><a href="#faq">よくあるご質問</a></li>
             <li><a href="#company">会社情報</a></li>
             <li><a href="#contact">お問い合わせ</a></li>
@@ -2466,40 +2620,64 @@
     </section>
 
 
-    <!-- AI Implementation Section -->
+    <!-- AI Implementation Section - 3D Cylinder Slider -->
     <section id="implementation" class="implementation-section">
         <img src="images/12.png" alt="AI Implementation Background" class="implementation-bg">
         <div class="implementation-overlay"></div>
         <div class="implementation-content">
             <div class="section-header">
-                <h2 class="section-title">AI導入実績</h2>
-                <p class="section-subtitle">様々な業界でのAI活用成功事例</p>
+                <h2 class="section-title">AI導入事例</h2>
+                <p class="section-subtitle">実際のAI活用でビジネスが変わった事例をご紹介</p>
             </div>
-            <div class="case-tabs">
-                <button class="case-tab active" onclick="showCase(0)">製造業A社</button>
-                <button class="case-tab" onclick="showCase(1)">小売業B社</button>
-                <button class="case-tab" onclick="showCase(2)">歯科医院C院</button>
-            </div>
-            <div class="case-content">
-                <div class="case-grid" id="caseContent">
-                    <div class="case-phase">
-                        <h3 class="case-phase-title">BEFORE</h3>
-                        <div class="case-phase-content">
-                            品質検査に多くの人員と時間を要し、ヒューマンエラーによる不良品の見逃しが発生していた
+
+            <div class="case-slider-container">
+                <div class="case-indicator">
+                    <span class="case-indicator-current" id="caseIndicator">1</span> / 3
+                </div>
+
+                <div class="case-slider">
+                    <!-- 3コマ漫画（縦長） -->
+                    <div class="case-cylinder" id="caseCylinder">
+                        <div class="case-comic">
+                            <img src="images/comic5.png" alt="AIパーソナル顧問プラン 導入事例" id="caseComicImg">
                         </div>
                     </div>
-                    <div class="case-phase">
-                        <h3 class="case-phase-title">手法で</h3>
-                        <div class="case-phase-content">
-                            画像認識AIによる自動品質検査システムを導入。リアルタイムで不良品を検出し、アラート通知
+
+                    <!-- テキストコンテンツ -->
+                    <div class="case-text-container" id="caseTextContainer">
+                        <div class="case-text-card">
+                            <h3 class="case-title" id="caseTitle">AIパーソナル顧問プラン</h3>
+                            <div class="case-phase-vertical">
+                                <div class="case-phase-item before">
+                                    <div class="case-phase-label">Before</div>
+                                    <div class="case-phase-text" id="caseBefore">AIを導入したいけど、誰に相談すればいいか分からない。最新情報を追うのも大変...</div>
+                                </div>
+                                <div class="case-phase-item tool">
+                                    <div class="case-phase-label">Tool</div>
+                                    <div class="case-phase-text" id="caseTool">チャットとMTGで伴走支援。最新情報も自分で調べなくて大丈夫！事業に最適なAIをご提案します。</div>
+                                </div>
+                                <div class="case-phase-item after">
+                                    <div class="case-phase-label">After</div>
+                                    <div class="case-phase-text" id="caseAfter">すぐ解決！判断スピードUP！迷わないAI経営へ。</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="case-phase">
-                        <h3 class="case-phase-title">AFTER</h3>
-                        <div class="case-phase-content">
-                            検査時間を70%削減、不良品検出率を99.8%まで向上。年間2000万円のコスト削減を実現
-                        </div>
+                </div>
+
+                <!-- スライダーナビゲーション -->
+                <div class="case-slider-nav">
+                    <button class="case-slider-btn" onclick="prevCase()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="case-slider-dots">
+                        <button class="case-slider-dot active" onclick="goToCase(0)"></button>
+                        <button class="case-slider-dot" onclick="goToCase(1)"></button>
+                        <button class="case-slider-dot" onclick="goToCase(2)"></button>
                     </div>
+                    <button class="case-slider-btn" onclick="nextCase()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -3000,52 +3178,97 @@
             `;
         }
 
-        // Case studies functionality
-        const cases = [
+        // Case studies - 3D Cylinder Slider functionality
+        const caseStudies = [
             {
-                before: '品質検査に多くの人員と時間を要し、ヒューマンエラーによる不良品の見逃しが発生していた',
-                solution: '画像認識AIによる自動品質検査システムを導入。リアルタイムで不良品を検出し、アラート通知',
-                after: '検査時間を70%削減、不良品検出率を99.8%まで向上。年間2000万円のコスト削減を実現'
+                title: 'AIパーソナル顧問プラン',
+                image: 'images/comic5.png',
+                before: 'AIを導入したいけど、誰に相談すればいいか分からない。最新情報を追うのも大変...',
+                tool: 'チャットとMTGで伴走支援。最新情報も自分で調べなくて大丈夫！事業に最適なAIをご提案します。',
+                after: 'すぐ解決！判断スピードUP！迷わないAI経営へ。'
             },
             {
-                before: '在庫管理が属人化し、過剰在庫と欠品が頻発。売上機会の損失が発生していた',
-                solution: 'AI需要予測システムと自動発注システムを導入。過去データから最適な在庫量を算出',
-                after: '在庫回転率が40%向上、欠品率を5%以下に削減。年間1500万円の在庫コスト削減'
+                title: 'AI人材育成プラン',
+                image: 'images/comic6.png',
+                before: '社員にAIを使わせたいけど、教えられる人材が社内にいない。難しそう...',
+                tool: '丸投げください！社員全員をAI人材にします。実践的な研修と現場のスキルを底上げします。',
+                after: '社員が自主的にAIを活用！このプロンプトで業務がめっちゃ早くなりました！組織全体がAI活用集団へ！'
             },
             {
-                before: '予約管理と顧客対応に多くの時間を取られ、診療に集中できない状況だった',
-                solution: 'AIチャットボットと自動予約システムを導入。24時間対応可能な体制を構築',
-                after: '事務作業時間を60%削減、患者満足度が30%向上。月間新規患者数が20%増加'
+                title: 'AI開発支援プラン',
+                image: 'images/comic7.png',
+                before: '治療に専念したいのに、やらなきゃいけない事務作業が多すぎる。求人募集中なのに人が来ない...',
+                tool: 'リクルート自動化したインスタで！先生、予約自動化できます！',
+                after: 'AIで楽になった！インスタ見て来ました！業務効率化＆採用成功！'
             }
         ];
 
-        function showCase(index) {
-            const caseData = cases[index];
-            const caseContent = document.getElementById('caseContent');
-            const tabs = document.querySelectorAll('.implementation-section .case-tab');
+        let currentCaseIndex = 0;
+        let isAnimating = false;
 
-            tabs.forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
+        function updateCaseContent(index) {
+            const caseData = caseStudies[index];
 
-            caseContent.innerHTML = `
-                <div class="case-phase">
-                    <h3 class="case-phase-title">BEFORE</h3>
-                    <div class="case-phase-content">${caseData.before}</div>
-                </div>
-                <div class="case-phase">
-                    <h3 class="case-phase-title">手法で</h3>
-                    <div class="case-phase-content">${caseData.solution}</div>
-                </div>
-                <div class="case-phase">
-                    <h3 class="case-phase-title">AFTER</h3>
-                    <div class="case-phase-content">${caseData.after}</div>
-                </div>
-            `;
+            // 要素の取得
+            const cylinder = document.getElementById('caseCylinder');
+            const textContainer = document.getElementById('caseTextContainer');
+            const img = document.getElementById('caseComicImg');
+            const title = document.getElementById('caseTitle');
+            const before = document.getElementById('caseBefore');
+            const tool = document.getElementById('caseTool');
+            const after = document.getElementById('caseAfter');
+            const indicator = document.getElementById('caseIndicator');
+            const dots = document.querySelectorAll('.case-slider-dot');
+
+            // アニメーション開始
+            isAnimating = true;
+            cylinder.classList.add('rotating');
+            textContainer.classList.add('rotating');
+
+            // 中間点でコンテンツを更新
+            setTimeout(() => {
+                img.src = caseData.image;
+                img.alt = caseData.title + ' 導入事例';
+                title.textContent = caseData.title;
+                before.textContent = caseData.before;
+                tool.textContent = caseData.tool;
+                after.textContent = caseData.after;
+                indicator.textContent = index + 1;
+
+                // ドットの更新
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }, 400);
+
+            // アニメーション終了
+            setTimeout(() => {
+                cylinder.classList.remove('rotating');
+                textContainer.classList.remove('rotating');
+                isAnimating = false;
+            }, 800);
+        }
+
+        function nextCase() {
+            if (isAnimating) return;
+            currentCaseIndex = (currentCaseIndex + 1) % caseStudies.length;
+            updateCaseContent(currentCaseIndex);
+        }
+
+        function prevCase() {
+            if (isAnimating) return;
+            currentCaseIndex = (currentCaseIndex - 1 + caseStudies.length) % caseStudies.length;
+            updateCaseContent(currentCaseIndex);
+        }
+
+        function goToCase(index) {
+            if (isAnimating || index === currentCaseIndex) return;
+            currentCaseIndex = index;
+            updateCaseContent(currentCaseIndex);
         }
 
         // FAQ toggle functionality
