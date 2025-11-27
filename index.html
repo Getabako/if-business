@@ -714,6 +714,93 @@
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
+        /* Plan Card Style for Mobile */
+        .plan-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .plan-card-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-card-header img {
+            width: 100%;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .plan-card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-card-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .plan-card .feature-list {
+            margin: 1.5rem 0;
+        }
+
+        .plan-card .feature-item {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            border-radius: 8px;
+        }
+
+        .plan-card .feature-icon {
+            font-size: 1rem;
+            width: 24px;
+            flex-shrink: 0;
+        }
+
+        .plan-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .plan-card .price-tag {
+            font-size: 1.5rem;
+        }
+
+        .plan-card .cta-button {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Comic Image Section */
+        .comic-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .comic-section img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .comic-caption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
         /* AI Training Section - Teal/Green Theme */
         .ai-training-section {
             min-height: 100vh;
@@ -1423,6 +1510,123 @@
                 gap: 2rem;
             }
 
+            /* SP時のプランセクション順序制御 */
+            .ai-advisor-section .two-column-layout,
+            .ai-training-section .two-column-layout,
+            .ai-development-section .two-column-layout {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ai-advisor-section .two-column-layout .image-column,
+            .ai-training-section .two-column-layout .image-column,
+            .ai-development-section .two-column-layout .image-column {
+                order: 1;
+            }
+
+            .ai-advisor-section .two-column-layout .content-column,
+            .ai-training-section .two-column-layout .content-column,
+            .ai-development-section .two-column-layout .content-column {
+                order: 2;
+            }
+
+            /* SP時のセクション最適化 */
+            .ai-advisor-section,
+            .ai-training-section,
+            .ai-development-section {
+                min-height: auto;
+                padding: 3rem 1rem;
+            }
+
+            .ai-advisor-section .section-header,
+            .ai-training-section .section-header,
+            .ai-development-section .section-header {
+                margin-bottom: 2rem;
+            }
+
+            .ai-advisor-section .section-title,
+            .ai-training-section .section-title,
+            .ai-development-section .section-title {
+                font-size: 1.5rem;
+                line-height: 1.4;
+            }
+
+            .ai-advisor-section .section-subtitle,
+            .ai-training-section .section-subtitle,
+            .ai-development-section .section-subtitle {
+                font-size: 0.9rem;
+            }
+
+            /* SP時の画像 */
+            .ai-advisor-section .image-column img,
+            .ai-training-section .image-column img,
+            .ai-development-section .image-column img {
+                border-radius: 15px;
+                margin-bottom: 1.5rem;
+            }
+
+            /* SP時の説明文 */
+            .content-column p {
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem !important;
+                line-height: 1.7 !important;
+            }
+
+            /* SP時のfeature-list */
+            .ai-advisor-section .feature-list,
+            .ai-training-section .feature-list,
+            .ai-development-section .feature-list {
+                margin: 1rem 0;
+            }
+
+            .ai-advisor-section .feature-item,
+            .ai-training-section .feature-item,
+            .ai-development-section .feature-item {
+                padding: 0.75rem 1rem;
+                margin-bottom: 0.5rem;
+                font-size: 0.85rem;
+                border-radius: 8px;
+            }
+
+            .ai-advisor-section .feature-icon,
+            .ai-training-section .feature-icon,
+            .ai-development-section .feature-icon {
+                font-size: 0.9rem;
+                width: 20px;
+                min-width: 20px;
+            }
+
+            /* SP時の価格とボタン */
+            .service-section-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+
+            .ai-advisor-section .price-tag,
+            .ai-training-section .price-tag,
+            .ai-development-section .price-tag {
+                font-size: 1.5rem;
+            }
+
+            .ai-advisor-section .cta-button,
+            .ai-training-section .cta-button,
+            .ai-development-section .cta-button {
+                width: 100%;
+                text-align: center;
+                padding: 0.875rem 1.5rem;
+            }
+
+            /* SP時の漫画セクション */
+            .comic-section {
+                margin-top: 2rem;
+            }
+
+            .comic-section img {
+                border-radius: 10px;
+            }
+
             .service-grid,
             .ict-grid {
                 grid-template-columns: 1fr;
@@ -1451,6 +1655,10 @@
 
             .course-actions {
                 align-items: center;
+            }
+
+            .company-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1665,6 +1873,10 @@
                     <img src="images/1.png" alt="AI Personal Advisor">
                 </div>
             </div>
+            <!-- 漫画セクション -->
+            <div class="comic-section">
+                <img src="images/comic1.png" alt="AIパーソナル顧問プラン 活用イメージ">
+            </div>
         </div>
     </section>
 
@@ -1706,6 +1918,10 @@
                         <a href="#contact" class="cta-button">詳細を問い合わせる</a>
                     </div>
                 </div>
+            </div>
+            <!-- 漫画セクション -->
+            <div class="comic-section">
+                <img src="images/comic2.png" alt="AI人材育成プラン 活用イメージ">
             </div>
         </div>
     </section>
@@ -1756,6 +1972,10 @@
                 <div class="image-column">
                     <img src="images/3.png" alt="AI Development">
                 </div>
+            </div>
+            <!-- 漫画セクション -->
+            <div class="comic-section">
+                <img src="images/comic3.png" alt="AI開発支援プラン 活用イメージ">
             </div>
         </div>
     </section>
