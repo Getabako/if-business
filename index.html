@@ -551,33 +551,17 @@
             box-shadow: 0 10px 20px rgba(6, 199, 85, 0.4);
         }
 
-        /* AI分析中スタイル */
-        .ai-analyzing-section {
-            padding: 2rem;
+        /* AI分析中スタイル（コンパクト版） */
+        .ai-analyzing-section-compact {
+            padding: 1.5rem;
+            text-align: center;
         }
 
-        .ai-brain-icon {
-            position: relative;
-            display: inline-block;
-            font-size: 4rem;
+        .ai-brain-icon-compact {
+            font-size: 2rem;
             color: #60a5fa;
-            margin-bottom: 1.5rem;
-        }
-
-        .ai-brain-icon i {
+            margin-bottom: 0.5rem;
             animation: aiPulse 1.5s ease-in-out infinite;
-        }
-
-        .ai-pulse {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(96, 165, 250, 0.3);
-            border-radius: 50%;
-            animation: pulseRing 1.5s ease-out infinite;
         }
 
         @keyframes aiPulse {
@@ -585,31 +569,22 @@
             50% { transform: scale(1.1); opacity: 0.8; }
         }
 
-        @keyframes pulseRing {
-            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 1; }
-            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        .ai-analyzing-text {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.75rem;
         }
 
-        .ai-analyzing-title {
-            font-size: 1.5rem;
-            color: #f1f5f9;
-            margin-bottom: 1.5rem;
-        }
-
-        .ai-progress-container {
-            max-width: 400px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .ai-progress-bar {
+        .ai-progress-bar-compact {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            height: 8px;
+            height: 6px;
             overflow: hidden;
-            margin-bottom: 0.5rem;
+            max-width: 300px;
+            margin: 0 auto;
         }
 
-        .ai-progress-fill {
+        .ai-progress-fill-compact {
             background: linear-gradient(90deg, #3b82f6, #9333ea, #3b82f6);
             background-size: 200% 100%;
             height: 100%;
@@ -624,60 +599,27 @@
             100% { background-position: 200% 50%; }
         }
 
-        .ai-progress-text {
-            font-size: 0.9rem;
-            color: #94a3b8;
+        /* AI回答スタイル（コンパクト版） */
+        .ai-response-section-compact {
+            padding: 1rem;
         }
 
-        .ai-data-stream {
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            color: #06C755;
-            height: 60px;
-            overflow: hidden;
-            margin-top: 1rem;
-            text-align: left;
-            padding: 0.5rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* AI回答スタイル */
-        .ai-response-section {
-            padding: 2rem;
-        }
-
-        .ai-avatar {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
-            border-radius: 50%;
+        .ai-result-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.8rem;
-            color: white;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+            font-size: 0.95rem;
         }
 
-        .ai-message-container {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 1.5rem 2rem;
-            margin-bottom: 2rem;
-            text-align: left;
-            position: relative;
+        .ai-result-header i {
+            font-size: 1.5rem;
+            color: #60a5fa;
         }
 
         .ai-typing-text {
-            color: #f1f5f9;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            min-height: 80px;
+            flex: 1;
         }
 
         .ai-cursor {
@@ -691,28 +633,93 @@
             51%, 100% { opacity: 0; }
         }
 
-        .result-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
+        .result-plan-compact {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            text-align: left;
         }
 
-        @media (max-width: 600px) {
-            .ai-message-container {
-                padding: 1rem 1.5rem;
-            }
-            .ai-typing-text {
-                font-size: 1rem;
-            }
-            .result-buttons {
-                flex-direction: column;
-            }
-            .result-cta-btn, .result-line-btn, .result-reset-btn {
-                width: 100%;
-                margin: 0.3rem 0;
-            }
+        .result-plan-icon-compact {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-plan-compact .result-plan-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-plan-description-compact {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .result-cta-btn-compact {
+            width: 100%;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .result-cta-btn-compact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .result-buttons-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .result-line-btn-compact {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #06C755 0%, #04a647 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .result-line-btn-compact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(6, 199, 85, 0.4);
+        }
+
+        .result-reset-btn-compact {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            padding: 0.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: underline;
+        }
+
+        .result-reset-btn-compact:hover {
+            color: #60a5fa;
         }
 
         .diagnostic-progress {
@@ -2767,44 +2774,33 @@
                 <div id="diagnostic-result" class="diagnostic-result">
                     <div class="result-content">
                         <!-- AI分析中画面 -->
-                        <div id="ai-analyzing" class="ai-analyzing-section">
-                            <div class="ai-brain-icon">
+                        <div id="ai-analyzing" class="ai-analyzing-section-compact">
+                            <div class="ai-brain-icon-compact">
                                 <i class="fas fa-brain"></i>
-                                <div class="ai-pulse"></div>
                             </div>
-                            <h3 class="ai-analyzing-title">AIが分析中...</h3>
-                            <div class="ai-progress-container">
-                                <div class="ai-progress-bar">
-                                    <div class="ai-progress-fill" id="aiProgressFill"></div>
-                                </div>
-                                <p class="ai-progress-text" id="aiProgressText">回答データを読み込み中...</p>
+                            <p class="ai-analyzing-text" id="aiProgressText">分析中...</p>
+                            <div class="ai-progress-bar-compact">
+                                <div class="ai-progress-fill-compact" id="aiProgressFill"></div>
                             </div>
-                            <div class="ai-data-stream" id="aiDataStream"></div>
                         </div>
                         <!-- AI回答画面 -->
-                        <div id="ai-response" class="ai-response-section" style="display: none;">
-                            <div class="ai-avatar">
+                        <div id="ai-response" class="ai-response-section-compact" style="display: none;">
+                            <div class="ai-result-header">
                                 <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="ai-message-container">
-                                <p class="ai-typing-text" id="aiTypingText"></p>
+                                <span class="ai-typing-text" id="aiTypingText"></span>
                                 <span class="ai-cursor">|</span>
                             </div>
-                            <div class="result-plan" id="resultPlanCard" style="display: none;">
-                                <div class="result-plan-icon"></div>
+                            <div class="result-plan-compact" id="resultPlanCard" style="display: none;">
+                                <div class="result-plan-icon-compact"></div>
                                 <h4 class="result-plan-name"></h4>
-                                <p class="result-plan-description"></p>
+                                <p class="result-plan-description-compact"></p>
+                                <button class="result-cta-btn-compact" onclick="scrollToPlan()">プランの詳細を見る</button>
                             </div>
-                            <div class="result-buttons" id="resultButtons" style="display: none;">
-                                <button class="result-cta-btn" onclick="scrollToPlan()">
-                                    詳細を見る
-                                </button>
-                                <a href="https://lin.ee/I4dbdzC" target="_blank" class="result-line-btn">
-                                    <i class="fab fa-line"></i> LINEで相談する
+                            <div class="result-buttons-compact" id="resultButtons" style="display: none;">
+                                <a href="https://lin.ee/I4dbdzC" target="_blank" class="result-line-btn-compact">
+                                    <i class="fab fa-line"></i> LINEで相談する（特典あり）
                                 </a>
-                                <button class="result-reset-btn" onclick="resetDiagnostic()">
-                                    もう一度診断する
-                                </button>
+                                <button class="result-reset-btn-compact" onclick="resetDiagnostic()">もう一度診断をやり直す</button>
                             </div>
                         </div>
                     </div>
@@ -2813,7 +2809,7 @@
                 <!-- プログレスバー -->
                 <div class="diagnostic-progress">
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 33.33%;"></div>
+                        <div class="progress-fill" style="width: 0%;"></div>
                     </div>
                     <div class="progress-text">質問 <span id="current-question">1</span> / 3</div>
                 </div>
@@ -3523,49 +3519,25 @@
             startAIAnalysis(plan);
         }
 
-        // AI分析アニメーション
+        // AI分析アニメーション（コンパクト版）
         function startAIAnalysis(plan) {
             const aiAnalyzing = document.getElementById('ai-analyzing');
             const aiResponse = document.getElementById('ai-response');
             const aiProgressFill = document.getElementById('aiProgressFill');
             const aiProgressText = document.getElementById('aiProgressText');
-            const aiDataStream = document.getElementById('aiDataStream');
 
             // 初期化
             aiAnalyzing.style.display = 'block';
             aiResponse.style.display = 'none';
 
             const progressSteps = [
-                { progress: 20, text: '回答データを読み込み中...' },
-                { progress: 40, text: 'ビジネス要件を分析中...' },
-                { progress: 60, text: 'AI活用パターンをマッチング中...' },
-                { progress: 80, text: '最適プランを算出中...' },
-                { progress: 100, text: '分析完了!' }
+                { progress: 25, text: '分析中...' },
+                { progress: 50, text: '要件を確認中...' },
+                { progress: 75, text: 'プランを選定中...' },
+                { progress: 100, text: '完了!' }
             ];
 
-            // データストリームのシミュレーション
-            const dataStreamTexts = [
-                '> Loading user_response.json...',
-                '> Parsing business_requirements...',
-                '> AI_matching_algorithm.init()',
-                '> Analyzing: usage_level=' + (diagnosticData.answers[1] || 'default'),
-                '> Analyzing: goal=' + (diagnosticData.answers[2] || 'default'),
-                '> Analyzing: scale=' + (diagnosticData.answers[3] || 'default'),
-                '> Running recommendation_engine...',
-                '> Calculating optimal_plan_score...',
-                '> Result: ' + plan.name
-            ];
-
-            let streamIndex = 0;
-            const streamInterval = setInterval(() => {
-                if (streamIndex < dataStreamTexts.length) {
-                    aiDataStream.innerHTML += dataStreamTexts[streamIndex] + '<br>';
-                    aiDataStream.scrollTop = aiDataStream.scrollHeight;
-                    streamIndex++;
-                }
-            }, 400);
-
-            // プログレスバーアニメーション
+            // プログレスバーアニメーション（高速化）
             let stepIndex = 0;
             const progressInterval = setInterval(() => {
                 if (stepIndex < progressSteps.length) {
@@ -3574,15 +3546,14 @@
                     stepIndex++;
                 } else {
                     clearInterval(progressInterval);
-                    clearInterval(streamInterval);
                     setTimeout(() => {
                         showAIResponse(plan);
-                    }, 500);
+                    }, 300);
                 }
-            }, 600);
+            }, 400);
         }
 
-        // AI回答をタイピング表示
+        // AI回答をタイピング表示（コンパクト版）
         function showAIResponse(plan) {
             const aiAnalyzing = document.getElementById('ai-analyzing');
             const aiResponse = document.getElementById('ai-response');
@@ -3595,9 +3566,9 @@
             aiResponse.style.display = 'block';
 
             // 結果画面に情報を設定
-            const resultPlanIcon = document.querySelector('.result-plan-icon');
+            const resultPlanIcon = document.querySelector('.result-plan-icon-compact');
             const resultPlanName = document.querySelector('.result-plan-name');
-            const resultPlanDescription = document.querySelector('.result-plan-description');
+            const resultPlanDescription = document.querySelector('.result-plan-description-compact');
 
             if (resultPlanIcon) resultPlanIcon.innerHTML = plan.icon;
             if (resultPlanName) resultPlanName.textContent = plan.name;
@@ -3648,29 +3619,9 @@
             setTimeout(typeNextChar, 500);
         }
 
-        // AIメッセージを生成
+        // AIメッセージを生成（コンパクト版）
         function generateAIMessage(plan) {
-            const answer1 = diagnosticData.answers[1];
-            const answer2 = diagnosticData.answers[2];
-
-            let introMessage = 'お客様の回答を分析いたしました。';
-            let analysisMessage = '';
-            let recommendMessage = '';
-
-            // 回答に基づいたパーソナライズメッセージ
-            if (answer1 === 'beginner') {
-                analysisMessage = 'AI活用はこれからとのこと。まずは基礎から丁寧にサポートさせていただきます。';
-            } else if (answer1 === 'individual') {
-                analysisMessage = '既にAIツールをお使いとのこと。さらなる活用方法をご提案いたします。';
-            } else if (answer1 === 'team') {
-                analysisMessage = 'チームでの活用を検討されているとのこと。組織全体での効率化が期待できます。';
-            } else if (answer1 === 'advanced') {
-                analysisMessage = '高度な活用をお考えとのこと。カスタム開発で競争優位性を確立しましょう。';
-            }
-
-            recommendMessage = 'あなたに最適なプランは「' + plan.name + '」です。';
-
-            return [introMessage, analysisMessage, recommendMessage];
+            return ['分析が完了しました。あなたに最適なプランは...'];
         }
 
         function scrollToPlan() {
@@ -3711,7 +3662,6 @@
             const aiAnalyzing = document.getElementById('ai-analyzing');
             const aiResponse = document.getElementById('ai-response');
             const aiProgressFill = document.getElementById('aiProgressFill');
-            const aiDataStream = document.getElementById('aiDataStream');
             const aiTypingText = document.getElementById('aiTypingText');
             const resultPlanCard = document.getElementById('resultPlanCard');
             const resultButtons = document.getElementById('resultButtons');
@@ -3720,8 +3670,7 @@
             if (aiAnalyzing) aiAnalyzing.style.display = 'block';
             if (aiResponse) aiResponse.style.display = 'none';
             if (aiProgressFill) aiProgressFill.style.width = '0%';
-            if (aiDataStream) aiDataStream.innerHTML = '';
-            if (aiTypingText) aiTypingText.innerHTML = '';
+            if (aiTypingText) aiTypingText.textContent = '';
             if (resultPlanCard) resultPlanCard.style.display = 'none';
             if (resultButtons) resultButtons.style.display = 'none';
             if (cursor) cursor.style.display = 'inline';
