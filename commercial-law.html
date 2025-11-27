@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特定商取引法に基づく表記 - if(Business)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0f1b;
+            --bg-secondary: #1a1f2e;
+            --text-light: #ffffff;
+            --text-gray: #cccccc;
+            --primary-color: #3b82f6;
+            --neon-glow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-light);
+            background-color: var(--bg-dark);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            padding-bottom: 10px;
+        }
+
+        p {
+            color: var(--text-gray);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--primary-color);
+            border-radius: 25px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: var(--neon-glow);
+        }
+
+        .info-table {
+            background-color: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            min-width: 180px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: var(--text-light);
+            flex: 1;
+        }
+
+        .info-value a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .info-value a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background-color: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            margin: 20px 0;
+        }
+
+        .highlight p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .section-description {
+            background-color: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .section-description p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 600px) {
+            .info-row {
+                flex-direction: column;
+            }
+
+            .info-label {
+                min-width: auto;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← トップページに戻る</a>
+
+        <h1>特定商取引法に基づく表記</h1>
+
+        <div class="section-description">
+            <p>特定商取引に関する法律（特定商取引法）に基づき、以下の事項を表示いたします。</p>
+        </div>
+
+        <div class="info-table">
+            <div class="info-row">
+                <div class="info-label">販売業者</div>
+                <div class="info-value">ゲタバコ倶楽部</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">運営責任者</div>
+                <div class="info-value">高崎翔太</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">住所</div>
+                <div class="info-value">秋田県秋田市大町１丁目２−７</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">電話番号</div>
+                <div class="info-value">080-4937-1121</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">メールアドレス</div>
+                <div class="info-value"><a href="mailto:info@if-juku.net">info@if-juku.net</a></div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">ウェブサイトURL</div>
+                <div class="info-value"><a href="https://if-business.net" target="_blank">https://if-business.net</a></div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">商品以外の必要料金</div>
+                <div class="info-value">銀行振込時の振込手数料、消費税（商品価格に含む）</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">注文方法</div>
+                <div class="info-value">ウェブサイト上でのオンライン注文</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">支払方法</div>
+                <div class="info-value">クレジットカード、銀行振込</div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">支払期限</div>
+                <div class="info-value">
+                    <p>• クレジットカード決済の場合：購入時点での決済</p>
+                    <p>• 銀行振込の場合：注文後7日以内</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">商品の引渡時期</div>
+                <div class="info-value">
+                    <p>• サービス：登録完了後、即時にサービス利用可能</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">返品・キャンセルについて</div>
+                <div class="info-value">
+                    <p>商品の性質上、サービス開始後のキャンセルや返品は原則として受け付けておりません。</p>
+                    <p>ただし、サービスに不具合があった場合は、サービス開始後7日以内にメールでご連絡ください。不具合が確認された場合は、対応策をご案内いたします。</p>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-label">利用規約</div>
+                <div class="info-value">
+                    サービス利用にあたっては、ウェブサイト上で公開されている<a href="terms.html">利用規約</a>に同意いただく必要があります。
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <p><strong>重要なお知らせ</strong></p>
+            <p>• 本サービスはAIコンサルティング・導入支援サービスであり、デジタルコンテンツの提供が主体となります。</p>
+            <p>• サービスの性質上、一度利用が開始されたサービスについては返品・返金を承ることができません。</p>
+            <p>• ご不明な点やお困りのことがございましたら、上記連絡先までお気軽にお問い合わせください。</p>
+        </div>
+
+        <div class="highlight">
+            <p><strong>消費者保護について</strong></p>
+            <p>当サービスは特定商取引法に基づき適切に運営されており、お客様の権利保護に努めております。</p>
+            <p>サービス内容、料金体系、キャンセルポリシー等について詳細な説明を行い、透明性のある取引を心がけております。</p>
+        </div>
+
+        <a href="index.html" class="back-link">← トップページに戻る</a>
+    </div>
+</body>
+</html>

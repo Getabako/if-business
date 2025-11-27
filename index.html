@@ -286,21 +286,42 @@
             font-size: clamp(2rem, 4vw, 3rem);
             font-weight: bold;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(59, 130, 246, 0.5),
+                0 0 40px rgba(59, 130, 246, 0.3);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(59, 130, 246, 0.5),
+                    0 0 40px rgba(59, 130, 246, 0.3);
+            }
+            50% {
+                text-shadow:
+                    0 0 15px rgba(255, 255, 255, 1),
+                    0 0 30px rgba(255, 255, 255, 0.8),
+                    0 0 45px rgba(59, 130, 246, 0.7),
+                    0 0 60px rgba(59, 130, 246, 0.5);
+            }
         }
 
         .service-nav-section .section-title {
             color: white;
-            background: linear-gradient(135deg, #60a5fa 0%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             position: relative;
             display: inline-block;
+            text-shadow:
+                0 0 15px rgba(255, 255, 255, 1),
+                0 0 30px rgba(255, 255, 255, 0.8),
+                0 0 45px rgba(96, 165, 250, 0.6),
+                0 0 60px rgba(192, 132, 252, 0.4);
         }
 
         .service-nav-section .section-title::before,
@@ -642,10 +663,11 @@
         }
 
         .ai-advisor-section .section-title {
-            background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(192, 132, 252, 0.8),
+                0 0 40px rgba(192, 132, 252, 0.5);
         }
 
         .ai-advisor-section .section-subtitle {
@@ -989,10 +1011,11 @@
         }
 
         .ai-courses-section .section-title {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(251, 191, 36, 0.8),
+                0 0 40px rgba(251, 191, 36, 0.5);
         }
 
         .ai-courses-section .section-subtitle {
@@ -1114,10 +1137,11 @@
         }
 
         .ai-training-section .section-title {
-            background: linear-gradient(135deg, #2dd4bf 0%, #5eead4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(45, 212, 191, 0.8),
+                0 0 40px rgba(45, 212, 191, 0.5);
         }
 
         .ai-training-section .section-subtitle {
@@ -1253,10 +1277,11 @@
         }
 
         .ai-development-section .section-title {
-            background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(251, 146, 60, 0.8),
+                0 0 40px rgba(251, 146, 60, 0.5);
         }
 
         .ai-development-section .section-subtitle {
@@ -1949,7 +1974,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.7) 0%, rgba(147, 51, 234, 0.7) 100%);
+            background: linear-gradient(135deg, rgba(0, 30, 60, 0.85) 0%, rgba(0, 60, 90, 0.8) 100%);
             z-index: 1;
         }
 
@@ -1961,6 +1986,83 @@
         .contact-form-banner:hover .contact-form-banner-inner {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Footer */
+        .site-footer {
+            background: linear-gradient(135deg, #0a0f1b 0%, #1a1f2e 100%);
+            color: white;
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .footer-logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3b82f6;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
         }
 
         /* Animations */
@@ -2846,41 +2948,64 @@
             <div class="company-grid">
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span><i class="fas fa-building"></i></span> 運営母体
+                        <span><i class="fas fa-building"></i></span> 運営
                     </h3>
                     <div class="company-card-content">
-                        <p>一般社団法人IFラボ</p>
-                        <p>AIとヒトの力を組み合わせ、企業の成長と効率化を支援</p>
+                        <p><strong>ゲタバコ倶楽部</strong></p>
+                        <p>代表：高崎 翔太</p>
                     </div>
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span><i class="fas fa-hand-fist"></i></span> 私たちの強み
+                        <span><i class="fas fa-map-marker-alt"></i></span> 所在地
                     </h3>
                     <div class="company-card-content">
-                        <p>・最新AI技術の実装力</p>
-                        <p>・業界別カスタマイズ提案</p>
-                        <p>・継続的なサポート体制</p>
+                        <p>〒010-0921</p>
+                        <p>秋田県秋田市大町1丁目2-7</p>
                     </div>
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span><i class="fas fa-rocket"></i></span> ビジネス展開
+                        <span><i class="fas fa-envelope"></i></span> お問い合わせ
                     </h3>
                     <div class="company-card-content">
-                        <p>全国対応のオンラインサービス</p>
-                        <p>100社以上の導入実績</p>
+                        <p>TEL: 080-4937-1121</p>
+                        <p>Email: info@if-juku.net</p>
                     </div>
                 </div>
                 <div class="company-card">
                     <h3 class="company-card-title">
-                        <span><i class="fas fa-wrench"></i></span> 活用テクノロジー
+                        <span><i class="fas fa-users"></i></span> 運営メンバー
                     </h3>
                     <div class="company-card-content">
-                        <p>OpenAI, Google Cloud, Microsoft Azure, Anthropic等</p>
-                        <p>最先端AIプラットフォームを活用</p>
+                        <p>塾頭：高崎 翔太</p>
+                        <p>塾長：山﨑 琢己</p>
+                        <p>CFO：加賀屋 結眞</p>
+                        <p>CTO：井上 陽斗</p>
                     </div>
                 </div>
+            </div>
+
+            <!-- if(塾)へのリンクバナー -->
+            <div class="ifjuku-banner-container" style="margin-top: 3rem; text-align: center;">
+                <a href="https://if-juku.net/" target="_blank" class="ifjuku-banner">
+                    <div style="background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.95) 100%);
+                                padding: 2rem 3rem;
+                                border-radius: 20px;
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 2rem;
+                                border: 2px solid rgba(0, 255, 204, 0.3);
+                                transition: all 0.3s ease;
+                                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+                        <img src="images/ifjukulogo.png" alt="if(塾)" style="height: 80px; width: auto;">
+                        <div style="text-align: left;">
+                            <p style="color: #00ffcc; font-size: 1.2rem; margin-bottom: 0.5rem;">学生向けサービスはこちら</p>
+                            <p style="color: white; font-size: 1.5rem; font-weight: bold;">if(塾) 公式サイト</p>
+                        </div>
+                        <i class="fas fa-external-link-alt" style="color: #00ffcc; font-size: 1.5rem;"></i>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
@@ -2924,6 +3049,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="if(Business)">
+                <span class="footer-logo-text">if(Business)</span>
+            </div>
+            <div class="footer-links">
+                <a href="privacy.html">個人情報保護方針</a>
+                <a href="commercial-law.html">特定商取引法に基づく表記</a>
+                <a href="terms.html">利用規約</a>
+                <a href="https://if-juku.net/" target="_blank">if(塾)</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 if(Business) - ゲタバコ倶楽部. All Rights Reserved.</p>
+        </div>
+    </footer>
 
     <!-- Success Message Modal -->
     <div class="success-message" id="successMessage">
