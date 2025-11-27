@@ -1487,7 +1487,14 @@
             perspective: 1200px;
             margin: 3rem auto;
             position: relative;
-            max-width: 900px;
+            max-width: 1100px;
+        }
+
+        .case-slider-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
         }
 
         .case-slider {
@@ -1496,12 +1503,36 @@
             align-items: center;
             justify-content: center;
             flex-wrap: wrap;
+            flex: 1;
+        }
+
+        /* 左右のナビボタン */
+        .case-slider-btn-side {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .case-slider-btn-side:hover {
+            background: rgba(59, 130, 246, 0.6);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
         }
 
         /* 3D回転シリンダー */
         .case-cylinder {
-            width: 320px;
-            height: 550px;
+            width: 380px;
+            height: 650px;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1540,8 +1571,8 @@
         /* テキストコンテンツ */
         .case-text-container {
             flex: 1;
-            min-width: 300px;
-            max-width: 500px;
+            min-width: 350px;
+            max-width: 550px;
             transform-style: preserve-3d;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -1566,7 +1597,7 @@
         }
 
         .case-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #60a5fa, #a78bfa);
@@ -1624,43 +1655,17 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
-        /* スライダーナビゲーション */
-        .case-slider-nav {
+        /* スライダードット（下部中央） */
+        .case-slider-dots {
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 2.5rem;
-            align-items: center;
-        }
-
-        .case-slider-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.3);
-            border: 2px solid rgba(59, 130, 246, 0.5);
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .case-slider-btn:hover {
-            background: rgba(59, 130, 246, 0.6);
-            transform: scale(1.1);
-        }
-
-        .case-slider-dots {
-            display: flex;
-            gap: 0.75rem;
+            margin-top: 2rem;
         }
 
         .case-slider-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.3);
             cursor: pointer;
@@ -1676,20 +1681,6 @@
             background: linear-gradient(135deg, #3b82f6, #a855f7);
             transform: scale(1.3);
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-        }
-
-        /* スライダーインジケーター */
-        .case-indicator {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .case-indicator-current {
-            color: #60a5fa;
-            font-weight: 700;
-            font-size: 1.1rem;
         }
 
         /* FAQ Section */
@@ -2132,14 +2123,40 @@
                 margin: 2rem auto;
             }
 
+            .case-slider-wrapper {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .case-slider-btn-side {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 10;
+            }
+
+            .case-slider-btn-side.prev {
+                left: 0.5rem;
+            }
+
+            .case-slider-btn-side.next {
+                right: 0.5rem;
+            }
+
             .case-slider {
                 flex-direction: column;
                 gap: 2rem;
+                position: relative;
             }
 
             .case-cylinder {
-                width: 280px;
-                height: 480px;
+                width: 85%;
+                max-width: 320px;
+                height: auto;
+                aspect-ratio: 9/16;
             }
 
             .case-text-container {
@@ -2151,7 +2168,7 @@
             }
 
             .case-title {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 margin-bottom: 1rem;
             }
 
@@ -2167,10 +2184,13 @@
                 font-size: 0.85rem;
             }
 
-            .case-slider-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+            .case-slider-dots {
+                margin-top: 1.5rem;
+            }
+
+            .case-slider-dot {
+                width: 12px;
+                height: 12px;
             }
 
             .hero-title {
@@ -2631,53 +2651,53 @@
             </div>
 
             <div class="case-slider-container">
-                <div class="case-indicator">
-                    <span class="case-indicator-current" id="caseIndicator">1</span> / 3
-                </div>
+                <div class="case-slider-wrapper">
+                    <!-- 左ボタン -->
+                    <button class="case-slider-btn-side prev" onclick="prevCase()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
 
-                <div class="case-slider">
-                    <!-- 3コマ漫画（縦長） -->
-                    <div class="case-cylinder" id="caseCylinder">
-                        <div class="case-comic">
-                            <img src="images/comic5.png" alt="AIパーソナル顧問プラン 導入事例" id="caseComicImg">
+                    <div class="case-slider">
+                        <!-- 3コマ漫画（縦長） -->
+                        <div class="case-cylinder" id="caseCylinder">
+                            <div class="case-comic">
+                                <img src="images/comic5.png" alt="AIパーソナル顧問プラン 導入事例" id="caseComicImg">
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- テキストコンテンツ -->
-                    <div class="case-text-container" id="caseTextContainer">
-                        <div class="case-text-card">
-                            <h3 class="case-title" id="caseTitle">AIパーソナル顧問プラン</h3>
-                            <div class="case-phase-vertical">
-                                <div class="case-phase-item before">
-                                    <div class="case-phase-label">Before</div>
-                                    <div class="case-phase-text" id="caseBefore">AIを導入したいけど、誰に相談すればいいか分からない。最新情報を追うのも大変...</div>
-                                </div>
-                                <div class="case-phase-item tool">
-                                    <div class="case-phase-label">Tool</div>
-                                    <div class="case-phase-text" id="caseTool">チャットとMTGで伴走支援。最新情報も自分で調べなくて大丈夫！事業に最適なAIをご提案します。</div>
-                                </div>
-                                <div class="case-phase-item after">
-                                    <div class="case-phase-label">After</div>
-                                    <div class="case-phase-text" id="caseAfter">すぐ解決！判断スピードUP！迷わないAI経営へ。</div>
+                        <!-- テキストコンテンツ -->
+                        <div class="case-text-container" id="caseTextContainer">
+                            <div class="case-text-card">
+                                <h3 class="case-title" id="caseTitle">AIパーソナル顧問プラン</h3>
+                                <div class="case-phase-vertical">
+                                    <div class="case-phase-item before">
+                                        <div class="case-phase-label">Before</div>
+                                        <div class="case-phase-text" id="caseBefore">AIを導入したいけど、誰に相談すればいいか分からない。最新情報を追うのも大変...</div>
+                                    </div>
+                                    <div class="case-phase-item tool">
+                                        <div class="case-phase-label">Tool</div>
+                                        <div class="case-phase-text" id="caseTool">チャットとMTGで伴走支援。最新情報も自分で調べなくて大丈夫！事業に最適なAIをご提案します。</div>
+                                    </div>
+                                    <div class="case-phase-item after">
+                                        <div class="case-phase-label">After</div>
+                                        <div class="case-phase-text" id="caseAfter">すぐ解決！判断スピードUP！迷わないAI経営へ。</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- スライダーナビゲーション -->
-                <div class="case-slider-nav">
-                    <button class="case-slider-btn" onclick="prevCase()">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="case-slider-dots">
-                        <button class="case-slider-dot active" onclick="goToCase(0)"></button>
-                        <button class="case-slider-dot" onclick="goToCase(1)"></button>
-                        <button class="case-slider-dot" onclick="goToCase(2)"></button>
-                    </div>
-                    <button class="case-slider-btn" onclick="nextCase()">
+                    <!-- 右ボタン -->
+                    <button class="case-slider-btn-side next" onclick="nextCase()">
                         <i class="fas fa-chevron-right"></i>
                     </button>
+                </div>
+
+                <!-- ドットインジケーター -->
+                <div class="case-slider-dots">
+                    <button class="case-slider-dot active" onclick="goToCase(0)"></button>
+                    <button class="case-slider-dot" onclick="goToCase(1)"></button>
+                    <button class="case-slider-dot" onclick="goToCase(2)"></button>
                 </div>
             </div>
         </div>
@@ -3217,7 +3237,6 @@
             const before = document.getElementById('caseBefore');
             const tool = document.getElementById('caseTool');
             const after = document.getElementById('caseAfter');
-            const indicator = document.getElementById('caseIndicator');
             const dots = document.querySelectorAll('.case-slider-dot');
 
             // アニメーション開始
@@ -3233,7 +3252,6 @@
                 before.textContent = caseData.before;
                 tool.textContent = caseData.tool;
                 after.textContent = caseData.after;
-                indicator.textContent = index + 1;
 
                 // ドットの更新
                 dots.forEach((dot, i) => {
