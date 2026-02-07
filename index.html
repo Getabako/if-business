@@ -2383,7 +2383,7 @@
             /* SP時のプランセクション順序制御 */
             .ai-advisor-section .two-column-layout,
             .ai-training-section .two-column-layout,
-            .ai-development-section .two-column-layout,
+            .ai-marketing-section .two-column-layout,
             .ai-courses-section .two-column-layout {
                 display: flex;
                 flex-direction: column;
@@ -2391,14 +2391,14 @@
 
             .ai-advisor-section .two-column-layout .image-column,
             .ai-training-section .two-column-layout .image-column,
-            .ai-development-section .two-column-layout .image-column,
+            .ai-marketing-section .two-column-layout .image-column,
             .ai-courses-section .two-column-layout .image-column {
                 order: 1;
             }
 
             .ai-advisor-section .two-column-layout .content-column,
             .ai-training-section .two-column-layout .content-column,
-            .ai-development-section .two-column-layout .content-column,
+            .ai-marketing-section .two-column-layout .content-column,
             .ai-courses-section .two-column-layout .content-column {
                 order: 2;
             }
@@ -2406,7 +2406,7 @@
             /* SP時のセクション最適化 */
             .ai-advisor-section,
             .ai-training-section,
-            .ai-development-section,
+            .ai-marketing-section,
             .ai-courses-section {
                 min-height: auto;
                 padding: 3rem 1rem;
@@ -2414,14 +2414,14 @@
 
             .ai-advisor-section .section-header,
             .ai-training-section .section-header,
-            .ai-development-section .section-header,
+            .ai-marketing-section .section-header,
             .ai-courses-section .section-header {
                 margin-bottom: 2rem;
             }
 
             .ai-advisor-section .section-title,
             .ai-training-section .section-title,
-            .ai-development-section .section-title,
+            .ai-marketing-section .section-title,
             .ai-courses-section .section-title {
                 font-size: 1.5rem;
                 line-height: 1.4;
@@ -2429,7 +2429,7 @@
 
             .ai-advisor-section .section-subtitle,
             .ai-training-section .section-subtitle,
-            .ai-development-section .section-subtitle,
+            .ai-marketing-section .section-subtitle,
             .ai-courses-section .section-subtitle {
                 font-size: 0.9rem;
             }
@@ -2437,7 +2437,7 @@
             /* SP時の画像 */
             .ai-advisor-section .image-column img,
             .ai-training-section .image-column img,
-            .ai-development-section .image-column img,
+            .ai-marketing-section .image-column img,
             .ai-courses-section .image-column img {
                 border-radius: 15px;
                 margin-bottom: 1.5rem;
@@ -2453,14 +2453,14 @@
             /* SP時のfeature-list */
             .ai-advisor-section .feature-list,
             .ai-training-section .feature-list,
-            .ai-development-section .feature-list,
+            .ai-marketing-section .feature-list,
             .ai-courses-section .feature-list {
                 margin: 1rem 0;
             }
 
             .ai-advisor-section .feature-item,
             .ai-training-section .feature-item,
-            .ai-development-section .feature-item,
+            .ai-marketing-section .feature-item,
             .ai-courses-section .feature-item {
                 padding: 0.75rem 1rem;
                 margin-bottom: 0.5rem;
@@ -2470,7 +2470,7 @@
 
             .ai-advisor-section .feature-icon,
             .ai-training-section .feature-icon,
-            .ai-development-section .feature-icon,
+            .ai-marketing-section .feature-icon,
             .ai-courses-section .feature-icon {
                 font-size: 0.9rem;
                 width: 20px;
@@ -2487,14 +2487,14 @@
 
             .ai-advisor-section .price-tag,
             .ai-training-section .price-tag,
-            .ai-development-section .price-tag,
+            .ai-marketing-section .price-tag,
             .ai-courses-section .price-tag {
                 font-size: 1.5rem;
             }
 
             .ai-advisor-section .cta-button,
             .ai-training-section .cta-button,
-            .ai-development-section .cta-button,
+            .ai-marketing-section .cta-button,
             .ai-courses-section .cta-button {
                 width: 100%;
                 text-align: center;
@@ -2631,6 +2631,525 @@
             }
         }
 
+        /* AI Marketing Section - Cyan/Teal Theme */
+        .ai-marketing-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a1628 0%, #0c2d48 50%, #0e3d5e 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-marketing-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .ai-marketing-section .data-streams {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .ai-marketing-section .data-stream {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(6, 182, 212, 0.6), transparent);
+            animation: dataStreamFlow 6s infinite linear;
+        }
+
+        .ai-marketing-section .data-stream:nth-child(1) { left: 10%; height: 100px; animation-delay: 0s; }
+        .ai-marketing-section .data-stream:nth-child(2) { left: 25%; height: 80px; animation-delay: 1s; }
+        .ai-marketing-section .data-stream:nth-child(3) { left: 40%; height: 120px; animation-delay: 2s; }
+        .ai-marketing-section .data-stream:nth-child(4) { left: 55%; height: 90px; animation-delay: 0.5s; }
+        .ai-marketing-section .data-stream:nth-child(5) { left: 70%; height: 110px; animation-delay: 1.5s; }
+        .ai-marketing-section .data-stream:nth-child(6) { left: 85%; height: 70px; animation-delay: 2.5s; }
+        .ai-marketing-section .data-stream:nth-child(7) { left: 95%; height: 95px; animation-delay: 3s; }
+
+        @keyframes dataStreamFlow {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .ai-marketing-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-marketing-section .section-title {
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(6, 182, 212, 0.8),
+                0 0 40px rgba(6, 182, 212, 0.5);
+        }
+
+        .ai-marketing-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ai-marketing-section .feature-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .ai-marketing-section .feature-item:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(6, 182, 212, 0.5);
+        }
+
+        .ai-marketing-section .feature-icon {
+            color: #22d3ee;
+        }
+
+        .ai-marketing-section .price-tag {
+            color: #67e8f9;
+        }
+
+        .ai-marketing-section .cta-button {
+            background: linear-gradient(135deg, #0891b2 0%, #3b82f6 100%);
+        }
+
+        .ai-marketing-section .cta-button:hover {
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
+        }
+
+        .ai-marketing-section .image-column img {
+            border: 3px solid rgba(6, 182, 212, 0.4);
+            box-shadow: 0 20px 40px rgba(8, 145, 178, 0.3);
+        }
+
+        .marketing-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .marketing-pillar {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .marketing-pillar:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .marketing-pillar-icon {
+            font-size: 2.5rem;
+            color: #22d3ee;
+            margin-bottom: 1rem;
+        }
+
+        .marketing-pillar h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: #e0f2fe;
+        }
+
+        .marketing-pillar p {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+        }
+
+        .marketing-strength {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .marketing-strength-icon {
+            font-size: 2rem;
+            color: #22d3ee;
+            flex-shrink: 0;
+        }
+
+        .marketing-strength-text h4 {
+            font-size: 1.1rem;
+            color: #e0f2fe;
+            margin-bottom: 0.5rem;
+        }
+
+        .marketing-strength-text p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Grant Information Section */
+        .grant-section {
+            min-height: auto;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a5f 100%);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grant-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .grant-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .grant-section .section-title {
+            color: #ffffff;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(59, 130, 246, 0.4);
+            animation: none;
+        }
+
+        .grant-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .grant-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .grant-intro {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .grant-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .grant-detail-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .grant-detail-card h4 {
+            font-size: 1.1rem;
+            color: #93c5fd;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grant-detail-card h4 i {
+            color: #60a5fa;
+        }
+
+        .grant-detail-card p, .grant-detail-card li {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .grant-detail-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .grant-detail-card ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: #60a5fa;
+            margin-right: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .grant-flow {
+            margin-bottom: 3rem;
+        }
+
+        .grant-flow h3 {
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #e2e8f0;
+        }
+
+        .grant-flow-steps {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .grant-flow-step {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+        }
+
+        .grant-flow-step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .grant-flow-step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #e2e8f0;
+        }
+
+        .grant-flow-step p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .grant-flow-arrow {
+            font-size: 1.5rem;
+            color: #60a5fa;
+            flex-shrink: 0;
+        }
+
+        .grant-support {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .grant-support p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .grant-support .cta-button {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+        }
+
+        /* Academy Section Enhancements */
+        .academy-community {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .academy-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .academy-card h4 {
+            font-size: 1.2rem;
+            color: #fde047;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .academy-card p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .academy-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .academy-card ul li {
+            color: rgba(255, 255, 255, 0.85);
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+
+        .academy-card ul li i {
+            color: #fbbf24;
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .course-lineup {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .course-lineup-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .course-lineup-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(250, 204, 21, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .course-lineup-item h5 {
+            font-size: 1rem;
+            color: #fde047;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-lineup-item p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Case Study Category Tags */
+        .case-category-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+        }
+
+        .case-category-tag.advisor { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .case-category-tag.training { background: rgba(20, 184, 166, 0.2); color: #2dd4bf; border: 1px solid rgba(20, 184, 166, 0.3); }
+        .case-category-tag.development { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .case-category-tag.marketing { background: rgba(6, 182, 212, 0.2); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+        .grant-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .grant-note a {
+            color: #5eead4;
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(94, 234, 212, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .grant-note a:hover {
+            color: #2dd4bf;
+            border-bottom-color: #2dd4bf;
+        }
+
+        /* Responsive additions */
+        @media (max-width: 768px) {
+            .marketing-pillars {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .marketing-strength {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .grant-details {
+                grid-template-columns: 1fr;
+            }
+
+            .grant-flow-steps {
+                flex-direction: column;
+            }
+
+            .grant-flow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .academy-community {
+                grid-template-columns: 1fr;
+            }
+
+            .course-lineup {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-marketing-section {
+                min-height: auto;
+                padding: 3rem 1rem;
+            }
+
+            .ai-marketing-section .section-title {
+                font-size: 1.5rem;
+                line-height: 1.4;
+            }
+
+            .ai-marketing-section .section-subtitle {
+                font-size: 0.9rem;
+            }
+        }
+
         /* Success Message */
         .success-message {
             position: fixed;
@@ -2670,8 +3189,9 @@
             <li><a href="#ai-diagnosis">AIプラン診断</a></li>
             <li><a href="#ai-advisor">AIパーソナル顧問</a></li>
             <li><a href="#ai-training">AI人材育成</a></li>
-            <li><a href="#development">AI開発支援</a></li>
+            <li><a href="#ai-marketing">AIマーケティング</a></li>
             <li><a href="#courses">AI講座</a></li>
+            <li><a href="#grant">助成金のご案内</a></li>
             <li><a href="#implementation">AI導入事例</a></li>
             <li><a href="#faq">よくあるご質問</a></li>
             <li><a href="#company">会社情報</a></li>
@@ -2931,6 +3451,7 @@
                             <span>業務に即した実践的なAI活用法を習得</span>
                         </li>
                     </ul>
+                    <p class="grant-note">※人材開発支援助成金の対象となる場合があります（<a href="#grant">詳細はこちら</a>）</p>
                 </div>
             </div>
             <!-- 漫画セクション -->
@@ -2940,141 +3461,230 @@
         </div>
     </section>
 
-    <!-- AI Development Section -->
-    <section id="development" class="ai-development-section">
-        <!-- デジタル回路パターン -->
-        <div class="circuit-lines">
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
+    <!-- AI Marketing Section -->
+    <section id="ai-marketing" class="ai-marketing-section">
+        <!-- データストリームアニメーション -->
+        <div class="data-streams">
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
         </div>
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">AI開発支援プラン</h2>
-                <p class="section-subtitle">従来のICT開発にAIの要素を加えたシステム開発</p>
+                <h2 class="section-title">AIマーケティングプラン</h2>
+                <p class="section-subtitle">戦略策定から実装まで一気通貫のワンストップ・ソリューション</p>
             </div>
-            <div class="two-column-layout">
-                <div class="content-column">
-                    <p style="margin-bottom: 2rem; line-height: 1.8; color: white;">
-                        ホームページやアプリケーションの開発にAIの要素を加えた、事業に最適化されたシステム開発を提供。SNS投稿、動画作成、資料作成など、全てを瞬時に作る自動化システムの開発を実現します。
-                    </p>
-                    <ul class="feature-list">
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-globe"></i></span>
-                            <span>Web・アプリ開発+AI統合</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-robot"></i></span>
-                            <span>自動化システムの構築(SNS投稿・動画・資料作成)</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-bullseye"></i></span>
-                            <span>事業に最適化されたカスタムAIソリューション</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-clipboard-list"></i></span>
-                            <span>月次相談で最優先課題を決定</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-rocket"></i></span>
-                            <span>即応アジャイル開発で実装・運用</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-chart-bar"></i></span>
-                            <span>月次レビューで成果を可視化＆次アクションを策定</span>
-                        </li>
-                    </ul>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; line-height: 1.8; color: rgba(255,255,255,0.85);">
+                マーケティング戦略の策定から、必要なツールの開発・実装までを一手に引き受けます。「コンサルだけで終わらない」「作って終わりにしない」。戦略と技術の両輪で、貴社のマーケティングを加速させます。
+            </p>
+
+            <!-- 3つの柱 -->
+            <div class="marketing-pillars">
+                <div class="marketing-pillar">
+                    <div class="marketing-pillar-icon"><i class="fas fa-chess-queen"></i></div>
+                    <h4>戦略策定</h4>
+                    <p>SNS運用戦略の設計、Webサイト・LPの導線設計、ターゲット分析に基づく最適なマーケティング施策をご提案します。</p>
                 </div>
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/3.png" alt="AI Development">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag">¥110,000/月〜</div>
-                    </div>
+                <div class="marketing-pillar">
+                    <div class="marketing-pillar-icon"><i class="fas fa-code"></i></div>
+                    <h4>開発・実装</h4>
+                    <p>戦略に基づき、必要となるツールの開発やLINEミニアプリの開発・実装まで、ワンストップで対応します。</p>
+                </div>
+                <div class="marketing-pillar">
+                    <div class="marketing-pillar-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>運用・改善</h4>
+                    <p>データに基づくPDCAサイクルを回し、継続的な改善を実施。成果を可視化しながら最適化を進めます。</p>
                 </div>
             </div>
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic3.png" alt="AI開発支援プラン 活用イメージ">
+
+            <ul class="feature-list" style="max-width: 800px; margin: 0 auto;">
+                <li class="feature-item" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(6,182,212,0.3); backdrop-filter: blur(10px); color: white;">
+                    <span class="feature-icon" style="color: #22d3ee;"><i class="fas fa-bullhorn"></i></span>
+                    <span>SNS運用戦略・コンテンツ企画</span>
+                </li>
+                <li class="feature-item" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(6,182,212,0.3); backdrop-filter: blur(10px); color: white;">
+                    <span class="feature-icon" style="color: #22d3ee;"><i class="fas fa-laptop-code"></i></span>
+                    <span>Webサイト・LP制作＆導線設計</span>
+                </li>
+                <li class="feature-item" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(6,182,212,0.3); backdrop-filter: blur(10px); color: white;">
+                    <span class="feature-icon" style="color: #22d3ee;"><i class="fab fa-line"></i></span>
+                    <span>LINEミニアプリ開発・実装</span>
+                </li>
+                <li class="feature-item" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(6,182,212,0.3); backdrop-filter: blur(10px); color: white;">
+                    <span class="feature-icon" style="color: #22d3ee;"><i class="fas fa-tools"></i></span>
+                    <span>マーケティングツール・自動化システムの開発</span>
+                </li>
+                <li class="feature-item" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(6,182,212,0.3); backdrop-filter: blur(10px); color: white;">
+                    <span class="feature-icon" style="color: #22d3ee;"><i class="fas fa-chart-bar"></i></span>
+                    <span>データ分析に基づくPDCA運用サポート</span>
+                </li>
+            </ul>
+
+            <!-- 強み -->
+            <div class="marketing-strength">
+                <div class="marketing-strength-icon"><i class="fas fa-rocket"></i></div>
+                <div class="marketing-strength-text">
+                    <h4>「作れるマーケター」 - コンサルと開発の両方ができる強み</h4>
+                    <p>一般的なコンサルティング会社は「戦略提案」まで。開発会社は「言われた通りに作る」だけ。if(Business)はマーケティング戦略と技術的な開発力の両方を持ち合わせているため、構想から実装、運用改善までシームレスに対応できます。</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <span class="price-tag" style="color: #67e8f9;">お見積りはご相談ください</span>
+                <br><br>
+                <a href="#contact" class="cta-button" style="background: linear-gradient(135deg, #0891b2 0%, #3b82f6 100%);">詳細を問い合わせる</a>
             </div>
         </div>
     </section>
 
-    <!-- AI Courses Section -->
+    <!-- AI Courses & Academy Section -->
     <section id="courses" class="ai-courses-section">
         <!-- 星のアニメーション -->
-        <div class="star star-1"></div>
-        <div class="star star-2"></div>
-        <div class="star star-3"></div>
-        <div class="star star-4"></div>
-        <div class="star star-5"></div>
-        <div class="star star-6"></div>
-        <div class="star star-7"></div>
-        <div class="star star-8"></div>
+        <div class="shining-stars">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">AI講座プログラム</h2>
-                <p class="section-subtitle">動画見放題で実践的なAIスキルを習得</p>
+                <h2 class="section-title">AI講座 & コミュニティ</h2>
+                <p class="section-subtitle">「学ぶ」「繋がる」場で、実践的なAIスキルを習得</p>
             </div>
-            <div class="two-column-layout">
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/16.png" alt="AI講座プログラム">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag">¥11,000/月</div>
-                    </div>
+
+            <!-- コミュニティ & 講座概要 -->
+            <div class="academy-community">
+                <div class="academy-card">
+                    <h4><i class="fas fa-users"></i> コミュニティ活動</h4>
+                    <ul>
+                        <li><i class="fas fa-flask"></i> GPTs研究会への所属・活動実績</li>
+                        <li><i class="fas fa-broadcast-tower"></i> 定期LIVE配信で最新AI情報をキャッチアップ</li>
+                        <li><i class="fas fa-comments"></i> メンバー同士の情報交換・相互サポート</li>
+                        <li><i class="fas fa-trophy"></i> 実践事例の共有と学び合い</li>
+                    </ul>
                 </div>
-                <div class="content-column">
-                    <p style="margin-bottom: 2rem; line-height: 1.8;">
-                        豊富なAI講座動画を見放題で学習できるプラン。自分のペースで学びたい方に最適です。動画を見て不明点があればいつでも質問可能。実践的なスキルを身につけましょう。
-                    </p>
-                    <ul class="feature-list">
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-image"></i></span>
-                            <span>画像生成・バナー作成</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-search"></i></span>
-                            <span>リサーチ・レポート作成</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-table"></i></span>
-                            <span>スプレッドシート作成・データ分析</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-code"></i></span>
-                            <span>コーディング・ホームページ作成</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-file-powerpoint"></i></span>
-                            <span>スライド・プレゼン資料作成</span>
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon"><i class="fas fa-question-circle"></i></span>
-                            <span>動画視聴後の質問対応付き</span>
-                        </li>
+                <div class="academy-card">
+                    <h4><i class="fas fa-graduation-cap"></i> 講座の特徴</h4>
+                    <ul>
+                        <li><i class="fas fa-play-circle"></i> 動画見放題で自分のペースで学習</li>
+                        <li><i class="fas fa-chalkboard-teacher"></i> 実務直結のカリキュラム設計</li>
+                        <li><i class="fas fa-question-circle"></i> 不明点はいつでも質問可能</li>
+                        <li><i class="fas fa-certificate"></i> 初心者から上級者まで段階的に習得</li>
                     </ul>
                 </div>
             </div>
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic4.png" alt="AI講座プログラム 活用イメージ">
+
+            <!-- 講座ラインナップ -->
+            <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
+            <div class="course-lineup">
+                <div class="course-lineup-item">
+                    <h5><i class="fas fa-seedling"></i> 初学者向けAI体験講座</h5>
+                    <p>AIとは何かを体験しながら学ぶ入門講座。ChatGPTやGeminiの基本操作から始めます。</p>
+                </div>
+                <div class="course-lineup-item">
+                    <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
+                    <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                </div>
+                <div class="course-lineup-item">
+                    <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
+                    <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
+                </div>
+                <div class="course-lineup-item">
+                    <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
+                    <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
+                </div>
+                <div class="course-lineup-item">
+                    <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
+                    <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                </div>
             </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <span class="price-tag" style="color: #fde047;">¥11,000/月〜</span>
+                <br><br>
+                <a href="#contact" class="cta-button" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">講座の詳細を問い合わせる</a>
+            </div>
+
+            <p class="grant-note" style="text-align: center; margin-top: 1.5rem; color: rgba(255,255,255,0.5);">※一部講座は人材開発支援助成金の対象となる場合があります（<a href="#grant" style="color: #fbbf24; border-bottom-color: rgba(251,191,36,0.5);">詳細はこちら</a>）</p>
         </div>
     </section>
 
+
+    <!-- Grant Information Section -->
+    <section id="grant" class="grant-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">人材開発支援助成金の活用について</h2>
+                <p class="section-subtitle">研修・導入コストの支援制度</p>
+            </div>
+
+            <div class="grant-content">
+                <!-- 導入文 -->
+                <div class="grant-intro">
+                    <p>if(Business)のAI人材育成プラン等は、厚生労働省の<strong>「人材開発支援助成金（事業展開等リスキリング支援コース）」</strong>の要件に対応したカリキュラム設計が可能です。</p>
+                    <p style="margin-top: 1rem;">制度を活用することで、貴社のコスト負担を軽減しながら、質の高いリスキリングを実施できます。DX推進に向けた人材投資を、国の支援制度を賢く活用して実現しましょう。</p>
+                </div>
+
+                <!-- 詳細カード -->
+                <div class="grant-details">
+                    <div class="grant-detail-card">
+                        <h4><i class="fas fa-user-check"></i> 対象</h4>
+                        <p>中小企業の事業展開・DX化に伴う研修が主な対象です。新たな分野への進出や、デジタル技術を活用した業務改善を目指す企業の人材育成を支援します。</p>
+                    </div>
+                    <div class="grant-detail-card">
+                        <h4><i class="fas fa-hand-holding-usd"></i> メリット</h4>
+                        <ul>
+                            <li>経費助成（最大75%）で研修コストを大幅削減</li>
+                            <li>賃金助成で研修期間中の人件費もカバー</li>
+                            <li>質の高いリスキリングを低コストで実現</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 申請フロー -->
+                <div class="grant-flow">
+                    <h3><i class="fas fa-route" style="margin-right: 0.5rem; color: #60a5fa;"></i>申請の流れ（3ステップ）</h3>
+                    <div class="grant-flow-steps">
+                        <div class="grant-flow-step">
+                            <div class="grant-flow-step-number">1</div>
+                            <h4>計画届の提出</h4>
+                            <p>研修計画を策定し、管轄の労働局へ計画届を提出します。</p>
+                        </div>
+                        <div class="grant-flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                        <div class="grant-flow-step">
+                            <div class="grant-flow-step-number">2</div>
+                            <h4>研修の実施</h4>
+                            <p>計画に基づき、if(Business)のカリキュラムで研修を実施します。</p>
+                        </div>
+                        <div class="grant-flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                        <div class="grant-flow-step">
+                            <div class="grant-flow-step-number">3</div>
+                            <h4>支給申請</h4>
+                            <p>研修終了後、必要書類を揃えて支給申請を行います。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- サポート案内 -->
+                <div class="grant-support">
+                    <p><i class="fas fa-headset" style="color: #60a5fa; margin-right: 0.5rem;"></i>申請に必要なカリキュラム表の作成など、助成金の活用をサポートいたします。<br>まずはお気軽にご相談ください。</p>
+                    <a href="#contact" class="cta-button">助成金について相談する</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- AI Implementation Section - 3D Cylinder Slider -->
     <section id="implementation" class="implementation-section">
@@ -3104,6 +3714,7 @@
                         <!-- テキストコンテンツ -->
                         <div class="case-text-container" id="caseTextContainer">
                             <div class="case-text-card">
+                                <span class="case-category-tag advisor" id="caseCategoryTag">顧問</span>
                                 <h3 class="case-title" id="caseTitle">AIパーソナル顧問プラン</h3>
                                 <div class="case-phase-vertical">
                                     <div class="case-phase-item before">
@@ -3201,6 +3812,39 @@
                     <div class="faq-answer">
                         <div class="faq-answer-content">
                             基本的に最短1ヶ月からご契約いただけます。長期契約による割引もご用意しています。解約は1ヶ月前までにお申し出いただければ、違約金等は発生いたしません。まずはお試しいただき、効果を実感してから継続をご検討ください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(5)">
+                        <div class="faq-question-content">人材開発支援助成金の申請手続きは難しいですか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            手続き自体は「計画届の提出 → 研修実施 → 支給申請」の3ステップです。if(Business)では、申請に必要なカリキュラム表の作成など、書類準備のサポートも行っておりますので、初めての方でも安心してご利用いただけます。詳細はお気軽にお問い合わせください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(6)">
+                        <div class="faq-question-content">個人事業主でも助成金は使えますか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            人材開発支援助成金は、雇用保険の適用事業主が対象となります。従業員を雇用している個人事業主の方であれば対象となる可能性があります。具体的な要件については個別にご案内いたしますので、まずはご相談ください。
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(7)">
+                        <div class="faq-question-content">助成金を使った場合、研修内容に制約はありますか？</div>
+                        <div class="faq-arrow">▼</div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            助成金の要件に適合するカリキュラム設計が必要ですが、if(Business)ではそれに対応した研修プログラムをご用意しています。事業展開やDX化に関連する実践的な内容で、貴社のニーズに合わせたカスタマイズも可能です。助成金の活用と質の高い研修を両立させます。
                         </div>
                     </div>
                 </div>
@@ -3415,14 +4059,14 @@
             'ai-training': {
                 icon: '<i class="fas fa-user-graduate"></i>',
                 name: 'AI人材育成プラン',
-                description: '企業のメンバーが能動的にAIを活用できるよう育成します。カスタマイズ可能な研修プログラムで、社内のAI人材を育てます。',
+                description: '企業のメンバーが能動的にAIを活用できるよう育成します。カスタマイズ可能な研修プログラムで、社内のAI人材を育てます。助成金の活用も可能です。',
                 sectionId: 'ai-training'
             },
-            'development': {
-                icon: '<i class="fas fa-cogs"></i>',
-                name: 'AI開発支援プラン',
-                description: 'AIを組み込んだアプリ開発や業務の完全自動化を実現します。ICT開発とAIを統合したシステム開発をサポートします。',
-                sectionId: 'development'
+            'ai-marketing': {
+                icon: '<i class="fas fa-bullhorn"></i>',
+                name: 'AIマーケティングプラン',
+                description: 'マーケティング戦略の策定から、ツール開発・LINEミニアプリ実装まで一気通貫で対応。コンサルと開発の両方ができるワンストップ・ソリューションです。',
+                sectionId: 'ai-marketing'
             }
         };
 
@@ -3485,9 +4129,9 @@
             // 質問2: 立場
             // 質問3: 実現したいこと
 
-            // AI開発プラン: 開発が必要、または完全自動化を目指したい
+            // AIマーケティングプラン: 開発が必要、マーケ重視、または完全自動化を目指したい
             if (answers.question2 === 'developer' || answers.question3 === 'development' || answers.question3 === 'automation') {
-                return 'development';
+                return 'ai-marketing';
             }
 
             // 人材育成プラン: チーム/従業員向け、または社員育成を希望
@@ -3787,6 +4431,8 @@
             {
                 title: 'AIパーソナル顧問プラン',
                 image: 'images/comic5.png',
+                category: 'advisor',
+                categoryLabel: '顧問',
                 before: 'AIを導入したいけど、誰に相談すればいいか分からない。最新情報を追うのも大変...',
                 tool: 'チャットとMTGで伴走支援。最新情報も自分で調べなくて大丈夫！事業に最適なAIをご提案します。',
                 after: 'すぐ解決！判断スピードUP！迷わないAI経営へ。'
@@ -3794,13 +4440,17 @@
             {
                 title: 'AI人材育成プラン',
                 image: 'images/comic6.png',
+                category: 'training',
+                categoryLabel: '育成',
                 before: '社員にAIを使わせたいけど、教えられる人材が社内にいない。難しそう...',
                 tool: '丸投げください！社員全員をAI人材にします。実践的な研修と現場のスキルを底上げします。',
                 after: '社員が自主的にAIを活用！このプロンプトで業務がめっちゃ早くなりました！組織全体がAI活用集団へ！'
             },
             {
-                title: 'AI開発支援プラン',
+                title: 'AIマーケティングプラン',
                 image: 'images/comic7.png',
+                category: 'marketing',
+                categoryLabel: 'マーケティング',
                 before: '治療に専念したいのに、やらなきゃいけない事務作業が多すぎる。求人募集中なのに人が来ない...',
                 tool: 'リクルート自動化したインスタで！先生、予約自動化できます！',
                 after: 'AIで楽になった！インスタ見て来ました！業務効率化＆採用成功！'
@@ -3818,6 +4468,7 @@
             const textContainer = document.getElementById('caseTextContainer');
             const img = document.getElementById('caseComicImg');
             const title = document.getElementById('caseTitle');
+            const categoryTag = document.getElementById('caseCategoryTag');
             const before = document.getElementById('caseBefore');
             const tool = document.getElementById('caseTool');
             const after = document.getElementById('caseAfter');
@@ -3833,6 +4484,8 @@
                 img.src = caseData.image;
                 img.alt = caseData.title + ' 導入事例';
                 title.textContent = caseData.title;
+                categoryTag.textContent = caseData.categoryLabel;
+                categoryTag.className = 'case-category-tag ' + caseData.category;
                 before.textContent = caseData.before;
                 tool.textContent = caseData.tool;
                 after.textContent = caseData.after;
