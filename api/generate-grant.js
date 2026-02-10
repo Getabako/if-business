@@ -28,17 +28,19 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: "サーバー設定エラーが発生しました。" });
   }
 
-  const { company, issue, plan, course } = req.body || {};
+  const { companyName, businessOverview, challenges, futurePlan, course, employeeRole } = req.body || {};
 
   // Validation
-  if (!company || !issue || !plan || !course) {
+  if (!companyName || !businessOverview || !challenges || !futurePlan || !course || !employeeRole) {
     return res.status(400).json({ error: "すべての項目を入力してください。" });
   }
 
   if (
-    company.length > MAX_LENGTH ||
-    issue.length > MAX_LENGTH ||
-    plan.length > MAX_LENGTH
+    companyName.length > MAX_LENGTH ||
+    businessOverview.length > MAX_LENGTH ||
+    challenges.length > MAX_LENGTH ||
+    futurePlan.length > MAX_LENGTH ||
+    employeeRole.length > MAX_LENGTH
   ) {
     return res
       .status(400)
@@ -53,8 +55,9 @@ module.exports = async function handler(req, res) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const systemPrompt = `あなたは助成金申請書類の作成を支援する専門家である。
-以下のユーザー入力に基づき、「事業展開等実施計画書」のドラフトを作成せよ。
+    const systemPrompt = `あなたは、厚生労働省の「人材開発支援助成金（事業展開等リスキリング支援コース）」申請書類作成のプロフェッショナルです。
+
+以下のユーザー入力に基づき、様式第1-2号「事業展開等実施計画」のドラフトを作成してください。
 
 【出力ルール】
 - 文体は「だ・である」調の公的ビジネス文書とする
@@ -63,22 +66,28 @@ module.exports = async function handler(req, res) {
 - 以下のJSON形式で出力する（マークダウンやコードブロックは使わず、純粋なJSONのみ出力せよ）:
 
 {
-  "business_plan_summary": "事業計画の概要（300〜500文字程度）",
-  "training_necessity": "人材育成の必要性と具体的な訓練内容（300〜500文字程度）",
-  "expected_outcome": "期待される成果と数値目標（200〜400文字程度）"
+  "current_situation": "事業展開等を行う理由（300〜500文字程度）：現在の経営環境・課題を踏まえ、なぜ事業展開やDX推進が必要なのかを説得力ある文章で記述",
+  "business_plan": "事業展開等の内容（300〜500文字程度）：具体的にどのような事業展開・DX施策を実施するのか、その計画内容を詳細に記述",
+  "training_relevance": "訓練と事業展開の関連性（300〜500文字程度）：受講する訓練が事業展開等にどう直結するのか、訓練内容と事業計画の関連性を明確に記述"
 }`;
 
-    const userPrompt = `【会社名・事業概要】
-${company}
+    const userPrompt = `【会社名・代表者名】
+${companyName}
+
+【現在の主な事業内容】
+${businessOverview}
 
 【現在の課題】
-${issue}
+${challenges}
 
-【今後やりたいこと・DX計画】
-${plan}
+【今後の取り組み・DX計画】
+${futurePlan}
 
 【受講予定コース】
-${course}`;
+${course}
+
+【受講する従業員の職務内容】
+${employeeRole}`;
 
     const result = await model.generateContent({
       contents: [
@@ -113,9 +122,9 @@ ${course}`;
 
     // Validate response structure
     if (
-      !parsed.business_plan_summary ||
-      !parsed.training_necessity ||
-      !parsed.expected_outcome
+      !parsed.current_situation ||
+      !parsed.business_plan ||
+      !parsed.training_relevance
     ) {
       throw new Error("Incomplete AI response");
     }
