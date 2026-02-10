@@ -2312,7 +2312,7 @@
 
         .floating-line-btn:hover {
             transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(6, 199, 85, 0.6);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
         }
 
         .floating-line-btn i {
@@ -2332,8 +2332,8 @@
         }
 
         @keyframes floatingPulse {
-            0%, 100% { box-shadow: 0 4px 20px rgba(6, 199, 85, 0.5); }
-            50% { box-shadow: 0 4px 30px rgba(6, 199, 85, 0.8); }
+            0%, 100% { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 4px 30px rgba(59, 130, 246, 0.8); }
         }
 
         @media (max-width: 600px) {
@@ -4237,6 +4237,10 @@
             <li><a href="#faq">よくあるご質問</a></li>
             <li><a href="#company">会社情報</a></li>
             <li><a href="https://lin.ee/I4dbdzC" target="_blank" style="color: #06C755 !important;"><i class="fab fa-line"></i> LINE友だち登録</a></li>
+            <li style="display: flex; gap: 1rem; align-items: center; padding-top: 0.5rem;">
+                <a href="https://www.instagram.com/if_juku" target="_blank" style="color: #E4405F !important; font-size: 1.3rem;" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@if-juku" target="_blank" style="color: #FF0000 !important; font-size: 1.3rem;" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </li>
         </ul>
     </nav>
 
@@ -4251,7 +4255,7 @@
             <h1 class="hero-title">AIの導入、ぜんぶ丸投げでOK</h1>
             <p class="hero-subtitle">売上アップも業務効率化も、最新AIがまるっと解決。<br>研修費用は助成金で最大75%OFF。</p>
             <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-                <a href="https://lin.ee/I4dbdzC" target="_blank" class="hero-cta" style="background: linear-gradient(135deg, #06C755 0%, #04a647 100%);"><i class="fab fa-line"></i> LINE無料相談</a>
+                <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="hero-cta" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"><i class="fas fa-comments"></i> 無料オンライン相談</a>
                 <a href="#ai-diagnosis" class="hero-cta" style="background: transparent; border: 2px solid white;"><i class="fas fa-robot"></i> AIプラン診断</a>
             </div>
         </div>
@@ -4400,8 +4404,8 @@
                                 <button class="result-cta-btn-compact" onclick="scrollToPlan()">プランの詳細を見る</button>
                             </div>
                             <div class="result-buttons-compact" id="resultButtons" style="display: none;">
-                                <a href="https://lin.ee/I4dbdzC" target="_blank" class="result-line-btn-compact">
-                                    <i class="fab fa-line"></i> LINEで相談する（特典あり）
+                                <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="result-line-btn-compact" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+                                    <i class="fas fa-comments"></i> 無料オンライン相談
                                 </a>
                                 <button class="result-reset-btn-compact" onclick="resetDiagnostic()">もう一度診断をやり直す</button>
                             </div>
@@ -5210,46 +5214,58 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">お問い合わせ</h2>
-                <p class="section-subtitle">LINEで気軽にご相談ください</p>
+                <p class="section-subtitle">まずはお気軽にご相談ください</p>
             </div>
             <div class="contact-container">
-                <!-- LINE メインバナー -->
+                <!-- 無料オンライン相談 メインバナー -->
                 <div class="contact-form-section">
-                    <a href="https://lin.ee/I4dbdzC" target="_blank" style="display: block; text-decoration: none;">
-                        <div style="background: linear-gradient(135deg, #06C755 0%, #04a647 100%);
+                    <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" style="display: block; text-decoration: none;">
+                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
                                     padding: 3rem;
                                     border-radius: 20px;
                                     text-align: center;
                                     color: white;
-                                    box-shadow: 0 15px 40px rgba(6, 199, 85, 0.4);
+                                    box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
                                     transition: all 0.3s ease;">
-                            <i class="fab fa-line" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                            <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: bold;">LINE友だち登録</h3>
-                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.95;">今なら登録特典あり!</p>
+                            <i class="fas fa-comments" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                            <h3 style="font-size: 1.8rem; margin-bottom: 1rem; font-weight: bold;">無料オンライン相談</h3>
+                            <p style="font-size: 1.1rem; margin-bottom: 1.5rem; opacity: 0.95;">AI導入のお悩み、何でもご相談ください</p>
                             <div style="background: rgba(255, 255, 255, 0.2);
                                         padding: 1rem 1.5rem;
                                         border-radius: 15px;
                                         margin-bottom: 1.5rem;">
-                                <p style="font-size: 1.3rem; font-weight: bold;"><i class="fas fa-gift" style="margin-right: 0.5rem;"></i>無料AI体験ツールをプレゼント!</p>
-                                <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.5rem;">AIがあなたのビジネスを分析します</p>
+                                <p style="font-size: 1.3rem; font-weight: bold;"><i class="fas fa-video" style="margin-right: 0.5rem;"></i>オンラインで気軽に相談!</p>
+                                <p style="font-size: 0.9rem; opacity: 0.9; margin-top: 0.5rem;">助成金・プラン選びなど専門スタッフがご対応</p>
                             </div>
-                            <img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="44" border="0">
+                            <div style="display: inline-block; background: white; color: #1d4ed8; padding: 0.8rem 2.5rem; border-radius: 50px; font-weight: bold; font-size: 1.1rem;">
+                                <i class="fas fa-arrow-right" style="margin-right: 0.5rem;"></i>相談予約はこちら
+                            </div>
                         </div>
                     </a>
                 </div>
                 <!-- サブ情報 -->
                 <div class="contact-info-section">
                     <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
-                        <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-robot" style="color: #06C755; margin-right: 0.5rem;"></i>登録特典</h3>
-                        <p style="color: #6b7280; line-height: 1.6;">友だち登録で<strong style="color: #06C755;">無料AI体験ツール</strong>をお届け!<br>あなたのビジネスにAIがどう役立つか体験できます。</p>
-                    </div>
-                    <div style="background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
                         <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-clock" style="color: #3b82f6; margin-right: 0.5rem;"></i>対応時間</h3>
-                        <p style="color: #6b7280;">平日 9:00 - 18:00<br><span style="font-size: 0.85rem;">※LINEは24時間受付</span></p>
+                        <p style="color: #6b7280;">平日 9:00 - 18:00<br><span style="font-size: 0.85rem;">※フォームは24時間受付</span></p>
                     </div>
-                    <a href="https://forms.gle/R5Dktgyx44J3L7p77" target="_blank" style="display: block; text-decoration: none; background: rgba(255, 255, 255, 0.95); padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
-                        <h3 style="margin-bottom: 1rem; color: #374151;"><i class="fas fa-envelope" style="color: #3b82f6; margin-right: 0.5rem;"></i>フォームでのお問い合わせ</h3>
-                        <p style="color: #6b7280;">詳細なご相談はこちら →</p>
+                    <a href="https://lin.ee/I4dbdzC" target="_blank" style="display: block; text-decoration: none; background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fab fa-line" style="font-size: 2rem; color: #06C755;"></i>
+                            <div>
+                                <h3 style="margin-bottom: 0.3rem; color: #374151; font-size: 1rem;">LINE友だち登録</h3>
+                                <p style="color: #6b7280; font-size: 0.85rem;">登録で無料AI体験ツールをプレゼント!</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="https://forms.gle/R5Dktgyx44J3L7p77" target="_blank" style="display: block; text-decoration: none; background: rgba(255, 255, 255, 0.95); padding: 1.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.3s ease;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="fas fa-envelope" style="font-size: 1.5rem; color: #3b82f6;"></i>
+                            <div>
+                                <h3 style="margin-bottom: 0.3rem; color: #374151; font-size: 1rem;">フォームでのお問い合わせ</h3>
+                                <p style="color: #6b7280; font-size: 0.85rem;">詳細なご相談はこちら</p>
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -5269,18 +5285,23 @@
                 <a href="terms.html">利用規約</a>
                 <a href="https://if-juku.net/" target="_blank">if(塾)</a>
             </div>
+            <div style="display: flex; gap: 1.2rem; align-items: center;">
+                <a href="https://www.instagram.com/if_juku" target="_blank" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; transition: all 0.3s ease;" title="Instagram" onmouseover="this.style.color='#E4405F'" onmouseout="this.style.color='rgba(255,255,255,0.8)'"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@if-juku" target="_blank" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; transition: all 0.3s ease;" title="YouTube" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='rgba(255,255,255,0.8)'"><i class="fab fa-youtube"></i></a>
+                <a href="https://lin.ee/I4dbdzC" target="_blank" style="color: rgba(255,255,255,0.8); font-size: 1.5rem; transition: all 0.3s ease;" title="LINE" onmouseover="this.style.color='#06C755'" onmouseout="this.style.color='rgba(255,255,255,0.8)'"><i class="fab fa-line"></i></a>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 if(Business) - if(塾). All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Floating LINE Button -->
-    <a href="https://lin.ee/I4dbdzC" target="_blank" class="floating-line-btn">
-        <i class="fab fa-line"></i>
+    <!-- Floating CTA Button -->
+    <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="floating-line-btn" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);">
+        <i class="fas fa-comments"></i>
         <span class="btn-text">
-            <span>LINE相談</span>
-            <small>特典あり!</small>
+            <span>無料相談</span>
+            <small>オンラインで気軽に!</small>
         </span>
     </a>
 
