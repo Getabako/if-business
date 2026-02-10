@@ -2989,6 +2989,363 @@
             background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
         }
 
+        /* Grant Generator */
+        .grant-generator {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .grant-generator h3 {
+            font-size: 1.4rem;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .grant-generator .grant-gen-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .grant-gen-steps-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .grant-gen-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .grant-gen-dot.active {
+            background: #3b82f6;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+        }
+
+        .grant-gen-dot.completed {
+            background: #22c55e;
+        }
+
+        .grant-gen-step {
+            display: none;
+        }
+
+        .grant-gen-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .grant-gen-step label {
+            display: block;
+            color: #e2e8f0;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .grant-gen-step label .step-num {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            color: #fff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .grant-gen-step textarea,
+        .grant-gen-step select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .grant-gen-step textarea:focus,
+        .grant-gen-step select:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .grant-gen-step textarea {
+            min-height: 120px;
+        }
+
+        .grant-gen-step select {
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            cursor: pointer;
+        }
+
+        .grant-gen-step select option {
+            background: #1e293b;
+            color: #f1f5f9;
+        }
+
+        .grant-gen-step .char-count {
+            text-align: right;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 0.5rem;
+        }
+
+        .grant-gen-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            gap: 1rem;
+        }
+
+        .grant-gen-nav button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .grant-gen-btn-back {
+            background: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        .grant-gen-btn-back:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+        }
+
+        .grant-gen-btn-next {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            color: #fff;
+            margin-left: auto;
+        }
+
+        .grant-gen-btn-next:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .grant-gen-submit {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grant-gen-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .grant-gen-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .grant-gen-loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .grant-gen-loading.active {
+            display: block;
+        }
+
+        .grant-gen-loading .ai-brain-icon-compact {
+            font-size: 2.5rem;
+            color: #818cf8;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .grant-gen-loading .loading-text {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .grant-gen-result {
+            display: none;
+        }
+
+        .grant-gen-result.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .grant-gen-result-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .grant-gen-result-card h4 {
+            color: #818cf8;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grant-gen-result-card p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+        }
+
+        .grant-gen-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .grant-gen-copy-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grant-gen-copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .grant-gen-reset-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grant-gen-reset-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+        }
+
+        .grant-gen-disclaimer {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(250, 204, 21, 0.08);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .grant-gen-error {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .grant-gen-error.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .grant-gen-error .error-icon {
+            font-size: 2.5rem;
+            color: #f87171;
+            margin-bottom: 1rem;
+        }
+
+        .grant-gen-error .error-text {
+            color: #fca5a5;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .grant-gen-error .grant-gen-retry-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(248, 113, 113, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(248, 113, 113, 0.3);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grant-gen-error .grant-gen-retry-btn:hover {
+            background: rgba(248, 113, 113, 0.25);
+            color: #fff;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-6px); }
+            40% { transform: translateX(6px); }
+            60% { transform: translateX(-4px); }
+            80% { transform: translateX(4px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+
         /* Academy Section Enhancements */
         .academy-community {
             display: grid;
@@ -3126,6 +3483,34 @@
 
             .grant-flow-arrow {
                 transform: rotate(90deg);
+            }
+
+            .grant-generator {
+                padding: 1.5rem;
+            }
+
+            .grant-gen-nav {
+                flex-direction: column;
+            }
+
+            .grant-gen-nav button {
+                width: 100%;
+                text-align: center;
+            }
+
+            .grant-gen-btn-next {
+                margin-left: 0;
+            }
+
+            .grant-gen-actions {
+                flex-direction: column;
+            }
+
+            .grant-gen-copy-btn,
+            .grant-gen-reset-btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
             }
 
             .academy-community {
@@ -3655,6 +4040,114 @@
                             <h4>支給申請</h4>
                             <p>研修終了後、必要書類を揃えて支給申請を行います。</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- AI申請計画案ジェネレーター -->
+                <div class="grant-generator" id="grantGenerator">
+                    <h3><i class="fas fa-magic" style="margin-right: 0.5rem; color: #818cf8;"></i>AI申請計画案ジェネレーター</h3>
+                    <p class="grant-gen-subtitle">事業情報を入力するだけで、AIが「事業展開等実施計画書」のたたき台を自動作成します</p>
+
+                    <div class="grant-gen-steps-indicator">
+                        <div class="grant-gen-dot active" data-step="1"></div>
+                        <div class="grant-gen-dot" data-step="2"></div>
+                        <div class="grant-gen-dot" data-step="3"></div>
+                        <div class="grant-gen-dot" data-step="4"></div>
+                    </div>
+
+                    <!-- Step 1 -->
+                    <div class="grant-gen-step active" data-step="1">
+                        <label><span class="step-num">1</span>会社名・事業概要</label>
+                        <textarea id="grantCompany" placeholder="例：株式会社〇〇／従業員30名／製造業（精密部品加工）。創業20年で地域の中小企業向けに金属加工部品を製造・販売している。" maxlength="2000"></textarea>
+                        <div class="char-count"><span id="grantCompanyCount">0</span>/2000</div>
+                        <div class="grant-gen-nav">
+                            <div></div>
+                            <button class="grant-gen-btn-next" onclick="grantGenNext(1)">次へ <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="grant-gen-step" data-step="2">
+                        <label><span class="step-num">2</span>現在の課題</label>
+                        <textarea id="grantIssue" placeholder="例：受注管理や在庫管理がExcelベースで属人化しており、ミスやタイムロスが発生。デジタル化の必要性は感じているが、社内にIT人材がいない。" maxlength="2000"></textarea>
+                        <div class="char-count"><span id="grantIssueCount">0</span>/2000</div>
+                        <div class="grant-gen-nav">
+                            <button class="grant-gen-btn-back" onclick="grantGenBack(2)"><i class="fas fa-arrow-left"></i> 戻る</button>
+                            <button class="grant-gen-btn-next" onclick="grantGenNext(2)">次へ <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="grant-gen-step" data-step="3">
+                        <label><span class="step-num">3</span>今後やりたいこと・DX計画</label>
+                        <textarea id="grantPlan" placeholder="例：AIを活用した受注予測や在庫最適化を導入し、業務効率を30%改善したい。また、社員がAIツールを使いこなせるようになり、新規事業の企画にも活用したい。" maxlength="2000"></textarea>
+                        <div class="char-count"><span id="grantPlanCount">0</span>/2000</div>
+                        <div class="grant-gen-nav">
+                            <button class="grant-gen-btn-back" onclick="grantGenBack(3)"><i class="fas fa-arrow-left"></i> 戻る</button>
+                            <button class="grant-gen-btn-next" onclick="grantGenNext(3)">次へ <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="grant-gen-step" data-step="4">
+                        <label><span class="step-num">4</span>受講予定のコース</label>
+                        <select id="grantCourse">
+                            <option value="">コースを選択してください</option>
+                            <option value="AI人材育成プラン">AI人材育成プラン</option>
+                            <option value="AIマーケティングプラン">AIマーケティングプラン</option>
+                            <option value="AIアプリ開発講座">AIアプリ開発講座</option>
+                        </select>
+                        <div class="grant-gen-nav">
+                            <button class="grant-gen-btn-back" onclick="grantGenBack(4)"><i class="fas fa-arrow-left"></i> 戻る</button>
+                        </div>
+                        <button class="grant-gen-submit" id="grantGenSubmit" onclick="generateGrantPlan()">
+                            <i class="fas fa-robot" style="margin-right: 0.5rem;"></i>AIで申請計画案を作成する（無料）
+                        </button>
+                    </div>
+
+                    <!-- Loading -->
+                    <div class="grant-gen-loading" id="grantGenLoading">
+                        <div class="ai-brain-icon-compact"><i class="fas fa-brain"></i></div>
+                        <p class="loading-text" id="grantGenLoadingText">AIが申請計画案を作成中...</p>
+                        <div class="ai-progress-bar-compact">
+                            <div class="ai-progress-fill-compact" id="grantGenProgressFill"></div>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div class="grant-gen-result" id="grantGenResult">
+                        <div class="grant-gen-result-card">
+                            <h4><i class="fas fa-building"></i> 事業計画の概要</h4>
+                            <p id="grantResultSummary"></p>
+                        </div>
+                        <div class="grant-gen-result-card">
+                            <h4><i class="fas fa-graduation-cap"></i> 人材育成の必要性</h4>
+                            <p id="grantResultNecessity"></p>
+                        </div>
+                        <div class="grant-gen-result-card">
+                            <h4><i class="fas fa-chart-line"></i> 期待される成果</h4>
+                            <p id="grantResultOutcome"></p>
+                        </div>
+                        <div class="grant-gen-actions">
+                            <button class="grant-gen-copy-btn" onclick="copyGrantResult()">
+                                <i class="fas fa-copy"></i> すべてコピー
+                            </button>
+                            <button class="grant-gen-reset-btn" onclick="resetGrantGenerator()">
+                                <i class="fas fa-redo"></i> やり直す
+                            </button>
+                        </div>
+                        <div class="grant-gen-disclaimer">
+                            ※ これはAIが生成したたたき台です。実際の申請書類としてご利用になる際は、内容を十分にご確認のうえ、必要に応じて修正・加筆してください。正式な申請手続きについては、管轄の労働局にお問い合わせください。
+                        </div>
+                    </div>
+
+                    <!-- Error -->
+                    <div class="grant-gen-error" id="grantGenError">
+                        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <p class="error-text" id="grantGenErrorText"></p>
+                        <button class="grant-gen-retry-btn" onclick="resetGrantGenerator()">
+                            <i class="fas fa-redo" style="margin-right: 0.5rem;"></i>もう一度試す
+                        </button>
                     </div>
                 </div>
 
@@ -4561,6 +5054,198 @@
             section.style.transition = 'all 1s ease';
             observer.observe(section);
         });
+
+        // ===== Grant Generator =====
+        // Character counters
+        ['grantCompany', 'grantIssue', 'grantPlan'].forEach(id => {
+            const el = document.getElementById(id);
+            const counter = document.getElementById(id + 'Count');
+            if (el && counter) {
+                el.addEventListener('input', () => {
+                    counter.textContent = el.value.length;
+                });
+            }
+        });
+
+        function updateGrantStepIndicator(step) {
+            document.querySelectorAll('.grant-gen-dot').forEach(dot => {
+                const s = parseInt(dot.dataset.step);
+                dot.classList.remove('active', 'completed');
+                if (s === step) dot.classList.add('active');
+                else if (s < step) dot.classList.add('completed');
+            });
+        }
+
+        function shakeElement(el) {
+            el.classList.add('shake');
+            el.addEventListener('animationend', () => el.classList.remove('shake'), { once: true });
+        }
+
+        function grantGenNext(currentStep) {
+            // Validate current step
+            if (currentStep === 1) {
+                const v = document.getElementById('grantCompany').value.trim();
+                if (!v) { shakeElement(document.getElementById('grantCompany')); return; }
+            } else if (currentStep === 2) {
+                const v = document.getElementById('grantIssue').value.trim();
+                if (!v) { shakeElement(document.getElementById('grantIssue')); return; }
+            } else if (currentStep === 3) {
+                const v = document.getElementById('grantPlan').value.trim();
+                if (!v) { shakeElement(document.getElementById('grantPlan')); return; }
+            }
+
+            const nextStep = currentStep + 1;
+            document.querySelectorAll('.grant-gen-step').forEach(s => s.classList.remove('active'));
+            const nextEl = document.querySelector('.grant-gen-step[data-step="' + nextStep + '"]');
+            if (nextEl) nextEl.classList.add('active');
+            updateGrantStepIndicator(nextStep);
+        }
+
+        function grantGenBack(currentStep) {
+            const prevStep = currentStep - 1;
+            document.querySelectorAll('.grant-gen-step').forEach(s => s.classList.remove('active'));
+            const prevEl = document.querySelector('.grant-gen-step[data-step="' + prevStep + '"]');
+            if (prevEl) prevEl.classList.add('active');
+            updateGrantStepIndicator(prevStep);
+        }
+
+        async function generateGrantPlan() {
+            const company = document.getElementById('grantCompany').value.trim();
+            const issue = document.getElementById('grantIssue').value.trim();
+            const plan = document.getElementById('grantPlan').value.trim();
+            const course = document.getElementById('grantCourse').value;
+
+            // Validate
+            if (!company || !issue || !plan) {
+                alert('すべての項目を入力してください。');
+                return;
+            }
+            if (!course) {
+                shakeElement(document.getElementById('grantCourse'));
+                return;
+            }
+
+            // Hide form, show loading
+            document.querySelectorAll('.grant-gen-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('.grant-gen-steps-indicator').style.display = 'none';
+            document.getElementById('grantGenLoading').classList.add('active');
+            document.getElementById('grantGenResult').classList.remove('active');
+            document.getElementById('grantGenError').classList.remove('active');
+
+            // Animate progress
+            const progressFill = document.getElementById('grantGenProgressFill');
+            const loadingText = document.getElementById('grantGenLoadingText');
+            progressFill.style.width = '0%';
+
+            const messages = [
+                { pct: '20%', text: '入力内容を分析中...' },
+                { pct: '45%', text: '事業計画の構成を検討中...' },
+                { pct: '65%', text: '人材育成計画を策定中...' },
+                { pct: '85%', text: '期待成果を算出中...' },
+            ];
+
+            let msgIndex = 0;
+            const msgInterval = setInterval(() => {
+                if (msgIndex < messages.length) {
+                    progressFill.style.width = messages[msgIndex].pct;
+                    loadingText.textContent = messages[msgIndex].text;
+                    msgIndex++;
+                }
+            }, 1500);
+
+            try {
+                const res = await fetch('/api/generate-grant', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ company, issue, plan, course }),
+                });
+
+                clearInterval(msgInterval);
+
+                if (!res.ok) {
+                    const err = await res.json().catch(() => ({}));
+                    throw new Error(err.error || 'サーバーエラーが発生しました。');
+                }
+
+                const data = await res.json();
+
+                // Show result
+                progressFill.style.width = '100%';
+                loadingText.textContent = '完了しました！';
+
+                setTimeout(() => {
+                    document.getElementById('grantGenLoading').classList.remove('active');
+                    document.getElementById('grantResultSummary').textContent = data.business_plan_summary;
+                    document.getElementById('grantResultNecessity').textContent = data.training_necessity;
+                    document.getElementById('grantResultOutcome').textContent = data.expected_outcome;
+                    document.getElementById('grantGenResult').classList.add('active');
+                }, 500);
+
+            } catch (error) {
+                clearInterval(msgInterval);
+                document.getElementById('grantGenLoading').classList.remove('active');
+                document.getElementById('grantGenErrorText').textContent = error.message;
+                document.getElementById('grantGenError').classList.add('active');
+            }
+        }
+
+        function copyGrantResult() {
+            const summary = document.getElementById('grantResultSummary').textContent;
+            const necessity = document.getElementById('grantResultNecessity').textContent;
+            const outcome = document.getElementById('grantResultOutcome').textContent;
+
+            const text = '【事業計画の概要】\n' + summary + '\n\n【人材育成の必要性】\n' + necessity + '\n\n【期待される成果】\n' + outcome;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const btn = document.querySelector('.grant-gen-copy-btn');
+                    const orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> コピーしました';
+                    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+                });
+            } else {
+                // Fallback
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const btn = document.querySelector('.grant-gen-copy-btn');
+                const orig = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> コピーしました';
+                setTimeout(() => { btn.innerHTML = orig; }, 2000);
+            }
+        }
+
+        function resetGrantGenerator() {
+            // Reset form values
+            document.getElementById('grantCompany').value = '';
+            document.getElementById('grantIssue').value = '';
+            document.getElementById('grantPlan').value = '';
+            document.getElementById('grantCourse').value = '';
+            ['grantCompanyCount', 'grantIssueCount', 'grantPlanCount'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = '0';
+            });
+
+            // Reset UI state
+            document.getElementById('grantGenLoading').classList.remove('active');
+            document.getElementById('grantGenResult').classList.remove('active');
+            document.getElementById('grantGenError').classList.remove('active');
+            document.querySelector('.grant-gen-steps-indicator').style.display = 'flex';
+
+            // Show step 1
+            document.querySelectorAll('.grant-gen-step').forEach(s => s.classList.remove('active'));
+            document.querySelector('.grant-gen-step[data-step="1"]').classList.add('active');
+            updateGrantStepIndicator(1);
+
+            // Reset progress bar
+            document.getElementById('grantGenProgressFill').style.width = '0%';
+            document.getElementById('grantGenLoadingText').textContent = 'AIが申請計画案を作成中...';
+        }
     </script>
 </body>
 </html>
