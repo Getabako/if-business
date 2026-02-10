@@ -6673,10 +6673,9 @@
             var panels = document.querySelectorAll('.faq-panel');
             if (!avatar || !msgText || !panels.length) return;
 
-            var isSpeaking = false;
             var idleTimer = null;
             var speakTimer = null;
-            var allTimers = []; // Track ALL pending timeouts
+            var sessionId = 0; // Each typing session gets a unique ID
 
             var idleImages = ['images/qa2.png', 'images/qa3.png', 'images/qa4.png', 'images/qa5.png', 'images/qa6.png', 'images/qa7.png', 'images/qa8.png', 'images/qa9.png'];
             var talkImages = ['images/qa0.png', 'images/qa1.png'];
@@ -6691,27 +6690,11 @@
                 return idleImages[Math.floor(Math.random() * idleImages.length)];
             }
 
-            // Clear ALL pending timers
-            function clearAllTimers() {
-                for (var i = 0; i < allTimers.length; i++) {
-                    clearTimeout(allTimers[i]);
-                }
-                allTimers = [];
-            }
-
-            function addTimer(fn, delay) {
-                var id = setTimeout(fn, delay);
-                allTimers.push(id);
-                return id;
-            }
-
             // Idle animation: random qa2~qa9
             function startIdle() {
                 stopIdle();
                 idleTimer = setInterval(function() {
-                    if (!isSpeaking) {
-                        avatar.src = randomIdle();
-                    }
+                    avatar.src = randomIdle();
                 }, 600);
             }
 
@@ -6735,26 +6718,14 @@
                 if (speakTimer) { clearInterval(speakTimer); speakTimer = null; }
             }
 
-            // Force reset everything
-            function forceReset() {
-                clearAllTimers();
-                stopTalk();
-                stopIdle();
-                isSpeaking = false;
-                avatar.src = randomIdle();
-                msgPrompt.classList.remove('visible');
-                panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
-                startIdle();
-            }
-
-            // RPG text typing
+            // RPG text typing - uses sessionId to kill stale callbacks
             function typeText(text, callback) {
-                // Force stop any previous typing
-                clearAllTimers();
+                // Increment session to invalidate any old callbacks
+                sessionId++;
+                var mySession = sessionId;
+
                 stopTalk();
                 stopIdle();
-
-                isSpeaking = true;
                 startTalk();
                 msgText.innerHTML = '';
                 msgPrompt.classList.remove('visible');
@@ -6762,9 +6733,11 @@
                 var sentences = text.split('\n');
                 var sentenceIdx = 0;
 
+                function stale() { return mySession !== sessionId; }
+
                 function finishTyping() {
+                    if (stale()) return;
                     stopTalk();
-                    isSpeaking = false;
                     avatar.src = randomIdle();
                     startIdle();
                     msgPrompt.classList.add('visible');
@@ -6774,7 +6747,7 @@
                 }
 
                 function typeSentence() {
-                    if (!isSpeaking) return; // Cancelled
+                    if (stale()) return;
                     if (sentenceIdx >= sentences.length) {
                         finishTyping();
                         return;
@@ -6787,8 +6760,8 @@
                         msgText.appendChild(document.createElement('br'));
                         stopTalk();
                         avatar.src = randomIdle();
-                        addTimer(function() {
-                            if (!isSpeaking) return;
+                        setTimeout(function() {
+                            if (stale()) return;
                             startTalk();
                             typeChars();
                         }, 400);
@@ -6798,7 +6771,7 @@
                     typeChars();
 
                     function typeChars() {
-                        if (!isSpeaking) return; // Cancelled
+                        if (stale()) return;
 
                         var oldCursor = msgText.querySelector('.faq-cursor');
                         if (oldCursor) oldCursor.remove();
@@ -6809,10 +6782,10 @@
                             cursor.className = 'faq-cursor';
                             msgText.appendChild(cursor);
                             charIdx++;
-                            addTimer(typeChars, 45);
+                            setTimeout(typeChars, 45);
                         } else {
                             sentenceIdx++;
-                            addTimer(typeSentence, 300);
+                            setTimeout(typeSentence, 300);
                         }
                     }
                 }
@@ -6825,20 +6798,12 @@
                 panel.addEventListener('click', function() {
                     var idx = parseInt(this.getAttribute('data-faq'));
 
-                    // If currently speaking, force stop first
-                    if (isSpeaking) {
-                        clearAllTimers();
-                        stopTalk();
-                        stopIdle();
-                        isSpeaking = false;
-                    }
-
                     // Highlight active panel
                     panels.forEach(function(p) { p.classList.remove('active'); p.classList.add('disabled'); });
                     this.classList.add('active');
                     this.classList.remove('disabled');
 
-                    // Type answer
+                    // Type answer (old session auto-cancelled by sessionId increment)
                     typeText(faqAnswers[idx], function() {
                         panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
                     });
