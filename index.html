@@ -4243,59 +4243,99 @@
                 <!-- 質問画面 -->
                 <div id="diagnostic-questions" class="diagnostic-questions active">
                     <div class="question-container" data-question="1">
-                        <h3 class="question-title">質問1: AIの利用状況について教えてください</h3>
+                        <h3 class="question-title">質問1: あなたの業種・お仕事を教えてください</h3>
                         <div class="question-options">
-                            <button class="option-btn" data-answer="beginner">
-                                <span class="option-icon"><i class="fas fa-seedling"></i></span>
-                                <span class="option-text">これからAIを使い始めたい</span>
+                            <button class="option-btn" data-answer="office">
+                                <span class="option-icon"><i class="fas fa-briefcase"></i></span>
+                                <span class="option-text">事務・管理・バックオフィス</span>
                             </button>
-                            <button class="option-btn" data-answer="individual">
-                                <span class="option-icon"><i class="fas fa-wrench"></i></span>
-                                <span class="option-text">単発でツールを使っている程度</span>
+                            <button class="option-btn" data-answer="sales">
+                                <span class="option-icon"><i class="fas fa-handshake"></i></span>
+                                <span class="option-text">営業・販売・接客</span>
                             </button>
-                            <button class="option-btn" data-answer="team">
-                                <span class="option-icon"><i class="fas fa-users"></i></span>
-                                <span class="option-text">チームや従業員に使えるようにしたい</span>
+                            <button class="option-btn" data-answer="creative">
+                                <span class="option-icon"><i class="fas fa-paint-brush"></i></span>
+                                <span class="option-text">クリエイティブ・制作・マーケ</span>
+                            </button>
+                            <button class="option-btn" data-answer="it">
+                                <span class="option-icon"><i class="fas fa-laptop-code"></i></span>
+                                <span class="option-text">IT・開発・エンジニア</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="question-container" data-question="2" style="display: none;">
-                        <h3 class="question-title">質問2: あなたの立場を教えてください</h3>
+                        <h3 class="question-title">質問2: 従業員はいますか？</h3>
                         <div class="question-options">
-                            <button class="option-btn" data-answer="individual">
+                            <button class="option-btn" data-answer="solo">
                                 <span class="option-icon"><i class="fas fa-user"></i></span>
-                                <span class="option-text">個人事業主・フリーランス</span>
+                                <span class="option-text">自分ひとり / フリーランス</span>
                             </button>
-                            <button class="option-btn" data-answer="business">
-                                <span class="option-icon"><i class="fas fa-building"></i></span>
-                                <span class="option-text">事業者（従業員がいる）</span>
+                            <button class="option-btn" data-answer="small">
+                                <span class="option-icon"><i class="fas fa-user-friends"></i></span>
+                                <span class="option-text">2〜10人程度</span>
                             </button>
-                            <button class="option-btn" data-answer="developer">
-                                <span class="option-icon"><i class="fas fa-cogs"></i></span>
-                                <span class="option-text">AIを組み込んだ開発が必要</span>
+                            <button class="option-btn" data-answer="medium">
+                                <span class="option-icon"><i class="fas fa-users"></i></span>
+                                <span class="option-text">11人以上</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="question-container" data-question="3" style="display: none;">
-                        <h3 class="question-title">質問3: 何を実現したいですか？</h3>
+                        <h3 class="question-title">質問3: 一番の課題は？</h3>
                         <div class="question-options">
-                            <button class="option-btn" data-answer="consulting">
-                                <span class="option-icon"><i class="fas fa-lightbulb"></i></span>
-                                <span class="option-text">AIの活用方法を相談したい</span>
+                            <button class="option-btn" data-answer="efficiency">
+                                <span class="option-icon"><i class="fas fa-tachometer-alt"></i></span>
+                                <span class="option-text">日々の業務をもっと効率化したい</span>
                             </button>
-                            <button class="option-btn" data-answer="training">
+                            <button class="option-btn" data-answer="sales_up">
+                                <span class="option-icon"><i class="fas fa-chart-line"></i></span>
+                                <span class="option-text">売上・集客をもっと伸ばしたい</span>
+                            </button>
+                            <button class="option-btn" data-answer="hr">
                                 <span class="option-icon"><i class="fas fa-user-graduate"></i></span>
-                                <span class="option-text">社員をAI人材に育成したい</span>
+                                <span class="option-text">社員のスキルアップ・DX推進</span>
                             </button>
-                            <button class="option-btn" data-answer="development">
-                                <span class="option-icon"><i class="fas fa-code"></i></span>
-                                <span class="option-text">AI機能を開発・実装したい</span>
+                            <button class="option-btn" data-answer="system">
+                                <span class="option-icon"><i class="fas fa-cogs"></i></span>
+                                <span class="option-text">独自のAIシステム・ツールが欲しい</span>
                             </button>
-                            <button class="option-btn" data-answer="automation">
-                                <span class="option-icon"><i class="fas fa-bolt"></i></span>
-                                <span class="option-text">業務の完全自動化を目指したい</span>
+                        </div>
+                    </div>
+
+                    <div class="question-container" data-question="4" style="display: none;">
+                        <h3 class="question-title">質問4: AIの利用状況は？</h3>
+                        <div class="question-options">
+                            <button class="option-btn" data-answer="none">
+                                <span class="option-icon"><i class="fas fa-seedling"></i></span>
+                                <span class="option-text">まだほとんど使っていない</span>
+                            </button>
+                            <button class="option-btn" data-answer="personal">
+                                <span class="option-icon"><i class="fas fa-wrench"></i></span>
+                                <span class="option-text">自分だけ少し使っている</span>
+                            </button>
+                            <button class="option-btn" data-answer="team_use">
+                                <span class="option-icon"><i class="fas fa-people-carry"></i></span>
+                                <span class="option-text">チームでも活用し始めている</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="question-container" data-question="5" style="display: none;">
+                        <h3 class="question-title">質問5: 助成金・補助金に興味はありますか？</h3>
+                        <div class="question-options">
+                            <button class="option-btn" data-answer="want_grant">
+                                <span class="option-icon"><i class="fas fa-coins"></i></span>
+                                <span class="option-text">ぜひ活用したい！</span>
+                            </button>
+                            <button class="option-btn" data-answer="interested">
+                                <span class="option-icon"><i class="fas fa-question-circle"></i></span>
+                                <span class="option-text">使えるなら使いたい</span>
+                            </button>
+                            <button class="option-btn" data-answer="no_grant">
+                                <span class="option-icon"><i class="fas fa-rocket"></i></span>
+                                <span class="option-text">スピード重視で進めたい</span>
                             </button>
                         </div>
                     </div>
@@ -4342,7 +4382,7 @@
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: 0%;"></div>
                     </div>
-                    <div class="progress-text">質問 <span id="current-question">1</span> / 3</div>
+                    <div class="progress-text">質問 <span id="current-question">1</span> / 5</div>
                 </div>
             </div>
         </div>
@@ -5276,6 +5316,7 @@
         }
 
         // 診断ツールのロジック
+        var totalQuestions = 5;
         let diagnosticData = {
             currentQuestion: 1,
             answers: {},
@@ -5286,26 +5327,32 @@
             'ai-advisor': {
                 icon: '<i class="fas fa-user-tie"></i>',
                 name: 'AIパーソナル顧問プラン',
-                description: 'GeminiやChatGPTを活用して、業務効率化や売上拡大を目指します。AIツールの最適な選定と導入サポート、具体的な使い方のレクチャーを提供します。',
+                description: '¥33,000/月で、あなた専属のAI顧問がつきます。',
                 sectionId: 'ai-advisor'
             },
             'ai-training': {
                 icon: '<i class="fas fa-user-graduate"></i>',
                 name: 'AI人材育成プラン',
-                description: '企業のメンバーが能動的にAIを活用できるよう育成します。カスタマイズ可能な研修プログラムで、社内のAI人材を育てます。助成金の活用も可能です。',
+                description: '¥44,000/月。人材開発支援助成金を活用すれば最大75%OFFで受講可能です。',
                 sectionId: 'ai-training'
             },
             'ai-marketing': {
                 icon: '<i class="fas fa-bullhorn"></i>',
                 name: 'AIマーケティングプラン',
-                description: 'マーケティング戦略の策定から、ツール開発・LINEミニアプリ実装まで一気通貫で対応。コンサルと開発の両方ができるワンストップ・ソリューションです。',
+                description: '開発費¥100,000〜 + 運用費¥10,000〜/月。戦略立案からツール開発まで一気通貫。',
                 sectionId: 'ai-marketing'
             },
             'ai-system-dev': {
                 icon: '<i class="fas fa-cogs"></i>',
                 name: 'AIシステム開発プラン',
-                description: 'AIを組み込んだ業務システムを貴社の課題に合わせてオーダーメイド開発。記録作成の自動化やSNS投稿の一括生成など、日々の業務を効率化します。',
+                description: '開発費¥100,000〜 + 運用費¥10,000〜/月。業務に合わせたオーダーメイドAIツール。',
                 sectionId: 'ai-system-dev'
+            },
+            'courses': {
+                icon: '<i class="fas fa-graduation-cap"></i>',
+                name: 'AI講座 & コミュニティ',
+                description: '¥11,000/月〜。動画見放題＋GPTs研究会コミュニティで仲間と一緒に学べます。',
+                sectionId: 'courses'
             }
         };
 
@@ -5315,17 +5362,16 @@
 
             optionButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const answer = this.getAttribute('data-answer');
-                    const currentQuestionNum = diagnosticData.currentQuestion;
+                    var parent = this.closest('.question-container');
+                    if (!parent || parent.dataset.question === undefined) return;
+                    var qNum = parseInt(parent.dataset.question);
+                    var answer = this.getAttribute('data-answer');
 
-                    // 回答を保存
-                    diagnosticData.answers[`question${currentQuestionNum}`] = answer;
+                    diagnosticData.answers['question' + qNum] = answer;
 
-                    // 次の質問に進む
-                    if (currentQuestionNum < 3) {
-                        showNextQuestion(currentQuestionNum + 1);
+                    if (qNum < totalQuestions) {
+                        showNextQuestion(qNum + 1);
                     } else {
-                        // 全ての質問が終了したら結果を表示
                         showResult();
                     }
                 });
@@ -5333,8 +5379,8 @@
         });
 
         function showNextQuestion(questionNumber) {
-            const currentQuestionContainer = document.querySelector(`.question-container[data-question="${diagnosticData.currentQuestion}"]`);
-            const nextQuestionContainer = document.querySelector(`.question-container[data-question="${questionNumber}"]`);
+            const currentQuestionContainer = document.querySelector('.question-container[data-question="' + diagnosticData.currentQuestion + '"]');
+            const nextQuestionContainer = document.querySelector('.question-container[data-question="' + questionNumber + '"]');
 
             if (currentQuestionContainer) {
                 currentQuestionContainer.style.display = 'none';
@@ -5351,7 +5397,7 @@
             const progressFill = document.querySelector('.progress-fill');
             const currentQuestionSpan = document.getElementById('current-question');
 
-            const percentage = (diagnosticData.currentQuestion / 3) * 100;
+            const percentage = (diagnosticData.currentQuestion / totalQuestions) * 100;
             if (progressFill) {
                 progressFill.style.width = percentage + '%';
             }
@@ -5362,28 +5408,54 @@
         }
 
         function determinePlan() {
-            const answers = diagnosticData.answers;
+            var a = diagnosticData.answers;
+            // Q1: 業種 (office/sales/creative/it)
+            // Q2: 規模 (solo/small/medium)
+            // Q3: 課題 (efficiency/sales_up/hr/system)
+            // Q4: AI利用状況 (none/personal/team_use)
+            // Q5: 助成金 (want_grant/interested/no_grant)
 
-            // 質問1: AIの利用状況
-            // 質問2: 立場
-            // 質問3: 実現したいこと
-
-            // AIシステム開発プラン: 業務自動化を目指したい
-            if (answers.question3 === 'automation') {
+            // 独自AIシステム・ツールが欲しい → システム開発
+            if (a.question3 === 'system') {
                 return 'ai-system-dev';
             }
 
-            // AIマーケティングプラン: 開発が必要、マーケ重視
-            if (answers.question2 === 'developer' || answers.question3 === 'development') {
+            // 売上・集客を伸ばしたい + クリエイティブ or 営業 → マーケティング
+            if (a.question3 === 'sales_up' && (a.question1 === 'creative' || a.question1 === 'sales')) {
                 return 'ai-marketing';
             }
 
-            // 人材育成プラン: チーム/従業員向け、または社員育成を希望
-            if (answers.question1 === 'team' || answers.question2 === 'business' || answers.question3 === 'training') {
+            // 売上・集客 + IT → マーケティング
+            if (a.question3 === 'sales_up' && a.question1 === 'it') {
+                return 'ai-marketing';
+            }
+
+            // 社員育成・DX推進 → 人材育成
+            if (a.question3 === 'hr') {
                 return 'ai-training';
             }
 
-            // パーソナル顧問プラン: 個人向けまたは相談が必要
+            // 従業員がいて効率化したい → 人材育成 or 顧問
+            if (a.question3 === 'efficiency' && (a.question2 === 'small' || a.question2 === 'medium')) {
+                // AI未利用 or 個人利用のみ → 人材育成で社内展開
+                if (a.question4 === 'none' || a.question4 === 'personal') {
+                    return 'ai-training';
+                }
+                // 既にチーム利用 → 顧問で深化
+                return 'ai-advisor';
+            }
+
+            // ソロで効率化 + AI未経験 → 講座
+            if (a.question3 === 'efficiency' && a.question2 === 'solo' && a.question4 === 'none') {
+                return 'courses';
+            }
+
+            // 売上アップ + ソロ + 事務系 → 顧問
+            if (a.question3 === 'sales_up' && a.question2 === 'solo') {
+                return 'ai-advisor';
+            }
+
+            // デフォルト: 顧問
             return 'ai-advisor';
         }
 
@@ -5509,9 +5581,74 @@
             setTimeout(typeNextChar, 500);
         }
 
-        // AIメッセージを生成（コンパクト版）
+        // AIメッセージを生成（プラン別の具体的提案）
         function generateAIMessage(plan) {
-            return ['分析が完了しました。あなたに最適なプランは...'];
+            var a = diagnosticData.answers;
+            var job = { office: '事務・バックオフィス', sales: '営業・販売', creative: 'クリエイティブ・マーケ', it: 'IT・開発' }[a.question1] || '';
+            var wantGrant = (a.question5 === 'want_grant' || a.question5 === 'interested');
+            var planKey = diagnosticData.recommendedPlan;
+
+            if (planKey === 'ai-advisor') {
+                var tips = {
+                    office: '例えば、議事録の自動要約や、スライド資料のAI一括生成で、資料作成時間を1/3に短縮できます。日報・報告書もAIが下書きしてくれるので、毎日30分以上の時短が期待できます。',
+                    sales: '例えば、提案資料をAIが一瞬で作成、顧客ごとのメール文面の自動生成、商談録画の要点整理など、営業活動をAIで大幅にスピードアップできます。',
+                    creative: '例えば、LP・バナーのコピーライティング、SNS投稿文の一括生成、競合分析レポートの自動作成など、クリエイティブワークをAIで効率化できます。',
+                    it: '例えば、コードレビューの自動化、仕様書からのテストケース生成、ドキュメント自動整備など、開発効率を飛躍的に向上させるAI活用法をレクチャーします。'
+                };
+                var msg = '診断結果が出ました！' + job + 'のお仕事には、AIパーソナル顧問プランがぴったりです。';
+                msg += '\n\n' + (tips[a.question1] || tips.office);
+                if (wantGrant) { msg += '\n\nなお、顧問プランから人材育成へのステップアップ時には、人材開発支援助成金（最大75%OFF）の活用も可能です。'; }
+                return [msg];
+            }
+
+            if (planKey === 'ai-training') {
+                var hrTips = {
+                    office: '研修では、経理・総務・人事など各部署の業務に合わせて、ChatGPTでの文書作成術、データ分析の自動化、AIを使った業務マニュアル作成などを実践的に習得します。',
+                    sales: '研修では、AI営業ツールの活用法、顧客分析ダッシュボードの構築、提案書の自動生成など、営業チーム全体の生産性を上げるスキルを身につけます。',
+                    creative: '研修では、AIデザインツール活用、コンテンツ量産ワークフロー、データドリブンなマーケ分析など、クリエイティブチームのAIリテラシーを底上げします。',
+                    it: '研修では、GitHub Copilotの実践活用、AIコードレビュー、プロンプトエンジニアリングなど、開発チーム全体のAI開発力を強化します。'
+                };
+                var msg = '診断結果が出ました！社員のスキルアップには、AI人材育成プランが最適です。';
+                msg += '\n\n' + (hrTips[a.question1] || hrTips.office);
+                msg += '\n\n【助成金で最大75%OFF】人材開発支援助成金の対象となるため、¥44,000/月の研修費用が実質¥11,000/月程度で受講可能です。申請サポートも行います。';
+                return [msg];
+            }
+
+            if (planKey === 'ai-marketing') {
+                var mkTips = {
+                    sales: 'AIを活用したLP自動生成、LINE公式アカウント連携の集客ツール、顧客行動データに基づくターゲティング広告最適化など、売上に直結するマーケ施策を開発・運用します。',
+                    creative: 'AIコンテンツ自動生成システム、SEO分析ツール、SNS投稿スケジューラーなど、マーケティングチームの武器となるツールをオーダーメイドで開発します。',
+                    office: 'AIチャットボットによる問い合わせ自動対応、メールマーケティングの自動配信最適化、顧客管理CRMとのAI連携など、集客から顧客管理まで一気通貫で構築します。',
+                    it: 'LINEミニアプリ開発、AI搭載のレコメンドエンジン、リアルタイムデータ分析ダッシュボードなど、技術力を活かした高度なマーケシステムを構築します。'
+                };
+                var msg = '診断結果が出ました！売上アップには、AIマーケティングプランがおすすめです。';
+                msg += '\n\n' + (mkTips[a.question1] || mkTips.office);
+                msg += '\n\n初期の開発費¥100,000〜と月々の運用費¥10,000〜で、御社専用のマーケツールを構築・運用します。';
+                return [msg];
+            }
+
+            if (planKey === 'ai-system-dev') {
+                var devTips = {
+                    office: '議事録・報告書の自動作成システム、書類チェックAI、データ入力の自動化ツールなど、事務作業を劇的に削減するシステムをオーダーメイドで開発します。',
+                    sales: '見積書の自動生成、顧客データベースのAI分析、受注予測ダッシュボードなど、営業プロセスを丸ごとAI化するシステムを構築します。',
+                    creative: 'コンテンツ一括生成エンジン、画像・動画のAI自動編集ツール、クリエイティブワークフロー管理システムなど、制作業務に特化したAIツールを開発します。',
+                    it: 'APIを活用した業務自動化基盤、AI搭載の監視・アラートシステム、社内ナレッジベースの自動構築など、技術チームに最適なAIインフラを開発します。'
+                };
+                var msg = '診断結果が出ました！御社の課題には、AIシステム開発プランが最適です。';
+                msg += '\n\n' + (devTips[a.question1] || devTips.office);
+                msg += '\n\n開発費¥100,000〜 + 運用費¥10,000〜/月で、御社専用のAIシステムを構築・保守します。';
+                if (wantGrant) { msg += ' また、開発に伴う社内研修部分は人材開発支援助成金の対象となる場合があります。'; }
+                return [msg];
+            }
+
+            if (planKey === 'courses') {
+                var msg = '診断結果が出ました！まずはAI講座で基礎から学ぶのがおすすめです。';
+                msg += '\n\n¥11,000/月〜で動画見放題。初学者向けAI体験講座から、業務効率化ワークフロー作成、アプリ開発まで段階的にステップアップできます。6,953人が参加するGPTs研究会コミュニティで仲間と一緒に学べるのも魅力です。';
+                if (wantGrant) { msg += '\n\n一部講座は人材開発支援助成金の対象となる場合があります。'; }
+                return [msg];
+            }
+
+            return ['診断結果が出ました。あなたに最適なプランをご提案します。'];
         }
 
         function scrollToPlan() {
