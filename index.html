@@ -6678,7 +6678,7 @@
             var speakTimer = null;
             var allTimers = []; // Track ALL pending timeouts
 
-            var idleImages = ['images/qa2.png', 'images/qa3.png', 'images/qa4.png', 'images/qa5.png'];
+            var idleImages = ['images/qa2.png', 'images/qa3.png', 'images/qa4.png', 'images/qa5.png', 'images/qa6.png', 'images/qa7.png', 'images/qa8.png', 'images/qa9.png'];
             var talkImages = ['images/qa0.png', 'images/qa1.png'];
 
             // Preload all images
@@ -6705,14 +6705,14 @@
                 return id;
             }
 
-            // Idle animation: random qa2~qa5
+            // Idle animation: random qa2~qa9
             function startIdle() {
                 stopIdle();
                 idleTimer = setInterval(function() {
                     if (!isSpeaking) {
                         avatar.src = randomIdle();
                     }
-                }, 1500);
+                }, 600);
             }
 
             function stopIdle() {
