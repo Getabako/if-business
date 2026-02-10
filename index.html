@@ -1779,11 +1779,12 @@
 
         /* 3D回転シリンダー */
         .case-cylinder {
-            width: 380px;
-            height: 650px;
+            width: 320px;
+            height: 500px;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
         }
 
         .case-cylinder.rotating {
@@ -5888,27 +5889,30 @@
         let currentCaseIndex = 0;
         let isAnimating = false;
 
+        // 全事例画像をプリロード
+        caseStudies.forEach(function(c) {
+            var preImg = new Image();
+            preImg.src = c.image;
+        });
+
         function updateCaseContent(index) {
-            const caseData = caseStudies[index];
+            var caseData = caseStudies[index];
 
-            // 要素の取得
-            const cylinder = document.getElementById('caseCylinder');
-            const textContainer = document.getElementById('caseTextContainer');
-            const img = document.getElementById('caseComicImg');
-            const title = document.getElementById('caseTitle');
-            const categoryTag = document.getElementById('caseCategoryTag');
-            const before = document.getElementById('caseBefore');
-            const tool = document.getElementById('caseTool');
-            const after = document.getElementById('caseAfter');
-            const dots = document.querySelectorAll('.case-slider-dot');
+            var cylinder = document.getElementById('caseCylinder');
+            var textContainer = document.getElementById('caseTextContainer');
+            var img = document.getElementById('caseComicImg');
+            var title = document.getElementById('caseTitle');
+            var categoryTag = document.getElementById('caseCategoryTag');
+            var before = document.getElementById('caseBefore');
+            var tool = document.getElementById('caseTool');
+            var after = document.getElementById('caseAfter');
+            var dots = document.querySelectorAll('.case-slider-dot');
 
-            // アニメーション開始
-            isAnimating = true;
-            cylinder.classList.add('rotating');
-            textContainer.classList.add('rotating');
+            // 先に新しい画像をプリロード
+            var newImg = new Image();
+            newImg.src = caseData.image;
 
-            // 中間点でコンテンツを更新
-            setTimeout(() => {
+            function applyContent() {
                 img.src = caseData.image;
                 img.alt = caseData.title + ' 導入事例';
                 title.textContent = caseData.title;
@@ -5918,18 +5922,38 @@
                 tool.textContent = caseData.tool;
                 after.textContent = caseData.after;
 
-                // ドットの更新
-                dots.forEach((dot, i) => {
+                dots.forEach(function(dot, i) {
                     if (i === index) {
                         dot.classList.add('active');
                     } else {
                         dot.classList.remove('active');
                     }
                 });
+            }
+
+            isAnimating = true;
+            cylinder.classList.add('rotating');
+            textContainer.classList.add('rotating');
+
+            // 画像ロード完了を待ってから中間点で差し替え
+            var contentApplied = false;
+            newImg.onload = function() {
+                if (!contentApplied) {
+                    contentApplied = true;
+                    applyContent();
+                }
+            };
+
+            // フォールバック: 400msで画像ロードが間に合わなくても差し替え
+            setTimeout(function() {
+                if (!contentApplied) {
+                    contentApplied = true;
+                    applyContent();
+                }
             }, 400);
 
             // アニメーション終了
-            setTimeout(() => {
+            setTimeout(function() {
                 cylinder.classList.remove('rotating');
                 textContainer.classList.remove('rotating');
                 isAnimating = false;
