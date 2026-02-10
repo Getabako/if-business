@@ -6676,7 +6676,7 @@
             var isSpeaking = false;
             var idleTimer = null;
             var speakTimer = null;
-            var typeTimer = null;
+            var allTimers = []; // Track ALL pending timeouts
 
             var idleImages = ['images/qa2.png', 'images/qa3.png', 'images/qa4.png', 'images/qa5.png'];
             var talkImages = ['images/qa0.png', 'images/qa1.png'];
@@ -6687,12 +6687,30 @@
                 img.src = src;
             });
 
+            function randomIdle() {
+                return idleImages[Math.floor(Math.random() * idleImages.length)];
+            }
+
+            // Clear ALL pending timers
+            function clearAllTimers() {
+                for (var i = 0; i < allTimers.length; i++) {
+                    clearTimeout(allTimers[i]);
+                }
+                allTimers = [];
+            }
+
+            function addTimer(fn, delay) {
+                var id = setTimeout(fn, delay);
+                allTimers.push(id);
+                return id;
+            }
+
             // Idle animation: random qa2~qa5
             function startIdle() {
                 stopIdle();
                 idleTimer = setInterval(function() {
                     if (!isSpeaking) {
-                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
+                        avatar.src = randomIdle();
                     }
                 }, 1500);
             }
@@ -6717,20 +6735,26 @@
                 if (speakTimer) { clearInterval(speakTimer); speakTimer = null; }
             }
 
-            // Pause mouth between sentences (show idle briefly)
-            function pauseMouth(callback, delay) {
+            // Force reset everything
+            function forceReset() {
+                clearAllTimers();
                 stopTalk();
-                avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
-                setTimeout(function() {
-                    startTalk();
-                    if (callback) callback();
-                }, delay);
+                stopIdle();
+                isSpeaking = false;
+                avatar.src = randomIdle();
+                msgPrompt.classList.remove('visible');
+                panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
+                startIdle();
             }
 
             // RPG text typing
             function typeText(text, callback) {
-                isSpeaking = true;
+                // Force stop any previous typing
+                clearAllTimers();
+                stopTalk();
                 stopIdle();
+
+                isSpeaking = true;
                 startTalk();
                 msgText.innerHTML = '';
                 msgPrompt.classList.remove('visible');
@@ -6738,30 +6762,33 @@
                 var sentences = text.split('\n');
                 var sentenceIdx = 0;
 
+                function finishTyping() {
+                    stopTalk();
+                    isSpeaking = false;
+                    avatar.src = randomIdle();
+                    startIdle();
+                    msgPrompt.classList.add('visible');
+                    var cursor = msgText.querySelector('.faq-cursor');
+                    if (cursor) cursor.remove();
+                    if (callback) callback();
+                }
+
                 function typeSentence() {
+                    if (!isSpeaking) return; // Cancelled
                     if (sentenceIdx >= sentences.length) {
-                        stopTalk();
-                        isSpeaking = false;
-                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
-                        startIdle();
-                        msgPrompt.classList.add('visible');
-                        // Remove cursor
-                        var cursor = msgText.querySelector('.faq-cursor');
-                        if (cursor) cursor.remove();
-                        if (callback) callback();
+                        finishTyping();
                         return;
                     }
 
                     var sentence = sentences[sentenceIdx];
                     var charIdx = 0;
 
-                    // Add line break between sentences
                     if (sentenceIdx > 0) {
                         msgText.appendChild(document.createElement('br'));
-                        // Pause between sentences - stop mouth, show idle
                         stopTalk();
-                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
-                        setTimeout(function() {
+                        avatar.src = randomIdle();
+                        addTimer(function() {
+                            if (!isSpeaking) return;
                             startTalk();
                             typeChars();
                         }, 400);
@@ -6771,21 +6798,21 @@
                     typeChars();
 
                     function typeChars() {
-                        // Remove previous cursor
+                        if (!isSpeaking) return; // Cancelled
+
                         var oldCursor = msgText.querySelector('.faq-cursor');
                         if (oldCursor) oldCursor.remove();
 
                         if (charIdx < sentence.length) {
                             msgText.appendChild(document.createTextNode(sentence[charIdx]));
-                            // Add cursor
                             var cursor = document.createElement('span');
                             cursor.className = 'faq-cursor';
                             msgText.appendChild(cursor);
                             charIdx++;
-                            typeTimer = setTimeout(typeChars, 45);
+                            addTimer(typeChars, 45);
                         } else {
                             sentenceIdx++;
-                            typeTimer = setTimeout(typeSentence, 300);
+                            addTimer(typeSentence, 300);
                         }
                     }
                 }
@@ -6796,8 +6823,15 @@
             // Panel click handler
             panels.forEach(function(panel) {
                 panel.addEventListener('click', function() {
-                    if (isSpeaking) return;
                     var idx = parseInt(this.getAttribute('data-faq'));
+
+                    // If currently speaking, force stop first
+                    if (isSpeaking) {
+                        clearAllTimers();
+                        stopTalk();
+                        stopIdle();
+                        isSpeaking = false;
+                    }
 
                     // Highlight active panel
                     panels.forEach(function(p) { p.classList.remove('active'); p.classList.add('disabled'); });
@@ -6806,7 +6840,6 @@
 
                     // Type answer
                     typeText(faqAnswers[idx], function() {
-                        // Re-enable panels after typing
                         panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
                     });
                 });
