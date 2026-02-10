@@ -2991,15 +2991,17 @@
 
         /* Grant Generator */
         .grant-generator {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(147, 51, 234, 0.08) 100%);
-            border: 2px solid transparent;
-            border-image: linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6) 1;
-            border-radius: 0;
+            border-radius: 24px;
             padding: 2.5rem;
             margin-top: 2.5rem;
             margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
+            background:
+                linear-gradient(135deg, rgba(251, 191, 36, 0.06) 0%, rgba(52, 211, 153, 0.06) 35%, rgba(96, 165, 250, 0.06) 70%, rgba(251, 146, 60, 0.04) 100%) padding-box,
+                linear-gradient(135deg, #fbbf24, #34d399, #60a5fa, #fb923c) border-box;
+            border: 2.5px solid transparent;
+            backdrop-filter: blur(10px);
             animation: grantGeneratorGlow 4s ease-in-out infinite;
         }
 
@@ -3010,58 +3012,46 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6);
-            border-radius: 22px;
+            background: linear-gradient(135deg, #fbbf24, #34d399, #60a5fa, #fb923c);
+            border-radius: 26px;
             z-index: -1;
-            opacity: 0.5;
-            filter: blur(15px);
+            opacity: 0.25;
+            filter: blur(20px);
             animation: grantBorderPulse 3s ease-in-out infinite;
         }
 
         @keyframes grantGeneratorGlow {
-            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15), 0 0 60px rgba(99, 102, 241, 0.05); }
-            50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.3), 0 0 80px rgba(99, 102, 241, 0.1); }
+            0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.1), 0 0 40px rgba(52, 211, 153, 0.05); }
+            50% { box-shadow: 0 0 30px rgba(251, 191, 36, 0.2), 0 0 60px rgba(52, 211, 153, 0.1); }
         }
 
         @keyframes grantBorderPulse {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.6; }
-        }
-
-        /* Use a wrapper approach for rounded border-gradient */
-        .grant-generator {
-            border: none;
-            border-image: none;
-            border-radius: 20px;
-            background:
-                linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(147, 51, 234, 0.1) 100%) padding-box,
-                linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6) border-box;
-            border: 2px solid transparent;
-            backdrop-filter: blur(10px);
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.45; }
         }
 
         .grant-generator .grant-gen-header-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #3b82f6, #6366f1);
-            border-radius: 16px;
-            font-size: 1.5rem;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #fbbf24, #fb923c);
+            border-radius: 20px;
+            font-size: 1.7rem;
             color: #fff;
             margin: 0 auto 1rem;
             animation: grantIconFloat 3s ease-in-out infinite;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 24px rgba(251, 191, 36, 0.35);
         }
 
         @keyframes grantIconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(3deg); }
         }
 
         .grant-generator h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #fff;
             margin-bottom: 0.75rem;
             text-align: center;
@@ -3069,11 +3059,11 @@
         }
 
         .grant-gen-subtitle {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.85);
             text-align: center;
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            line-height: 1.7;
         }
 
         .grant-gen-badges {
@@ -3088,24 +3078,39 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            padding: 0.4rem 0.9rem;
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.25);
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
-            color: #a5b4fc;
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .grant-gen-badge:nth-child(1) {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            color: #fcd34d;
+        }
+
+        .grant-gen-badge:nth-child(2) {
+            background: rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: #6ee7b7;
+        }
+
+        .grant-gen-badge:nth-child(3) {
+            background: rgba(96, 165, 250, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.35);
+            color: #93c5fd;
         }
 
         .grant-gen-badge i {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
         }
 
         /* Chat Progress Bar */
         .grant-chat-progress {
             background: rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            height: 24px;
+            height: 28px;
             position: relative;
             margin-bottom: 1.5rem;
             overflow: hidden;
@@ -3113,10 +3118,17 @@
 
         .grant-chat-progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            background: linear-gradient(90deg, #fbbf24, #34d399, #60a5fa);
+            background-size: 200% 100%;
+            animation: progressShimmer 2s linear infinite;
             border-radius: 20px;
             width: 0%;
             transition: width 0.5s ease;
+        }
+
+        @keyframes progressShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
         .grant-chat-progress-text {
@@ -3124,21 +3136,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: #fff;
             font-weight: 600;
             white-space: nowrap;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         /* Chat Area */
         .grant-chat {
             max-height: 500px;
             overflow-y: auto;
-            padding: 1rem;
+            padding: 1.25rem;
             margin-bottom: 1rem;
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            border-radius: 14px;
-            background: rgba(15, 23, 42, 0.3);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.35);
             scroll-behavior: smooth;
         }
 
@@ -3147,23 +3160,23 @@
         }
 
         .grant-chat::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.3);
+            background: rgba(251, 191, 36, 0.3);
             border-radius: 3px;
         }
 
         .grant-chat-message {
             margin-bottom: 1rem;
-            padding: 0.85rem 1.1rem;
-            border-radius: 14px;
-            font-size: 0.95rem;
-            line-height: 1.7;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            line-height: 1.8;
             max-width: 85%;
             animation: fadeIn 0.4s ease;
         }
 
         .grant-chat-ai {
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.2);
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.2);
             color: #e2e8f0;
             margin-right: auto;
             border-bottom-left-radius: 4px;
@@ -3173,26 +3186,27 @@
             content: '\f544';
             font-family: 'Font Awesome 5 Free';
             font-weight: 900;
-            color: #818cf8;
+            color: #34d399;
             margin-right: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .grant-chat-user {
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            background: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
             color: #fff;
             margin-left: auto;
             border-bottom-right-radius: 4px;
+            font-weight: 500;
         }
 
         .grant-chat-typing {
             display: flex;
-            gap: 4px;
+            gap: 5px;
             align-items: center;
-            padding: 0.85rem 1.1rem;
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 14px;
+            padding: 1rem 1.25rem;
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 16px;
             border-bottom-left-radius: 4px;
             max-width: 80px;
             margin-bottom: 1rem;
@@ -3201,7 +3215,7 @@
         .grant-chat-typing span {
             width: 8px;
             height: 8px;
-            background: #818cf8;
+            background: #34d399;
             border-radius: 50%;
             animation: typingDot 1.4s infinite ease-in-out;
         }
@@ -3227,15 +3241,15 @@
 
         .grant-chat-textarea {
             flex: 1;
-            padding: 0.85rem 1rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
+            padding: 1rem 1.15rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1.5px solid rgba(251, 191, 36, 0.25);
+            border-radius: 14px;
             color: #f1f5f9;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             font-family: inherit;
             resize: none;
-            min-height: 44px;
+            min-height: 48px;
             max-height: 120px;
             transition: border-color 0.3s ease;
             box-sizing: border-box;
@@ -3243,32 +3257,33 @@
 
         .grant-chat-textarea:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
         }
 
         .grant-chat-textarea::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.4);
         }
 
         .grant-chat-send-btn {
-            padding: 0.75rem 1.25rem;
-            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            padding: 0.85rem 1.35rem;
+            background: linear-gradient(135deg, #fbbf24 0%, #fb923c 100%);
             color: #fff;
             border: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 14px;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s ease;
             flex-shrink: 0;
-            height: 44px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .grant-chat-send-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(251, 191, 36, 0.4);
         }
 
         .grant-chat-send-btn:disabled {
@@ -3281,46 +3296,51 @@
         /* Option Buttons (Yes/No, Course Select) */
         .grant-chat-options {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.85rem;
             flex-wrap: wrap;
         }
 
         .grant-chat-option-btn {
-            padding: 0.7rem 1.5rem;
+            padding: 0.8rem 1.75rem;
             background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 10px;
+            border: 1.5px solid rgba(96, 165, 250, 0.3);
+            border-radius: 12px;
             color: #e2e8f0;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .grant-chat-option-btn:hover {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: #6366f1;
-            transform: translateY(-1px);
+            background: rgba(96, 165, 250, 0.12);
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
         }
 
         .grant-chat-option-btn.yes-btn {
-            border-color: rgba(34, 197, 94, 0.4);
-            color: #4ade80;
+            border-color: rgba(52, 211, 153, 0.45);
+            color: #6ee7b7;
+            background: rgba(52, 211, 153, 0.06);
         }
 
         .grant-chat-option-btn.yes-btn:hover {
-            background: rgba(34, 197, 94, 0.12);
-            border-color: #22c55e;
+            background: rgba(52, 211, 153, 0.15);
+            border-color: #34d399;
+            box-shadow: 0 4px 12px rgba(52, 211, 153, 0.2);
         }
 
         .grant-chat-option-btn.no-btn {
-            border-color: rgba(248, 113, 113, 0.4);
-            color: #fca5a5;
+            border-color: rgba(251, 146, 60, 0.4);
+            color: #fdba74;
+            background: rgba(251, 146, 60, 0.06);
         }
 
         .grant-chat-option-btn.no-btn:hover {
-            background: rgba(248, 113, 113, 0.12);
-            border-color: #f87171;
+            background: rgba(251, 146, 60, 0.15);
+            border-color: #fb923c;
+            box-shadow: 0 4px 12px rgba(251, 146, 60, 0.2);
         }
 
         /* Loading */
@@ -3335,8 +3355,8 @@
         }
 
         .grant-gen-loading .ai-brain-icon-compact {
-            font-size: 2.5rem;
-            color: #818cf8;
+            font-size: 2.8rem;
+            color: #fbbf24;
             margin-bottom: 1rem;
             animation: pulse 2s ease-in-out infinite;
         }
@@ -3347,8 +3367,8 @@
         }
 
         .grant-gen-loading .loading-text {
-            color: #94a3b8;
-            font-size: 0.95rem;
+            color: #cbd5e1;
+            font-size: 1.1rem;
             margin-bottom: 1rem;
         }
 
@@ -3363,47 +3383,47 @@
         }
 
         .grant-gen-result h4.grant-gen-result-title {
-            color: #e2e8f0;
-            font-size: 1.05rem;
-            margin-bottom: 1rem;
+            color: #fcd34d;
+            font-size: 1.15rem;
+            margin-bottom: 1.25rem;
             text-align: center;
         }
 
         .grant-gen-result-card {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            border-radius: 14px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
+            background: rgba(15, 23, 42, 0.45);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
             position: relative;
         }
 
         .grant-gen-result-card h4 {
-            color: #818cf8;
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
+            color: #6ee7b7;
+            font-size: 1.05rem;
+            margin-bottom: 0.85rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
         .grant-gen-result-card p {
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.8;
-            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.9;
+            font-size: 1.05rem;
             white-space: pre-wrap;
         }
 
         .grant-gen-card-copy-btn {
             position: absolute;
-            top: 0.75rem;
-            right: 0.75rem;
-            padding: 0.35rem 0.75rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            top: 0.85rem;
+            right: 0.85rem;
+            padding: 0.4rem 0.85rem;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 8px;
-            color: #94a3b8;
-            font-size: 0.8rem;
+            color: #fcd34d;
+            font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -3412,8 +3432,8 @@
         }
 
         .grant-gen-card-copy-btn:hover {
-            background: rgba(99, 102, 241, 0.15);
-            color: #e2e8f0;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fef3c7;
         }
 
         .grant-gen-result-actions {
@@ -3424,12 +3444,12 @@
         }
 
         .grant-gen-reset-btn {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: #94a3b8;
-            border: none;
-            border-radius: 10px;
-            font-size: 0.95rem;
+            padding: 0.85rem 1.75rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -3439,18 +3459,18 @@
 
         .grant-gen-reset-btn:hover {
             background: rgba(255, 255, 255, 0.15);
-            color: #e2e8f0;
+            color: #fff;
         }
 
         .grant-gen-disclaimer {
             margin-top: 1.5rem;
-            padding: 1rem;
+            padding: 1.15rem;
             background: rgba(250, 204, 21, 0.08);
             border: 1px solid rgba(250, 204, 21, 0.2);
-            border-radius: 10px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-            line-height: 1.6;
+            border-radius: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
         .grant-gen-error {
@@ -3465,31 +3485,31 @@
         }
 
         .grant-gen-error .error-icon {
-            font-size: 2.5rem;
-            color: #f87171;
+            font-size: 2.8rem;
+            color: #fb923c;
             margin-bottom: 1rem;
         }
 
         .grant-gen-error .error-text {
-            color: #fca5a5;
-            font-size: 0.95rem;
+            color: #fdba74;
+            font-size: 1.05rem;
             margin-bottom: 1.5rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
         .grant-gen-error .grant-gen-retry-btn {
-            padding: 0.75rem 1.5rem;
-            background: rgba(248, 113, 113, 0.15);
-            color: #fca5a5;
-            border: 1px solid rgba(248, 113, 113, 0.3);
-            border-radius: 10px;
-            font-size: 0.95rem;
+            padding: 0.85rem 1.75rem;
+            background: rgba(251, 146, 60, 0.12);
+            color: #fdba74;
+            border: 1.5px solid rgba(251, 146, 60, 0.3);
+            border-radius: 12px;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .grant-gen-error .grant-gen-retry-btn:hover {
-            background: rgba(248, 113, 113, 0.25);
+            background: rgba(251, 146, 60, 0.25);
             color: #fff;
         }
 
