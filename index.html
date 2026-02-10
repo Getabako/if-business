@@ -353,12 +353,12 @@
 
         /* 診断ツールスタイル */
         .diagnostic-tool {
-            max-width: 700px;
+            max-width: 960px;
             margin: 0 auto;
             background: rgba(30, 41, 59, 0.8);
             backdrop-filter: blur(20px);
             border-radius: 24px;
-            padding: 3rem;
+            padding: 3rem 4rem;
             box-shadow:
                 0 25px 50px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.1),
@@ -390,7 +390,7 @@
         }
 
         .question-title {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: #f1f5f9;
             margin-bottom: 2rem;
@@ -408,14 +408,14 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1.25rem 1.5rem;
+            padding: 1.25rem 1.75rem;
             background: rgba(255, 255, 255, 0.95);
             border: none;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
-            font-size: 1rem;
+            font-size: 1.1rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
@@ -603,25 +603,53 @@
 
         /* AI回答スタイル（コンパクト版） */
         .ai-response-section-compact {
-            padding: 1rem;
+            padding: 1.5rem 0;
         }
 
         .ai-result-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: #f1f5f9;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
         }
 
         .ai-result-header i {
             font-size: 1.5rem;
             color: #60a5fa;
+            margin-top: 0.2rem;
         }
 
         .ai-typing-text {
             flex: 1;
+        }
+
+        .ai-typing-text .diag-section {
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid #6366f1;
+            border-radius: 0 8px 8px 0;
+            padding: 0.75rem 1rem;
+            margin: 0.75rem 0;
+        }
+
+        .ai-typing-text .diag-section.grant {
+            border-left-color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        .ai-typing-text .diag-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #818cf8;
+            margin-bottom: 0.3rem;
+        }
+
+        .ai-typing-text .diag-section.grant .diag-label {
+            color: #34d399;
         }
 
         .ai-cursor {
@@ -638,20 +666,20 @@
         .result-plan-compact {
             background: rgba(99, 102, 241, 0.1);
             border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1rem;
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
             text-align: left;
         }
 
         .result-plan-icon-compact {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: #60a5fa;
             margin-bottom: 0.5rem;
         }
 
         .result-plan-compact .result-plan-name {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
             color: #f1f5f9;
             margin-bottom: 0.5rem;
@@ -659,9 +687,9 @@
 
         .result-plan-description-compact {
             color: #cbd5e1;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
         }
 
         .result-cta-btn-compact {
@@ -669,9 +697,9 @@
             background: linear-gradient(135deg, #3b82f6 0%, #9333ea 100%);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -694,9 +722,9 @@
             background: linear-gradient(135deg, #06C755 0%, #04a647 100%);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -5538,33 +5566,39 @@
 
             // AIメッセージを生成
             const messages = generateAIMessage(plan);
-            let currentMessageIndex = 0;
+            var fullHtml = messages[0] || '';
+            // HTMLタグの前（最初のテキスト部分）をタイピングし、残りは一括表示
+            var firstTagIdx = fullHtml.indexOf('<div');
+            var typingPart = firstTagIdx > 0 ? fullHtml.substring(0, firstTagIdx) : fullHtml;
+            var cardsPart = firstTagIdx > 0 ? fullHtml.substring(firstTagIdx) : '';
             let currentCharIndex = 0;
-            let fullText = '';
+            var plainText = typingPart.replace(/<[^>]*>/g, '');
+            var tagMap = []; // map plain index to html
+            var htmlIdx = 0; var plainIdx = 0;
+            while (htmlIdx < typingPart.length) {
+                if (typingPart[htmlIdx] === '<') {
+                    var closeIdx = typingPart.indexOf('>', htmlIdx);
+                    htmlIdx = closeIdx + 1;
+                } else {
+                    tagMap[plainIdx] = htmlIdx;
+                    plainIdx++; htmlIdx++;
+                }
+            }
 
             function typeNextChar() {
-                if (currentMessageIndex < messages.length) {
-                    const currentMessage = messages[currentMessageIndex];
-                    if (currentCharIndex < currentMessage.length) {
-                        fullText += currentMessage[currentCharIndex];
-                        aiTypingText.innerHTML = fullText;
-                        currentCharIndex++;
-                        // ランダムなタイピング速度（より自然に）
-                        const delay = Math.random() * 30 + 20;
-                        setTimeout(typeNextChar, delay);
-                    } else {
-                        // メッセージ間の改行
-                        currentMessageIndex++;
-                        currentCharIndex = 0;
-                        if (currentMessageIndex < messages.length) {
-                            fullText += '<br><br>';
-                            setTimeout(typeNextChar, 300);
-                        } else {
-                            // タイピング完了
-                            cursor.style.display = 'none';
-                            showResultCard();
-                        }
+                if (currentCharIndex < plainText.length) {
+                    var endHtml = tagMap[currentCharIndex] + 1;
+                    aiTypingText.innerHTML = typingPart.substring(0, endHtml);
+                    currentCharIndex++;
+                    var delay = Math.random() * 25 + 15;
+                    setTimeout(typeNextChar, delay);
+                } else {
+                    // タイピング完了、カードセクションを一括フェードイン
+                    cursor.style.display = 'none';
+                    if (cardsPart) {
+                        aiTypingText.innerHTML = typingPart + cardsPart;
                     }
+                    showResultCard();
                 }
             }
 
@@ -5581,74 +5615,85 @@
             setTimeout(typeNextChar, 500);
         }
 
-        // AIメッセージを生成（プラン別の具体的提案）
+        // AIメッセージを生成（プラン別・セクション分けHTML）
         function generateAIMessage(plan) {
             var a = diagnosticData.answers;
             var job = { office: '事務・バックオフィス', sales: '営業・販売', creative: 'クリエイティブ・マーケ', it: 'IT・開発' }[a.question1] || '';
             var wantGrant = (a.question5 === 'want_grant' || a.question5 === 'interested');
             var planKey = diagnosticData.recommendedPlan;
 
+            function sec(label, text) {
+                return '<div class="diag-section"><div class="diag-label">' + label + '</div>' + text + '</div>';
+            }
+            function grantSec(text) {
+                return '<div class="diag-section grant"><div class="diag-label">助成金</div>' + text + '</div>';
+            }
+
             if (planKey === 'ai-advisor') {
                 var tips = {
-                    office: '例えば、議事録の自動要約や、スライド資料のAI一括生成で、資料作成時間を1/3に短縮できます。日報・報告書もAIが下書きしてくれるので、毎日30分以上の時短が期待できます。',
-                    sales: '例えば、提案資料をAIが一瞬で作成、顧客ごとのメール文面の自動生成、商談録画の要点整理など、営業活動をAIで大幅にスピードアップできます。',
-                    creative: '例えば、LP・バナーのコピーライティング、SNS投稿文の一括生成、競合分析レポートの自動作成など、クリエイティブワークをAIで効率化できます。',
-                    it: '例えば、コードレビューの自動化、仕様書からのテストケース生成、ドキュメント自動整備など、開発効率を飛躍的に向上させるAI活用法をレクチャーします。'
+                    office: 'スライド資料のAI一括生成で作成時間を1/3に短縮。議事録の自動要約や日報の下書きで、毎日30分以上の時短が見込めます。',
+                    sales: '提案資料をAIが瞬時に作成。顧客ごとのメール文面生成や商談メモの要点整理で、営業活動を大幅スピードアップできます。',
+                    creative: 'LP・バナーのコピーライティング、SNS投稿文の一括生成、競合分析レポートの自動作成で、クリエイティブ業務を効率化します。',
+                    it: 'コードレビュー自動化、仕様書からのテストケース生成、ドキュメント自動整備で、開発効率を飛躍的に向上させます。'
                 };
-                var msg = '診断結果が出ました！' + job + 'のお仕事には、AIパーソナル顧問プランがぴったりです。';
-                msg += '\n\n' + (tips[a.question1] || tips.office);
-                if (wantGrant) { msg += '\n\nなお、顧問プランから人材育成へのステップアップ時には、人材開発支援助成金（最大75%OFF）の活用も可能です。'; }
+                var msg = '診断完了！<strong>' + job + '</strong>のお仕事には<strong>AIパーソナル顧問プラン</strong>がぴったりです。';
+                msg += sec('具体的にできること', tips[a.question1] || tips.office);
+                msg += sec('料金', '月額 ¥33,000（税込）で専属AI顧問がつきます。');
+                if (wantGrant) { msg += grantSec('人材育成へのステップアップ時は、人材開発支援助成金（最大75%OFF）が活用可能です。'); }
                 return [msg];
             }
 
             if (planKey === 'ai-training') {
                 var hrTips = {
-                    office: '研修では、経理・総務・人事など各部署の業務に合わせて、ChatGPTでの文書作成術、データ分析の自動化、AIを使った業務マニュアル作成などを実践的に習得します。',
-                    sales: '研修では、AI営業ツールの活用法、顧客分析ダッシュボードの構築、提案書の自動生成など、営業チーム全体の生産性を上げるスキルを身につけます。',
-                    creative: '研修では、AIデザインツール活用、コンテンツ量産ワークフロー、データドリブンなマーケ分析など、クリエイティブチームのAIリテラシーを底上げします。',
-                    it: '研修では、GitHub Copilotの実践活用、AIコードレビュー、プロンプトエンジニアリングなど、開発チーム全体のAI開発力を強化します。'
+                    office: '経理・総務・人事など各部署に合わせ、ChatGPTでの文書作成術やデータ分析の自動化を実践的に習得します。',
+                    sales: 'AI営業ツールの活用、顧客分析ダッシュボード構築、提案書の自動生成など、チーム全体の営業力を底上げします。',
+                    creative: 'AIデザインツール活用、コンテンツ量産ワークフロー、データドリブンなマーケ分析で、チームのAIリテラシーを強化します。',
+                    it: 'GitHub Copilot実践活用、AIコードレビュー、プロンプトエンジニアリングで、開発チーム全体のAI力を向上させます。'
                 };
-                var msg = '診断結果が出ました！社員のスキルアップには、AI人材育成プランが最適です。';
-                msg += '\n\n' + (hrTips[a.question1] || hrTips.office);
-                msg += '\n\n【助成金で最大75%OFF】人材開発支援助成金の対象となるため、¥44,000/月の研修費用が実質¥11,000/月程度で受講可能です。申請サポートも行います。';
+                var msg = '診断完了！社員のスキルアップには<strong>AI人材育成プラン</strong>が最適です。';
+                msg += sec('研修内容', hrTips[a.question1] || hrTips.office);
+                msg += sec('料金', '月額 ¥44,000（税込）でカスタマイズ研修を提供。');
+                msg += grantSec('<strong>人材開発支援助成金で最大75%OFF</strong> → 実質 約¥11,000/月で受講可能。申請サポートも行います。');
                 return [msg];
             }
 
             if (planKey === 'ai-marketing') {
                 var mkTips = {
-                    sales: 'AIを活用したLP自動生成、LINE公式アカウント連携の集客ツール、顧客行動データに基づくターゲティング広告最適化など、売上に直結するマーケ施策を開発・運用します。',
-                    creative: 'AIコンテンツ自動生成システム、SEO分析ツール、SNS投稿スケジューラーなど、マーケティングチームの武器となるツールをオーダーメイドで開発します。',
-                    office: 'AIチャットボットによる問い合わせ自動対応、メールマーケティングの自動配信最適化、顧客管理CRMとのAI連携など、集客から顧客管理まで一気通貫で構築します。',
-                    it: 'LINEミニアプリ開発、AI搭載のレコメンドエンジン、リアルタイムデータ分析ダッシュボードなど、技術力を活かした高度なマーケシステムを構築します。'
+                    sales: 'LP自動生成、LINE公式連携の集客ツール、ターゲティング広告最適化で売上に直結するマーケ施策を構築します。',
+                    creative: 'AIコンテンツ自動生成、SEO分析ツール、SNS投稿スケジューラーなど、マーケチームの武器をオーダーメイド開発します。',
+                    office: 'AIチャットボット、メルマガ自動配信最適化、CRM連携で集客から顧客管理まで一気通貫で構築します。',
+                    it: 'LINEミニアプリ開発、AIレコメンドエンジン、リアルタイム分析ダッシュボードなど高度なマーケシステムを構築します。'
                 };
-                var msg = '診断結果が出ました！売上アップには、AIマーケティングプランがおすすめです。';
-                msg += '\n\n' + (mkTips[a.question1] || mkTips.office);
-                msg += '\n\n初期の開発費¥100,000〜と月々の運用費¥10,000〜で、御社専用のマーケツールを構築・運用します。';
+                var msg = '診断完了！売上アップには<strong>AIマーケティングプラン</strong>がおすすめです。';
+                msg += sec('具体的にできること', mkTips[a.question1] || mkTips.office);
+                msg += sec('料金', '開発費 ¥100,000〜 ＋ 運用費 ¥10,000〜/月で御社専用ツールを構築・運用。');
+                if (wantGrant) { msg += grantSec('関連する社内研修部分は、人材開発支援助成金の対象となる場合があります。'); }
                 return [msg];
             }
 
             if (planKey === 'ai-system-dev') {
                 var devTips = {
-                    office: '議事録・報告書の自動作成システム、書類チェックAI、データ入力の自動化ツールなど、事務作業を劇的に削減するシステムをオーダーメイドで開発します。',
-                    sales: '見積書の自動生成、顧客データベースのAI分析、受注予測ダッシュボードなど、営業プロセスを丸ごとAI化するシステムを構築します。',
-                    creative: 'コンテンツ一括生成エンジン、画像・動画のAI自動編集ツール、クリエイティブワークフロー管理システムなど、制作業務に特化したAIツールを開発します。',
-                    it: 'APIを活用した業務自動化基盤、AI搭載の監視・アラートシステム、社内ナレッジベースの自動構築など、技術チームに最適なAIインフラを開発します。'
+                    office: '議事録・報告書の自動作成、書類チェックAI、データ入力自動化で事務作業を劇的に削減します。',
+                    sales: '見積書の自動生成、顧客DB分析、受注予測ダッシュボードで営業プロセスを丸ごとAI化します。',
+                    creative: 'コンテンツ一括生成エンジン、画像・動画のAI自動編集、ワークフロー管理で制作業務を加速します。',
+                    it: 'API連携の業務自動化基盤、AI監視アラート、社内ナレッジベース自動構築で技術インフラを強化します。'
                 };
-                var msg = '診断結果が出ました！御社の課題には、AIシステム開発プランが最適です。';
-                msg += '\n\n' + (devTips[a.question1] || devTips.office);
-                msg += '\n\n開発費¥100,000〜 + 運用費¥10,000〜/月で、御社専用のAIシステムを構築・保守します。';
-                if (wantGrant) { msg += ' また、開発に伴う社内研修部分は人材開発支援助成金の対象となる場合があります。'; }
+                var msg = '診断完了！御社の課題には<strong>AIシステム開発プラン</strong>が最適です。';
+                msg += sec('開発例', devTips[a.question1] || devTips.office);
+                msg += sec('料金', '開発費 ¥100,000〜 ＋ 運用費 ¥10,000〜/月でオーダーメイドAIシステムを構築・保守。');
+                if (wantGrant) { msg += grantSec('開発に伴う社内研修部分は、人材開発支援助成金の対象となる場合があります。'); }
                 return [msg];
             }
 
             if (planKey === 'courses') {
-                var msg = '診断結果が出ました！まずはAI講座で基礎から学ぶのがおすすめです。';
-                msg += '\n\n¥11,000/月〜で動画見放題。初学者向けAI体験講座から、業務効率化ワークフロー作成、アプリ開発まで段階的にステップアップできます。6,953人が参加するGPTs研究会コミュニティで仲間と一緒に学べるのも魅力です。';
-                if (wantGrant) { msg += '\n\n一部講座は人材開発支援助成金の対象となる場合があります。'; }
+                var msg = '診断完了！まずは<strong>AI講座</strong>で基礎から学ぶのがおすすめです。';
+                msg += sec('講座内容', '初学者向けAI体験講座から、業務効率化ワークフロー作成、アプリ開発まで段階的にステップアップ。6,953人のGPTs研究会コミュニティで仲間と学べます。');
+                msg += sec('料金', '月額 ¥11,000〜で動画見放題。');
+                if (wantGrant) { msg += grantSec('一部講座は人材開発支援助成金の対象となる場合があります。'); }
                 return [msg];
             }
 
-            return ['診断結果が出ました。あなたに最適なプランをご提案します。'];
+            return ['診断完了！あなたに最適なプランをご提案します。'];
         }
 
         function scrollToPlan() {
