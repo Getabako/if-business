@@ -2991,27 +2991,114 @@
 
         /* Grant Generator */
         .grant-generator {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(59, 130, 246, 0.25);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(147, 51, 234, 0.08) 100%);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6) 1;
+            border-radius: 0;
             padding: 2.5rem;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
             margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            animation: grantGeneratorGlow 4s ease-in-out infinite;
+        }
+
+        .grant-generator::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(15px);
+            animation: grantBorderPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes grantGeneratorGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.15), 0 0 60px rgba(99, 102, 241, 0.05); }
+            50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.3), 0 0 80px rgba(99, 102, 241, 0.1); }
+        }
+
+        @keyframes grantBorderPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Use a wrapper approach for rounded border-gradient */
+        .grant-generator {
+            border: none;
+            border-image: none;
+            border-radius: 20px;
+            background:
+                linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(59, 130, 246, 0.08) 50%, rgba(147, 51, 234, 0.1) 100%) padding-box,
+                linear-gradient(135deg, #3b82f6, #6366f1, #9333ea, #3b82f6) border-box;
+            border: 2px solid transparent;
             backdrop-filter: blur(10px);
         }
 
-        .grant-generator h3 {
-            font-size: 1.4rem;
-            color: #f1f5f9;
-            margin-bottom: 0.5rem;
-            text-align: center;
+        .grant-generator .grant-gen-header-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #3b82f6, #6366f1);
+            border-radius: 16px;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 auto 1rem;
+            animation: grantIconFloat 3s ease-in-out infinite;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
         }
 
-        .grant-generator .grant-gen-subtitle {
-            color: rgba(255, 255, 255, 0.6);
+        @keyframes grantIconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .grant-generator h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.75rem;
             text-align: center;
-            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .grant-gen-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            font-size: 0.95rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .grant-gen-badges {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
             margin-bottom: 2rem;
+        }
+
+        .grant-gen-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.9rem;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+            font-weight: 500;
+        }
+
+        .grant-gen-badge i {
+            font-size: 0.75rem;
         }
 
         /* Chat Progress Bar */
@@ -3561,6 +3648,15 @@
                 padding: 1.5rem;
             }
 
+            .grant-gen-badges {
+                gap: 0.5rem;
+            }
+
+            .grant-gen-badge {
+                font-size: 0.75rem;
+                padding: 0.35rem 0.7rem;
+            }
+
             .grant-chat {
                 max-height: 400px;
             }
@@ -4078,28 +4174,6 @@
                     <img src="images/18.png" alt="AI研修、国のお金で最大75%OFF！" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
                 </div>
 
-                <!-- 導入文 -->
-                <div class="grant-intro">
-                    <p>if(Business)のAI人材育成プラン等は、厚生労働省の<strong>「人材開発支援助成金（事業展開等リスキリング支援コース）」</strong>の要件に対応したカリキュラム設計が可能です。</p>
-                    <p style="margin-top: 1rem;">制度を活用することで、貴社のコスト負担を軽減しながら、質の高いリスキリングを実施できます。DX推進に向けた人材投資を、国の支援制度を賢く活用して実現しましょう。</p>
-                </div>
-
-                <!-- 詳細カード -->
-                <div class="grant-details">
-                    <div class="grant-detail-card">
-                        <h4><i class="fas fa-user-check"></i> 対象</h4>
-                        <p>中小企業の事業展開・DX化に伴う研修が主な対象です。新たな分野への進出や、デジタル技術を活用した業務改善を目指す企業の人材育成を支援します。</p>
-                    </div>
-                    <div class="grant-detail-card">
-                        <h4><i class="fas fa-hand-holding-usd"></i> メリット</h4>
-                        <ul>
-                            <li>経費助成（最大75%）で研修コストを大幅削減</li>
-                            <li>賃金助成で研修期間中の人件費もカバー</li>
-                            <li>質の高いリスキリングを低コストで実現</li>
-                        </ul>
-                    </div>
-                </div>
-
                 <!-- 申請フロー -->
                 <div class="grant-flow">
                     <div style="text-align: center;">
@@ -4109,8 +4183,14 @@
 
                 <!-- AI申請計画案ジェネレーター -->
                 <div class="grant-generator" id="grantGenerator">
-                    <h3><i class="fas fa-comments" style="margin-right: 0.5rem; color: #818cf8;"></i>AI助成金申請サポート</h3>
+                    <div class="grant-gen-header-icon"><i class="fas fa-robot"></i></div>
+                    <h3>AI助成金申請サポート</h3>
                     <p class="grant-gen-subtitle">チャット形式で質問に答えるだけで、申請書類（様式第1-2号）のドラフトをAIが自動作成します</p>
+                    <div class="grant-gen-badges">
+                        <span class="grant-gen-badge"><i class="fas fa-bolt"></i> 最短3分</span>
+                        <span class="grant-gen-badge"><i class="fas fa-yen-sign"></i> 完全無料</span>
+                        <span class="grant-gen-badge"><i class="fas fa-file-alt"></i> 様式第1-2号対応</span>
+                    </div>
 
                     <!-- プログレスバー -->
                     <div class="grant-chat-progress">
