@@ -3623,10 +3623,46 @@
             margin: 0 auto;
         }
 
-        .course-lineup-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+        .course-lineup-marquee {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-lineup-marquee::before,
+        .course-lineup-marquee::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 60px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .course-lineup-marquee::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(28, 26, 0, 0.9), transparent);
+        }
+
+        .course-lineup-marquee::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(28, 26, 0, 0.9), transparent);
+        }
+
+        .course-lineup-track {
+            display: flex;
             gap: 1.25rem;
+            animation: courseMarquee 25s linear infinite;
+            width: max-content;
+        }
+
+        .course-lineup-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes courseMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .course-lineup-item {
@@ -3635,6 +3671,9 @@
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s ease;
+            min-width: 280px;
+            max-width: 280px;
+            flex-shrink: 0;
         }
 
         .course-lineup-item:hover {
@@ -3756,10 +3795,6 @@
 
             .academy-community {
                 grid-template-columns: 1fr;
-            }
-
-            .course-lineup-grid {
-                grid-template-columns: 1fr 1fr;
             }
 
             .course-lineup-featured .course-lineup-item {
@@ -4116,8 +4151,14 @@
                 font-size: 0.9rem;
             }
 
-            .course-lineup-grid {
-                grid-template-columns: 1fr;
+            .course-lineup-item {
+                min-width: 240px;
+                max-width: 240px;
+            }
+
+            .course-lineup-marquee::before,
+            .course-lineup-marquee::after {
+                width: 30px;
             }
         }
 
@@ -4719,22 +4760,42 @@
                         <p>AIとは何かを体験しながら学ぶ入門講座。ChatGPTやGeminiの基本操作から始めます。</p>
                     </div>
                 </div>
-                <div class="course-lineup-grid">
-                    <div class="course-lineup-item">
-                        <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
-                        <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
-                    </div>
-                    <div class="course-lineup-item">
-                        <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
-                        <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
-                    </div>
-                    <div class="course-lineup-item">
-                        <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
-                        <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
-                    </div>
-                    <div class="course-lineup-item">
-                        <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
-                        <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                <div class="course-lineup-marquee">
+                    <div class="course-lineup-track">
+                        <!-- 1セット目 -->
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
+                            <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
+                            <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
+                            <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
+                            <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                        </div>
+                        <!-- 2セット目（シームレスループ用複製） -->
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
+                            <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
+                            <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
+                            <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
+                        </div>
+                        <div class="course-lineup-item">
+                            <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
+                            <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                        </div>
                     </div>
                 </div>
             </div>
