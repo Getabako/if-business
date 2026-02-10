@@ -3772,6 +3772,209 @@
             display: block;
             animation: fadeInUp 0.5s ease;
         }
+
+        /* GPTs研究会コミュニティ */
+        .gpts-community {
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(250, 204, 21, 0.25);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gpts-community-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .gpts-community-header h3 {
+            font-size: 1.6rem;
+            color: #fde047;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .gpts-community-header h3 i {
+            color: #1877f2;
+        }
+
+        .gpts-community-header p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .gpts-community-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .gpts-community-buttons a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .gpts-community-buttons .gpts-btn-join {
+            background: #1877f2;
+            color: white;
+        }
+
+        .gpts-community-buttons .gpts-btn-join:hover {
+            background: #1565c0;
+            box-shadow: 0 4px 15px rgba(24, 119, 242, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .gpts-community-buttons .gpts-btn-share {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .gpts-community-buttons .gpts-btn-share:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .gpts-community h4 {
+            font-size: 1.15rem;
+            color: #fbbf24;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gpts-live-slider {
+            position: relative;
+            overflow: hidden;
+            margin: 0 -0.5rem;
+        }
+
+        .gpts-live-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gpts-live-card {
+            min-width: calc(100% / 3);
+            padding: 0 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .gpts-live-card-inner {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(250, 204, 21, 0.15);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+
+        .gpts-live-card-inner:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(250, 204, 21, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .gpts-live-card-inner .card-icon {
+            color: #1877f2;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .gpts-live-card-inner .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .gpts-live-card-inner .card-date {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .gpts-live-slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(250, 204, 21, 0.2);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            color: #fde047;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .gpts-live-slider-btn:hover {
+            background: rgba(250, 204, 21, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gpts-live-slider-btn.prev {
+            left: 0.25rem;
+        }
+
+        .gpts-live-slider-btn.next {
+            right: 0.25rem;
+        }
+
+        @media (max-width: 768px) {
+            .gpts-community {
+                padding: 1.5rem;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .gpts-community-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .gpts-community-header p {
+                font-size: 0.85rem;
+            }
+
+            .gpts-live-card {
+                min-width: 100%;
+            }
+
+            .gpts-live-slider-btn {
+                width: 34px;
+                height: 34px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4221,18 +4424,9 @@
                 <p class="section-subtitle">「学ぶ」「繋がる」場で、実践的なAIスキルを習得</p>
             </div>
 
-            <!-- コミュニティ & 講座の特徴 - 2カラムレイアウト -->
+            <!-- 講座の特徴 + 画像 - 2カラムレイアウト -->
             <div class="two-column-layout">
                 <div class="content-column">
-                    <div class="academy-card" style="margin-bottom: 1.5rem;">
-                        <h4><i class="fas fa-users"></i> コミュニティ活動</h4>
-                        <ul>
-                            <li><i class="fas fa-flask"></i> GPTs研究会への所属・活動実績</li>
-                            <li><i class="fas fa-broadcast-tower"></i> 定期LIVE配信で最新AI情報をキャッチアップ</li>
-                            <li><i class="fas fa-comments"></i> メンバー同士の情報交換・相互サポート</li>
-                            <li><i class="fas fa-trophy"></i> 実践事例の共有と学び合い</li>
-                        </ul>
-                    </div>
                     <div class="academy-card">
                         <h4><i class="fas fa-graduation-cap"></i> 講座の特徴</h4>
                         <ul>
@@ -4247,6 +4441,67 @@
                     <div class="image-with-overlay">
                         <img src="images/comic10.png" alt="AI講座 & コミュニティ 活用イメージ">
                     </div>
+                </div>
+            </div>
+
+            <!-- GPTs研究会コミュニティ -->
+            <div class="gpts-community">
+                <div class="gpts-community-header">
+                    <h3><i class="fab fa-facebook"></i> GPTs研究会コミュニティ</h3>
+                    <p>メンバー6,953人の公開コミュニティ。生成AIを研究して、人にしかできないことを探求。毎日のライブ配信で最新AI情報をキャッチアップし、メンバー同士で学び合います。</p>
+                    <div class="gpts-community-buttons">
+                        <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-join"><i class="fab fa-facebook"></i> 参加する</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-share"><i class="fas fa-share-alt"></i> シェアする</a>
+                    </div>
+                </div>
+                <h4><i class="fas fa-video"></i> 最新のライブ配信</h4>
+                <div class="gpts-live-slider" id="gptsSlider">
+                    <button class="gpts-live-slider-btn prev" id="gptsPrev">&#8249;</button>
+                    <div class="gpts-live-track" id="gptsTrack">
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">社長無人化計画A2A</div>
+                                <div class="card-date">2025/2/9</div>
+                            </a>
+                        </div>
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">生成AI最新情報！GPTs研究会 × WACA コラボLIVE</div>
+                                <div class="card-date">2025/2/8</div>
+                            </a>
+                        </div>
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">コンテンツマーケA2Aセミナー</div>
+                                <div class="card-date">2025/2/6</div>
+                            </a>
+                        </div>
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">最新AI活用情報ライブ</div>
+                                <div class="card-date">2025/2/5</div>
+                            </a>
+                        </div>
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">GPTs研究会モーニングライブ</div>
+                                <div class="card-date">2025/2/4</div>
+                            </a>
+                        </div>
+                        <div class="gpts-live-card">
+                            <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
+                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
+                                <div class="card-title">GPTs研究会ウィークリーダイジェスト</div>
+                                <div class="card-date">2025/2/3</div>
+                            </a>
+                        </div>
+                    </div>
+                    <button class="gpts-live-slider-btn next" id="gptsNext">&#8250;</button>
                 </div>
             </div>
 
@@ -5674,6 +5929,89 @@
 
         // Initialize chat on page load
         initGrantChat();
+
+        // GPTs研究会ライブスライダー
+        function initGptsSlider() {
+            var track = document.getElementById('gptsTrack');
+            var prevBtn = document.getElementById('gptsPrev');
+            var nextBtn = document.getElementById('gptsNext');
+            var slider = document.getElementById('gptsSlider');
+            if (!track || !prevBtn || !nextBtn) return;
+
+            var cards = track.querySelectorAll('.gpts-live-card');
+            var totalCards = cards.length;
+            var currentIndex = 0;
+            var autoTimer = null;
+
+            function getVisibleCount() {
+                return window.innerWidth <= 768 ? 1 : 3;
+            }
+
+            function getMaxIndex() {
+                var visible = getVisibleCount();
+                return Math.max(0, totalCards - visible);
+            }
+
+            function slide() {
+                var visible = getVisibleCount();
+                var offset = -(currentIndex * (100 / visible));
+                track.style.transform = 'translateX(' + offset + '%)';
+            }
+
+            function goNext() {
+                var maxIdx = getMaxIndex();
+                currentIndex = currentIndex >= maxIdx ? 0 : currentIndex + 1;
+                slide();
+            }
+
+            function goPrev() {
+                var maxIdx = getMaxIndex();
+                currentIndex = currentIndex <= 0 ? maxIdx : currentIndex - 1;
+                slide();
+            }
+
+            nextBtn.addEventListener('click', function() {
+                goNext();
+                resetAuto();
+            });
+
+            prevBtn.addEventListener('click', function() {
+                goPrev();
+                resetAuto();
+            });
+
+            function startAuto() {
+                autoTimer = setInterval(goNext, 5000);
+            }
+
+            function stopAuto() {
+                if (autoTimer) {
+                    clearInterval(autoTimer);
+                    autoTimer = null;
+                }
+            }
+
+            function resetAuto() {
+                stopAuto();
+                startAuto();
+            }
+
+            if (slider) {
+                slider.addEventListener('mouseenter', stopAuto);
+                slider.addEventListener('mouseleave', startAuto);
+            }
+
+            window.addEventListener('resize', function() {
+                if (currentIndex > getMaxIndex()) {
+                    currentIndex = getMaxIndex();
+                }
+                slide();
+            });
+
+            startAuto();
+        }
+
+        initGptsSlider();
     </script>
 </body>
 </html>
