@@ -3885,7 +3885,7 @@
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(250, 204, 21, 0.15);
             border-radius: 12px;
-            padding: 1.25rem;
+            overflow: hidden;
             transition: all 0.3s ease;
             display: block;
             text-decoration: none;
@@ -3899,22 +3899,81 @@
             transform: translateY(-3px);
         }
 
-        .gpts-live-card-inner .card-icon {
+        .gpts-live-card-inner:hover .card-thumb {
+            filter: brightness(1.15);
+        }
+
+        .gpts-live-card-inner:hover .card-thumb .thumb-play {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        .card-thumb {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+            transition: filter 0.3s ease;
+        }
+
+        .card-thumb .thumb-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(24, 119, 242, 0.85);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card-thumb .thumb-play i {
+            color: white;
+            font-size: 1.2rem;
+            margin-left: 3px;
+        }
+
+        .card-thumb .thumb-badge {
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            background: #e74c3c;
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-thumb .thumb-fb {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
             color: #1877f2;
-            font-size: 1.5rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+        }
+
+        .card-body {
+            padding: 1rem 1.25rem;
         }
 
         .gpts-live-card-inner .card-title {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: white;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             line-height: 1.5;
         }
 
         .gpts-live-card-inner .card-date {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: rgba(255, 255, 255, 0.5);
         }
 
@@ -4460,44 +4519,80 @@
                     <div class="gpts-live-track" id="gptsTrack">
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">社長無人化計画A2A</div>
-                                <div class="card-date">2025/2/9</div>
+                                <div class="card-thumb">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">社長無人化計画A2A</div>
+                                    <div class="card-date">2025/2/9</div>
+                                </div>
                             </a>
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">生成AI最新情報！GPTs研究会 × WACA コラボLIVE</div>
-                                <div class="card-date">2025/2/8</div>
+                                <div class="card-thumb" style="background: linear-gradient(135deg, #0f3460 0%, #533483 50%, #e94560 100%);">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">生成AI最新情報！GPTs研究会 × WACA コラボLIVE</div>
+                                    <div class="card-date">2025/2/8</div>
+                                </div>
                             </a>
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">コンテンツマーケA2Aセミナー</div>
-                                <div class="card-date">2025/2/6</div>
+                                <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a3d62 50%, #38ada9 100%);">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">コンテンツマーケA2Aセミナー</div>
+                                    <div class="card-date">2025/2/6</div>
+                                </div>
                             </a>
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">最新AI活用情報ライブ</div>
-                                <div class="card-date">2025/2/5</div>
+                                <div class="card-thumb" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">最新AI活用情報ライブ</div>
+                                    <div class="card-date">2025/2/5</div>
+                                </div>
                             </a>
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">GPTs研究会モーニングライブ</div>
-                                <div class="card-date">2025/2/4</div>
+                                <div class="card-thumb" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6dd5ed 100%);">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">GPTs研究会モーニングライブ</div>
+                                    <div class="card-date">2025/2/4</div>
+                                </div>
                             </a>
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-icon"><i class="fab fa-facebook-square"></i></div>
-                                <div class="card-title">GPTs研究会ウィークリーダイジェスト</div>
-                                <div class="card-date">2025/2/3</div>
+                                <div class="card-thumb" style="background: linear-gradient(135deg, #0c2461 0%, #4a69bd 50%, #6a89cc 100%);">
+                                    <span class="thumb-badge">LIVE</span>
+                                    <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <i class="fab fa-facebook thumb-fb"></i>
+                                </div>
+                                <div class="card-body">
+                                    <div class="card-title">GPTs研究会ウィークリーダイジェスト</div>
+                                    <div class="card-date">2025/2/3</div>
+                                </div>
                             </a>
                         </div>
                     </div>
