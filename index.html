@@ -2222,93 +2222,192 @@
             z-index: 1;
         }
 
-        .faq-container {
+        /* RPG FAQ Layout */
+        .faq-rpg-wrap {
             max-width: 900px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
 
-        .faq-item {
+        /* Avatar */
+        .faq-avatar-area {
+            text-align: center;
             margin-bottom: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .faq-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        .faq-avatar-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid rgba(96,165,250,0.5);
+            box-shadow: 0 0 30px rgba(59,130,246,0.3), 0 0 60px rgba(59,130,246,0.1);
+            transition: border-color 0.3s ease;
         }
 
-        .faq-question {
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+        .faq-avatar-img.speaking {
+            border-color: #fbbf24;
+            box-shadow: 0 0 30px rgba(251,191,36,0.4), 0 0 60px rgba(251,191,36,0.15);
+        }
+
+        /* Message Window */
+        .faq-msg-window {
+            background: rgba(0, 8, 20, 0.85);
+            border: 2px solid rgba(96,165,250,0.35);
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            min-height: 120px;
+            margin-bottom: 2rem;
             position: relative;
+            box-shadow: 0 0 20px rgba(59,130,246,0.1), inset 0 0 30px rgba(0,0,0,0.3);
         }
 
-        .faq-question::before {
+        .faq-msg-window::before {
             content: '';
             position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 8px;
-            background: #3b82f6;
-            border-radius: 50%;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 14px;
+            height: 14px;
+            background: rgba(0, 8, 20, 0.85);
+            border-top: 2px solid rgba(96,165,250,0.35);
+            border-left: 2px solid rgba(96,165,250,0.35);
         }
 
-        .faq-question-content {
-            margin-left: 1rem;
-            flex: 1;
+        .faq-msg-text {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: rgba(255,255,255,0.95);
+            min-height: 3em;
         }
 
-        .faq-arrow {
-            background: rgba(59, 130, 246, 0.2);
-            border: 1px solid #3b82f6;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            color: #3b82f6;
+        .faq-msg-text .faq-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.1em;
+            background: rgba(96,165,250,0.8);
+            animation: faqCursorBlink 0.6s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
         }
 
-        .faq-item.active .faq-arrow {
-            transform: rotate(180deg);
-            background: #3b82f6;
-            color: white;
+        @keyframes faqCursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
-        .faq-answer {
-            padding: 0 3rem;
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.3s ease;
+        .faq-msg-label {
+            font-size: 0.8rem;
+            color: rgba(96,165,250,0.7);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .faq-msg-prompt {
+            text-align: right;
+            margin-top: 0.8rem;
             opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .faq-item.active .faq-answer {
-            max-height: 500px;
-            padding: 0 3rem 2rem;
+        .faq-msg-prompt.visible {
             opacity: 1;
         }
 
-        .faq-answer-content {
-            padding-top: 1rem;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.9);
+        .faq-msg-prompt span {
+            font-size: 0.85rem;
+            color: rgba(251,191,36,0.8);
+            animation: faqPromptBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes faqPromptBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Question Panels */
+        .faq-panels {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+        }
+
+        .faq-panel {
+            background: rgba(15, 25, 50, 0.8);
+            border: 1px solid rgba(96,165,250,0.25);
+            border-radius: 10px;
+            padding: 1rem 0.8rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.85);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80px;
+        }
+
+        .faq-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(96,165,250,0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .faq-panel:hover {
+            background: rgba(37,99,235,0.2);
+            border-color: rgba(96,165,250,0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59,130,246,0.2);
+            color: white;
+        }
+
+        .faq-panel:hover::before {
+            opacity: 1;
+        }
+
+        .faq-panel.active {
+            background: rgba(37,99,235,0.25);
+            border-color: #60a5fa;
+            color: #93c5fd;
+        }
+
+        .faq-panel.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .faq-panels {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .faq-avatar-img {
+                width: 130px;
+                height: 130px;
+            }
+            .faq-msg-window {
+                padding: 1.2rem 1.2rem;
+                min-height: 100px;
+            }
+            .faq-msg-text {
+                font-size: 0.95rem;
+            }
+            .faq-panel {
+                font-size: 0.8rem;
+                min-height: 65px;
+                padding: 0.8rem 0.6rem;
+            }
         }
 
         /* Company Info Section */
@@ -5577,96 +5676,31 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">よくあるご質問</h2>
-                <p class="section-subtitle">お客様からよくいただくご質問にお答えします</p>
+                <p class="section-subtitle">気になる質問をタップしてください</p>
             </div>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(0)">
-                        <div class="faq-question-content">AIツールの導入には技術的な知識が必要ですか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            いいえ、技術的な知識は必要ありません。弊社の専門スタッフが、お客様のレベルに合わせて丁寧にサポートいたします。基本的な操作から応用的な活用方法まで、段階的に習得できるよう支援します。
-                        </div>
-                    </div>
+            <div class="faq-rpg-wrap">
+                <!-- アバター -->
+                <div class="faq-avatar-area">
+                    <img src="images/qa2.png" alt="FAQ Avatar" class="faq-avatar-img" id="faqAvatar">
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(1)">
-                        <div class="faq-question-content">どのような業種でもAI導入は可能ですか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            はい、あらゆる業種でAI導入が可能です。製造業、小売業、サービス業、医療、教育など、各業界の特性に合わせたAIソリューションをご提案します。まずは無料相談で、お客様の業界に最適な活用方法をご提案させていただきます。
-                        </div>
-                    </div>
+
+                <!-- メッセージウィンドウ -->
+                <div class="faq-msg-window" id="faqMsgWindow">
+                    <div class="faq-msg-label">if(Business)</div>
+                    <div class="faq-msg-text" id="faqMsgText">こんにちは！ 気になる質問を選んでくださいね。</div>
+                    <div class="faq-msg-prompt" id="faqMsgPrompt"><span>▼</span></div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(2)">
-                        <div class="faq-question-content">導入後のサポート体制はどうなっていますか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            導入後も充実したサポート体制を整えています。チャットサポート（48時間以内返信）、定期的なオンラインミーティング、継続的なスキルアップ研修など、お客様が安心してAIを活用できるよう長期的にサポートいたします。
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(3)">
-                        <div class="faq-question-content">費用対効果はどの程度期待できますか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            業種や導入内容により異なりますが、多くのお客様が3〜6ヶ月で投資回収を実現しています。業務効率化による人件費削減、売上向上、エラー削減など、複数の観点から費用対効果を実現します。無料相談で具体的な試算をご提示します。
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(4)">
-                        <div class="faq-question-content">契約期間や解約条件はどうなっていますか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            基本的に最短1ヶ月からご契約いただけます。長期契約による割引もご用意しています。解約は1ヶ月前までにお申し出いただければ、違約金等は発生いたしません。まずはお試しいただき、効果を実感してから継続をご検討ください。
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(5)">
-                        <div class="faq-question-content">人材開発支援助成金の申請手続きは難しいですか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            手続き自体は「計画届の提出 → 研修実施 → 支給申請」の3ステップです。if(Business)では、申請に必要なカリキュラム表の作成など、書類準備のサポートも行っておりますので、初めての方でも安心してご利用いただけます。詳細はお気軽にお問い合わせください。
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(6)">
-                        <div class="faq-question-content">個人事業主でも助成金は使えますか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            人材開発支援助成金は、雇用保険の適用事業主が対象となります。従業員を雇用している個人事業主の方であれば対象となる可能性があります。具体的な要件については個別にご案内いたしますので、まずはご相談ください。
-                        </div>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFAQ(7)">
-                        <div class="faq-question-content">助成金を使った場合、研修内容に制約はありますか？</div>
-                        <div class="faq-arrow">▼</div>
-                    </div>
-                    <div class="faq-answer">
-                        <div class="faq-answer-content">
-                            助成金の要件に適合するカリキュラム設計が必要ですが、if(Business)ではそれに対応した研修プログラムをご用意しています。事業展開やDX化に関連する実践的な内容で、貴社のニーズに合わせたカスタマイズも可能です。助成金の活用と質の高い研修を両立させます。
-                        </div>
-                    </div>
+
+                <!-- 質問パネル -->
+                <div class="faq-panels" id="faqPanels">
+                    <div class="faq-panel" data-faq="0">技術知識は<br>必要？</div>
+                    <div class="faq-panel" data-faq="1">どの業種でも<br>導入できる？</div>
+                    <div class="faq-panel" data-faq="2">導入後の<br>サポートは？</div>
+                    <div class="faq-panel" data-faq="3">費用対効果は<br>どのくらい？</div>
+                    <div class="faq-panel" data-faq="4">契約期間や<br>解約条件は？</div>
+                    <div class="faq-panel" data-faq="5">助成金の<br>申請手続きは？</div>
+                    <div class="faq-panel" data-faq="6">個人事業主も<br>助成金OK？</div>
+                    <div class="faq-panel" data-faq="7">助成金で<br>研修制約ある？</div>
                 </div>
             </div>
         </div>
@@ -6515,10 +6549,167 @@
         }
 
         // FAQ toggle functionality
-        function toggleFAQ(index) {
-            const faqItems = document.querySelectorAll('.faq-item');
-            faqItems[index].classList.toggle('active');
-        }
+        // RPG FAQ System
+        (function() {
+            var faqAnswers = [
+                'いいえ、技術的な知識は一切不要です！\n専門スタッフがお客様のレベルに合わせて丁寧にサポートします。基本操作から応用まで、段階的に習得できますのでご安心ください。',
+                'はい、あらゆる業種で導入可能です！\n製造業、小売業、サービス業、医療、教育など、業界特性に合わせたAIソリューションをご提案します。まずは無料相談でお気軽にどうぞ。',
+                '導入後も万全のサポート体制です！\nチャットサポート（48時間以内返信）、定期オンラインミーティング、スキルアップ研修など、長期的にしっかりサポートいたします。',
+                '多くのお客様が3〜6ヶ月で投資回収されています！\n人件費削減、売上向上、エラー削減など、複数の観点から効果を実感いただけます。無料相談で具体的な試算もお出しします。',
+                '最短1ヶ月からご契約いただけます！\n長期契約なら割引もあります。解約は1ヶ月前までにお申し出いただければ違約金なし。まずはお試しください。',
+                '「計画届の提出→研修実施→支給申請」の3ステップです！\nif(Business)ではカリキュラム表の作成など書類準備もサポートしますので、初めての方でも安心してご利用いただけます。',
+                '従業員を雇用している個人事業主の方なら対象になる可能性があります！\n人材開発支援助成金は雇用保険の適用事業主が対象です。具体的な要件は個別にご案内しますので、まずはご相談ください。',
+                '助成金の要件に適合したカリキュラムが必要ですが、ご安心ください！\nif(Business)では対応済みの研修プログラムをご用意。DX化に関連する実践的な内容で、貴社ニーズに合わせたカスタマイズも可能です。'
+            ];
+
+            var avatar = document.getElementById('faqAvatar');
+            var msgText = document.getElementById('faqMsgText');
+            var msgPrompt = document.getElementById('faqMsgPrompt');
+            var panels = document.querySelectorAll('.faq-panel');
+            if (!avatar || !msgText || !panels.length) return;
+
+            var isSpeaking = false;
+            var idleTimer = null;
+            var speakTimer = null;
+            var typeTimer = null;
+
+            var idleImages = ['images/qa2.png', 'images/qa3.png', 'images/qa4.png', 'images/qa5.png'];
+            var talkImages = ['images/qa0.png', 'images/qa1.png'];
+
+            // Preload all images
+            idleImages.concat(talkImages).forEach(function(src) {
+                var img = new Image();
+                img.src = src;
+            });
+
+            // Idle animation: random qa2~qa5
+            function startIdle() {
+                stopIdle();
+                idleTimer = setInterval(function() {
+                    if (!isSpeaking) {
+                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
+                    }
+                }, 1500);
+            }
+
+            function stopIdle() {
+                if (idleTimer) { clearInterval(idleTimer); idleTimer = null; }
+            }
+
+            // Mouth flap: alternate qa0 & qa1
+            function startTalk() {
+                stopTalk();
+                var talkIdx = 0;
+                avatar.classList.add('speaking');
+                speakTimer = setInterval(function() {
+                    avatar.src = talkImages[talkIdx % 2];
+                    talkIdx++;
+                }, 200);
+            }
+
+            function stopTalk() {
+                avatar.classList.remove('speaking');
+                if (speakTimer) { clearInterval(speakTimer); speakTimer = null; }
+            }
+
+            // Pause mouth between sentences (show idle briefly)
+            function pauseMouth(callback, delay) {
+                stopTalk();
+                avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
+                setTimeout(function() {
+                    startTalk();
+                    if (callback) callback();
+                }, delay);
+            }
+
+            // RPG text typing
+            function typeText(text, callback) {
+                isSpeaking = true;
+                stopIdle();
+                startTalk();
+                msgText.innerHTML = '';
+                msgPrompt.classList.remove('visible');
+
+                var sentences = text.split('\n');
+                var sentenceIdx = 0;
+
+                function typeSentence() {
+                    if (sentenceIdx >= sentences.length) {
+                        stopTalk();
+                        isSpeaking = false;
+                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
+                        startIdle();
+                        msgPrompt.classList.add('visible');
+                        // Remove cursor
+                        var cursor = msgText.querySelector('.faq-cursor');
+                        if (cursor) cursor.remove();
+                        if (callback) callback();
+                        return;
+                    }
+
+                    var sentence = sentences[sentenceIdx];
+                    var charIdx = 0;
+
+                    // Add line break between sentences
+                    if (sentenceIdx > 0) {
+                        msgText.appendChild(document.createElement('br'));
+                        // Pause between sentences - stop mouth, show idle
+                        stopTalk();
+                        avatar.src = idleImages[Math.floor(Math.random() * idleImages.length)];
+                        setTimeout(function() {
+                            startTalk();
+                            typeChars();
+                        }, 400);
+                        return;
+                    }
+
+                    typeChars();
+
+                    function typeChars() {
+                        // Remove previous cursor
+                        var oldCursor = msgText.querySelector('.faq-cursor');
+                        if (oldCursor) oldCursor.remove();
+
+                        if (charIdx < sentence.length) {
+                            msgText.appendChild(document.createTextNode(sentence[charIdx]));
+                            // Add cursor
+                            var cursor = document.createElement('span');
+                            cursor.className = 'faq-cursor';
+                            msgText.appendChild(cursor);
+                            charIdx++;
+                            typeTimer = setTimeout(typeChars, 45);
+                        } else {
+                            sentenceIdx++;
+                            typeTimer = setTimeout(typeSentence, 300);
+                        }
+                    }
+                }
+
+                typeSentence();
+            }
+
+            // Panel click handler
+            panels.forEach(function(panel) {
+                panel.addEventListener('click', function() {
+                    if (isSpeaking) return;
+                    var idx = parseInt(this.getAttribute('data-faq'));
+
+                    // Highlight active panel
+                    panels.forEach(function(p) { p.classList.remove('active'); p.classList.add('disabled'); });
+                    this.classList.add('active');
+                    this.classList.remove('disabled');
+
+                    // Type answer
+                    typeText(faqAnswers[idx], function() {
+                        // Re-enable panels after typing
+                        panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
+                    });
+                });
+            });
+
+            // Start idle on load
+            startIdle();
+        })();
 
         // Contact form submission
         const contactForm = document.getElementById('contactForm');
