@@ -2384,6 +2384,7 @@
             .ai-advisor-section .two-column-layout,
             .ai-training-section .two-column-layout,
             .ai-marketing-section .two-column-layout,
+            .ai-development-section .two-column-layout,
             .ai-courses-section .two-column-layout {
                 display: flex;
                 flex-direction: column;
@@ -2392,6 +2393,7 @@
             .ai-advisor-section .two-column-layout .image-column,
             .ai-training-section .two-column-layout .image-column,
             .ai-marketing-section .two-column-layout .image-column,
+            .ai-development-section .two-column-layout .image-column,
             .ai-courses-section .two-column-layout .image-column {
                 order: 1;
             }
@@ -2399,6 +2401,7 @@
             .ai-advisor-section .two-column-layout .content-column,
             .ai-training-section .two-column-layout .content-column,
             .ai-marketing-section .two-column-layout .content-column,
+            .ai-development-section .two-column-layout .content-column,
             .ai-courses-section .two-column-layout .content-column {
                 order: 2;
             }
@@ -2407,6 +2410,7 @@
             .ai-advisor-section,
             .ai-training-section,
             .ai-marketing-section,
+            .ai-development-section,
             .ai-courses-section {
                 min-height: auto;
                 padding: 3rem 1rem;
@@ -2415,6 +2419,7 @@
             .ai-advisor-section .section-header,
             .ai-training-section .section-header,
             .ai-marketing-section .section-header,
+            .ai-development-section .section-header,
             .ai-courses-section .section-header {
                 margin-bottom: 2rem;
             }
@@ -2422,6 +2427,7 @@
             .ai-advisor-section .section-title,
             .ai-training-section .section-title,
             .ai-marketing-section .section-title,
+            .ai-development-section .section-title,
             .ai-courses-section .section-title {
                 font-size: 1.5rem;
                 line-height: 1.4;
@@ -2430,6 +2436,7 @@
             .ai-advisor-section .section-subtitle,
             .ai-training-section .section-subtitle,
             .ai-marketing-section .section-subtitle,
+            .ai-development-section .section-subtitle,
             .ai-courses-section .section-subtitle {
                 font-size: 0.9rem;
             }
@@ -2438,6 +2445,7 @@
             .ai-advisor-section .image-column img,
             .ai-training-section .image-column img,
             .ai-marketing-section .image-column img,
+            .ai-development-section .image-column img,
             .ai-courses-section .image-column img {
                 border-radius: 15px;
                 margin-bottom: 1.5rem;
@@ -2454,6 +2462,7 @@
             .ai-advisor-section .feature-list,
             .ai-training-section .feature-list,
             .ai-marketing-section .feature-list,
+            .ai-development-section .feature-list,
             .ai-courses-section .feature-list {
                 margin: 1rem 0;
             }
@@ -2461,6 +2470,7 @@
             .ai-advisor-section .feature-item,
             .ai-training-section .feature-item,
             .ai-marketing-section .feature-item,
+            .ai-development-section .feature-item,
             .ai-courses-section .feature-item {
                 padding: 0.75rem 1rem;
                 margin-bottom: 0.5rem;
@@ -2471,6 +2481,7 @@
             .ai-advisor-section .feature-icon,
             .ai-training-section .feature-icon,
             .ai-marketing-section .feature-icon,
+            .ai-development-section .feature-icon,
             .ai-courses-section .feature-icon {
                 font-size: 0.9rem;
                 width: 20px;
@@ -2488,6 +2499,7 @@
             .ai-advisor-section .price-tag,
             .ai-training-section .price-tag,
             .ai-marketing-section .price-tag,
+            .ai-development-section .price-tag,
             .ai-courses-section .price-tag {
                 font-size: 1.5rem;
             }
@@ -2495,6 +2507,7 @@
             .ai-advisor-section .cta-button,
             .ai-training-section .cta-button,
             .ai-marketing-section .cta-button,
+            .ai-development-section .cta-button,
             .ai-courses-section .cta-button {
                 width: 100%;
                 text-align: center;
@@ -3051,11 +3064,23 @@
         }
 
         .grant-generator h3 {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: #fff;
             margin-bottom: 0.75rem;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
+            background: linear-gradient(90deg, #fbbf24, #34d399, #60a5fa, #fb923c);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: grantTitleShimmer 4s ease-in-out infinite;
+        }
+
+        @keyframes grantTitleShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .grant-gen-subtitle {
@@ -3768,6 +3793,7 @@
             <li><a href="#ai-advisor">AIパーソナル顧問</a></li>
             <li><a href="#ai-training">AI人材育成</a></li>
             <li><a href="#ai-marketing">AIマーケティング</a></li>
+            <li><a href="#ai-system-dev">AIシステム開発</a></li>
             <li><a href="#courses">AI講座</a></li>
             <li><a href="#grant">助成金のご案内</a></li>
             <li><a href="#implementation">AI導入事例</a></li>
@@ -4095,6 +4121,77 @@
             <!-- 漫画セクション -->
             <div class="comic-section">
                 <img src="images/comic8.png" alt="AIマーケティングプラン 活用イメージ">
+            </div>
+        </div>
+    </section>
+
+    <!-- AI System Development Section -->
+    <section id="ai-system-dev" class="ai-development-section">
+        <!-- 回路パターンアニメーション -->
+        <div class="circuit-lines">
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AIシステム開発プラン</h2>
+                <p class="section-subtitle">AIを組み込んだ業務システムを、貴社の課題に合わせてオーダーメイド開発</p>
+            </div>
+
+            <div class="two-column-layout">
+                <div class="image-column">
+                    <div class="image-with-overlay">
+                        <div style="width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #431407 0%, #7c2d12 50%, #9a3412 100%); border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; border: 3px solid rgba(251, 146, 60, 0.4); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.3);">
+                            <i class="fas fa-cogs" style="font-size: 4rem; color: #fb923c; opacity: 0.8;"></i>
+                            <span style="color: rgba(255,255,255,0.6); font-size: 0.95rem;">Coming Soon</span>
+                        </div>
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag">お見積り相談</div>
+                    </div>
+                </div>
+                <div class="content-column">
+                    <p style="margin-bottom: 2rem; line-height: 1.8;">
+                        「こんなツールがあれば業務が楽になるのに」を実現します。AIを活用した業務システムを、貴社の事業内容や課題に合わせてゼロから開発。日々の業務を自動化し、生産性を大幅に向上させます。
+                    </p>
+
+                    <ul class="feature-list">
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-file-invoice"></i></span>
+                            <span>議事録・報告書などの記録作成を自動化</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-share-alt"></i></span>
+                            <span>SNS投稿の一括生成・スケジュール管理ツール</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-database"></i></span>
+                            <span>データ入力・集計の自動処理システム</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-envelope-open-text"></i></span>
+                            <span>問い合わせ対応・メール返信のAI自動化</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-puzzle-piece"></i></span>
+                            <span>既存業務フローに合わせたカスタムAIツール開発</span>
+                        </li>
+                    </ul>
+
+                    <p class="grant-note">※人材開発支援助成金の対象となる場合があります（<a href="#grant" style="color: #fdba74; border-bottom-color: rgba(253,186,116,0.5);">詳細はこちら</a>）</p>
+                </div>
             </div>
         </div>
     </section>
@@ -4666,6 +4763,12 @@
                 name: 'AIマーケティングプラン',
                 description: 'マーケティング戦略の策定から、ツール開発・LINEミニアプリ実装まで一気通貫で対応。コンサルと開発の両方ができるワンストップ・ソリューションです。',
                 sectionId: 'ai-marketing'
+            },
+            'ai-system-dev': {
+                icon: '<i class="fas fa-cogs"></i>',
+                name: 'AIシステム開発プラン',
+                description: 'AIを組み込んだ業務システムを貴社の課題に合わせてオーダーメイド開発。記録作成の自動化やSNS投稿の一括生成など、日々の業務を効率化します。',
+                sectionId: 'ai-system-dev'
             }
         };
 
@@ -4728,8 +4831,13 @@
             // 質問2: 立場
             // 質問3: 実現したいこと
 
-            // AIマーケティングプラン: 開発が必要、マーケ重視、または完全自動化を目指したい
-            if (answers.question2 === 'developer' || answers.question3 === 'development' || answers.question3 === 'automation') {
+            // AIシステム開発プラン: 業務自動化を目指したい
+            if (answers.question3 === 'automation') {
+                return 'ai-system-dev';
+            }
+
+            // AIマーケティングプラン: 開発が必要、マーケ重視
+            if (answers.question2 === 'developer' || answers.question3 === 'development') {
                 return 'ai-marketing';
             }
 
