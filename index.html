@@ -3599,10 +3599,34 @@
         }
 
         .course-lineup {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
             margin-top: 2rem;
+        }
+
+        .course-lineup-featured {
+            margin-bottom: 1.5rem;
+        }
+
+        .course-lineup-featured .course-lineup-item {
+            background: linear-gradient(135deg, rgba(250, 204, 21, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .course-lineup-featured .course-lineup-item h5 {
+            font-size: 1.2rem;
+        }
+
+        .course-lineup-featured .course-lineup-item p {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .course-lineup-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
         }
 
         .course-lineup-item {
@@ -3734,8 +3758,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .course-lineup {
-                grid-template-columns: 1fr;
+            .course-lineup-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .course-lineup-featured .course-lineup-item {
+                padding: 1.5rem;
             }
 
             .ai-marketing-section {
@@ -3911,9 +3939,35 @@
             position: relative;
             width: 100%;
             padding-top: 56.25%;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             overflow: hidden;
             transition: filter 0.3s ease;
+        }
+
+        .card-thumb .thumb-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-thumb .thumb-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.12;
+        }
+
+        .card-thumb .thumb-emoji {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            opacity: 0.15;
+            filter: blur(1px);
         }
 
         .card-thumb .thumb-play {
@@ -3921,43 +3975,71 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 48px;
-            height: 48px;
-            background: rgba(24, 119, 242, 0.85);
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .gpts-live-card-inner:hover .card-thumb .thumb-play {
+            background: rgba(24, 119, 242, 0.85);
+            border-color: transparent;
+            transform: translate(-50%, -50%) scale(1.15);
         }
 
         .card-thumb .thumb-play i {
             color: white;
-            font-size: 1.2rem;
-            margin-left: 3px;
+            font-size: 1rem;
+            margin-left: 2px;
         }
 
         .card-thumb .thumb-badge {
             position: absolute;
-            top: 0.5rem;
-            left: 0.5rem;
+            top: 0.6rem;
+            left: 0.6rem;
             background: #e74c3c;
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            z-index: 1;
+            animation: livePulse 2s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         .card-thumb .thumb-fb {
             position: absolute;
             bottom: 0.5rem;
             right: 0.5rem;
-            color: #1877f2;
-            font-size: 1.25rem;
-            filter: drop-shadow(0 1px 3px rgba(0,0,0,0.5));
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+
+        .card-thumb .thumb-date-overlay {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0.6rem;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.7);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.15rem 0.5rem;
+            border-radius: 3px;
+            z-index: 1;
         }
 
         .card-body {
@@ -4032,6 +4114,10 @@
                 width: 34px;
                 height: 34px;
                 font-size: 0.9rem;
+            }
+
+            .course-lineup-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -4505,8 +4591,12 @@
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
                                 <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(160deg, #ff6b35 0%, #f7c948 50%, #e74c3c 100%);"></div>
+                                    <div class="thumb-pattern" style="background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px);"></div>
+                                    <span class="thumb-emoji">🤖</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/9</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4517,9 +4607,13 @@
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-thumb" style="background: linear-gradient(135deg, #0f3460 0%, #533483 50%, #e94560 100%);">
+                                <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                                    <div class="thumb-pattern" style="background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.1) 0%, transparent 40%);"></div>
+                                    <span class="thumb-emoji">🌐</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/8</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4530,9 +4624,13 @@
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-thumb" style="background: linear-gradient(135deg, #1a1a2e 0%, #0a3d62 50%, #38ada9 100%);">
+                                <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);"></div>
+                                    <div class="thumb-pattern" style="background: repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.08) 8px, rgba(255,255,255,0.08) 16px);"></div>
+                                    <span class="thumb-emoji">📈</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/6</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4543,9 +4641,13 @@
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-thumb" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);">
+                                <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(160deg, #1a1a2e 0%, #e94560 100%);"></div>
+                                    <div class="thumb-pattern" style="background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 60%);"></div>
+                                    <span class="thumb-emoji">💡</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/5</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4556,9 +4658,13 @@
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-thumb" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #6dd5ed 100%);">
+                                <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);"></div>
+                                    <div class="thumb-pattern" style="background: repeating-radial-gradient(circle at 50% 50%, transparent, transparent 15px, rgba(255,255,255,0.06) 15px, rgba(255,255,255,0.06) 30px);"></div>
+                                    <span class="thumb-emoji">☀️</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/4</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4569,9 +4675,13 @@
                         </div>
                         <div class="gpts-live-card">
                             <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-live-card-inner">
-                                <div class="card-thumb" style="background: linear-gradient(135deg, #0c2461 0%, #4a69bd 50%, #6a89cc 100%);">
+                                <div class="card-thumb">
+                                    <div class="thumb-bg" style="background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);"></div>
+                                    <div class="thumb-pattern" style="background: linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                                    <span class="thumb-emoji">📋</span>
                                     <span class="thumb-badge">LIVE</span>
                                     <div class="thumb-play"><i class="fas fa-play"></i></div>
+                                    <span class="thumb-date-overlay">2/3</span>
                                     <i class="fab fa-facebook thumb-fb"></i>
                                 </div>
                                 <div class="card-body">
@@ -4588,25 +4698,29 @@
             <!-- 講座ラインナップ -->
             <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
             <div class="course-lineup">
-                <div class="course-lineup-item">
-                    <h5><i class="fas fa-seedling"></i> 初学者向けAI体験講座</h5>
-                    <p>AIとは何かを体験しながら学ぶ入門講座。ChatGPTやGeminiの基本操作から始めます。</p>
+                <div class="course-lineup-featured">
+                    <div class="course-lineup-item">
+                        <h5><i class="fas fa-seedling"></i> 初学者向けAI体験講座</h5>
+                        <p>AIとは何かを体験しながら学ぶ入門講座。ChatGPTやGeminiの基本操作から始めます。</p>
+                    </div>
                 </div>
-                <div class="course-lineup-item">
-                    <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
-                    <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
-                </div>
-                <div class="course-lineup-item">
-                    <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
-                    <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
-                </div>
-                <div class="course-lineup-item">
-                    <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
-                    <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
-                </div>
-                <div class="course-lineup-item">
-                    <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
-                    <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                <div class="course-lineup-grid">
+                    <div class="course-lineup-item">
+                        <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
+                        <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                    </div>
+                    <div class="course-lineup-item">
+                        <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
+                        <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
+                    </div>
+                    <div class="course-lineup-item">
+                        <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
+                        <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
+                    </div>
+                    <div class="course-lineup-item">
+                        <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
+                        <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
+                    </div>
                 </div>
             </div>
 
