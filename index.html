@@ -3755,6 +3755,83 @@
             background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
         }
 
+        /* Grant Banner Button */
+        .grant-banner-btn {
+            display: block;
+            text-decoration: none;
+            margin: 2.5rem auto;
+            max-width: 700px;
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            /* 3D raised effect */
+            background: linear-gradient(180deg, #c9a44a 0%, #8a6914 100%);
+            padding: 5px;
+            box-shadow:
+                0 6px 0 #6b5310,
+                0 8px 15px rgba(0,0,0,0.4),
+                0 15px 40px rgba(139,105,20,0.3);
+        }
+
+        .grant-banner-btn img {
+            width: 100%;
+            display: block;
+            border-radius: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .grant-banner-btn::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 10%;
+            right: 10%;
+            height: 35%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 100%);
+            border-radius: 14px 14px 50% 50%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .grant-banner-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -60%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: skewX(-20deg);
+            z-index: 3;
+            pointer-events: none;
+            animation: bannerShine 4s ease-in-out infinite;
+        }
+
+        @keyframes bannerShine {
+            0% { left: -60%; opacity: 0; }
+            20% { opacity: 1; }
+            100% { left: 120%; opacity: 0; }
+        }
+
+        .grant-banner-btn:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 9px 0 #6b5310,
+                0 12px 20px rgba(0,0,0,0.5),
+                0 20px 50px rgba(139,105,20,0.4),
+                0 0 25px rgba(201,164,74,0.3);
+        }
+
+        .grant-banner-btn:active {
+            transform: translateY(3px);
+            box-shadow:
+                0 2px 0 #6b5310,
+                0 3px 8px rgba(0,0,0,0.4);
+        }
+
         /* Grant Generator */
         .grant-generator {
             border-radius: 24px;
@@ -5622,6 +5699,11 @@
                         <img src="images/19.png" alt="リスキリング支援の訓練による申請の5ステップ" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
                     </div>
                 </div>
+
+                <!-- 書類作成ツールバナー -->
+                <a href="https://jinkai-doc-generator.vercel.app/" target="_blank" class="grant-banner-btn">
+                    <img src="images/banar.png" alt="爆速書類作成 - タップして書類作成ツールを起動">
+                </a>
 
                 <!-- AI申請計画案ジェネレーター -->
                 <div class="grant-generator" id="grantGenerator">
