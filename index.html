@@ -3742,6 +3742,100 @@
             margin: 0 auto;
         }
 
+        /* 助成金スライダー */
+        .grant-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        .grant-slider-viewport {
+            position: relative;
+            width: 100%;
+            min-height: 300px;
+        }
+        .grant-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            opacity: 0;
+            transform: scale(0.92) rotateY(8deg);
+            filter: blur(6px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .grant-slide.active {
+            position: relative;
+            opacity: 1;
+            transform: scale(1) rotateY(0deg);
+            filter: blur(0);
+            pointer-events: auto;
+            z-index: 2;
+        }
+        .grant-slide.slide-exit-left {
+            opacity: 0;
+            transform: scale(0.88) translateX(-30%) rotateY(-12deg);
+            filter: blur(8px);
+        }
+        .grant-slide.slide-exit-right {
+            opacity: 0;
+            transform: scale(0.88) translateX(30%) rotateY(12deg);
+            filter: blur(8px);
+        }
+        .grant-slide img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .grant-slider-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .grant-slider-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(96, 165, 250, 0.4);
+            background: rgba(15, 23, 42, 0.8);
+            color: #60a5fa;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+        .grant-slider-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            border-color: #60a5fa;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+            transform: scale(1.1);
+        }
+        .grant-slider-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .grant-slider-dot {
+            width: 32px;
+            height: 4px;
+            border-radius: 2px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            padding: 0;
+        }
+        .grant-slider-dot.active {
+            width: 48px;
+            background: linear-gradient(90deg, #3b82f6, #818cf8);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+        }
+
         .grant-intro {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -5549,23 +5643,40 @@
             </div>
 
             <div class="grant-content">
-                <!-- メインビジュアル -->
-                <div style="text-align: center; margin-bottom: 2rem; position: relative; display: inline-block; width: 100%;">
-                    <img src="images/18.png" alt="AI研修、国のお金で最大75%OFF！" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
-                    <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html#1005" target="_blank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 700; font-size: 1.05rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.5), 0 0 0 3px rgba(255,255,255,0.8); transition: all 0.3s ease; letter-spacing: 0.05em;" onmouseover="this.style.transform='translate(-50%,-50%) scale(1.05)';this.style.boxShadow='0 6px 30px rgba(37,99,235,0.7), 0 0 0 3px rgba(255,255,255,0.9)';" onmouseout="this.style.transform='translate(-50%,-50%)';this.style.boxShadow='0 4px 20px rgba(37,99,235,0.5), 0 0 0 3px rgba(255,255,255,0.8)';"><i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>厚生労働省の詳細ページを見る</a>
-                </div>
-
-                <!-- 申請フロー -->
-                <div class="grant-flow">
-                    <div style="text-align: center;">
-                        <img src="images/19.png" alt="リスキリング支援の訓練による申請の5ステップ" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+                <!-- 助成金スライダー -->
+                <div class="grant-slider" style="perspective: 1200px;">
+                    <div class="grant-slider-viewport" id="grantSliderViewport">
+                        <!-- Slide 1: メインビジュアル -->
+                        <div class="grant-slide active" data-grant-slide="0">
+                            <div style="text-align: center; position: relative; display: inline-block; width: 100%;">
+                                <img src="images/18.png" alt="AI研修、国のお金で最大75%OFF！">
+                                <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html#1005" target="_blank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 0.9rem 2.2rem; border-radius: 50px; font-weight: 700; font-size: 1.05rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.5), 0 0 0 3px rgba(255,255,255,0.8); transition: all 0.3s ease; letter-spacing: 0.05em;" onmouseover="this.style.transform='translate(-50%,-50%) scale(1.05)';this.style.boxShadow='0 6px 30px rgba(37,99,235,0.7), 0 0 0 3px rgba(255,255,255,0.9)';" onmouseout="this.style.transform='translate(-50%,-50%)';this.style.boxShadow='0 4px 20px rgba(37,99,235,0.5), 0 0 0 3px rgba(255,255,255,0.8)';"><i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>厚生労働省の詳細ページを見る</a>
+                            </div>
+                        </div>
+                        <!-- Slide 2: 申請フロー -->
+                        <div class="grant-slide" data-grant-slide="1">
+                            <div style="text-align: center;">
+                                <img src="images/19.png" alt="リスキリング支援の訓練による申請の5ステップ">
+                            </div>
+                        </div>
+                        <!-- Slide 3: 書類作成ツール -->
+                        <div class="grant-slide" data-grant-slide="2">
+                            <a href="https://jinkai-doc-generator.vercel.app/" target="_blank" class="grant-banner-btn">
+                                <img src="images/banar.png" alt="爆速書類作成 - タップして書類作成ツールを起動">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- ナビゲーション -->
+                    <div class="grant-slider-nav">
+                        <button class="grant-slider-btn" onclick="changeGrantSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                        <div class="grant-slider-dots">
+                            <button class="grant-slider-dot active" data-grant-dot="0" onclick="goToGrantSlide(0)"></button>
+                            <button class="grant-slider-dot" data-grant-dot="1" onclick="goToGrantSlide(1)"></button>
+                            <button class="grant-slider-dot" data-grant-dot="2" onclick="goToGrantSlide(2)"></button>
+                        </div>
+                        <button class="grant-slider-btn" onclick="changeGrantSlide(1)"><i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
-
-                <!-- 書類作成ツールバナー -->
-                <a href="https://jinkai-doc-generator.vercel.app/" target="_blank" class="grant-banner-btn">
-                    <img src="images/banar.png" alt="爆速書類作成 - タップして書類作成ツールを起動">
-                </a>
 
                 <!-- サポート案内 -->
                 <div class="grant-support">
@@ -7065,6 +7176,57 @@
                     renderRepos(fallbackRepos);
                 });
         })();
+    </script>
+
+    <!-- 助成金スライダー JS -->
+    <script>
+    (function() {
+        let grantCurrent = 0;
+        const grantTotal = 3;
+        let grantAnimating = false;
+        let grantAutoTimer;
+
+        function goToGrantSlide(idx) {
+            if (grantAnimating || idx === grantCurrent) return;
+            grantAnimating = true;
+            const slides = document.querySelectorAll('.grant-slide');
+            const dots = document.querySelectorAll('.grant-slider-dot');
+            const prev = slides[grantCurrent];
+            const next = slides[idx];
+            const direction = idx > grantCurrent ? 'left' : 'right';
+
+            prev.classList.remove('active');
+            prev.classList.add(direction === 'left' ? 'slide-exit-left' : 'slide-exit-right');
+
+            next.classList.add('active');
+
+            dots.forEach(d => d.classList.remove('active'));
+            dots[idx].classList.add('active');
+
+            setTimeout(() => {
+                prev.classList.remove('slide-exit-left', 'slide-exit-right');
+                grantCurrent = idx;
+                grantAnimating = false;
+            }, 700);
+
+            resetGrantAuto();
+        }
+
+        function changeGrantSlide(dir) {
+            const next = (grantCurrent + dir + grantTotal) % grantTotal;
+            goToGrantSlide(next);
+        }
+
+        function resetGrantAuto() {
+            clearInterval(grantAutoTimer);
+            grantAutoTimer = setInterval(() => changeGrantSlide(1), 5000);
+        }
+
+        window.goToGrantSlide = goToGrantSlide;
+        window.changeGrantSlide = changeGrantSlide;
+
+        resetGrantAuto();
+    })();
     </script>
 </body>
 </html>
