@@ -6253,18 +6253,19 @@
         }
 
         // Video source update based on screen size
-        const heroVideo = document.getElementById('heroVideo');
-        function updateVideoSource() {
-            if (window.innerWidth <= 768) {
-                heroVideo.src = 'videos/lpmoviesp.mp4';
-            } else {
-                heroVideo.src = 'videos/lpmoviepc.mp4';
+        var heroVideo = document.getElementById('heroVideo');
+        if (heroVideo) {
+            function updateVideoSource() {
+                if (window.innerWidth <= 768) {
+                    heroVideo.src = 'videos/lpmoviesp.mp4';
+                } else {
+                    heroVideo.src = 'videos/lpmoviepc.mp4';
+                }
+                heroVideo.load();
             }
-            heroVideo.load();
+            updateVideoSource();
+            window.addEventListener('resize', updateVideoSource);
         }
-
-        updateVideoSource();
-        window.addEventListener('resize', updateVideoSource);
 
         // Course tabs functionality
         const courses = [
