@@ -174,6 +174,7 @@
             height: 100%;
             object-fit: cover;
             z-index: -2;
+            opacity: 0.3;
         }
 
         .hero-overlay {
@@ -182,7 +183,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.6);
             z-index: -1;
         }
 
@@ -1266,6 +1267,12 @@
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         }
 
+        .image-overlay-btn.cta-button:hover,
+        a.cta-button.image-overlay-btn:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+
         /* Plan Card Style for Mobile */
         .plan-card {
             background: rgba(30, 41, 59, 0.6);
@@ -1342,7 +1349,9 @@
         }
 
         .comic-section img {
-            max-width: 70%;
+            max-width: 60%;
+            max-height: 80vh;
+            object-fit: contain;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
@@ -1358,6 +1367,8 @@
             position: relative;
             display: inline-block;
             width: 100%;
+            overflow: hidden;
+            border-radius: 20px;
         }
 
         .image-with-overlay img {
@@ -1392,7 +1403,12 @@
             right: 1.5rem;
             font-size: 1.8rem;
             font-weight: bold;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.55);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
         }
 
         /* AI Courses Section - Yellow/Gold Theme */
@@ -3278,18 +3294,26 @@
             }
 
             /* SP時の画像オーバーレイ調整 */
+            .image-with-overlay {
+                overflow: hidden;
+            }
+
             .image-overlay-price {
-                font-size: 1.3rem;
-                bottom: 1rem;
-                right: 1rem;
+                font-size: 0.9rem;
+                bottom: 0.5rem;
+                right: 0.5rem;
+                padding: 0.4rem 0.7rem;
+                max-width: 90%;
+                line-height: 1.4 !important;
             }
 
             .image-overlay-btn {
-                padding: 0.75rem 1.25rem;
-                font-size: 0.85rem;
-                width: 80%;
-                max-width: 250px;
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                width: auto;
+                max-width: 85%;
                 text-align: center;
+                white-space: nowrap;
             }
 
             .service-grid,
@@ -4436,10 +4460,10 @@
         <div class="menu-overlay" id="menuOverlay"></div>
         <ul class="nav-menu" id="navMenu">
             <li><a href="#ai-diagnosis">AIプラン診断</a></li>
+            <li><a href="#ai-system-dev">AIシステム開発</a></li>
             <li><a href="#ai-advisor">AIパーソナル顧問</a></li>
             <li><a href="#ai-training">AI人材育成</a></li>
             <li><a href="#ai-marketing">AIマーケティング</a></li>
-            <li><a href="#ai-system-dev">AIシステム開発</a></li>
             <li><a href="#courses">AI講座</a></li>
             <li><a href="#grant">助成金のご案内</a></li>
             <li><a href="#implementation">AI導入事例</a></li>
@@ -4635,6 +4659,79 @@
         </div>
     </section>
 
+    <!-- AI System Development Section (一番の強み・最上部に配置) -->
+    <section id="ai-system-dev" class="ai-development-section">
+        <!-- 回路パターンアニメーション -->
+        <div class="circuit-lines">
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-line vertical"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+            <div class="circuit-node"></div>
+        </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AIシステム開発プラン</h2>
+                <p class="section-subtitle">AIを組み込んだ業務システムを、貴社の課題に合わせてオーダーメイド開発</p>
+            </div>
+
+            <div class="two-column-layout">
+                <div class="image-column">
+                    <div class="image-with-overlay">
+                        <img src="images/20.png" alt="AIシステム開発プラン">
+                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
+                        <div class="image-overlay-price price-tag" style="font-size: 1.1rem; line-height: 1.6; text-align: right;">開発費 ¥100,000〜<br>運用費 ¥10,000〜/月</div>
+                    </div>
+                </div>
+                <div class="content-column">
+                    <p style="margin-bottom: 2rem; line-height: 1.8;">
+                        「こんなツールがあれば業務が楽になるのに」を実現します。AIを活用した業務システムを、貴社の事業内容や課題に合わせてゼロから開発。日々の業務を自動化し、生産性を大幅に向上させます。
+                    </p>
+
+                    <ul class="feature-list">
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-file-invoice"></i></span>
+                            <span>議事録・報告書などの記録作成を自動化</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-share-alt"></i></span>
+                            <span>SNS投稿の一括生成・スケジュール管理ツール</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-database"></i></span>
+                            <span>データ入力・集計の自動処理システム</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-envelope-open-text"></i></span>
+                            <span>問い合わせ対応・メール返信のAI自動化</span>
+                        </li>
+                        <li class="feature-item dark-feature-item">
+                            <span class="feature-icon"><i class="fas fa-puzzle-piece"></i></span>
+                            <span>既存業務フローに合わせたカスタムAIツール開発</span>
+                        </li>
+                    </ul>
+
+                    <p class="grant-note">※初期のシステム開発費と、月々の運用費が発生します</p>
+                </div>
+            </div>
+
+            <!-- 漫画セクション -->
+            <div class="comic-section">
+                <img src="images/comic9.png" alt="AIシステム開発プラン 活用イメージ">
+            </div>
+        </div>
+    </section>
+
     <!-- AI Personal Advisor Section -->
     <section id="ai-advisor" class="ai-advisor-section">
         <!-- 浮遊する光の粒子 -->
@@ -4815,79 +4912,6 @@
             <!-- 漫画セクション -->
             <div class="comic-section">
                 <img src="images/comic8.png" alt="AIマーケティングプラン 活用イメージ">
-            </div>
-        </div>
-    </section>
-
-    <!-- AI System Development Section -->
-    <section id="ai-system-dev" class="ai-development-section">
-        <!-- 回路パターンアニメーション -->
-        <div class="circuit-lines">
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-line vertical"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-            <div class="circuit-node"></div>
-        </div>
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">AIシステム開発プラン</h2>
-                <p class="section-subtitle">AIを組み込んだ業務システムを、貴社の課題に合わせてオーダーメイド開発</p>
-            </div>
-
-            <div class="two-column-layout">
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/20.png" alt="AIシステム開発プラン">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag" style="font-size: 1.1rem; line-height: 1.6; text-align: right;">開発費 ¥100,000〜<br>運用費 ¥10,000〜/月</div>
-                    </div>
-                </div>
-                <div class="content-column">
-                    <p style="margin-bottom: 2rem; line-height: 1.8;">
-                        「こんなツールがあれば業務が楽になるのに」を実現します。AIを活用した業務システムを、貴社の事業内容や課題に合わせてゼロから開発。日々の業務を自動化し、生産性を大幅に向上させます。
-                    </p>
-
-                    <ul class="feature-list">
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-file-invoice"></i></span>
-                            <span>議事録・報告書などの記録作成を自動化</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-share-alt"></i></span>
-                            <span>SNS投稿の一括生成・スケジュール管理ツール</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-database"></i></span>
-                            <span>データ入力・集計の自動処理システム</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-envelope-open-text"></i></span>
-                            <span>問い合わせ対応・メール返信のAI自動化</span>
-                        </li>
-                        <li class="feature-item dark-feature-item">
-                            <span class="feature-icon"><i class="fas fa-puzzle-piece"></i></span>
-                            <span>既存業務フローに合わせたカスタムAIツール開発</span>
-                        </li>
-                    </ul>
-
-                    <p class="grant-note">※初期のシステム開発費と、月々の運用費が発生します</p>
-                </div>
-            </div>
-
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic9.png" alt="AIシステム開発プラン 活用イメージ">
             </div>
         </div>
     </section>
