@@ -4484,6 +4484,143 @@
             backface-visibility: hidden;
             transform: translateZ(0);
         }
+
+        /* ===== Plan Unified Card - New Layout ===== */
+        .plan-unified-layout {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .plan-unified-layout .plan-text-column {
+            flex: 1;
+            min-width: 0;
+        }
+        .plan-unified-layout .plan-text-column .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .plan-unified-layout .plan-text-column p {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85);
+        }
+        .plan-unified-layout .plan-text-column .feature-list {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .plan-unified-layout .plan-text-column .feature-item {
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .plan-unified-layout .plan-text-column .feature-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .plan-comic-column {
+            flex: 1;
+            min-width: 0;
+            position: relative;
+        }
+        .plan-comic-column .plan-comic-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .plan-comic-column .plan-comic-wrapper img {
+            width: 100%;
+            display: block;
+            object-fit: contain;
+        }
+        .floating-price-bar {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            right: 12px;
+            background: rgba(30, 20, 50, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            z-index: 2;
+        }
+        .floating-price-bar .fpb-price {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 800;
+            white-space: nowrap;
+            line-height: 1.4;
+        }
+        .floating-price-bar .fpb-price small {
+            font-size: 0.7em;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        .floating-price-bar .fpb-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem 1.4rem;
+            background: linear-gradient(135deg, #ec4899, #6366f1);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            border-radius: 50px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: transform 0.25s, box-shadow 0.25s;
+            box-shadow: 0 4px 15px rgba(236,72,153,0.4);
+            min-height: 44px;
+        }
+        .floating-price-bar .fpb-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(236,72,153,0.5);
+        }
+
+        /* Responsive for plan unified layout */
+        @media (max-width: 768px) {
+            .plan-unified-layout {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .plan-unified-layout .plan-text-column {
+                order: 1;
+            }
+            .plan-unified-layout .plan-text-column .plan-title-mobile {
+                display: block;
+            }
+            .plan-comic-column {
+                order: 2;
+            }
+            .plan-unified-layout .plan-text-column .plan-desc-mobile {
+                order: 3;
+            }
+            .floating-price-bar {
+                bottom: 8px;
+                left: 8px;
+                right: 8px;
+                padding: 0.6rem 0.8rem;
+            }
+            .floating-price-bar .fpb-price {
+                font-size: 1rem;
+            }
+            .floating-price-bar .fpb-btn {
+                font-size: 0.78rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -4724,15 +4861,8 @@
                 <p class="section-subtitle">AIを組み込んだ業務システムを、貴社の課題に合わせてオーダーメイド開発</p>
             </div>
 
-            <div class="two-column-layout">
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/20.png" alt="AIシステム開発プラン">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag" style="font-size: 1.1rem; line-height: 1.6; text-align: right;">開発費 ¥100,000〜<br>運用費 ¥10,000〜/月</div>
-                    </div>
-                </div>
-                <div class="content-column">
+            <div class="plan-unified-layout">
+                <div class="plan-text-column">
                     <p style="margin-bottom: 2rem; line-height: 1.8;">
                         「こんなツールがあれば業務が楽になるのに」を実現します。AIを活用した業務システムを、貴社の事業内容や課題に合わせてゼロから開発。日々の業務を自動化し、生産性を大幅に向上させます。
                     </p>
@@ -4761,6 +4891,15 @@
                     </ul>
 
                     <p class="grant-note">※初期のシステム開発費と、月々の運用費が発生します</p>
+                </div>
+                <div class="plan-comic-column">
+                    <div class="plan-comic-wrapper">
+                        <img src="images/comic9.png" alt="AIシステム開発プラン 活用イメージ">
+                        <div class="floating-price-bar">
+                            <div class="fpb-price">開発費 ¥100,000〜<br><small>運用費 ¥10,000〜/月</small></div>
+                            <a href="#contact" class="fpb-btn">問い合わせる</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -4809,10 +4948,6 @@
                 </p>
             </div>
 
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic9.png" alt="AIシステム開発プラン 活用イメージ">
-            </div>
         </div>
     </section>
 
@@ -4835,8 +4970,8 @@
                 <h2 class="section-title">AIパーソナル顧問プラン</h2>
                 <p class="section-subtitle">AIを導入するか悩んでいる企業や個人に最適な提案とレクチャー</p>
             </div>
-            <div class="two-column-layout">
-                <div class="content-column">
+            <div class="plan-unified-layout">
+                <div class="plan-text-column">
                     <p style="margin-bottom: 2rem; line-height: 1.8;">
                         GeminiやChatGPTを単発で使う範囲で、業務の効率化や売上の拡大を目指すやり方を教えます。AIの活用をどのように始めるか、最適な提案や使い方のレクチャーを提供します。
                     </p>
@@ -4874,17 +5009,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/1.png" alt="AI Personal Advisor">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag">¥33,000/月</div>
+                <div class="plan-comic-column">
+                    <div class="plan-comic-wrapper">
+                        <img src="images/comic1.png" alt="AIパーソナル顧問プラン 活用イメージ">
+                        <div class="floating-price-bar">
+                            <div class="fpb-price">¥33,000<small>/月</small></div>
+                            <a href="#contact" class="fpb-btn">問い合わせる</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic1.png" alt="AIパーソナル顧問プラン 活用イメージ">
             </div>
         </div>
     </section>
@@ -4909,15 +5042,8 @@
                 <h2 class="section-title">AI人材育成プラン</h2>
                 <p class="section-subtitle">社内で能動的に動けるAI人材を育成</p>
             </div>
-            <div class="two-column-layout">
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/2.png" alt="AI Training">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag">¥44,000/月</div>
-                    </div>
-                </div>
-                <div class="content-column">
+            <div class="plan-unified-layout">
+                <div class="plan-text-column">
                     <p style="margin-bottom: 2rem; line-height: 1.8;">
                         AIパーソナル顧問プランで実施している内容を、経営者以外にも広く教えます。社内で能動的に動けるAI人材を増やし、組織全体のAI活用スキルを向上させます。
                     </p>
@@ -4942,10 +5068,15 @@
                     <p class="grant-note" style="margin-bottom: 0.75rem;">※人材開発支援助成金の活用が可能です（<a href="#grant">詳細はこちら</a>）</p>
                     <a href="#grant" class="cta-button" style="display: inline-block; padding: 0.6rem 1.5rem; font-size: 0.85rem; background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); border-radius: 50px; text-decoration: none; color: white; font-weight: 600;"><i class="fas fa-coins"></i> 人材開発支援助成金の活用について</a>
                 </div>
-            </div>
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic2.png" alt="AI人材育成プラン 活用イメージ">
+                <div class="plan-comic-column">
+                    <div class="plan-comic-wrapper">
+                        <img src="images/comic2.png" alt="AI人材育成プラン 活用イメージ">
+                        <div class="floating-price-bar">
+                            <div class="fpb-price">¥44,000<small>/月</small></div>
+                            <a href="#contact" class="fpb-btn">問い合わせる</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -4967,8 +5098,8 @@
                 <h2 class="section-title">AIマーケティングプラン</h2>
                 <p class="section-subtitle">戦略策定から実装まで一気通貫のワンストップ・ソリューション</p>
             </div>
-            <div class="two-column-layout">
-                <div class="content-column">
+            <div class="plan-unified-layout">
+                <div class="plan-text-column">
                     <p style="margin-bottom: 2rem; line-height: 1.8;">
                         マーケティング戦略の策定から、必要なツールの開発・実装までを一手に引き受けます。単なるコンサルティングだけでなく、実際の開発まで一手に引き受ける技術力が強みです。
                     </p>
@@ -4996,17 +5127,15 @@
                     </ul>
                     <p class="grant-note" style="margin-top: 1rem;">※初期のシステム開発費と、月々の運用費が発生します</p>
                 </div>
-                <div class="image-column">
-                    <div class="image-with-overlay">
-                        <img src="images/17.png" alt="AIマーケティングプラン">
-                        <a href="#contact" class="cta-button image-overlay-btn">詳細を問い合わせる</a>
-                        <div class="image-overlay-price price-tag" style="font-size: 1.1rem; line-height: 1.6; text-align: right;">開発費 ¥100,000〜<br>運用費 ¥10,000〜/月</div>
+                <div class="plan-comic-column">
+                    <div class="plan-comic-wrapper">
+                        <img src="images/comic8.png" alt="AIマーケティングプラン 活用イメージ">
+                        <div class="floating-price-bar">
+                            <div class="fpb-price">開発費 ¥100,000〜<br><small>運用費 ¥10,000〜/月</small></div>
+                            <a href="#contact" class="fpb-btn">問い合わせる</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- 漫画セクション -->
-            <div class="comic-section">
-                <img src="images/comic8.png" alt="AIマーケティングプラン 活用イメージ">
             </div>
         </div>
     </section>
