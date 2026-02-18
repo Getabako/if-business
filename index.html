@@ -2462,6 +2462,38 @@
             filter: grayscale(0.5);
         }
 
+        /* 時計回りハイライト */
+        .faq-panel.cw-highlight {
+            filter: brightness(1.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 20px rgba(255,255,255,0.4), 0 4px 15px rgba(255,255,255,0.2) !important;
+            transition: all 0.3s ease;
+        }
+
+        /* クリック光エフェクト */
+        .faq-panel.spark {
+            animation: faqSpark 0.6s ease-out;
+        }
+        @keyframes faqSpark {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.8); filter: brightness(1.6); }
+            30% { box-shadow: 0 0 30px 10px rgba(255,255,255,0.5); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); filter: brightness(1); }
+        }
+
+        .faq-panel { position: relative; overflow: hidden; }
+        .faq-panel .faq-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, transparent 70%);
+            transform: scale(0);
+            animation: faqRipple 0.7s ease-out forwards;
+            pointer-events: none;
+        }
+        @keyframes faqRipple {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
         /* 8 color variations */
         .faq-panel[data-faq="0"] {
             background: linear-gradient(180deg, #ef5b5b 0%, #c0392b 100%);
@@ -6620,22 +6652,63 @@
                 typeSentence();
             }
 
-            // Panel click handler
+            // Panel click handler with spark effect
             panels.forEach(function(panel) {
-                panel.addEventListener('click', function() {
+                panel.addEventListener('click', function(e) {
                     var idx = parseInt(this.getAttribute('data-faq'));
+                    var self = this;
+
+                    // Spark effect
+                    self.classList.remove('spark');
+                    void self.offsetWidth; // reflow
+                    self.classList.add('spark');
+
+                    // Ripple effect
+                    var ripple = document.createElement('span');
+                    ripple.className = 'faq-ripple';
+                    var rect = self.getBoundingClientRect();
+                    var size = Math.max(rect.width, rect.height);
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                    self.appendChild(ripple);
+                    setTimeout(function() { ripple.remove(); }, 700);
+
+                    // Stop clockwise rotation while answering
+                    cwRunning = false;
 
                     // Highlight active panel
-                    panels.forEach(function(p) { p.classList.remove('active'); p.classList.add('disabled'); });
-                    this.classList.add('active');
-                    this.classList.remove('disabled');
+                    panels.forEach(function(p) { p.classList.remove('active'); p.classList.add('disabled'); p.classList.remove('cw-highlight'); });
+                    self.classList.add('active');
+                    self.classList.remove('disabled');
 
-                    // Type answer (old session auto-cancelled by sessionId increment)
+                    // Type answer
                     typeText(faqAnswers[idx], function() {
                         panels.forEach(function(p) { p.classList.remove('active'); p.classList.remove('disabled'); });
+                        // Resume clockwise after answer
+                        cwRunning = true;
                     });
                 });
             });
+
+            // Clockwise rotation animation
+            // Order: left top→bottom (0,1,2,3,4,5), then right bottom→top (10,9,8,7,6)
+            var cwOrder = [0, 1, 2, 3, 4, 5, 10, 9, 8, 7, 6];
+            var cwIdx = 0;
+            var cwRunning = true;
+
+            function cwStep() {
+                if (!cwRunning) { setTimeout(cwStep, 1500); return; }
+                panels.forEach(function(p) { p.classList.remove('cw-highlight'); });
+                // Find panel with matching data-faq
+                var target = document.querySelector('.faq-panel[data-faq="' + cwOrder[cwIdx] + '"]');
+                if (target && !target.classList.contains('disabled')) {
+                    target.classList.add('cw-highlight');
+                }
+                cwIdx = (cwIdx + 1) % cwOrder.length;
+                setTimeout(cwStep, 1500);
+            }
+            setTimeout(cwStep, 2000);
 
             // Start idle on load
             startIdle();
