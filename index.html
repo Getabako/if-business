@@ -225,65 +225,77 @@
             font-weight: 900;
             letter-spacing: 0.15em;
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
+        }
+
+        .hero-ainovation .char-span {
+            display: inline-block;
             opacity: 0;
-            transform: scale(0.3);
-            animation: ainovationAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards;
+            transform: translateY(-40px) scale(0.3) rotate(-15deg);
+            animation: charDrop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 30%, #f472b6 60%, #fbbf24 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
         }
 
-        @keyframes ainovationAppear {
+        @keyframes charDrop {
             0% {
                 opacity: 0;
-                transform: scale(0.3);
-                filter: drop-shadow(0 0 0px rgba(99, 102, 241, 0));
+                transform: translateY(-40px) scale(0.3) rotate(-15deg);
             }
-            50% {
+            60% {
                 opacity: 1;
-                filter: drop-shadow(0 0 60px rgba(99, 102, 241, 0.8));
+                transform: translateY(5px) scale(1.1) rotate(3deg);
             }
-            70% {
-                transform: scale(1.05);
+            80% {
+                transform: translateY(-3px) scale(0.95) rotate(-1deg);
             }
             100% {
                 opacity: 1;
-                transform: scale(1);
-                filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
+                transform: translateY(0) scale(1) rotate(0deg);
             }
         }
 
-        /* Hero animated texts */
+        /* Hero animated texts - character animation */
         .hero-text-1,
         .hero-text-2,
         .hero-text-3 {
             font-family: 'Zen Maru Gothic', sans-serif;
             font-weight: 700;
-            opacity: 0;
-            transform: translateY(20px);
         }
 
         .hero-text-1 {
             font-size: clamp(1.6rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
             color: #f9fafb;
-            animation: textFadeIn 0.8s ease 1.5s forwards;
         }
 
         .hero-text-2 {
             font-size: clamp(1rem, 2vw, 1.4rem);
             margin-bottom: 0.8rem;
             color: rgba(249, 250, 251, 0.9);
-            animation: textFadeIn 0.8s ease 2.5s forwards;
         }
 
         .hero-text-3 {
             font-size: clamp(1rem, 2vw, 1.3rem);
             margin-bottom: 2rem;
             color: #fbbf24;
-            animation: textFadeIn 0.8s ease 3.5s forwards;
+        }
+
+        .hero-text-1 .char-span,
+        .hero-text-2 .char-span,
+        .hero-text-3 .char-span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: textCharIn 0.5s ease forwards;
+        }
+
+        @keyframes textCharIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+            60% { transform: translateY(-3px) scale(1.05); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes textFadeIn {
@@ -4621,6 +4633,156 @@
             }
         }
 
+        /* GitHub Repos Marquee Section */
+        .github-repos-section {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a0a1a 100%);
+            padding: 4rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .github-repos-section .section-header {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .github-repos-section .section-title {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(139,92,246,0.6);
+        }
+
+        .github-repos-section .section-subtitle {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .github-repos-section .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a78bfa;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .github-repos-section .github-link:hover { color: #c4b5fd; }
+
+        .repos-marquee-wrapper {
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .repos-marquee-wrapper::before,
+        .repos-marquee-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .repos-marquee-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, #0a0a1a, transparent);
+        }
+
+        .repos-marquee-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, #0a0a1a, transparent);
+        }
+
+        .repos-marquee-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            animation: repoMarquee 60s linear infinite;
+        }
+
+        .repos-marquee-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes repoMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .repo-card {
+            flex-shrink: 0;
+            width: 260px;
+            background: rgba(30, 20, 60, 0.8);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: block;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .repo-card-thumb {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .repo-card-fallback {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #1a0a3e 0%, #2d1b69 50%, #0e2a5e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            padding: 1rem;
+            word-break: break-all;
+        }
+
+        .repo-card-body {
+            padding: 1rem;
+        }
+
+        .repo-card-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #c4b5fd;
+            margin-bottom: 0.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .repo-card-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .repo-card { width: 220px; }
+            .repo-card-fallback, .repo-card-thumb { height: 120px; }
+            .repos-marquee-wrapper::before,
+            .repos-marquee-wrapper::after { width: 40px; }
+        }
+
     </style>
 </head>
 <body>
@@ -4835,6 +4997,26 @@
         </div>
     </section>
 
+    <!-- GitHub Repos / 開発実績 Section -->
+    <section class="github-repos-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">開発実績</h2>
+                <p class="section-subtitle">
+                    GitHubで公開中のプロジェクト一覧
+                    <a href="https://github.com/Getabako" target="_blank" class="github-link" style="margin-left: 1rem;">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="repos-marquee-wrapper">
+            <div class="repos-marquee-track" id="reposMarqueeTrack">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
     <!-- AI System Development Section (一番の強み・最上部に配置) -->
     <section id="ai-system-dev" class="ai-development-section">
         <!-- 回路パターンアニメーション -->
@@ -4901,51 +5083,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- 開発実例 -->
-            <div style="margin-top: 3rem;">
-                <h3 style="text-align: center; font-size: 1.4rem; color: #60a5fa; margin-bottom: 2rem;"><i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>開発実例</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; max-width: 1000px; margin: 0 auto;">
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📱</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">SNS完全自動化システム</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">Instagram・ブログの自動投稿</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎬</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">YouTube自動投稿システム</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">スライド→動画→アップロード自動化</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🤖</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AI秘書システム</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">Discord連携タスク管理・スケジュール自動化</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📝</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AI記録・文章自動作成</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">アセスメント・支援計画の自動生成</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎙️</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">議事録自動作成システム</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">会議音声から自動で議事録を生成</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">LINEイベント管理アプリ</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">LINE上でイベント予約・管理を完結</p>
-                    </div>
-                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
-                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💡</div>
-                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AIマッチングプラットフォーム</h4>
-                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">AI活用のマッチングサービス構築</p>
-                    </div>
-                </div>
-                <p style="text-align: center; margin-top: 1.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem;">
-                    <i class="fab fa-github" style="margin-right: 0.4rem;"></i>GitHubにて<strong style="color: #60a5fa;">20以上</strong>のプロジェクト開発実績
-                </p>
             </div>
 
         </div>
@@ -6667,6 +6804,75 @@
             setTimeout(function() {
                 document.body.classList.remove('opening-active');
             }, 5000);
+        })();
+
+        // Hero character-by-character animation
+        (function() {
+            function splitToChars(el, baseDelay) {
+                var text = el.textContent;
+                el.textContent = '';
+                for (var i = 0; i < text.length; i++) {
+                    var span = document.createElement('span');
+                    span.className = 'char-span';
+                    span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
+                    span.style.animationDelay = (baseDelay + i * 0.06) + 's';
+                    el.appendChild(span);
+                }
+            }
+
+            var ainovation = document.querySelector('.hero-ainovation');
+            if (ainovation) splitToChars(ainovation, 0.3);
+
+            var text1 = document.querySelector('.hero-text-1');
+            if (text1) splitToChars(text1, 1.5);
+
+            var text2 = document.querySelector('.hero-text-2');
+            if (text2) splitToChars(text2, 2.5);
+
+            var text3 = document.querySelector('.hero-text-3');
+            if (text3) splitToChars(text3, 3.5);
+        })();
+
+        // GitHub Repos Marquee
+        (function() {
+            fetch('https://api.github.com/users/Getabako/repos?per_page=100')
+                .then(function(res) { return res.json(); })
+                .then(function(repos) {
+                    var track = document.getElementById('reposMarqueeTrack');
+                    if (!track || !repos.length) return;
+
+                    function makeCard(repo) {
+                        var a = document.createElement('a');
+                        a.className = 'repo-card';
+                        a.href = repo.html_url;
+                        a.target = '_blank';
+                        a.rel = 'noopener';
+
+                        var thumbSrc = 'images/repo-thumbnails/' + repo.name + '.png';
+                        var desc = repo.description || '';
+
+                        a.innerHTML =
+                            '<img class="repo-card-thumb" src="' + thumbSrc + '" alt="' + repo.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+                            '<div class="repo-card-fallback" style="display:none">' + repo.name + '</div>' +
+                            '<div class="repo-card-body">' +
+                                '<div class="repo-card-name">' + repo.name + '</div>' +
+                                (desc ? '<div class="repo-card-desc">' + desc + '</div>' : '') +
+                            '</div>';
+                        return a;
+                    }
+
+                    // Create two sets for seamless loop
+                    for (var s = 0; s < 2; s++) {
+                        repos.forEach(function(repo) {
+                            track.appendChild(makeCard(repo));
+                        });
+                    }
+
+                    // Adjust animation duration based on number of repos
+                    var duration = repos.length * 3;
+                    track.style.animationDuration = duration + 's';
+                })
+                .catch(function(err) { console.log('GitHub API error:', err); });
         })();
     </script>
 </body>
