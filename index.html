@@ -6812,9 +6812,10 @@
             }, 5000);
         })();
 
-        // Hero character-by-character animation (DOMContentLoaded for safety)
-        window.addEventListener('DOMContentLoaded', function() {
+        // Hero character-by-character animation
+        (function() {
             function splitToChars(el, baseDelay) {
+                if (el.querySelector('.char-span')) return;
                 var text = el.textContent;
                 el.textContent = '';
                 for (var i = 0; i < text.length; i++) {
@@ -6826,33 +6827,7 @@
                 }
             }
 
-            var ainovation = document.querySelector('.hero-ainovation');
-            if (ainovation) splitToChars(ainovation, 0.3);
-
-            var text1 = document.querySelector('.hero-text-1');
-            if (text1) splitToChars(text1, 1.5);
-
-            var text2 = document.querySelector('.hero-text-2');
-            if (text2) splitToChars(text2, 2.5);
-
-            var text3 = document.querySelector('.hero-text-3');
-            if (text3) splitToChars(text3, 3.5);
-        });
-        // Fallback: if DOMContentLoaded already fired, run immediately
-        if (document.readyState !== 'loading') {
-            (function() {
-                function splitToChars(el, baseDelay) {
-                    if (el.querySelector('.char-span')) return; // already split
-                    var text = el.textContent;
-                    el.textContent = '';
-                    for (var i = 0; i < text.length; i++) {
-                        var span = document.createElement('span');
-                        span.className = 'char-span';
-                        span.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-                        span.style.animationDelay = (baseDelay + i * 0.06) + 's';
-                        el.appendChild(span);
-                    }
-                }
+            function runHeroAnim() {
                 var ainovation = document.querySelector('.hero-ainovation');
                 if (ainovation) splitToChars(ainovation, 0.3);
                 var text1 = document.querySelector('.hero-text-1');
@@ -6861,8 +6836,11 @@
                 if (text2) splitToChars(text2, 2.5);
                 var text3 = document.querySelector('.hero-text-3');
                 if (text3) splitToChars(text3, 3.5);
-            })();
-        }
+            }
+
+            // DOM is already loaded since script is at bottom
+            runHeroAnim();
+        })();
 
         // GitHub Repos Marquee (with hardcoded fallback)
         (function() {
