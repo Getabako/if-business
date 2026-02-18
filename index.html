@@ -157,6 +157,11 @@
         }
 
         /* Hero Section */
+        /* Opening animation - body lock */
+        body.opening-active {
+            overflow: hidden;
+        }
+
         .hero-section {
             min-height: 100vh;
             position: relative;
@@ -164,17 +169,35 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            background: #0a0a1a;
         }
 
-        .hero-video {
+        .hero-bg-gradient {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 25%, #0a1a4e 50%, #0e2a5e 75%, #1a0a3e 100%);
             z-index: -2;
-            opacity: 0.3;
+            opacity: 0;
+            animation: bgFadeIn 1.5s ease 4s forwards;
+        }
+
+        .hero-bg-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 70% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+        }
+
+        @keyframes bgFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hero-overlay {
@@ -183,7 +206,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.3);
             z-index: -1;
         }
 
@@ -192,88 +215,85 @@
             color: white;
             padding: 2rem;
             max-width: 900px;
-            animation: fadeInUp 1s ease;
+            z-index: 1;
         }
 
-        .hero-title {
+        /* AINOVATION title */
+        .hero-ainovation {
             font-family: 'Zen Maru Gothic', sans-serif;
-            font-size: clamp(2.2rem, 6.5vw, 4rem);
+            font-size: clamp(3rem, 10vw, 6rem);
             font-weight: 900;
-            margin-bottom: 1.2rem;
-            line-height: 1.3;
-            letter-spacing: 0.03em;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0;
-        }
-
-        .hero-title .char {
-            display: inline-block;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
             opacity: 0;
-            transform: translateY(60px) rotate(15deg) scale(0.3);
-            animation: charPopIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.6) forwards;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-            will-change: transform;
+            transform: scale(0.3);
+            animation: ainovationAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 30%, #f472b6 60%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
         }
 
-        .hero-title .char.comma {
-            margin-right: 0.15em;
-        }
-
-        @keyframes charPopIn {
+        @keyframes ainovationAppear {
             0% {
                 opacity: 0;
-                transform: translateY(60px) rotate(15deg) scale(0.3);
-                filter: blur(8px);
+                transform: scale(0.3);
+                filter: drop-shadow(0 0 0px rgba(99, 102, 241, 0));
             }
             50% {
                 opacity: 1;
-                filter: blur(0px);
+                filter: drop-shadow(0 0 60px rgba(99, 102, 241, 0.8));
             }
             70% {
-                transform: translateY(-10px) rotate(-5deg) scale(1.1);
-            }
-            85% {
-                transform: translateY(3px) rotate(2deg) scale(0.95);
+                transform: scale(1.05);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) rotate(0deg) scale(1);
-                filter: blur(0px);
+                transform: scale(1);
+                filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.5));
             }
         }
 
-        /* Colorful characters */
-        .hero-title .char:nth-child(1) { color: #60a5fa; } /* A */
-        .hero-title .char:nth-child(2) { color: #a78bfa; } /* I */
-        .hero-title .char:nth-child(3) { color: #f9fafb; } /* の */
-        .hero-title .char:nth-child(4) { color: #34d399; } /* 導 */
-        .hero-title .char:nth-child(5) { color: #34d399; } /* 入 */
-        .hero-title .char:nth-child(6) { color: #f9fafb; } /* 、 */
-        .hero-title .char:nth-child(7) { color: #fbbf24; } /* ぜ */
-        .hero-title .char:nth-child(8) { color: #fbbf24; } /* ん */
-        .hero-title .char:nth-child(9) { color: #fbbf24; } /* ぶ */
-        .hero-title .char:nth-child(10) { color: #fb923c; } /* 丸 */
-        .hero-title .char:nth-child(11) { color: #fb923c; } /* 投 */
-        .hero-title .char:nth-child(12) { color: #fb923c; } /* げ */
-        .hero-title .char:nth-child(13) { color: #f9fafb; } /* で */
-        .hero-title .char:nth-child(14) { color: #f472b6; font-size: 1.15em; } /* O */
-        .hero-title .char:nth-child(15) { color: #60a5fa; font-size: 1.15em; } /* K */
-
-        .hero-subtitle {
+        /* Hero animated texts */
+        .hero-text-1,
+        .hero-text-2,
+        .hero-text-3 {
             font-family: 'Zen Maru Gothic', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            margin-bottom: 2rem;
-            opacity: 0;
-            animation: subtitleFadeIn 0.8s ease 1.2s forwards;
             font-weight: 700;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        @keyframes subtitleFadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 0.95; transform: translateY(0); }
+        .hero-text-1 {
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: #f9fafb;
+            animation: textFadeIn 0.8s ease 1.5s forwards;
+        }
+
+        .hero-text-2 {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            margin-bottom: 0.8rem;
+            color: rgba(249, 250, 251, 0.9);
+            animation: textFadeIn 0.8s ease 2.5s forwards;
+        }
+
+        .hero-text-3 {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-bottom: 2rem;
+            color: #fbbf24;
+            animation: textFadeIn 0.8s ease 3.5s forwards;
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-buttons-wrap {
+            opacity: 0;
+            animation: textFadeIn 0.8s ease 4.5s forwards;
         }
 
         .hero-cta {
@@ -392,8 +412,6 @@
             gap: 1.2rem;
             flex-wrap: wrap;
             justify-content: center;
-            opacity: 0;
-            animation: subtitleFadeIn 0.8s ease 1.5s forwards;
         }
 
         /* サファイアボタン */
@@ -2491,6 +2509,30 @@
             box-shadow: 0 1px 0 #b06f08, 0 2px 8px rgba(212,133,10,0.3);
         }
 
+        .faq-panel[data-faq="8"] {
+            background: linear-gradient(180deg, #8e44ad 0%, #71368a 100%);
+            box-shadow: 0 4px 0 #5b2d71, 0 6px 15px rgba(142,68,173,0.4);
+        }
+        .faq-panel[data-faq="8"]:active, .faq-panel[data-faq="8"].active {
+            box-shadow: 0 1px 0 #5b2d71, 0 2px 8px rgba(142,68,173,0.3);
+        }
+
+        .faq-panel[data-faq="9"] {
+            background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+            box-shadow: 0 4px 0 #962d22, 0 6px 15px rgba(231,76,60,0.4);
+        }
+        .faq-panel[data-faq="9"]:active, .faq-panel[data-faq="9"].active {
+            box-shadow: 0 1px 0 #962d22, 0 2px 8px rgba(231,76,60,0.3);
+        }
+
+        .faq-panel[data-faq="10"] {
+            background: linear-gradient(180deg, #27ae60 0%, #1e8449 100%);
+            box-shadow: 0 4px 0 #186a3b, 0 6px 15px rgba(39,174,96,0.4);
+        }
+        .faq-panel[data-faq="10"]:active, .faq-panel[data-faq="10"].active {
+            box-shadow: 0 1px 0 #186a3b, 0 2px 8px rgba(39,174,96,0.3);
+        }
+
         @media (max-width: 768px) {
             .faq-rpg-wrap {
                 grid-template-columns: 1fr 1fr;
@@ -4479,16 +4521,13 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero-section">
-        <video class="hero-video" autoplay muted loop playsinline id="heroVideo">
-            <source src="videos/lpmoviepc.mp4" type="video/mp4">
-            <img src="images/0.png" alt="Hero Background">
-        </video>
+        <div class="hero-bg-gradient"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content" id="heroContent">
-            <h1 class="hero-title" id="heroTitle">
-                <span class="char" style="animation-delay:0.05s">A</span><span class="char" style="animation-delay:0.1s">I</span><span class="char" style="animation-delay:0.18s">の</span><span class="char" style="animation-delay:0.25s">導</span><span class="char" style="animation-delay:0.32s">入</span><span class="char comma" style="animation-delay:0.38s">、</span><span class="char" style="animation-delay:0.48s">ぜ</span><span class="char" style="animation-delay:0.55s">ん</span><span class="char" style="animation-delay:0.62s">ぶ</span><span class="char" style="animation-delay:0.72s">丸</span><span class="char" style="animation-delay:0.79s">投</span><span class="char" style="animation-delay:0.86s">げ</span><span class="char" style="animation-delay:0.93s">で</span><span class="char" style="animation-delay:1.0s">O</span><span class="char" style="animation-delay:1.05s">K</span>
-            </h1>
-            <p class="hero-subtitle">売上アップも業務効率化も、最新AIがまるっと解決。<br>研修費用は助成金で最大75%OFF。</p>
+            <h1 class="hero-ainovation">AINOVATION</h1>
+            <p class="hero-text-1">AIの導入、ぜんぶ丸投げでOK</p>
+            <p class="hero-text-2">売上アップも業務効率化も、最新AIがまるっと解決。</p>
+            <p class="hero-text-3">研修費用は助成金で最大75%OFF。</p>
             <div class="hero-buttons-wrap">
                 <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="hero-cta-sapphire"><i class="fas fa-comments"></i> 無料オンライン相談</a>
                 <a href="#ai-diagnosis" class="hero-cta-mech"><span class="mech-gear"><i class="fas fa-cog"></i></span> AIプラン診断 <span class="mech-indicator"></span></a>
@@ -4725,6 +4764,51 @@
                 </div>
             </div>
 
+            <!-- 開発実例 -->
+            <div style="margin-top: 3rem;">
+                <h3 style="text-align: center; font-size: 1.4rem; color: #60a5fa; margin-bottom: 2rem;"><i class="fas fa-rocket" style="margin-right: 0.5rem;"></i>開発実例</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; max-width: 1000px; margin: 0 auto;">
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📱</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">SNS完全自動化システム</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">Instagram・ブログの自動投稿</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎬</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">YouTube自動投稿システム</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">スライド→動画→アップロード自動化</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🤖</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AI秘書システム</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">Discord連携タスク管理・スケジュール自動化</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📝</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AI記録・文章自動作成</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">アセスメント・支援計画の自動生成</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🎙️</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">議事録自動作成システム</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">会議音声から自動で議事録を生成</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💬</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">LINEイベント管理アプリ</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">LINE上でイベント予約・管理を完結</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(96,165,250,0.2); border-radius: 12px; padding: 1.2rem; transition: transform 0.2s, border-color 0.2s;" onmouseover="this.style.borderColor='rgba(96,165,250,0.5)';this.style.transform='translateY(-2px)'" onmouseout="this.style.borderColor='rgba(96,165,250,0.2)';this.style.transform='none'">
+                        <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">💡</div>
+                        <h4 style="color: #93c5fd; font-size: 0.95rem; margin-bottom: 0.4rem;">AIマッチングプラットフォーム</h4>
+                        <p style="color: rgba(255,255,255,0.6); font-size: 0.82rem; line-height: 1.5;">AI活用のマッチングサービス構築</p>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1.5rem; color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+                    <i class="fab fa-github" style="margin-right: 0.4rem;"></i>GitHubにて<strong style="color: #60a5fa;">20以上</strong>のプロジェクト開発実績
+                </p>
+            </div>
+
             <!-- 漫画セクション -->
             <div class="comic-section">
                 <img src="images/comic9.png" alt="AIシステム開発プラン 活用イメージ">
@@ -4778,6 +4862,17 @@
                             <span>月1回60分オンラインMTG</span>
                         </li>
                     </ul>
+                    <div style="margin-top: 1.5rem;">
+                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 0.8rem;"><i class="fas fa-tools" style="margin-right: 0.4rem;"></i>使用AIツール</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(99,102,241,0.3), rgba(139,92,246,0.3)); border: 1px solid rgba(139,92,246,0.5); border-radius: 20px; font-size: 0.8rem; color: #c4b5fd; font-weight: 600;">Genspark</span>
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(52,211,153,0.3), rgba(16,185,129,0.3)); border: 1px solid rgba(52,211,153,0.5); border-radius: 20px; font-size: 0.8rem; color: #6ee7b7; font-weight: 600;">NotebookLM</span>
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(251,146,60,0.3), rgba(245,158,11,0.3)); border: 1px solid rgba(251,146,60,0.5); border-radius: 20px; font-size: 0.8rem; color: #fbbf24; font-weight: 600;">Claude Code</span>
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(244,114,182,0.3), rgba(236,72,153,0.3)); border: 1px solid rgba(244,114,182,0.5); border-radius: 20px; font-size: 0.8rem; color: #f9a8d4; font-weight: 600;">AntiGravity</span>
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(96,165,250,0.3), rgba(59,130,246,0.3)); border: 1px solid rgba(96,165,250,0.5); border-radius: 20px; font-size: 0.8rem; color: #93c5fd; font-weight: 600;">Codex</span>
+                            <span style="display: inline-block; padding: 0.35rem 0.8rem; background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(22,163,74,0.3)); border: 1px solid rgba(34,197,94,0.5); border-radius: 20px; font-size: 0.8rem; color: #86efac; font-weight: 600;">OpenClaw</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="image-column">
                     <div class="image-with-overlay">
@@ -4936,7 +5031,7 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">AI講座</h2>
-                <p class="section-subtitle">「学ぶ」「繋がる」場で、実践的なAIスキルを習得</p>
+                <p class="section-subtitle">学ぶだけじゃない、仲間と一緒に実践できる環境</p>
             </div>
 
             <!-- 画像 - 1カラム全幅 -->
@@ -5103,8 +5198,18 @@
             </div>
 
             <div style="text-align: center; margin-top: 3rem;">
-                <span class="price-tag" style="color: #fde047;">¥11,000/月〜</span>
-                <br><br>
+                <span class="price-tag" style="color: #fde047;">¥22,000/月〜</span>
+                <br>
+                <div style="display: inline-block; text-align: left; margin: 1rem 0; padding: 1.2rem 1.5rem; background: rgba(250,204,21,0.1); border: 1px solid rgba(250,204,21,0.3); border-radius: 12px;">
+                    <p style="color: #fde047; font-weight: 700; margin-bottom: 0.6rem; font-size: 0.95rem;"><i class="fas fa-gift" style="margin-right: 0.4rem;"></i>料金に含まれるもの</p>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: rgba(255,255,255,0.8); font-size: 0.85rem; line-height: 2;">
+                        <li><i class="fas fa-check" style="color: #34d399; margin-right: 0.5rem;"></i>全講座の動画見放題</li>
+                        <li><i class="fas fa-check" style="color: #34d399; margin-right: 0.5rem;"></i>月1回のオンライン勉強会（GPTs研究会）</li>
+                        <li><i class="fas fa-check" style="color: #34d399; margin-right: 0.5rem;"></i>チャットでの日常的なお困りごとサポート</li>
+                        <li><i class="fas fa-check" style="color: #34d399; margin-right: 0.5rem;"></i>受講者コミュニティへの参加権</li>
+                    </ul>
+                </div>
+                <br>
                 <a href="#contact" class="cta-button" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">講座の詳細を問い合わせる</a>
             </div>
 
@@ -5243,12 +5348,15 @@
                     </div>
                 </div>
 
-                <!-- 右パネル4つ -->
+                <!-- 右パネル -->
                 <div class="faq-panels-right">
                     <div class="faq-panel" data-faq="4">契約期間や<br>解約条件は？</div>
                     <div class="faq-panel" data-faq="5">助成金の<br>申請手続きは？</div>
                     <div class="faq-panel" data-faq="6">個人事業主も<br>助成金OK？</div>
                     <div class="faq-panel" data-faq="7">助成金で<br>研修制約ある？</div>
+                    <div class="faq-panel" data-faq="8">AIツールの費用は<br>自己負担？</div>
+                    <div class="faq-panel" data-faq="9">個人でも<br>利用できる？</div>
+                    <div class="faq-panel" data-faq="10">助成金の申請は<br>難しい？</div>
                 </div>
             </div>
         </div>
@@ -5500,7 +5608,7 @@
             'courses': {
                 icon: '<i class="fas fa-graduation-cap"></i>',
                 name: 'AI講座',
-                description: '¥11,000/月〜。動画見放題＋GPTs研究会コミュニティで仲間と一緒に学べます。',
+                description: '¥22,000/月〜。動画見放題＋月1回オンライン勉強会＋チャットサポート＋受講者コミュニティで仲間と一緒に学べます。',
                 sectionId: 'courses'
             }
         };
@@ -5809,7 +5917,7 @@
             if (planKey === 'courses') {
                 var msg = '診断完了！まずは<strong>AI講座</strong>で基礎から学ぶのがおすすめです。';
                 msg += sec('講座内容', '初学者向けAI体験講座から、業務効率化ワークフロー作成、アプリ開発まで段階的にステップアップ。6,953人のGPTs研究会コミュニティで仲間と学べます。');
-                msg += sec('料金', '月額 ¥11,000〜で動画見放題。');
+                msg += sec('料金', '月額 ¥22,000〜で動画見放題＋月1回オンライン勉強会＋チャットサポート＋受講者コミュニティ付き。');
                 if (wantGrant) { msg += grantSec('一部講座は人材開発支援助成金の対象となる場合があります。'); }
                 return [msg];
             }
@@ -6107,7 +6215,10 @@
                 '最短1ヶ月からご契約いただけます！\n長期契約なら割引もあります。解約は1ヶ月前までにお申し出いただければ違約金なし。まずはお試しください。',
                 '「計画届の提出→研修実施→支給申請」の3ステップです！\nif(Business)ではカリキュラム表の作成など書類準備もサポートしますので、初めての方でも安心してご利用いただけます。',
                 '従業員を雇用している個人事業主の方なら対象になる可能性があります！\n人材開発支援助成金は雇用保険の適用事業主が対象です。具体的な要件は個別にご案内しますので、まずはご相談ください。',
-                '助成金の要件に適合したカリキュラムが必要ですが、ご安心ください！\nif(Business)では対応済みの研修プログラムをご用意。DX化に関連する実践的な内容で、貴社ニーズに合わせたカスタマイズも可能です。'
+                '助成金の要件に適合したカリキュラムが必要ですが、ご安心ください！\nif(Business)では対応済みの研修プログラムをご用意。DX化に関連する実践的な内容で、貴社ニーズに合わせたカスタマイズも可能です。',
+                '基本的なAIツール（ChatGPT等）の利用料は含まれています！\n一部の高度なツールは別途費用がかかる場合がありますが、事前にご説明しますのでご安心ください。',
+                'もちろんです！個人事業主の方や、副業でAIを活用したい方にもご利用いただけます。\nAI講座プログラムは個人の方に特におすすめです。お気軽にご相談ください。',
+                '申請手続きのサポートも行っていますのでご安心ください！\n人材開発支援助成金を活用すれば、研修費用が最大75%OFFになります。書類作成もお手伝いします。'
             ];
 
             var avatar = document.getElementById('faqAvatar');
@@ -6421,47 +6532,12 @@
             }, 50);
         })();
 
-        // Hero title: scroll-linked scatter & wave
+        // Opening animation: lock scroll, unlock after 5s
         (function() {
-            var chars = document.querySelectorAll('#heroTitle .char');
-            if (!chars.length) return;
-            var heroSection = document.getElementById('hero');
-            var heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
-            var scrollTicking = false;
-
-            // Pre-compute random offsets for each character
-            var offsets = [];
-            for (var i = 0; i < chars.length; i++) {
-                offsets.push({
-                    xDir: (Math.random() - 0.5) * 2,
-                    yDir: (Math.random() - 0.5) * 1.5,
-                    rotDir: (Math.random() - 0.5) * 2,
-                    scaleBase: 0.8 + Math.random() * 0.4
-                });
-            }
-
-            window.addEventListener('scroll', function() {
-                if (!scrollTicking) {
-                    requestAnimationFrame(function() {
-                        var scrollY = window.scrollY;
-                        var progress = Math.min(scrollY / (heroHeight * 0.7), 1);
-
-                        for (var i = 0; i < chars.length; i++) {
-                            var o = offsets[i];
-                            var tx = o.xDir * progress * 80;
-                            var ty = o.yDir * progress * 50 - progress * 30;
-                            var rot = o.rotDir * progress * 25;
-                            var sc = 1 + (o.scaleBase - 1) * progress * 0.5;
-                            var op = 1 - progress * 0.8;
-                            chars[i].style.transform = 'translate(' + tx + 'px,' + ty + 'px) rotate(' + rot + 'deg) scale(' + sc + ')';
-                            chars[i].style.opacity = Math.max(op, 0);
-                        }
-
-                        scrollTicking = false;
-                    });
-                    scrollTicking = true;
-                }
-            });
+            document.body.classList.add('opening-active');
+            setTimeout(function() {
+                document.body.classList.remove('opening-active');
+            }, 5000);
         })();
     </script>
 </body>
