@@ -5217,6 +5217,15 @@
         </div>
     </section>
 
+    <!-- 開発実績マーキー -->
+    <section class="github-repos-section">
+        <div class="repos-marquee-wrapper">
+            <div class="repos-marquee-track" id="reposMarqueeTrack">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </section>
+
     <!-- AI Personal Advisor Section -->
     <section id="ai-advisor" class="ai-advisor-section">
         <!-- 浮遊する光の粒子 -->
@@ -5560,11 +5569,6 @@
                     </div>
                 </div>
 
-                <!-- サポート案内 -->
-                <div class="grant-support">
-                    <p><i class="fas fa-headset" style="color: #60a5fa; margin-right: 0.5rem;"></i>申請に必要なカリキュラム表の作成など、助成金の活用をサポートいたします。<br>まずはお気軽にご相談ください。</p>
-                    <a href="#contact" class="cta-button">助成金について相談する</a>
-                </div>
             </div>
         </div>
     </section>
@@ -5831,14 +5835,10 @@
     </div>
 
     <script>
-        // Navigation scroll effect
+        // Navigation scroll effect (background always transparent)
         window.addEventListener('scroll', function() {
             const nav = document.getElementById('navigation');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(0, 0, 0, 0.8)';
-            } else {
-                nav.style.background = 'transparent';
-            }
+            nav.style.background = 'transparent';
         });
 
         // Mobile menu toggle
