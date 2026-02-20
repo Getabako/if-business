@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ブログ記事 - if(Business)</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #111827; line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            background: #f8fafc;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(10, 10, 26, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        .nav-container {
+            max-width: 1280px; margin: 0 auto; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .nav-logo { display: flex; align-items: center; text-decoration: none; color: white; font-size: 1.5rem; font-weight: bold; }
+        .nav-logo img { height: 40px; width: auto; }
+        .nav-menu {
+            position: fixed; top: 0; right: -100%; width: 300px; height: 100vh;
+            background: rgba(0, 0, 0, 0.95); backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; padding: 80px 2rem 2rem;
+            list-style: none; transition: right 0.3s ease; z-index: 999;
+        }
+        .nav-menu.active { right: 0; }
+        .nav-menu li { margin-bottom: 1rem; }
+        .nav-menu a {
+            color: rgba(255,255,255,0.9); text-decoration: none; font-size: 1.1rem;
+            padding: 1rem 0; display: block; border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        .nav-menu a:hover { color: #60a5fa; padding-left: 1rem; }
+        .mobile-menu-toggle {
+            display: flex; flex-direction: column; gap: 4px; cursor: pointer;
+            background: none; border: none; width: 30px; height: 30px;
+            justify-content: center; align-items: center; z-index: 1001;
+        }
+        .mobile-menu-toggle span { width: 25px; height: 3px; background: white; transition: all 0.3s ease; transform-origin: center; }
+        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 998; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px; margin: 0 auto; padding: 6rem 2rem 1rem;
+            font-size: 0.9rem; color: #94a3b8;
+        }
+        .breadcrumb a { color: #3b82f6; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 0.5rem; }
+
+        /* Article Layout */
+        .article-layout {
+            max-width: 1200px; margin: 0 auto; padding: 2rem;
+            display: grid; grid-template-columns: 1fr 320px; gap: 3rem;
+        }
+
+        /* Article */
+        .article-main { min-width: 0; }
+        .article-header { margin-bottom: 2.5rem; }
+        .article-category {
+            display: inline-block; padding: 0.3rem 1rem; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem;
+            background: #eff6ff; color: #3b82f6;
+        }
+        .article-category.cat-programming { background: #fef3c7; color: #d97706; }
+        .article-category.cat-report { background: #ecfdf5; color: #059669; }
+        .article-title {
+            font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800;
+            line-height: 1.4; color: #0f172a; margin-bottom: 1rem;
+        }
+        .article-date { color: #94a3b8; font-size: 0.9rem; }
+        .article-date i { margin-right: 0.3rem; }
+
+        .article-content {
+            background: white; border-radius: 16px; padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .article-introduction {
+            font-size: 1.1rem; line-height: 1.9; color: #374151;
+            padding-bottom: 2rem; border-bottom: 1px solid #e2e8f0; margin-bottom: 2rem;
+        }
+        .article-section { margin-bottom: 2.5rem; }
+        .article-section h2 {
+            font-size: 1.4rem; font-weight: 700; color: #1e293b;
+            padding-left: 1rem; border-left: 4px solid #3b82f6; margin-bottom: 1rem;
+        }
+        .article-section p {
+            font-size: 1rem; line-height: 1.9; color: #374151; margin-bottom: 1rem;
+        }
+        .key-points {
+            background: #f0f9ff; border-radius: 12px; padding: 1.25rem 1.5rem;
+            margin-top: 1rem;
+        }
+        .key-points h3 {
+            font-size: 0.85rem; font-weight: 700; color: #3b82f6;
+            text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;
+        }
+        .key-points ul { list-style: none; }
+        .key-points li {
+            padding: 0.4rem 0; font-size: 0.95rem; color: #334155;
+            padding-left: 1.5rem; position: relative;
+        }
+        .key-points li::before {
+            content: '✓'; position: absolute; left: 0; color: #3b82f6; font-weight: bold;
+        }
+
+        .article-conclusion {
+            background: linear-gradient(135deg, #eff6ff, #f0fdf4); border-radius: 12px;
+            padding: 2rem; margin-top: 2rem; border: 1px solid #bfdbfe;
+        }
+        .article-conclusion h2 {
+            font-size: 1.2rem; font-weight: 700; color: #1e40af; margin-bottom: 1rem;
+        }
+        .article-conclusion p { font-size: 1rem; line-height: 1.9; color: #374151; }
+
+        /* Share Buttons */
+        .share-section { margin-top: 2rem; text-align: center; }
+        .share-section p { font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.75rem; }
+        .share-buttons { display: flex; gap: 0.75rem; justify-content: center; }
+        .share-btn {
+            width: 44px; height: 44px; border-radius: 50%; border: none;
+            color: white; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .share-btn:hover { transform: translateY(-2px); }
+        .share-btn.twitter { background: #1da1f2; }
+        .share-btn.facebook { background: #1877f2; }
+        .share-btn.line-share { background: #06c755; }
+
+        /* Bottom CTA */
+        .bottom-cta {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b); border-radius: 16px;
+            padding: 2.5rem; text-align: center; color: white; margin-top: 2.5rem;
+        }
+        .bottom-cta h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .bottom-cta p { color: rgba(255,255,255,0.8); margin-bottom: 1.5rem; line-height: 1.7; }
+        .bottom-cta-btn {
+            display: inline-block; padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #3b82f6, #9333ea); color: white;
+            text-decoration: none; border-radius: 50px; font-weight: 700;
+            font-size: 1.1rem; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .bottom-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6); }
+
+        /* Sidebar */
+        .sidebar { display: flex; flex-direction: column; gap: 2rem; }
+        .sidebar-card {
+            background: white; border-radius: 16px; padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .sidebar-card h3 {
+            font-size: 1rem; font-weight: 700; color: #1e293b;
+            margin-bottom: 1rem; padding-bottom: 0.75rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .sidebar-post {
+            display: block; text-decoration: none; color: inherit;
+            padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease;
+        }
+        .sidebar-post:last-child { border-bottom: none; }
+        .sidebar-post:hover { padding-left: 0.5rem; }
+        .sidebar-post-title { font-size: 0.9rem; font-weight: 600; color: #334155; line-height: 1.5; }
+        .sidebar-post-date { font-size: 0.8rem; color: #94a3b8; margin-top: 0.25rem; }
+
+        .sidebar-cta {
+            background: linear-gradient(135deg, #3b82f6, #9333ea); border-radius: 16px;
+            padding: 2rem; text-align: center; color: white;
+        }
+        .sidebar-cta h3 { border-bottom: none; color: white; padding-bottom: 0; font-size: 1.1rem; }
+        .sidebar-cta p { font-size: 0.9rem; color: rgba(255,255,255,0.9); margin-bottom: 1rem; line-height: 1.6; }
+        .sidebar-cta-btn {
+            display: inline-block; padding: 0.75rem 2rem; background: white;
+            color: #3b82f6; text-decoration: none; border-radius: 50px;
+            font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;
+        }
+        .sidebar-cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        .site-footer {
+            background: linear-gradient(135deg, #0a0f1b 0%, #1a1f2e 100%);
+            color: white; padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2); margin-top: 4rem;
+        }
+        .footer-content {
+            max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap;
+            justify-content: space-between; align-items: flex-start; gap: 2rem;
+        }
+        .footer-logo { display: flex; align-items: center; gap: 1rem; }
+        .footer-logo img { height: 50px; width: auto; }
+        .footer-logo-text { font-size: 1.5rem; font-weight: bold; color: white; }
+        .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease; }
+        .footer-links a:hover { color: #3b82f6; }
+        .footer-bottom { max-width: 1200px; margin: 2rem auto 0; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-bottom p { color: rgba(255,255,255,0.6); font-size: 0.85rem; }
+
+        /* Loading */
+        .loading { text-align: center; padding: 4rem 2rem; color: #94a3b8; }
+        .loading i { font-size: 2rem; animation: spin 1s linear infinite; margin-bottom: 1rem; display: block; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 900px) {
+            .article-layout { grid-template-columns: 1fr; }
+            .sidebar { order: 2; }
+        }
+        @media (max-width: 768px) {
+            .article-content { padding: 1.5rem; }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="images/-1.png" alt="if(Business) Logo">
+            </a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="menu-overlay" id="menuOverlay"></div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">トップページ</a></li>
+            <li><a href="blog.html" style="color: #60a5fa;">ブログ</a></li>
+            <li><a href="index.html#ai-diagnosis">AIプラン診断</a></li>
+            <li><a href="index.html#ai-system-dev">AIシステム開発</a></li>
+            <li><a href="index.html#ai-advisor">AIパーソナル顧問</a></li>
+            <li><a href="index.html#ai-training">AI人材育成</a></li>
+            <li><a href="index.html#courses">AI講座</a></li>
+            <li><a href="index.html#company">会社情報</a></li>
+            <li><a href="https://lin.ee/I4dbdzC" target="_blank" style="color: #06C755 !important;"><i class="fab fa-line"></i> LINE友だち登録</a></li>
+        </ul>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="index.html">ホーム</a><span>›</span>
+        <a href="blog.html">ブログ</a><span>›</span>
+        <span id="breadcrumbTitle">記事</span>
+    </div>
+
+    <div class="article-layout" id="articleLayout" style="display:none;">
+        <article class="article-main">
+            <div class="article-header">
+                <span class="article-category" id="articleCategory"></span>
+                <h1 class="article-title" id="articleTitle"></h1>
+                <p class="article-date" id="articleDate"></p>
+            </div>
+            <div class="article-content" id="articleContent"></div>
+
+            <div class="share-section">
+                <p>この記事をシェアする</p>
+                <div class="share-buttons">
+                    <button class="share-btn twitter" onclick="shareTwitter()" title="X(Twitter)でシェア"><i class="fab fa-x-twitter"></i></button>
+                    <button class="share-btn facebook" onclick="shareFacebook()" title="Facebookでシェア"><i class="fab fa-facebook-f"></i></button>
+                    <button class="share-btn line-share" onclick="shareLine()" title="LINEでシェア"><i class="fab fa-line"></i></button>
+                </div>
+            </div>
+
+            <div class="bottom-cta">
+                <h3><i class="fas fa-lightbulb"></i> AIについてもっと知りたい方は</h3>
+                <p>AIの導入方法や活用事例について、専門スタッフが無料でご相談に応じます。<br>お気軽にお問い合わせください。</p>
+                <a href="https://forms.gle/JQVBdZdrUWGysvhaA" target="_blank" class="bottom-cta-btn">
+                    <i class="fas fa-paper-plane"></i> 無料相談はこちら
+                </a>
+            </div>
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-cta">
+                <h3><i class="fas fa-comments"></i> 無料相談受付中</h3>
+                <p>AI導入や業務改善について、まずはお気軽にご相談ください。</p>
+                <a href="https://forms.gle/JQVBdZdrUWGysvhaA" target="_blank" class="sidebar-cta-btn">相談してみる</a>
+            </div>
+            <div class="sidebar-card">
+                <h3><i class="fas fa-newspaper"></i> 最新の記事</h3>
+                <div id="relatedPosts"></div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="loading" id="loadingState">
+        <i class="fas fa-circle-notch"></i>
+        <p>記事を読み込み中...</p>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/-1.png" alt="if(Business)">
+                <span class="footer-logo-text">if(Business)</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">トップページ</a>
+                <a href="blog.html">ブログ</a>
+                <a href="privacy.html">個人情報保護方針</a>
+                <a href="terms.html">利用規約</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 if(Business) - if(塾). All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const toggle = document.getElementById('mobileMenuToggle');
+        const menu = document.getElementById('navMenu');
+        const overlay = document.getElementById('menuOverlay');
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            menu.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        const categoryClassMap = {
+            'AI': '', 'プログラミング': 'cat-programming', '活動報告': 'cat-report'
+        };
+
+        const slug = new URLSearchParams(window.location.search).get('slug');
+
+        async function loadArticle() {
+            if (!slug) { window.location.href = 'blog.html'; return; }
+            try {
+                const res = await fetch(`blog/posts/${slug}.json`);
+                if (!res.ok) throw new Error('Not found');
+                const post = await res.json();
+
+                document.title = `${post.title} - if(Business)`;
+                document.getElementById('breadcrumbTitle').textContent = post.title;
+                document.getElementById('articleTitle').textContent = post.title;
+
+                const catEl = document.getElementById('articleCategory');
+                catEl.textContent = post.category || post.metadata?.category || '';
+                const catClass = categoryClassMap[catEl.textContent];
+                if (catClass) catEl.classList.add(catClass);
+
+                const date = new Date(post.date);
+                document.getElementById('articleDate').innerHTML =
+                    `<i class="far fa-calendar-alt"></i> ${date.getFullYear()}年${date.getMonth()+1}月${date.getDate()}日`;
+
+                let html = `<div class="article-introduction">${post.introduction}</div>`;
+                post.sections.forEach(s => {
+                    html += `<div class="article-section"><h2>${s.heading}</h2><p>${s.content}</p>`;
+                    if (s.keyPoints?.length) {
+                        html += `<div class="key-points"><h3><i class="fas fa-check-circle"></i> ポイント</h3><ul>`;
+                        s.keyPoints.forEach(k => html += `<li>${k}</li>`);
+                        html += `</ul></div>`;
+                    }
+                    html += `</div>`;
+                });
+                html += `<div class="article-conclusion"><h2><i class="fas fa-flag-checkered"></i> まとめ</h2><p>${post.conclusion}</p></div>`;
+                document.getElementById('articleContent').innerHTML = html;
+
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('articleLayout').style.display = 'grid';
+
+                loadRelatedPosts();
+            } catch (e) {
+                document.getElementById('loadingState').innerHTML =
+                    '<p>記事が見つかりませんでした。<br><a href="blog.html" style="color:#3b82f6;">ブログ一覧に戻る</a></p>';
+            }
+        }
+
+        async function loadRelatedPosts() {
+            try {
+                const res = await fetch('blog/posts/index.json');
+                const data = await res.json();
+                const others = data.posts.filter(p => p.slug !== slug).slice(0, 5);
+                document.getElementById('relatedPosts').innerHTML = others.map(p => {
+                    const d = new Date(p.date);
+                    return `<a href="blog-post.html?slug=${p.slug}" class="sidebar-post">
+                        <div class="sidebar-post-title">${p.title}</div>
+                        <div class="sidebar-post-date">${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}</div>
+                    </a>`;
+                }).join('');
+            } catch (e) {}
+        }
+
+        function shareTwitter() {
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(location.href)}&text=${encodeURIComponent(document.getElementById('articleTitle').textContent)}`, '_blank');
+        }
+        function shareFacebook() {
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`, '_blank');
+        }
+        function shareLine() {
+            window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(location.href)}`, '_blank');
+        }
+
+        loadArticle();
+    </script>
+</body>
+</html>
