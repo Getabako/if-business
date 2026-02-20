@@ -5,55 +5,58 @@
   "category": "AI",
   "tags": ["AI", "Next.js", "Vercel", "Gemini API", "Web開発", "個人開発"],
   "author": "翔太（ゲタバコ先生）",
-  "introduction": "「AIについて気軽に聞ける場所がない」——そう思って、AI相談サイト「AI相談室」を1日で構築しました。Next.js + Vercel + Gemini API + Resend + Google Sheetsを組み合わせて、質問を入力するだけでAIが即回答するサイトです。この記事では、技術スタックの選定理由から実装の詳細、つまずいたポイントまで赤裸々に共有します。",
+  "thumbnail": "https://images.if-juku.net/blog/completed-site.webp",
+  "introduction": "「AIについて気軽に聞ける場所がない」——そう思って、AI相談サイト「AI相談室」を1日で構築しました。Next.js App Router + Vercel + Gemini 2.5 Flash + Resend + Google Sheetsを組み合わせて、Google検索風のUIで質問するとAIがストリーミングで即回答。200字の要約はその場で表示し、全文はメールで届くという仕組みです。この記事では、技術スタックの選定理由から実装の詳細、つまずいたポイントまで赤裸々に共有します。",
   "sections": [
     {
       "heading": "なぜ「AI相談サイト」を作ろうと思ったのか",
       "content": "if(Business)の運営を通じて、「AIに興味はあるけど、何から聞いていいかわからない」という声を数多くいただいていました。LINEやメールでの相談対応は行っていましたが、気軽さが足りない。24時間いつでも、匿名で、ワンクリックでAIに質問できる場所があれば——そう考えたのが出発点です。",
+      "contentHtml": "<p>if(Business)の運営を通じて、「<strong>AIに興味はあるけど、何から聞いていいかわからない</strong>」という声を数多くいただいていました。</p><p>LINEやメールでの相談対応は行っていましたが、気軽さが足りない。<strong>24時間いつでも、匿名で、ワンクリックでAIに質問できる場所</strong>があれば——そう考えたのが出発点です。</p><p>イメージしたのは<strong>Google検索のようなシンプルなUI</strong>。検索バーに質問を入れるだけで、AIが即座に回答してくれる。難しい操作は一切なし。それが「AI相談室」の原型です。</p>",
       "keyPoints": [
         "「AIについて聞きたいけど、何を聞けばいいかわからない」という潜在ニーズ",
         "既存の相談チャネル（LINE・メール）では気軽さが不足",
-        "24時間対応×匿名×ワンクリックを実現したかった"
+        "24時間対応×匿名×ワンクリックを実現したかった",
+        "Google検索風のシンプルなUIを目指した"
       ]
     },
     {
       "heading": "技術スタックの選定理由",
-      "content": "フロントエンドにはNext.js（App Router）を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリック。AIエンジンにはGemini APIを選びました。ストリーミングレスポンスに対応しており、ユーザーが待つストレスを最小限にできます。回答結果はResend APIでメール送信し、Google Sheets APIでログを自動蓄積。すべてサーバーレスで運用コストはほぼゼロです。",
-      "contentHtml": "<p>フロントエンドには<strong>Next.js（App Router）</strong>を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリック。</p><p>AIエンジンには<strong>Gemini API</strong>を選びました。ストリーミングレスポンスに対応しており、ユーザーが待つストレスを最小限にできます。</p><h3>技術スタック一覧</h3><ul><li><strong>Next.js 14</strong> — App Router + Server Actions</li><li><strong>Vercel</strong> — ホスティング & Edge Functions</li><li><strong>Gemini API</strong> — AI回答生成（ストリーミング対応）</li><li><strong>Resend API</strong> — メールレポート自動送信</li><li><strong>Google Sheets API</strong> — 相談ログの自動蓄積</li></ul><p>すべてサーバーレスで<strong>運用コストはほぼゼロ</strong>。API呼び出し量に応じた従量課金のみです。</p>",
+      "content": "フロントエンドにはNext.js（App Router）を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリック。AIエンジンにはGemini 2.5 Flashを選びました。ストリーミングレスポンスに対応しており、ユーザーが待つストレスを最小限にできます。回答はまず200字に要約して画面に表示し、全文はResend APIでメール送信。Google Sheets APIでログを自動蓄積。すべてサーバーレスで運用コストはほぼゼロです。",
+      "contentHtml": "<img src=\"https://images.if-juku.net/blog/system-architecture.webp\" alt=\"AI相談サイトのシステム構成図 - Next.js、Gemini API、Resend、Google Sheets、Vercelの連携フロー」 loading=\"lazy\" width=\"1200\" height=\"630\" style=\"width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;\">\n<p>フロントエンドには<strong>Next.js 14（App Router + Server Actions）</strong>を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリックです。</p><p>AIエンジンには<strong>Gemini 2.5 Flash</strong>を選びました。当初は<code>gemini-2.5-flash-preview-05-20</code>というモデル名を使っていましたが、後に<code>gemini-2.5-flash</code>に修正が必要でした（これは後述のつまずきポイント）。ストリーミングレスポンスに対応しており、文字が流れるように表示されるため、ユーザーが待つストレスを最小限にできます。</p><h3>技術スタック一覧</h3><ul><li><strong>Next.js 14</strong> — App Router + Server Actions</li><li><strong>Vercel</strong> — ホスティング & Edge Functions</li><li><strong>Gemini 2.5 Flash</strong> — AI回答生成（ストリーミング対応）</li><li><strong>Resend API</strong> — メールレポート自動送信（ドメイン認証済み）</li><li><strong>Google Sheets API</strong> — 相談ログの自動蓄積（サービスアカウント方式）</li></ul><h3>回答の仕組み</h3><p>ユーザーが質問を入力すると、<strong>200字の要約がストリーミングでリアルタイム表示</strong>されます。同時にバックグラウンドでGeminiが全文回答を生成し、<strong>Resend経由でメールとして送信</strong>。Google Sheetsにも質問と回答のログが自動蓄積されます。</p><p>すべてサーバーレスで<strong>運用コストはほぼゼロ</strong>。API呼び出し量に応じた従量課金のみです。</p>",
       "keyPoints": [
-        "Next.js + Vercelでデプロイまでのリードタイムを最小化",
-        "Gemini APIのストリーミングでリアルタイム回答体験を実現",
+        "Next.js App Router + Vercelでデプロイまでのリードタイムを最小化",
+        "Gemini 2.5 Flashのストリーミングでリアルタイム回答体験を実現",
+        "200字要約をリアルタイム表示、全文はメールで送信",
+        "Google Sheets APIはサービスアカウント方式で認証",
         "Resend + Google Sheetsでバックエンド処理を完全自動化"
       ]
     },
     {
       "heading": "実際の開発フロー（合計約9時間）",
-      "content": "朝9時に設計開始。まずFigmaでワイヤーフレームを30分で描き、残り30分でDB設計（といってもSpreadsheetのカラム定義）。10時からフロントエンド実装に着手し、13時には基本UIが完成。午後はAPI連携に集中。Gemini APIのストリーミング実装で1時間ほどハマりましたが、公式ドキュメントとClaudeの助けで突破。17時にResendとSheets連携を完了し、19時にVercelへデプロイ。ドメイン設定まで含めて21時に公開完了。",
-      "contentHtml": "<p>朝9時に設計開始。まずFigmaでワイヤーフレームを30分で描き、残り30分でDB設計（といってもSpreadsheetのカラム定義）。</p><h3>タイムライン</h3><table><tr><th>時間</th><th>作業内容</th></tr><tr><td>09:00-10:00</td><td>設計・ワイヤーフレーム・DB設計</td></tr><tr><td>10:00-13:00</td><td>フロントエンド実装（UI・フォーム・レイアウト）</td></tr><tr><td>13:00-16:00</td><td>API連携（Gemini・ストリーミング実装）</td></tr><tr><td>16:00-17:00</td><td>Resend + Google Sheets連携</td></tr><tr><td>17:00-19:00</td><td>テスト・バグ修正・デプロイ</td></tr><tr><td>19:00-21:00</td><td>ドメイン設定・OGP設定・最終確認</td></tr></table><blockquote>Gemini APIのストリーミング実装で1時間ほどハマりましたが、公式ドキュメントとClaudeの助けで突破しました。</blockquote>",
+      "content": "朝9時に設計開始。まずワイヤーフレームを30分で描き、残り30分でSpreadsheetのカラム定義。10時からフロントエンド実装に着手し、Google検索風UIの実装に集中。13時には基本UIが完成。午後はAPI連携に集中。Gemini APIのストリーミング実装で1時間ほどハマりましたが、Claudeの助けで突破。17時にResendのドメイン認証とSheets連携を完了し、19時にVercelへデプロイ。環境変数の設定で一瞬手間取りましたが、21時に公開完了。",
+      "contentHtml": "<img src=\"https://images.if-juku.net/blog/dev-timeline.webp\" alt=\"AI相談サイト1日開発フロー - 9時から21時までのタイムライン図解\" loading=\"lazy\" width=\"1200\" height=\"630\" style=\"width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;\">\n<p>朝9時に設計開始。まずワイヤーフレームを30分で描き、残り30分でSpreadsheetのカラム定義。</p><h3>タイムライン</h3><table><tr><th>時間</th><th>作業内容</th></tr><tr><td>09:00-10:00</td><td>設計・ワイヤーフレーム・DB設計（Spreadsheetカラム定義）</td></tr><tr><td>10:00-13:00</td><td>フロントエンド実装（Google検索風UI・フォーム・レイアウト）</td></tr><tr><td>13:00-16:00</td><td>API連携（Gemini 2.5 Flash・ストリーミング実装・200字要約ロジック）</td></tr><tr><td>16:00-17:00</td><td>Resendドメイン認証 + Google Sheets API連携（サービスアカウント設定）</td></tr><tr><td>17:00-19:00</td><td>テスト・バグ修正・Vercelデプロイ（環境変数設定）</td></tr><tr><td>19:00-21:00</td><td>ドメイン設定・OGP設定・最終確認・公開</td></tr></table><blockquote>Gemini APIのストリーミング実装とResendのドメイン認証で合わせて2時間ほどハマりましたが、Claudeに相談しながら突破しました。</blockquote><p><strong>Google検索風UI</strong>の実装では、シンプルな検索バーを中央に配置し、質問を入力してEnterを押すだけでAIが回答を開始する体験を作りました。余計なボタンや設定は一切なし。</p>",
       "keyPoints": [
         "設計からデプロイまで約9時間で完了",
+        "Google検索風のシンプルなUIを実装",
         "Gemini APIのストリーミング実装が最大のハードル",
         "AIアシスタント（Claude）を活用して開発速度を加速"
       ]
     },
     {
       "heading": "つまずいたポイントと解決策",
-      "content": "最大のハードルはGemini APIのストリーミングレスポンス処理でした。Server-Sent Events（SSE）を使ってフロントにリアルタイムで文字を流す実装は、エラーハンドリングが複雑。特にタイムアウト処理とリトライロジックに苦労しました。もう一つはResend APIのドメイン認証。DNS設定の反映に時間がかかり、テストが進まない時間帯がありました。どちらもAIに相談しながら解決。一人で悩む時間が劇的に減りました。",
+      "content": "最大のハードルは3つありました。①Geminiのモデル名問題：gemini-2.5-flash-preview-05-20を指定していたが、gemini-2.5-flashに修正が必要だった。②Resend APIのドメイン認証：if-juku.netのDNSレコードにSPF・DKIMレコードを追加する必要があり、反映待ちで時間をロス。③Google Sheets APIの権限設定：サービスアカウントを作成したものの、SpreadsheetIDの共有設定を忘れて403エラー。スプレッドシートの共有設定でサービスアカウントのメールアドレスを追加して解決。どれもAIに相談しながら解決しました。",
+      "contentHtml": "<img src=\"https://images.if-juku.net/blog/troubleshooting.webp\" alt=\"開発中のつまずきと解決 - エラーから解決までの対比図解\" loading=\"lazy\" width=\"1200\" height=\"630\" style=\"width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;\">\n<p>開発中に<strong>3つの大きなつまずき</strong>がありました。どれも「あるある」ですが、知っていれば5分で解決できるものばかり。</p><h3>① Geminiモデル名の罠</h3><p>当初<code>gemini-2.5-flash-preview-05-20</code>というモデル名を指定していましたが、APIエラーに。正しくは<strong><code>gemini-2.5-flash</code></strong>でした。プレビュー版のモデル名は変更されることがあるため、最新のドキュメントを確認することが重要です。</p><h3>② Resendドメイン認証のDNS設定</h3><p>Resend APIでif-juku.netドメインからメール送信するには、<strong>DNSレコードにSPF・DKIMレコードを追加</strong>する必要がありました。Xserverの管理画面からTXTレコードを追加し、DNS反映待ちで約30分ロス。事前にやっておけば待ち時間ゼロだったのに…。</p><h3>③ Google Sheets API 403エラー</h3><p>サービスアカウント方式（OAuthではなく）でGoogle Sheets APIを使用。サービスアカウントの作成自体は問題なかったのですが、<strong>スプレッドシートの共有設定にサービスアカウントのメールアドレスを追加し忘れて403エラー</strong>。Googleスプレッドシートを開いて「共有」からサービスアカウントのメールアドレスを編集者として追加して解決しました。</p><blockquote>どのエラーもClaudeにスタックトレースを貼るだけで解決策が返ってきました。一人で悩む時間が劇的に減ります。</blockquote>",
       "keyPoints": [
-        "SSEストリーミングのエラーハンドリングが複雑",
-        "Resend APIのドメイン認証でDNS反映待ちが発生",
+        "Geminiモデル名はプレビュー版から変更されることがある",
+        "Resend APIのドメイン認証はDNSレコード追加が必要（事前にやるべき）",
+        "Google Sheets APIはサービスアカウントのメアドをスプレッドシートに共有設定する",
         "AIに相談しながら解決することで一人で悩む時間を削減"
       ]
     },
     {
       "heading": "AIツールで開発スピードが劇的に上がった",
-      "content": "数年前なら1〜2週間かかっていた開発が、たった1日で完了しました。理由は3つ。①AIにコードの相談をしながら開発できること、②APIが充実しており、車輪の再発明が不要なこと、③Vercelのようなプラットフォームでインフラ構築がゼロになったこと。特にClaudeやChatGPTとの対話型開発は、ペアプログラミングの最強版。エラーが出たらスタックトレースを貼るだけで解決策が返ってきます。",
-      "contentHtml": "<p>数年前なら<strong>1〜2週間</strong>かかっていた開発が、たった<strong>1日</strong>で完了しました。理由は3つ：</p><ol><li><strong>AIにコードの相談をしながら開発</strong>できること — エラーが出たらスタックトレースを貼るだけ</li><li><strong>APIが充実</strong>しており、車輪の再発明が不要</li><li><strong>Vercel</strong>のようなプラットフォームでインフラ構築がゼロ</li></ol><blockquote>特にClaudeやChatGPTとの対話型開発は、ペアプログラミングの最強版です。</blockquote>",
-      "keyPoints": [
-        "AI対話型開発 = 最強のペアプログラミング",
-        "充実したAPI群で「組み合わせるだけ」の開発が可能に",
-        "インフラレスで運用コスト・運用負荷をゼロに"
-      ]
+      "content": "数年前なら1〜2週間かかっていた開発が、たった1日で完了しました。理由は3つ。①AIにコードの相談をしながら開発できること、②APIが充実しており、車輪の再発明が不要なこと、③Vercelのようなプラットフォームでインフラ構築がゼロになったこと。特にClaudeとの対話型開発は、ペアプログラミングの最強版。エラーが出たらスタックトレースを貼るだけで解決策が返ってきます。Vercelへのデプロイも環境変数を設定するだけで完了。",
+      "contentHtml": "<img src=\"https://images.if-juku.net/blog/completed-site.webp\" alt=\"完成したAI相談室サイト - PC・スマホ画面のモックアップ\" loading=\"lazy\" width=\"1200\" height=\"630\" style=\"width:100%;height:auto;border-radius:8px;margin-bottom:1.5rem;\">\n<p>数年前なら<strong>1〜2週間</strong>かかっていた開発が、たった<strong>1日</strong>で完了しました。理由は3つ：</p><ol><li><strong>AIにコードの相談をしながら開発</strong>できること — エラーが出たらスタックトレースを貼るだけ</li><li><strong>APIが充実</strong>しており、車輪の再発明が不要 — Gemini、Resend、Google Sheetsすべて数行で連携</li><li><strong>Vercel</strong>のようなプラットフォームでインフラ構築がゼロ — 環境変数を設定してデプロイするだけ</li></ol><blockquote>特にClaudeとの対話型開発は、ペアプログラミングの最強版です。</blockquote><p>完成した「<strong>AI相談室</strong>」は、Google検索のようなシンプルな画面に質問を入力すると、AIがストリーミングで200字の要約を即座に表示。全文回答はメールで届きます。PC・スマホ両対応のレスポンシブデザインです。</p><p>「<strong>自分もこんなサービスを作りたい</strong>」と思ったら、ぜひ挑戦してみてください。AIが味方してくれる今の時代、1日あれば驚くほどのものが作れます。</p>"
     }
   ],
   "conclusion": "やりたいことがあるなら、まず作ってみる。AIが味方してくれる時代です。完璧じゃなくていい。まず動くものを作る。そのサイクルがAIのおかげで圧倒的に速くなりました。「AI相談室」は現在も稼働中です。AI活用に興味がある方は、ぜひ一度試してみてください。そして「自分もこんなサービスを作りたい」と思ったら、if(Business)にご相談ください。一緒に作りましょう。",
