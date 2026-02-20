@@ -1,0 +1,26 @@
+{
+  "slug": "ai-consultation-one-day",
+  "title": "AI相談サイトを1日で構築した話",
+  "date": "2026-02-20",
+  "category": "AI",
+  "tags": ["AI", "Next.js", "Vercel", "Gemini API", "Web開発", "個人開発"],
+  "author": "翔太（ゲタバコ先生）",
+  "introduction": "「AIについて気軽に聞ける場所がない」——そう思って、AI相談サイト「AI相談室」を1日で構築しました。Next.js + Vercel + Gemini API + Resend + Google Sheetsを組み合わせて、質問を入力するだけでAIが即回答するサイトです。",
+  "sections": [
+    {
+      "heading": "技術スタック",
+      "content": "Next.js + Vercel（フロントエンド＆デプロイ）、Gemini API（AIエンジン・ストリーミング回答）、Resend API（メールレポート自動送信）、Google Sheets API（相談ログ自動蓄積）。全部APIベース、サーバーレス、運用コストほぼゼロ。"
+    },
+    {
+      "heading": "実際の開発フロー",
+      "content": "設計1時間、フロントエンド実装3時間、API連携3時間、デプロイ＆ドメイン設定2時間。合計約9時間で完成。質問入力→AI即回答（200文字要約）→メールで詳細版→Sheetsに自動記録という流れ。"
+    },
+    {
+      "heading": "AIツールで開発スピードが劇的に上がった",
+      "content": "数年前なら1〜2週間かかる開発が1日で完了。AIにコードの相談をしながら開発、充実したAPI群、Vercelによるインフラゼロ運用が鍵。"
+    }
+  ],
+  "conclusion": "やりたいことがあるなら、まず作ってみる。AIが味方してくれる。完璧じゃなくていい。まず動くものを作る。そのサイクルがAIのおかげで圧倒的に速くなった。",
+  "url": "https://ai-consultation-beryl.vercel.app",
+  "generatedAt": "2026-02-20T10:50:00+09:00"
+}

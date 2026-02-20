@@ -1,6 +1,13 @@
 {
   "posts": [
     {
+      "slug": "ai-consultation-one-day",
+      "title": "AI相談サイトを1日で構築した話",
+      "date": "2026-02-20",
+      "category": "AI",
+      "introduction": "「AIについて気軽に聞ける場所がない」——そう思って、AI相談サイト「AI相談室」を1日で構築しました。Next.js + Vercel + Gemini API + Resend + Google Sheetsを組み合わせて、質問を入力するだけでAIが即回答するサイトです。"
+    },
+    {
       "slug": "ai-business-automation",
       "title": "中小企業のAI活用術：業務自動化で生産性を3倍にする方法",
       "date": "2026-02-15",
