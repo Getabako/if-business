@@ -4900,6 +4900,17 @@
             word-break: break-all;
         }
 
+        .repo-card-category {
+            display: inline-block;
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            background: rgba(139,92,246,0.3);
+            color: #c4b5fd;
+            border: 1px solid rgba(139,92,246,0.4);
+            margin-bottom: 0.3rem;
+        }
+
         .repo-card-body {
             padding: 1rem;
         }
@@ -6964,95 +6975,77 @@
         // GitHub Repos Marquee (with hardcoded fallback)
         (function() {
             var fallbackRepos = [
-                {name:"if-business",html_url:"https://github.com/Getabako/if-business",description:"",language:"HTML"},
-                {name:"AIConsultation",html_url:"https://github.com/Getabako/AIConsultation",description:"",language:"TypeScript"},
-                {name:"StockWorkFlow",html_url:"https://github.com/Getabako/StockWorkFlow",description:"",language:"HTML"},
-                {name:"HeartUpApp",html_url:"https://github.com/Getabako/HeartUpApp",description:"",language:"JavaScript"},
-                {name:"takumiremix",html_url:"https://github.com/Getabako/takumiremix",description:"",language:"Python"},
-                {name:"SlideMovie_WorkFlow",html_url:"https://github.com/Getabako/SlideMovie_WorkFlow",description:"",language:"HTML"},
-                {name:"mitou_ifjuku",html_url:"https://github.com/Getabako/mitou_ifjuku",description:"",language:"HTML"},
-                {name:"jinkai-doc-generator",html_url:"https://github.com/Getabako/jinkai-doc-generator",description:"",language:"HTML"},
-                {name:"LINE_checkIn",html_url:"https://github.com/Getabako/LINE_checkIn",description:"",language:"TypeScript"},
-                {name:"LINEIvent",html_url:"https://github.com/Getabako/LINEIvent",description:"",language:"TypeScript"},
-                {name:"LINEMovieGallery",html_url:"https://github.com/Getabako/LINEMovieGallery",description:"",language:"JavaScript"},
-                {name:"BeeneLINEApp",html_url:"https://github.com/Getabako/BeeneLINEApp",description:"",language:"TypeScript"},
-                {name:"if-juku-manager",html_url:"https://github.com/Getabako/if-juku-manager",description:"",language:"TypeScript"},
-                {name:"AIQuest",html_url:"https://github.com/Getabako/AIQuest",description:"",language:"JavaScript"},
-                {name:"minecraftAI",html_url:"https://github.com/Getabako/minecraftAI",description:"",language:"Java"},
-                {name:"e-Bridge",html_url:"https://github.com/Getabako/e-Bridge",description:"",language:"JavaScript"},
-                {name:"gaokagai",html_url:"https://github.com/Getabako/gaokagai",description:"",language:"HTML"},
-                {name:"kadowakiShotenAvator",html_url:"https://github.com/Getabako/kadowakiShotenAvator",description:"",language:"JavaScript"},
-                {name:"pdf2png",html_url:"https://github.com/Getabako/pdf2png",description:"",language:"HTML"},
-                {name:"DailyInstagram",html_url:"https://github.com/Getabako/DailyInstagram",description:"",language:"TypeScript"},
-                {name:"LINE_membersCard_ifjuku",html_url:"https://github.com/Getabako/LINE_membersCard_ifjuku",description:"",language:"TypeScript"},
-                {name:"LINEreserve",html_url:"https://github.com/Getabako/LINEreserve",description:"",language:"TypeScript"},
-                {name:"vedirakuMembers",html_url:"https://github.com/Getabako/vedirakuMembers",description:"",language:"TypeScript"},
-                {name:"line_mobileOrder",html_url:"https://github.com/Getabako/line_mobileOrder",description:"",language:"TypeScript"},
-                {name:"slideTestWorkflow",html_url:"https://github.com/Getabako/slideTestWorkflow",description:"",language:"Python"},
-                {name:"myRingApp",html_url:"https://github.com/Getabako/myRingApp",description:"",language:"TypeScript"},
-                {name:"LINE_membersCard",html_url:"https://github.com/Getabako/LINE_membersCard",description:"",language:"TypeScript"},
-                {name:"mykey",html_url:"https://github.com/Getabako/mykey",description:"",language:"TypeScript"},
-                {name:"if-juku",html_url:"https://github.com/Getabako/if-juku",description:"",language:"HTML"},
-                {name:"AkitaClarkExam",html_url:"https://github.com/Getabako/AkitaClarkExam",description:"",language:"TypeScript"},
-                {name:"if-tech",html_url:"https://github.com/Getabako/if-tech",description:"",language:"HTML"},
-                {name:"trattoria-da-elmo",html_url:"https://github.com/Getabako/trattoria-da-elmo",description:"",language:"HTML"},
-                {name:"YokaiBattle",html_url:"https://github.com/Getabako/YokaiBattle",description:"",language:"HTML"},
-                {name:"MirairoAtelier",html_url:"https://github.com/Getabako/MirairoAtelier",description:"",language:"HTML"},
-                {name:"BUNME",html_url:"https://github.com/Getabako/BUNME",description:"",language:"HTML"},
-                {name:"QRDevelop",html_url:"https://github.com/Getabako/QRDevelop",description:"",language:"HTML"},
-                {name:"yoshinaniApp",html_url:"https://github.com/Getabako/yoshinaniApp",description:"",language:"HTML"},
-                {name:"if-ai",html_url:"https://github.com/Getabako/if-ai",description:"",language:"HTML"},
-                {name:"Kitazuna",html_url:"https://github.com/Getabako/Kitazuna",description:"",language:"HTML"},
-                {name:"BlogPostWorkFlow",html_url:"https://github.com/Getabako/BlogPostWorkFlow",description:"",language:"HTML"},
-                {name:"WorkFlow_origin",html_url:"https://github.com/Getabako/WorkFlow_origin",description:"",language:"JavaScript"},
-                {name:"instagram-workflow-template",html_url:"https://github.com/Getabako/instagram-workflow-template",description:"",language:"JavaScript"},
-                {name:"SNSPostWorkflow",html_url:"https://github.com/Getabako/SNSPostWorkflow",description:"",language:"HTML"},
-                {name:"MagicalNanoBanana",html_url:"https://github.com/Getabako/MagicalNanoBanana",description:"",language:"HTML"},
-                {name:"SlideWorkFlow",html_url:"https://github.com/Getabako/SlideWorkFlow",description:"",language:"Python"},
-                {name:"InstagramGenerator",html_url:"https://github.com/Getabako/InstagramGenerator",description:"",language:"HTML"},
-                {name:"bulkPostingCallender",html_url:"https://github.com/Getabako/bulkPostingCallender",description:"",language:"JavaScript"},
-                {name:"akitauniversity",html_url:"https://github.com/Getabako/akitauniversity",description:"",language:"HTML"},
-                {name:"sukoyaka-dental-jobs",html_url:"https://github.com/Getabako/sukoyaka-dental-jobs",description:"",language:"HTML"},
-                {name:"if-ai-site",html_url:"https://github.com/Getabako/if-ai-site",description:"",language:"HTML"},
-                {name:"Chillnovation",html_url:"https://github.com/Getabako/Chillnovation",description:"",language:"HTML"},
-                {name:"imageCompress",html_url:"https://github.com/Getabako/imageCompress",description:"画像や動画を圧縮する",language:"JavaScript"},
-                {name:"TakumiTest",html_url:"https://github.com/Getabako/TakumiTest",description:"",language:"HTML"},
-                {name:"rashid",html_url:"https://github.com/Getabako/rashid",description:"",language:"HTML"},
-                {name:"RacingGameTest",html_url:"https://github.com/Getabako/RacingGameTest",description:"",language:"JavaScript"},
-                {name:"HeartUpSample",html_url:"https://github.com/Getabako/HeartUpSample",description:"",language:"JavaScript"},
-                {name:"vedirakubin",html_url:"https://github.com/Getabako/vedirakubin",description:"",language:"HTML"},
-                {name:"Claude-tmux",html_url:"https://github.com/Getabako/Claude-tmux",description:"",language:"Shell"},
-                {name:"MITVFJ",html_url:"https://github.com/Getabako/MITVFJ",description:"",language:"HTML"},
-                {name:"ashioto2025",html_url:"https://github.com/Getabako/ashioto2025",description:"",language:"HTML"},
-                {name:"fukuda-shop-website",html_url:"https://github.com/Getabako/fukuda-shop-website",description:"福田商店 給食着・エプロン・白衣の専門店のホームページ",language:"HTML"},
-                {name:"HeartUp",html_url:"https://github.com/Getabako/HeartUp",description:"",language:"JavaScript"}
+                // ホームページ
+                {name:"AI導入支援サービス ホームページ",html_url:"https://service.if-juku.net",category:"ホームページ",thumb:"if-business"},
+                {name:"プログラミング塾 ホームページ",html_url:"https://if-juku.net",category:"ホームページ",thumb:"if-juku"},
+                {name:"ITサポート ホームページ",html_url:"https://tech.if-juku.net/",category:"ホームページ",thumb:"if-tech"},
+                {name:"AI事業 ホームページ",html_url:"https://ai.if-juku.net/",category:"ホームページ",thumb:"if-ai-site"},
+                {name:"歯科医院 求人ページ",html_url:"https://getabako.github.io/sukoyaka-dental-jobs/",category:"ホームページ",thumb:"sukoyaka-dental-jobs"},
+                {name:"店舗ホームページ",html_url:"https://github.com/Getabako/fukuda-shop-website",category:"ホームページ",thumb:"fukuda-shop-website"},
+                {name:"レストラン ホームページ",html_url:"https://github.com/Getabako/trattoria-da-elmo",category:"ホームページ",thumb:"trattoria-da-elmo"},
+                {name:"地域コミュニティ ホームページ",html_url:"https://kitazuna.if-juku.net/",category:"ホームページ",thumb:"Kitazuna"},
+                {name:"ポートフォリオ",html_url:"https://github.com/Getabako/gaokagai",category:"ホームページ",thumb:"gaokagai"},
+                {name:"VRアトリエカフェ",html_url:"https://github.com/Getabako/MirairoAtelier",category:"ホームページ",thumb:"MirairoAtelier"},
+                // LINEアプリ
+                {name:"LINE チェックインアプリ",html_url:"https://line-check-in.vercel.app",category:"LINEアプリ",thumb:"LINE_checkIn"},
+                {name:"LINE イベント予約アプリ",html_url:"https://line-ivent.vercel.app",category:"LINEアプリ",thumb:"LINEIvent"},
+                {name:"LINE 動画ギャラリーアプリ",html_url:"https://line-movie-gallery.vercel.app",category:"LINEアプリ",thumb:"LINEMovieGallery"},
+                {name:"LINE 会員アプリ",html_url:"https://beene-line-app.vercel.app",category:"LINEアプリ",thumb:"BeeneLINEApp"},
+                {name:"LINE 会員カードアプリ",html_url:"https://line-members-card-ifjuku.vercel.app",category:"LINEアプリ",thumb:"LINE_membersCard_ifjuku"},
+                {name:"LINE 予約アプリ",html_url:"https://linereserve.vercel.app",category:"LINEアプリ",thumb:"LINEreserve"},
+                {name:"LINE モバイルオーダーアプリ",html_url:"https://line-mobile-order.vercel.app",category:"LINEアプリ",thumb:"line_mobileOrder"},
+                {name:"LINE メンバーズカードアプリ",html_url:"https://line-members-card.vercel.app",category:"LINEアプリ",thumb:"LINE_membersCard"},
+                {name:"LINE 会員管理アプリ",html_url:"https://vediraku-members.vercel.app",category:"LINEアプリ",thumb:"vedirakuMembers"},
+                {name:"LINE タイミングゲーム",html_url:"https://mykey-teal.vercel.app",category:"LINEアプリ",thumb:"mykey"},
+                // Webアプリ / システム
+                {name:"AI相談ツール",html_url:"https://ai-consultation-beryl.vercel.app",category:"Webアプリ",thumb:"AIConsultation"},
+                {name:"療育支援アプリ",html_url:"https://heart-up-app.vercel.app",category:"Webアプリ",thumb:"HeartUpApp"},
+                {name:"書類自動生成ツール",html_url:"https://jinkai-doc-generator.vercel.app",category:"Webアプリ",thumb:"jinkai-doc-generator"},
+                {name:"AI学習ゲーム",html_url:"https://github.com/Getabako/AIQuest",category:"Webアプリ",thumb:"AIQuest"},
+                {name:"マインクラフトAI",html_url:"https://github.com/Getabako/minecraftAI",category:"Webアプリ",thumb:"minecraftAI"},
+                {name:"吃音向けeスポーツコーチングシステム",html_url:"https://e-bridge.if-juku.net/",category:"Webアプリ",thumb:"e-Bridge"},
+                {name:"アバター接客ツール",html_url:"https://kadowaki-shoten-avator.vercel.app",category:"Webアプリ",thumb:"kadowakiShotenAvator"},
+                {name:"PDF→画像変換ツール",html_url:"https://github.com/Getabako/pdf2png",category:"Webアプリ",thumb:"pdf2png"},
+                {name:"スマートリング管理アプリ",html_url:"https://my-ring-app.vercel.app",category:"Webアプリ",thumb:"myRingApp"},
+                {name:"自己理解アプリ",html_url:"https://akitaclarkexam.if-juku.net/",category:"Webアプリ",thumb:"AkitaClarkExam"},
+                {name:"キャラクター育成アプリ",html_url:"https://github.com/Getabako/QRDevelop",category:"Webアプリ",thumb:"QRDevelop"},
+                {name:"デジタル回数券",html_url:"https://github.com/Getabako/yoshinaniApp",category:"Webアプリ",thumb:"yoshinaniApp"},
+                {name:"自分の分身作成アプリ",html_url:"https://github.com/Getabako/BUNME",category:"Webアプリ",thumb:"BUNME"},
+                {name:"妖怪バトルゲーム",html_url:"https://github.com/Getabako/YokaiBattle",category:"Webアプリ",thumb:"YokaiBattle"},
+                {name:"レーシングゲーム",html_url:"https://github.com/Getabako/RacingGameTest",category:"Webアプリ",thumb:"RacingGameTest"},
+                {name:"格闘ゲームデータ管理",html_url:"https://github.com/Getabako/rashid",category:"Webアプリ",thumb:"rashid"},
+                {name:"画像圧縮ツール",html_url:"https://github.com/Getabako/imageCompress",category:"Webアプリ",thumb:"imageCompress"},
+                // 自動化ワークフロー
+                {name:"株式投資 自動分析ワークフロー",html_url:"https://github.com/Getabako/StockWorkFlow",category:"ワークフロー",thumb:"StockWorkFlow"},
+                {name:"スライド→動画 自動生成ワークフロー",html_url:"https://github.com/Getabako/SlideMovie_WorkFlow",category:"ワークフロー",thumb:"SlideMovie_WorkFlow"},
+                {name:"Instagram自動投稿ワークフロー",html_url:"https://github.com/Getabako/DailyInstagram",category:"ワークフロー",thumb:"DailyInstagram"},
+                {name:"ブログ自動投稿ワークフロー",html_url:"https://github.com/Getabako/BlogPostWorkFlow",category:"ワークフロー",thumb:"BlogPostWorkFlow"},
+                {name:"SNS一括投稿ワークフロー",html_url:"https://github.com/Getabako/SNSPostWorkflow",category:"ワークフロー",thumb:"SNSPostWorkflow"},
+                {name:"スライド生成ワークフロー",html_url:"https://github.com/Getabako/SlideWorkFlow",category:"ワークフロー",thumb:"SlideWorkFlow"},
+                {name:"一括投稿カレンダー",html_url:"https://github.com/Getabako/bulkPostingCallender",category:"ワークフロー",thumb:"bulkPostingCallender"}
             ];
 
+            var track = document.getElementById('reposMarqueeTrack');
+            if (!track) return;
+
+            function makeCard(repo) {
+                var a = document.createElement('a');
+                a.className = 'repo-card';
+                a.href = repo.html_url;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                var thumbSrc = 'images/repo-thumbnails/' + (repo.thumb || repo.name) + '.png';
+                a.innerHTML =
+                    '<img class="repo-card-thumb" src="' + thumbSrc + '" alt="' + repo.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+                    '<div class="repo-card-fallback" style="display:none">' + repo.name + '</div>' +
+                    '<div class="repo-card-body">' +
+                        (repo.category ? '<span class="repo-card-category">' + repo.category + '</span>' : '') +
+                        '<div class="repo-card-name">' + repo.name + '</div>' +
+                    '</div>';
+                return a;
+            }
+
             function renderRepos(repos) {
-                var track = document.getElementById('reposMarqueeTrack');
-                if (!track || !repos.length) return;
-                track.innerHTML = '';
-
-                function makeCard(repo) {
-                    var a = document.createElement('a');
-                    a.className = 'repo-card';
-                    a.href = repo.html_url;
-                    a.target = '_blank';
-                    a.rel = 'noopener';
-
-                    var thumbSrc = 'images/repo-thumbnails/' + repo.name + '.png';
-                    var desc = repo.description || '';
-
-                    a.innerHTML =
-                        '<img class="repo-card-thumb" src="' + thumbSrc + '" alt="' + repo.name + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-                        '<div class="repo-card-fallback" style="display:none">' + repo.name + '</div>' +
-                        '<div class="repo-card-body">' +
-                            '<div class="repo-card-name">' + repo.name + '</div>' +
-                            (desc ? '<div class="repo-card-desc">' + desc + '</div>' : '') +
-                        '</div>';
-                    return a;
-                }
-
                 for (var s = 0; s < 2; s++) {
                     repos.forEach(function(repo) {
                         track.appendChild(makeCard(repo));
@@ -7062,20 +7055,7 @@
                 track.style.animationDuration = duration + 's';
             }
 
-            // Try API first, fall back to hardcoded data
-            fetch('https://api.github.com/users/Getabako/repos?per_page=100&sort=updated')
-                .then(function(res) {
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
-                    return res.json();
-                })
-                .then(function(repos) {
-                    if (!Array.isArray(repos) || repos.length === 0) throw new Error('empty');
-                    renderRepos(repos);
-                })
-                .catch(function(err) {
-                    console.log('GitHub API failed, using fallback:', err);
-                    renderRepos(fallbackRepos);
-                });
+            renderRepos(fallbackRepos);
         })();
     </script>
 
