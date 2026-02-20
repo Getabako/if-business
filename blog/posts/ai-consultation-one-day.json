@@ -1,0 +1,62 @@
+{
+  "slug": "ai-consultation-one-day",
+  "title": "AI相談サイトを1日で構築した話",
+  "date": "2026-02-20",
+  "category": "AI",
+  "tags": ["AI", "Next.js", "Vercel", "Gemini API", "Web開発", "個人開発"],
+  "author": "翔太（ゲタバコ先生）",
+  "introduction": "「AIについて気軽に聞ける場所がない」——そう思って、AI相談サイト「AI相談室」を1日で構築しました。Next.js + Vercel + Gemini API + Resend + Google Sheetsを組み合わせて、質問を入力するだけでAIが即回答するサイトです。この記事では、技術スタックの選定理由から実装の詳細、つまずいたポイントまで赤裸々に共有します。",
+  "sections": [
+    {
+      "heading": "なぜ「AI相談サイト」を作ろうと思ったのか",
+      "content": "if(Business)の運営を通じて、「AIに興味はあるけど、何から聞いていいかわからない」という声を数多くいただいていました。LINEやメールでの相談対応は行っていましたが、気軽さが足りない。24時間いつでも、匿名で、ワンクリックでAIに質問できる場所があれば——そう考えたのが出発点です。",
+      "keyPoints": [
+        "「AIについて聞きたいけど、何を聞けばいいかわからない」という潜在ニーズ",
+        "既存の相談チャネル（LINE・メール）では気軽さが不足",
+        "24時間対応×匿名×ワンクリックを実現したかった"
+      ]
+    },
+    {
+      "heading": "技術スタックの選定理由",
+      "content": "フロントエンドにはNext.js（App Router）を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリック。AIエンジンにはGemini APIを選びました。ストリーミングレスポンスに対応しており、ユーザーが待つストレスを最小限にできます。回答結果はResend APIでメール送信し、Google Sheets APIでログを自動蓄積。すべてサーバーレスで運用コストはほぼゼロです。",
+      "contentHtml": "<p>フロントエンドには<strong>Next.js（App Router）</strong>を採用。Reactベースで開発速度が速く、Vercelへのデプロイがワンクリック。</p><p>AIエンジンには<strong>Gemini API</strong>を選びました。ストリーミングレスポンスに対応しており、ユーザーが待つストレスを最小限にできます。</p><h3>技術スタック一覧</h3><ul><li><strong>Next.js 14</strong> — App Router + Server Actions</li><li><strong>Vercel</strong> — ホスティング & Edge Functions</li><li><strong>Gemini API</strong> — AI回答生成（ストリーミング対応）</li><li><strong>Resend API</strong> — メールレポート自動送信</li><li><strong>Google Sheets API</strong> — 相談ログの自動蓄積</li></ul><p>すべてサーバーレスで<strong>運用コストはほぼゼロ</strong>。API呼び出し量に応じた従量課金のみです。</p>",
+      "keyPoints": [
+        "Next.js + Vercelでデプロイまでのリードタイムを最小化",
+        "Gemini APIのストリーミングでリアルタイム回答体験を実現",
+        "Resend + Google Sheetsでバックエンド処理を完全自動化"
+      ]
+    },
+    {
+      "heading": "実際の開発フロー（合計約9時間）",
+      "content": "朝9時に設計開始。まずFigmaでワイヤーフレームを30分で描き、残り30分でDB設計（といってもSpreadsheetのカラム定義）。10時からフロントエンド実装に着手し、13時には基本UIが完成。午後はAPI連携に集中。Gemini APIのストリーミング実装で1時間ほどハマりましたが、公式ドキュメントとClaudeの助けで突破。17時にResendとSheets連携を完了し、19時にVercelへデプロイ。ドメイン設定まで含めて21時に公開完了。",
+      "contentHtml": "<p>朝9時に設計開始。まずFigmaでワイヤーフレームを30分で描き、残り30分でDB設計（といってもSpreadsheetのカラム定義）。</p><h3>タイムライン</h3><table><tr><th>時間</th><th>作業内容</th></tr><tr><td>09:00-10:00</td><td>設計・ワイヤーフレーム・DB設計</td></tr><tr><td>10:00-13:00</td><td>フロントエンド実装（UI・フォーム・レイアウト）</td></tr><tr><td>13:00-16:00</td><td>API連携（Gemini・ストリーミング実装）</td></tr><tr><td>16:00-17:00</td><td>Resend + Google Sheets連携</td></tr><tr><td>17:00-19:00</td><td>テスト・バグ修正・デプロイ</td></tr><tr><td>19:00-21:00</td><td>ドメイン設定・OGP設定・最終確認</td></tr></table><blockquote>Gemini APIのストリーミング実装で1時間ほどハマりましたが、公式ドキュメントとClaudeの助けで突破しました。</blockquote>",
+      "keyPoints": [
+        "設計からデプロイまで約9時間で完了",
+        "Gemini APIのストリーミング実装が最大のハードル",
+        "AIアシスタント（Claude）を活用して開発速度を加速"
+      ]
+    },
+    {
+      "heading": "つまずいたポイントと解決策",
+      "content": "最大のハードルはGemini APIのストリーミングレスポンス処理でした。Server-Sent Events（SSE）を使ってフロントにリアルタイムで文字を流す実装は、エラーハンドリングが複雑。特にタイムアウト処理とリトライロジックに苦労しました。もう一つはResend APIのドメイン認証。DNS設定の反映に時間がかかり、テストが進まない時間帯がありました。どちらもAIに相談しながら解決。一人で悩む時間が劇的に減りました。",
+      "keyPoints": [
+        "SSEストリーミングのエラーハンドリングが複雑",
+        "Resend APIのドメイン認証でDNS反映待ちが発生",
+        "AIに相談しながら解決することで一人で悩む時間を削減"
+      ]
+    },
+    {
+      "heading": "AIツールで開発スピードが劇的に上がった",
+      "content": "数年前なら1〜2週間かかっていた開発が、たった1日で完了しました。理由は3つ。①AIにコードの相談をしながら開発できること、②APIが充実しており、車輪の再発明が不要なこと、③Vercelのようなプラットフォームでインフラ構築がゼロになったこと。特にClaudeやChatGPTとの対話型開発は、ペアプログラミングの最強版。エラーが出たらスタックトレースを貼るだけで解決策が返ってきます。",
+      "contentHtml": "<p>数年前なら<strong>1〜2週間</strong>かかっていた開発が、たった<strong>1日</strong>で完了しました。理由は3つ：</p><ol><li><strong>AIにコードの相談をしながら開発</strong>できること — エラーが出たらスタックトレースを貼るだけ</li><li><strong>APIが充実</strong>しており、車輪の再発明が不要</li><li><strong>Vercel</strong>のようなプラットフォームでインフラ構築がゼロ</li></ol><blockquote>特にClaudeやChatGPTとの対話型開発は、ペアプログラミングの最強版です。</blockquote>",
+      "keyPoints": [
+        "AI対話型開発 = 最強のペアプログラミング",
+        "充実したAPI群で「組み合わせるだけ」の開発が可能に",
+        "インフラレスで運用コスト・運用負荷をゼロに"
+      ]
+    }
+  ],
+  "conclusion": "やりたいことがあるなら、まず作ってみる。AIが味方してくれる時代です。完璧じゃなくていい。まず動くものを作る。そのサイクルがAIのおかげで圧倒的に速くなりました。「AI相談室」は現在も稼働中です。AI活用に興味がある方は、ぜひ一度試してみてください。そして「自分もこんなサービスを作りたい」と思ったら、if(Business)にご相談ください。一緒に作りましょう。",
+  "url": "https://ai-consultation-beryl.vercel.app",
+  "generatedAt": "2026-02-20T10:50:00+09:00"
+}
