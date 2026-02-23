@@ -4986,6 +4986,29 @@
             .repos-marquee-wrapper::after { width: 40px; }
         }
 
+        /* AI master course extra blocks */
+        .ai-master-title { text-align:center; color:#fde047; font-size:1.45rem; margin-bottom:1rem; }
+        .ai-master-steps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+        .ai-step { background:rgba(15,23,42,.55); border:1px solid rgba(250,204,21,.22); border-radius:12px; padding:.85rem; }
+        .ai-step .lv { display:inline-block; font-size:.76rem; color:#93c5fd; margin-bottom:.28rem; }
+        .ai-step strong { display:block; color:#fff; margin-bottom:.24rem; }
+        .ai-step p { margin:0; font-size:.9rem; color:rgba(255,255,255,.82); line-height:1.55; }
+        .ai-community-box { background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.35); border-radius:14px; padding:1rem; }
+        .ai-community-box h3 { margin:0 0 .55rem; color:#dbeafe; font-size:1.2rem; }
+        .ai-community-box p { margin:0; color:rgba(255,255,255,.88); }
+        .price-compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+        .price-card { border-radius:14px; padding:1rem; }
+        .price-card.normal { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); }
+        .price-card.pass { background:linear-gradient(135deg, rgba(127,29,29,.25), rgba(153,27,27,.38)); border:2px solid rgba(248,113,113,.65); }
+        .price-card h4 { margin:0 0 .6rem; color:#fff; font-size:1.08rem; }
+        .price-card ul { margin:0 0 .5rem; padding-left:1.15rem; color:rgba(255,255,255,.92); }
+        .old-price { color:#cbd5e1; font-size:1rem; }
+        .big-price { font-size:1.7rem; font-weight:800; color:#fecaca; margin:.45rem 0; }
+        .month-note { color:#fde68a; margin:.2rem 0; }
+        .save-note { color:#fff; margin:.35rem 0 0; }
+        .ai-course-cta { text-align:center; margin-top:1rem; }
+        .ai-course-cta p { color:#fde68a; margin-bottom:.6rem; font-weight:700; }
+
         /* Mobile fit fixes (2026-02-23) */
         @media (max-width: 768px) {
             .hero-section { min-height: auto; padding-top: 4.8rem; padding-bottom: 2rem; }
@@ -5022,6 +5045,13 @@
             .contact-section,
             .grant-section,
             .blog-section { padding-top: 2.4rem !important; padding-bottom: 2.4rem !important; }
+            .ai-master-steps { grid-template-columns: 1fr; gap: .55rem; }
+            .ai-step { padding: .7rem; }
+            .ai-step strong { font-size: .95rem; }
+            .ai-step p { font-size: .83rem; }
+            .price-compare-grid { grid-template-columns: 1fr; }
+            .big-price { font-size: 1.45rem; }
+            #grant iframe { height: 620px !important; }
 
             .company-card { padding: 1rem !important; }
             .company-card-title { font-size: 1.4rem !important; }
@@ -5069,10 +5099,16 @@
             .section-subtitle { font-size: 0.92rem !important; line-height: 1.5 !important; }
             .company-card-title { font-size: 1.18rem !important; }
             .company-card-content { font-size: 0.89rem !important; line-height: 1.45 !important; }
-            #topBlogList .company-card-title { font-size: 0.92rem !important; }
-            #topBlogList .company-card-content { font-size: 0.76rem !important; }
-            .mhlw-link-btn { max-width: 68%; padding: 0.54rem 0.62rem !important; font-size: 0.74rem !important; border-radius: 18px !important; }
-            .mhlw-link-btn i { margin-right: 0.28rem !important; }
+            #topBlogList .company-card-title { font-size: 0.86rem !important; line-height: 1.35 !important; }
+            #topBlogList .company-card-content { font-size: 0.72rem !important; }
+            .mhlw-link-btn { max-width: 82%; padding: 0.56rem 0.68rem !important; font-size: 0.72rem !important; border-radius: 18px !important; white-space: nowrap; }
+            .mhlw-link-btn i { margin-right: 0.22rem !important; }
+            .site-footer { padding: 1rem 0.7rem .7rem !important; }
+            .footer-logo img { height: 20px !important; }
+            .footer-logo-text { font-size: .84rem !important; }
+            .footer-links a { font-size: .7rem !important; }
+            .footer-bottom p { font-size: .62rem !important; }
+            #grant iframe { height: 520px !important; }
         }
 
     </style>
@@ -5696,6 +5732,52 @@
                 </div>
             </div>
 
+            <!-- AI講座マスターロードマップ -->
+            <div class="ai-master-roadmap" style="margin-top:2.2rem;">
+                <h3 class="ai-master-title">if(塾) 究極のAIマスターロードマップ</h3>
+                <div class="ai-master-steps">
+                    <div class="ai-step"><span class="lv">Lv.1</span><strong>AIクリエイター体験</strong><p>AI概論 / 画像生成 / Canvaでバナー＆SNS投稿</p></div>
+                    <div class="ai-step"><span class="lv">Lv.2</span><strong>AIで爆速仕事術</strong><p>ディープリサーチ入門 / ドキュメント・スプレッドシート・スライド自動生成</p></div>
+                    <div class="ai-step"><span class="lv">Lv.3</span><strong>AIで稼ぐ・売る</strong><p>売れるLP作成 / バイブコーディングで機能追加〜Web公開</p></div>
+                    <div class="ai-step"><span class="lv">Lv.4</span><strong>実用ツール開発</strong><p>LINEミニアプリ開発</p></div>
+                    <div class="ai-step"><span class="lv">Lv.5</span><strong>右腕を作る</strong><p>AI秘書開発</p></div>
+                    <div class="ai-step"><span class="lv">Lv.6</span><strong>アイデアを形に</strong><p>オリジナルアプリ開発</p></div>
+                    <div class="ai-step"><span class="lv">Lv.7</span><strong>最先端エンジニアへ</strong><p>本格AIアプリ開発</p></div>
+                </div>
+            </div>
+
+            <!-- コミュニティ環境 -->
+            <div class="ai-community-box" style="margin-top:1.6rem;">
+                <h3>月に2回の講座 ＋ 月1回のもくもく開発会で確実にスキル定着！</h3>
+                <p>講座でインプットするだけでは終わりません。月に1回の「もくもく開発会」では、わからないことを直接質問したり、仲間が作ったものを発表し合ったりと、モチベーションを高く保てるコミュニティ環境を用意しています。</p>
+            </div>
+
+            <!-- 料金比較（最重要） -->
+            <div class="ai-price-compare" style="margin-top:1.6rem;">
+                <h3 class="ai-master-title" style="margin-bottom:1rem;">料金プラン比較</h3>
+                <div class="price-compare-grid">
+                    <div class="price-card normal">
+                        <h4>通常（都度払い）</h4>
+                        <ul>
+                            <li>講座単発参加：15,000円 / 1回</li>
+                            <li>もくもく会参加：5,000円 / 1回</li>
+                        </ul>
+                        <p class="old-price"><del>年間 420,000円</del></p>
+                    </div>
+                    <div class="price-card pass">
+                        <h4>【圧倒的にお得！】AI講座 年間パスポート</h4>
+                        <p>すべての講座参加権 + もくもく会参加権 + 過去アーカイブ動画見放題</p>
+                        <p class="big-price">年間一括払い：148,000円</p>
+                        <p class="month-note">※月額換算だとたったの約12,300円！</p>
+                        <p class="save-note">通常より<strong>年間272,000円もお得に</strong>、最先端のAIスキルを1年間みっちり学べます。</p>
+                    </div>
+                </div>
+                <div class="ai-course-cta">
+                    <p>まずは「Lv.1」の初心者向け体験講座に特別価格でご招待！</p>
+                    <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="cta-button">体験講座に申し込む</a>
+                </div>
+            </div>
+
             <!-- GPTs研究会コミュニティ -->
             <div class="gpts-community" style="margin-top: 2rem;">
                 <div class="gpts-community-header">
@@ -5727,7 +5809,7 @@
                         <div class="grant-slide active" data-grant-slide="0">
                             <div style="text-align: center; position: relative; display: inline-block; width: 100%;">
                                 <img src="images/18.png" alt="AI研修、国のお金で最大75%OFF！">
-                                <a class="mhlw-link-btn" href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html#1005" target="_blank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.92rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.5), 0 0 0 2px rgba(255,255,255,0.75); transition: all 0.3s ease; letter-spacing: 0.02em;" onmouseover="this.style.transform='translate(-50%,-50%) scale(1.05)';this.style.boxShadow='0 6px 30px rgba(37,99,235,0.7), 0 0 0 2px rgba(255,255,255,0.9)';" onmouseout="this.style.transform='translate(-50%,-50%)';this.style.boxShadow='0 4px 20px rgba(37,99,235,0.5), 0 0 0 2px rgba(255,255,255,0.75)';"><i class="fas fa-external-link-alt" style="margin-right: 0.4rem;"></i>厚生労働省の詳細ページを見る</a>
+                                <a class="mhlw-link-btn" href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/kyufukin/d01-1.html#1005" target="_blank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 0.8rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.92rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,99,235,0.5), 0 0 0 2px rgba(255,255,255,0.75); transition: all 0.3s ease; letter-spacing: 0.02em;" onmouseover="this.style.transform='translate(-50%,-50%) scale(1.05)';this.style.boxShadow='0 6px 30px rgba(37,99,235,0.7), 0 0 0 2px rgba(255,255,255,0.9)';" onmouseout="this.style.transform='translate(-50%,-50%)';this.style.boxShadow='0 4px 20px rgba(37,99,235,0.5), 0 0 0 2px rgba(255,255,255,0.75)';"><i class="fas fa-external-link-alt" style="margin-right: 0.4rem;"></i>厚生労働省ページを見る</a>
                             </div>
                         </div>
                         <!-- Slide 2: 申請フロー -->
@@ -5757,16 +5839,18 @@
 
             </div>
 
-            <!-- AI相談室（埋め込み拒否対策: 直接起動） -->
+            <!-- AI相談室（iframe埋め込み・固定高さ） -->
             <div style="margin-top: 2rem;">
-                <h3 style="text-align: center; font-size: 1.3rem; color: #93c5fd; margin-bottom: 1rem;"><i class="fas fa-robot" style="margin-right: 0.5rem;"></i>AI相談室</h3>
-                <p style="text-align: center; color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1rem;">ブラウザの仕様で埋め込み表示できないため、別タブで開けるようにしています</p>
-                <div style="max-width:900px;margin:0 auto;background:rgba(15,23,42,0.45);border:1px solid rgba(59,130,246,.25);border-radius:16px;padding:1.3rem;text-align:center;">
-                    <p style="margin:.2rem 0 1rem;color:#dbeafe;">AIへの相談・質問・壁打ちはこちらから</p>
-                    <a href="https://ai-consultation-beryl.vercel.app/" target="_blank" rel="noopener" class="cta-button" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">
-                        <i class="fas fa-external-link-alt" style="margin-right:.5rem;"></i>AI相談室を開く
-                    </a>
-                </div>
+                <h3 style="text-align: center; font-size: 1.3rem; color: #93c5fd; margin-bottom: 0.8rem;"><i class="fas fa-robot" style="margin-right: 0.5rem;"></i>AI相談室</h3>
+                <p style="text-align: center; color: rgba(255,255,255,0.72); font-size: 0.9rem; margin-bottom: 0.9rem;">AIについて何でも聞いてください</p>
+                <iframe
+                    src="https://ai-consultation-beryl.vercel.app/?embed=1"
+                    style="width: 100%; height: 700px; border: 1px solid rgba(59,130,246,0.25); border-radius: 16px; background: transparent;"
+                    frameborder="0"
+                    scrolling="no"
+                    allow="clipboard-write"
+                    loading="lazy"
+                ></iframe>
             </div>
         </div>
     </section>
