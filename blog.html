@@ -239,17 +239,50 @@
             '活動報告': { class: 'cat-report' }
         };
 
+        const fallbackPosts = [
+            {
+                slug: 'ai-consultation-one-day',
+                title: 'AI相談サイトを1日で構築した話',
+                date: '2026-02-20',
+                category: 'AI',
+                introduction: 'AIについて気軽に聞ける場所がない、という課題からAI相談室を1日で構築した実装記録です。'
+            },
+            {
+                slug: 'ai-business-automation',
+                title: '中小企業のAI活用術：業務自動化で生産性を3倍にする方法',
+                date: '2026-02-15',
+                category: 'AI',
+                introduction: '中小企業でも無理なく始められるAI活用のステップを、現場目線で解説します。'
+            },
+            {
+                slug: 'programming-education-future',
+                title: 'プログラミング教育の未来：AI時代に本当に必要なスキルとは',
+                date: '2026-02-10',
+                category: 'プログラミング',
+                introduction: 'AI時代に必要なスキルセットを、教育現場の実践をもとに整理しました。'
+            },
+            {
+                slug: 'ai-implementation-case-study',
+                title: '【導入事例】地方の不動産会社がAIで業務改革',
+                date: '2026-02-05',
+                category: '活動報告',
+                introduction: '問い合わせ対応自動化で月80時間削減を実現した、導入プロジェクトの事例です。'
+            }
+        ];
+
         let allPosts = [];
         let activeCategory = 'all';
 
         async function loadPosts() {
             try {
-                const res = await fetch('blog/posts/index.json');
+                const res = await fetch('blog/posts/index.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error('failed to fetch index.json');
                 const data = await res.json();
-                allPosts = data.posts;
+                allPosts = Array.isArray(data.posts) && data.posts.length ? data.posts : fallbackPosts;
                 renderPosts();
             } catch (e) {
-                document.getElementById('noPosts').style.display = 'block';
+                allPosts = fallbackPosts;
+                renderPosts();
             }
         }
 

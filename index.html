@@ -272,15 +272,29 @@
         }
 
         .hero-text-2 {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            margin-bottom: 0.8rem;
-            color: rgba(249, 250, 251, 0.9);
+            font-size: clamp(1.05rem, 2.2vw, 1.5rem);
+            margin: 0.4rem auto 0.8rem;
+            color: #ffffff;
+            background: rgba(15, 23, 42, 0.62);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+            max-width: 760px;
+            opacity: 0;
+            animation: textFadeUp 0.9s ease 2.4s forwards;
         }
 
         .hero-text-3 {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            margin-bottom: 2rem;
-            color: #fbbf24;
+            font-size: clamp(1.02rem, 2.1vw, 1.35rem);
+            margin: 0 auto 2rem;
+            color: #fde047;
+            background: rgba(30, 58, 138, 0.35);
+            border: 1px solid rgba(253, 224, 71, 0.38);
+            border-radius: 12px;
+            padding: 0.65rem 1rem;
+            max-width: 760px;
+            opacity: 0;
+            animation: textFadeUp 0.9s ease 3.1s forwards;
         }
 
         .hero-text-1 .char-span,
@@ -300,6 +314,10 @@
 
         @keyframes textFadeIn {
             from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes textFadeUp {
+            from { opacity: 0; transform: translateY(22px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -1370,6 +1388,32 @@
         .plan-card .cta-button {
             padding: 0.75rem 1.5rem;
             font-size: 0.9rem;
+        }
+
+        /* Unified Plan Slider */
+        .plans-unified-section { background: linear-gradient(135deg, #020617 0%, #1e3a8a 45%, #0f172a 100%); color: #fff; position: relative; overflow: hidden; border-top: 2px solid rgba(147,197,253,.35); border-bottom: 2px solid rgba(147,197,253,.25); }
+        .plans-unified-section .section-title { color: #fff; }
+        .plans-unified-section .section-subtitle { color: rgba(255,255,255,0.75); }
+        .plan-unified-card { max-width: 980px; margin: 0 auto; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 22px; padding: 1.2rem; backdrop-filter: blur(10px); }
+        .plan-unified-grid { display:grid; grid-template-columns: 1.2fr 1fr; gap:1.4rem; align-items: stretch; }
+        .plan-unified-main { background: rgba(15,23,42,0.5); border-radius: 16px; padding: 1.2rem; }
+        .plan-unified-main h3 { margin:0 0 .5rem; font-size: 1.6rem; color:#fde047; }
+        .plan-unified-main p { margin:.2rem 0 .8rem; color: rgba(255,255,255,0.9); line-height:1.8; }
+        .plan-unified-main .price { font-size:1.1rem; font-weight:700; color:#93c5fd; margin-bottom:.8rem; }
+        .plan-unified-main ul { margin:0; padding-left: 1.2rem; }
+        .plan-unified-main li { margin-bottom:.45rem; }
+        .plan-unified-image img { width:100%; height:100%; min-height: 320px; object-fit: contain; background: rgba(15,23,42,0.65); border-radius: 16px; border:1px solid rgba(255,255,255,0.2); }
+        .plan-unified-tabs { display:grid; grid-template-columns: repeat(4,1fr); gap:.6rem; margin-top: .9rem; }
+        .plan-tab { border:1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color:#fff; border-radius: 10px; padding:.7rem .5rem; font-size:.82rem; cursor:pointer; }
+        .plan-tab.active { background: linear-gradient(135deg,#3b82f6,#1d4ed8); border-color: rgba(147,197,253,0.9); }
+        .plan-unified-cta { margin-top: 1rem; display:flex; gap:.6rem; flex-wrap:wrap; }
+
+        #ai-system-dev, #ai-advisor, #ai-training, #ai-marketing { display:none !important; }
+
+        @media (max-width: 980px) {
+            .plan-unified-grid { grid-template-columns: 1fr; }
+            .plan-unified-tabs { grid-template-columns: 1fr 1fr; }
+            .plan-unified-image img { min-height: 240px; }
         }
 
         /* Comic Image Section */
@@ -4985,8 +5029,8 @@
         <div class="hero-content" id="heroContent">
             <h1 class="hero-ainovation">AINOVATION</h1>
             <p class="hero-text-1">AIの導入、ぜんぶ丸投げでOK</p>
-            <p class="hero-text-2">売上アップも業務効率化も、最新AIがまるっと解決。</p>
-            <p class="hero-text-3">研修費用は助成金で最大75%OFF。</p>
+            <p class="hero-text-2">「うちにはまだ早いかも」――そんな初心者の方こそ大歓迎。</p>
+            <p class="hero-text-3">今ある業務のまま、小さく始めて、無理なく定着まで伴走します。</p>
             <div class="hero-buttons-wrap">
                 <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="hero-cta-sapphire"><i class="fas fa-comments"></i> 無料オンライン相談</a>
                 <a href="#ai-diagnosis" class="hero-cta-mech"><span class="mech-gear"><i class="fas fa-cog"></i></span> AIプラン診断 <span class="mech-indicator"></span></a>
@@ -5003,8 +5047,15 @@
     <section id="ai-diagnosis" class="service-nav-section">
         <img src="images/An_abstract_background_representing_data_analysis_-1745739047865-scaled.png" alt="Background" class="service-nav-bg">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">最適なプランを診断</h2>
+            <div class="section-header" style="margin-bottom: 1rem;">
+                <h2 class="section-title">まずは「向いていないかも」を、5問で整理</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.92); text-shadow: 0 2px 8px rgba(0,0,0,0.45);">まず不安や課題を整理し、あなたの状況に合う始め方を5問でご提案します</p>
+            </div>
+
+            <div style="max-width: 980px; margin: 0 auto 0.9rem;">
+                <div style="background: rgba(15,23,42,0.78); color: #ffffff; border: 1px solid rgba(147,197,253,0.58); border-radius: 10px; padding: 0.66rem 0.9rem; font-size: 0.9rem; line-height: 1.55; text-align: center;">
+                    不安を整理 → あなたに合う対象を特定 → 4プランから最短ルートを提案
+                </div>
             </div>
 
             <!-- 診断ツール -->
@@ -5152,6 +5203,44 @@
                         <div class="progress-fill" style="width: 0%;"></div>
                     </div>
                     <div class="progress-text">質問 <span id="current-question">1</span> / 5</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Unified 4 Plans Section -->
+    <section id="plans-unified" class="plans-unified-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">あなたに合うAI導入プラン</h2>
+                <p class="section-subtitle">4つのサービスを1つの画面で比較し、今すぐ始めるべき順番まで分かります</p>
+            </div>
+
+            <div class="plan-unified-card">
+                <div class="plan-unified-grid">
+                    <div class="plan-unified-main">
+                        <h3 id="unifiedPlanTitle">AIパーソナル顧問プラン</h3>
+                        <div class="price" id="unifiedPlanPrice">月額 ¥33,000（税込）</div>
+                        <p id="unifiedPlanDesc">AI導入をどう進めるか迷っている方向け。業務整理から導入・定着まで伴走します。</p>
+                        <ul id="unifiedPlanFeatures">
+                            <li>AIツールの最適な選定と導入サポート</li>
+                            <li>業務に合わせた活用提案</li>
+                            <li>継続チャット相談</li>
+                        </ul>
+                        <div class="plan-unified-cta">
+                            <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="cta-button">無料相談する</a>
+                            <a href="#contact" class="cta-button" style="background:transparent;border:1px solid rgba(255,255,255,.25)">問い合わせる</a>
+                        </div>
+                    </div>
+                    <div class="plan-unified-image">
+                        <img id="unifiedPlanImage" src="images/comic1.png" alt="AIプラン画像">
+                    </div>
+                </div>
+                <div class="plan-unified-tabs">
+                    <button class="plan-tab active" data-plan="advisor">顧問</button>
+                    <button class="plan-tab" data-plan="training">人材育成</button>
+                    <button class="plan-tab" data-plan="marketing">マーケ</button>
+                    <button class="plan-tab" data-plan="system">システム開発</button>
                 </div>
             </div>
         </div>
@@ -5586,18 +5675,16 @@
 
             </div>
 
-            <!-- AI相談室 埋め込み -->
+            <!-- AI相談室（埋め込み拒否対策: 直接起動） -->
             <div style="margin-top: 2rem;">
                 <h3 style="text-align: center; font-size: 1.3rem; color: #93c5fd; margin-bottom: 1rem;"><i class="fas fa-robot" style="margin-right: 0.5rem;"></i>AI相談室</h3>
-                <p style="text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem; margin-bottom: 1rem;">AIについて何でも聞いてください</p>
-                <iframe
-                    src="https://ai-consultation-beryl.vercel.app/?embed=1"
-                    style="width: 100%; height: 700px; border: 1px solid rgba(59,130,246,0.2); border-radius: 16px; background: transparent;"
-                    frameborder="0"
-                    scrolling="no"
-                    allow="clipboard-write"
-                    loading="lazy"
-                ></iframe>
+                <p style="text-align: center; color: rgba(255,255,255,0.7); font-size: 0.95rem; margin-bottom: 1rem;">ブラウザの仕様で埋め込み表示できないため、別タブで開けるようにしています</p>
+                <div style="max-width:900px;margin:0 auto;background:rgba(15,23,42,0.45);border:1px solid rgba(59,130,246,.25);border-radius:16px;padding:1.3rem;text-align:center;">
+                    <p style="margin:.2rem 0 1rem;color:#dbeafe;">AIへの相談・質問・壁打ちはこちらから</p>
+                    <a href="https://ai-consultation-beryl.vercel.app/" target="_blank" rel="noopener" class="cta-button" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">
+                        <i class="fas fa-external-link-alt" style="margin-right:.5rem;"></i>AI相談室を開く
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -5662,6 +5749,33 @@
                     <button class="case-slider-dot" onclick="goToCase(1)"></button>
                     <button class="case-slider-dot" onclick="goToCase(2)"></button>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog-section" class="company-section" style="padding-top: 3.5rem; padding-bottom: 3.5rem;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ブログ</h2>
+                <p class="section-subtitle">最新のAI活用ノウハウ・導入事例・運用アイデアを更新中</p>
+            </div>
+
+            <div id="topBlogList" style="max-width: 980px; margin: 0 auto 1rem; display:grid; grid-template-columns: 1fr; gap: .8rem;"></div>
+
+            <div style="max-width: 980px; margin: 0 auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+                <a href="blog.html" class="company-card" style="text-decoration:none;">
+                    <h3 class="company-card-title"><i class="fas fa-newspaper"></i> ブログ一覧</h3>
+                    <p class="company-card-content">すべての記事を見る</p>
+                </a>
+                <a href="blog-post.html" class="company-card" style="text-decoration:none;">
+                    <h3 class="company-card-title"><i class="fas fa-pen"></i> 注目記事</h3>
+                    <p class="company-card-content">直近のおすすめ記事を読む</p>
+                </a>
+                <a href="blog/posts/index.json" target="_blank" class="company-card" style="text-decoration:none;">
+                    <h3 class="company-card-title"><i class="fas fa-folder-open"></i> 記事データ</h3>
+                    <p class="company-card-content">投稿データ（JSON）を確認</p>
+                </a>
             </div>
         </div>
     </section>
@@ -6962,14 +7076,104 @@
                 if (ainovation) splitToChars(ainovation, 0.3);
                 var text1 = document.querySelector('.hero-text-1');
                 if (text1) splitToChars(text1, 1.5);
+                // hero-text-2 / 3 は行単位で下からフェードイン
                 var text2 = document.querySelector('.hero-text-2');
-                if (text2) splitToChars(text2, 2.5);
                 var text3 = document.querySelector('.hero-text-3');
-                if (text3) splitToChars(text3, 3.5);
             }
 
             // DOM is already loaded since script is at bottom
             runHeroAnim();
+        })();
+
+        // Unified plans tab switcher
+        (function() {
+            var planData = {
+                advisor: {
+                    title: 'AIパーソナル顧問プラン',
+                    price: '月額 ¥33,000（税込）',
+                    desc: 'AI導入をどう進めるか迷っている方向け。業務整理から導入・定着まで伴走します。',
+                    image: 'images/comic1.png',
+                    features: ['AIツールの最適な選定と導入サポート', '業務に合わせた活用提案', '継続チャット相談']
+                },
+                training: {
+                    title: 'AI人材育成プラン',
+                    price: '月額 ¥44,000（税込）',
+                    desc: '経営者だけでなく現場メンバーまで、実務で使えるAIスキルを育てる研修プランです。',
+                    image: 'images/comic2.png',
+                    features: ['社内向けAI研修の設計・実施', '実務課題に沿ったカリキュラム', '組織全体のAI活用レベル向上']
+                },
+                marketing: {
+                    title: 'AIマーケティングプラン',
+                    price: '開発費 ¥100,000〜 / 運用費 ¥10,000〜/月',
+                    desc: '集客・導線・発信をAIで効率化し、売上につながる運用を継続的に改善します。',
+                    image: 'images/comic8.png',
+                    features: ['集客導線の設計', 'コンテンツ制作の効率化', '運用改善と継続支援']
+                },
+                system: {
+                    title: 'AIシステム開発プラン',
+                    price: '開発費 ¥100,000〜 / 運用費 ¥10,000〜/月',
+                    desc: '貴社の業務に合わせて、AIを組み込んだオーダーメイドシステムを開発します。',
+                    image: 'images/comic9.png',
+                    features: ['議事録・報告書作成の自動化', '問い合わせ対応の自動化', '既存業務フローに合わせたカスタム開発']
+                }
+            };
+
+            function setUnifiedPlan(key) {
+                var data = planData[key];
+                if (!data) return;
+                var title = document.getElementById('unifiedPlanTitle');
+                var price = document.getElementById('unifiedPlanPrice');
+                var desc = document.getElementById('unifiedPlanDesc');
+                var image = document.getElementById('unifiedPlanImage');
+                var features = document.getElementById('unifiedPlanFeatures');
+                if (!title || !price || !desc || !image || !features) return;
+
+                title.textContent = data.title;
+                price.textContent = data.price;
+                desc.textContent = data.desc;
+                image.src = data.image;
+                image.alt = data.title + ' 活用イメージ';
+                features.innerHTML = data.features.map(function(f){ return '<li>' + f + '</li>'; }).join('');
+            }
+
+            var tabs = document.querySelectorAll('.plan-tab');
+            tabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(function(t){ t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    setUnifiedPlan(tab.getAttribute('data-plan'));
+                });
+            });
+
+            setUnifiedPlan('advisor');
+        })();
+
+        // Top page blog list
+        (function() {
+            var fallbackPosts = [
+                { slug: 'ai-consultation-one-day', title: 'AI相談サイトを1日で構築した話', date: '2026-02-20', category: 'AI' },
+                { slug: 'ai-business-automation', title: '中小企業のAI活用術：業務自動化で生産性を3倍にする方法', date: '2026-02-15', category: 'AI' },
+                { slug: 'programming-education-future', title: 'プログラミング教育の未来：AI時代に本当に必要なスキルとは', date: '2026-02-10', category: 'プログラミング' }
+            ];
+
+            function renderTopBlogs(posts) {
+                var container = document.getElementById('topBlogList');
+                if (!container) return;
+                var top = (posts || []).slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).slice(0, 3);
+                container.innerHTML = top.map(function(post){
+                    var d = new Date(post.date);
+                    var ds = d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0');
+                    return '<a href="blog-post.html?slug=' + post.slug + '" class="company-card" style="text-decoration:none;display:block;">'
+                        + '<h3 class="company-card-title" style="margin-bottom:.35rem;"><i class="fas fa-file-alt"></i> ' + post.title + '</h3>'
+                        + '<p class="company-card-content" style="margin:0;color:rgba(255,255,255,.75)">' + ds + ' ・ ' + (post.category || 'AI') + '</p>'
+                        + '</a>';
+                }).join('');
+            }
+
+            fetch('blog/posts/index.json', { cache: 'no-store' })
+                .then(function(res){ if(!res.ok) throw new Error('fetch failed'); return res.json(); })
+                .then(function(data){ renderTopBlogs(Array.isArray(data.posts) && data.posts.length ? data.posts : fallbackPosts); })
+                .catch(function(){ renderTopBlogs(fallbackPosts); });
         })();
 
         // GitHub Repos Marquee (with hardcoded fallback)
