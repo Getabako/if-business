@@ -1406,7 +1406,8 @@
         .plan-unified-tabs { display:grid; grid-template-columns: repeat(4,1fr); gap:.6rem; margin-top: .9rem; }
         .plan-tab { border:1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color:#fff; border-radius: 10px; padding:.7rem .5rem; font-size:.82rem; cursor:pointer; }
         .plan-tab.active { background: linear-gradient(135deg,#3b82f6,#1d4ed8); border-color: rgba(147,197,253,0.9); }
-        .plan-unified-cta { margin-top: 1rem; display:flex; gap:.6rem; flex-wrap:wrap; }
+        .plan-unified-cta { margin-top: 1rem; display:grid; grid-template-columns: 1fr 1fr; gap:.5rem; }
+        .plan-unified-cta .cta-button { width:100%; text-align:center; white-space: nowrap; }
 
         #ai-system-dev, #ai-advisor, #ai-training, #ai-marketing { display:none !important; }
 
@@ -5101,7 +5102,7 @@
             .plan-unified-main li:nth-child(n+3) { display: none; }
             .plan-unified-image img { max-height: 25vh; }
             .plan-tab { font-size: 0.74rem; padding: 0.46rem 0.26rem; }
-            .plan-unified-cta .cta-button { font-size: .78rem !important; padding: .54rem .2rem !important; }
+            .plan-unified-cta .cta-button { font-size: .74rem !important; padding: .5rem .12rem !important; }
 
             .section-title { font-size: clamp(1.45rem, 8vw, 1.95rem) !important; line-height: 1.28 !important; }
             .section-subtitle { font-size: 0.92rem !important; line-height: 1.5 !important; }
@@ -5339,7 +5340,6 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">あなたに合うAI導入プラン</h2>
-                <p class="section-subtitle">4つのサービスを1つの画面で比較し、今すぐ始めるべき順番まで分かります</p>
             </div>
 
             <div class="plan-unified-card">
