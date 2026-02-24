@@ -2728,6 +2728,9 @@
             gap: 0.5rem;
         }
 
+        .company-card a { color: #dbeafe; text-decoration: none; }
+        .company-card a:hover { color: #ffffff; }
+
         .company-card-content {
             line-height: 1.8;
         }
@@ -4993,12 +4996,12 @@
         @media (max-width: 768px) {
             .ai-mobile-3screens { display:block; margin: .6rem 0 1rem; padding-bottom: 86px; }
             .ai-mobile-screen {
-                height: calc(100svh - 86px);
+                height: calc(100dvh - 96px);
                 background: rgba(15,23,42,.55);
                 border: 1px solid rgba(147,197,253,.28);
                 border-radius: 14px;
                 padding: .72rem;
-                margin-bottom: .7rem;
+                margin-bottom: .45rem;
                 display:flex;
                 flex-direction:column;
                 justify-content:flex-start;
@@ -5051,7 +5054,7 @@
         }
 
         @media (max-width: 420px) {
-            .ai-mobile-screen { height: calc(100svh - 82px); padding:.64rem; }
+            .ai-mobile-screen { height: calc(100dvh - 92px); padding:.64rem; }
             .ai-mobile-screen h3 { font-size:.96rem; }
             .ai-mobile-screen .mini-copy { font-size:.76rem; }
             .ai-mobile-screen li { font-size:.72rem; }
@@ -5145,7 +5148,7 @@
             .footer-bottom { margin-top: 0.9rem !important; padding-top: 0.7rem !important; }
             .footer-bottom p { font-size: 0.68rem !important; }
             .mhlw-link-btn { max-width: 72%; text-align: center; line-height: 1.45; padding: 0.62rem 0.8rem !important; font-size: 0.82rem !important; }
-            body { padding-bottom: 88px; }
+            body { padding-bottom: 128px; }
         }
 
         @media (max-width: 480px) {
