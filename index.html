@@ -5152,15 +5152,15 @@
             #topBlogList .company-card { padding: 0.85rem !important; }
             #topBlogList .company-card-title { font-size: 1rem !important; line-height: 1.45 !important; }
             #topBlogList .company-card-content { font-size: 0.82rem !important; }
-            .site-footer { padding: 1.4rem 0.9rem 1rem !important; }
-            .footer-logo img { height: 24px !important; }
-            .footer-logo-text { font-size: 0.92rem !important; }
+            .site-footer { padding: .82rem 0.55rem .62rem !important; }
+            .footer-logo img { height: 18px !important; }
+            .footer-logo-text { font-size: 0.78rem !important; }
             .footer-links { gap: 0.7rem !important; }
-            .footer-links a { font-size: 0.76rem !important; }
+            .footer-links a { font-size: 0.64rem !important; }
             .footer-bottom { margin-top: 0.9rem !important; padding-top: 0.7rem !important; }
-            .footer-bottom p { font-size: 0.68rem !important; }
+            .footer-bottom p { font-size: 0.56rem !important; }
             .mhlw-link-btn { max-width: 72%; text-align: center; line-height: 1.45; padding: 0.62rem 0.8rem !important; font-size: 0.82rem !important; }
-            body { padding-bottom: 128px; }
+            body { padding-bottom: 84px; }
         }
 
         @media (max-width: 480px) {
@@ -5199,11 +5199,11 @@
             #topBlogList .company-card-content { font-size: 0.72rem !important; }
             .mhlw-link-btn { max-width: 82%; padding: 0.56rem 0.68rem !important; font-size: 0.72rem !important; border-radius: 18px !important; white-space: nowrap; }
             .mhlw-link-btn i { margin-right: 0.22rem !important; }
-            .site-footer { padding: 1rem 0.7rem .7rem !important; }
-            .footer-logo img { height: 20px !important; }
-            .footer-logo-text { font-size: .84rem !important; }
-            .footer-links a { font-size: .7rem !important; }
-            .footer-bottom p { font-size: .62rem !important; }
+            .site-footer { padding: .7rem 0.45rem .45rem !important; }
+            .footer-logo img { height: 16px !important; }
+            .footer-logo-text { font-size: .72rem !important; }
+            .footer-links a { font-size: .58rem !important; }
+            .footer-bottom p { font-size: .5rem !important; }
             #grant iframe { height: 520px !important; }
         }
 
@@ -6096,18 +6096,10 @@
 
             <div id="topBlogList" style="max-width: 980px; margin: 0 auto 1rem; display:grid; grid-template-columns: 1fr; gap: .8rem;"></div>
 
-            <div style="max-width: 980px; margin: 0 auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+            <div style="max-width: 980px; margin: 0 auto; display:grid; grid-template-columns: 1fr; gap: .8rem;">
                 <a href="blog.html" class="company-card" style="text-decoration:none;">
                     <h3 class="company-card-title"><i class="fas fa-newspaper"></i> ブログ一覧</h3>
                     <p class="company-card-content">すべての記事を見る</p>
-                </a>
-                <a href="blog-post.html" class="company-card" style="text-decoration:none;">
-                    <h3 class="company-card-title"><i class="fas fa-pen"></i> 注目記事</h3>
-                    <p class="company-card-content">直近のおすすめ記事を読む</p>
-                </a>
-                <a href="blog/posts/index.json" target="_blank" class="company-card" style="text-decoration:none;">
-                    <h3 class="company-card-title"><i class="fas fa-folder-open"></i> 記事データ</h3>
-                    <p class="company-card-content">投稿データ（JSON）を確認</p>
                 </a>
             </div>
         </div>
@@ -7492,7 +7484,7 @@
             function renderTopBlogs(posts) {
                 var container = document.getElementById('topBlogList');
                 if (!container) return;
-                var top = (posts || []).slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).slice(0, 3);
+                var top = (posts || []).slice().sort(function(a,b){ return String(b.date).localeCompare(String(a.date)); }).slice(0, 1);
                 container.innerHTML = top.map(function(post){
                     var d = new Date(post.date);
                     var ds = d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0');
