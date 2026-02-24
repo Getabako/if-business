@@ -5031,6 +5031,11 @@
             .gpts-banner-mini p { margin:0 0 .2rem; font-size:.78rem; color:#dbeafe; }
             .gpts-banner-mini span { display:block; margin:0 0 .35rem; font-size:.72rem; color:rgba(219,234,254,.85); }
             .gpts-banner-mini a { display:inline-block; font-size:.76rem; color:#93c5fd; text-decoration:none; border:1px solid rgba(147,197,253,.35); padding:.34rem .48rem; border-radius:8px; }
+            .mobile-lineup-scroll { margin-top:.35rem; overflow:hidden; border:1px solid rgba(250,204,21,.25); border-radius:10px; background:rgba(250,204,21,.08); }
+            .mobile-lineup-track { display:flex; gap:.35rem; padding:.35rem; width:max-content; animation: mobileLineupMarquee 24s linear infinite; }
+            .mobile-lineup-track span { display:inline-block; white-space:nowrap; font-size:.72rem; color:#fde68a; padding:.24rem .46rem; border-radius:999px; border:1px solid rgba(250,204,21,.35); background:rgba(2,6,23,.42); }
+            @keyframes mobileLineupMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
 
 
             #courses .course-lineup-title { display:block !important; font-size:1.05rem !important; margin: .7rem 0 .45rem !important; }
@@ -5039,6 +5044,8 @@
             #courses .course-lineup-item h5 { font-size:.83rem !important; margin-bottom:.22rem !important; }
             #courses .course-lineup-item p { font-size:.72rem !important; line-height:1.3 !important; }
             #courses .course-price-row,
+            #courses .course-lineup-title,
+            #courses .course-lineup,
             #courses .ai-master-roadmap,
             #courses .ai-community-box,
             #courses .ai-price-compare,
@@ -5760,6 +5767,20 @@
                         <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ">
                     </div>
                     <p class="screen-note">Lv.1 AI体験 / Lv.2 爆速仕事術 / Lv.3 売れるLP / Lv.4 LINEミニアプリ / Lv.5 AI秘書 / Lv.6 オリジナルアプリ / Lv.7 本格AIアプリ開発</p>
+                    <div class="mobile-lineup-scroll">
+                        <div class="mobile-lineup-track">
+                            <span>初学者向けAI体験講座</span>
+                            <span>業務効率化AIワークフロー作成講座</span>
+                            <span>LINEミニアプリ開発講座</span>
+                            <span>AIアプリ開発実践講座</span>
+                            <span>高成約率LP作成講座</span>
+                            <span>初学者向けAI体験講座</span>
+                            <span>業務効率化AIワークフロー作成講座</span>
+                            <span>LINEミニアプリ開発講座</span>
+                            <span>AIアプリ開発実践講座</span>
+                            <span>高成約率LP作成講座</span>
+                        </div>
+                    </div>
                 </section>
 
                 <section class="ai-mobile-screen">
