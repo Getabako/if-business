@@ -4996,7 +4996,7 @@
         @media (max-width: 768px) {
             .ai-mobile-3screens { display:block; margin: .6rem 0 1rem; padding-bottom: 86px; }
             .ai-mobile-screen {
-                height: calc(100dvh - 96px);
+                height: auto;
                 background: rgba(15,23,42,.55);
                 border: 1px solid rgba(147,197,253,.28);
                 border-radius: 14px;
@@ -5006,7 +5006,7 @@
                 flex-direction:column;
                 justify-content:flex-start;
                 gap: .32rem;
-                overflow-y: auto;
+                overflow: visible;
                 scrollbar-width: none;
             }
             .ai-mobile-screen::-webkit-scrollbar { display:none; }
@@ -5063,7 +5063,7 @@
         }
 
         @media (max-width: 420px) {
-            .ai-mobile-screen { height: calc(100dvh - 92px); padding:.64rem; }
+            .ai-mobile-screen { height: auto; padding:.64rem; }
             .ai-mobile-screen h3 { font-size:.96rem; }
             .ai-mobile-screen .mini-copy { font-size:.76rem; }
             .ai-mobile-screen li { font-size:.72rem; }
@@ -5846,12 +5846,12 @@
                     </div>
                     <div class="gpts-banner-mini">
                         <p><i class="fab fa-facebook"></i> GPTs研究会コミュニティ（6,953人）</p>
-                        <span>毎月の勉強会で最新AI情報をキャッチアップ</span>
+                        <span>毎月の勉強会で最新AI情報をキャッチアップ。高崎・山﨑が毎週水曜日の朝ライブ配信も担当</span>
                         <a href="https://www.facebook.com/groups/gptslabo" target="_blank">コミュニティを詳しく見る</a>
                     </div>
-                    <div class="dev-community-cta compact">
+                    <div class="dev-community-cta compact" style="margin-top:.2rem;">
                         <h4>もくもく会 + 伴走サポート</h4>
-                        <p>毎月の実践会で、手を動かしながらスキルを定着。詰まったらすぐ相談できます。</p>
+                        <p>毎月の実践会で、手を動かしながらスキル定着。詰まったらすぐ相談できます。</p>
                         <a href="#contact" class="cta-button ghost">まずは問い合わせる</a>
                     </div>
                 </section>
