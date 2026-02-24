@@ -4146,6 +4146,35 @@
             width: 20px;
         }
 
+        .course-two-cards-desktop {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            max-width: 980px;
+            margin: 0 auto 1.2rem;
+        }
+
+        .course-two-cards-desktop .course-mini-card {
+            border: 1px solid rgba(250, 204, 21, 0.38);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 14px;
+            padding: 0.75rem 0.9rem;
+        }
+
+        .course-two-cards-desktop .course-mini-card strong {
+            display: block;
+            color: #fde68a;
+            font-size: 1.15rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .course-two-cards-desktop .course-mini-card span {
+            display: block;
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
         .course-lineup {
             margin-top: 2rem;
         }
@@ -5054,6 +5083,7 @@
 
 
             #courses .course-price-row,
+            #courses .course-two-cards-desktop,
             #courses .course-lineup-title,
             #courses .course-lineup,
             #courses .ai-master-roadmap,
@@ -5880,6 +5910,11 @@
                     <br>
                     <a href="#contact" class="cta-button" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">講座の詳細を問い合わせる</a>
                 </div>
+            </div>
+
+            <div class="course-two-cards-desktop">
+                <div class="course-mini-card"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
+                <div class="course-mini-card"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></div>
             </div>
 
             <!-- 講座ラインナップ -->
