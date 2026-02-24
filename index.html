@@ -4987,6 +4987,62 @@
             .repos-marquee-wrapper::after { width: 40px; }
         }
 
+
+        .ai-mobile-3screens { display:none; }
+
+        @media (max-width: 768px) {
+            .ai-mobile-3screens { display:block; margin: .6rem 0 1rem; }
+            .ai-mobile-screen {
+                min-height: calc(100svh - 86px);
+                background: rgba(15,23,42,.55);
+                border: 1px solid rgba(147,197,253,.28);
+                border-radius: 14px;
+                padding: .8rem;
+                margin-bottom: .7rem;
+                display:flex;
+                flex-direction:column;
+                justify-content:space-between;
+            }
+            .ai-mobile-screen h3 { margin:0 0 .45rem; font-size:1.1rem; color:#fde047; }
+            .ai-mobile-screen .mini-copy { margin:0 0 .45rem; font-size:.84rem; line-height:1.45; color:rgba(255,255,255,.9); }
+            .ai-mobile-screen ul { margin:0 0 .45rem; padding-left:1.05rem; }
+            .ai-mobile-screen li { font-size:.8rem; line-height:1.36; margin-bottom:.2rem; }
+            .ai-mobile-screen .btn-row { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; margin-top:auto; }
+            .ai-mobile-screen .btn-row .cta-button { width:100%; text-align:center; font-size:.8rem; padding:.58rem .25rem; }
+            .ai-mobile-screen .btn-row .ghost { background:transparent; border:1px solid rgba(255,255,255,.3); }
+            .ai-mobile-screen .roadmap-wrap { border-radius:10px; overflow:hidden; border:1px solid rgba(250,204,21,.35); margin:.25rem 0; }
+            .ai-mobile-screen .roadmap-wrap img { width:100%; height:auto; display:block; }
+            .ai-mobile-screen .screen-note { margin:.35rem 0 0; font-size:.72rem; line-height:1.35; color:rgba(255,255,255,.86); }
+            .price-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; }
+            .price-mini { border-radius:10px; padding:.55rem; }
+            .price-mini.normal { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); }
+            .price-mini.pass { background:linear-gradient(135deg, rgba(127,29,29,.28), rgba(153,27,27,.42)); border:1px solid rgba(248,113,113,.6); }
+            .price-mini .label { margin:0 0 .25rem; color:#fde68a; font-size:.78rem; font-weight:700; }
+            .price-mini p { margin:0 0 .18rem; font-size:.74rem; line-height:1.3; }
+            .price-mini .big { font-size:1rem; color:#fecaca; font-weight:800; }
+            .price-mini .old { color:#cbd5e1; }
+            .gpts-banner-mini { margin-top:.45rem; padding:.55rem; border-radius:10px; border:1px solid rgba(59,130,246,.36); background:rgba(59,130,246,.12); }
+            .gpts-banner-mini p { margin:0 0 .3rem; font-size:.78rem; color:#dbeafe; }
+            .gpts-banner-mini a { display:inline-block; font-size:.76rem; color:#93c5fd; text-decoration:none; border:1px solid rgba(147,197,253,.35); padding:.34rem .48rem; border-radius:8px; }
+
+            #courses .course-price-row,
+            #courses .course-lineup-title,
+            #courses .course-lineup,
+            #courses .ai-master-roadmap,
+            #courses .ai-community-box,
+            #courses .ai-price-compare,
+            #courses .gpts-community { display:none !important; }
+        }
+
+        @media (max-width: 420px) {
+            .ai-mobile-screen { min-height: calc(100svh - 82px); padding:.72rem; }
+            .ai-mobile-screen h3 { font-size:1.02rem; }
+            .ai-mobile-screen .mini-copy { font-size:.8rem; }
+            .ai-mobile-screen li { font-size:.76rem; }
+            .ai-mobile-screen .btn-row .cta-button { font-size:.74rem; }
+            .price-mini p { font-size:.7rem; }
+        }
+
         /* AI master course extra blocks */
         .ai-master-title { text-align:center; color:#fde047; font-size:1.45rem; margin-bottom:1rem; }
         .ai-master-steps { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
@@ -5667,6 +5723,53 @@
                 <p class="section-subtitle">学ぶだけじゃない、仲間と一緒に実践できる環境</p>
             </div>
 
+            <!-- Mobile 3-screen compact layout -->
+            <div class="ai-mobile-3screens">
+                <section class="ai-mobile-screen">
+                    <h3>AI講座 まずはここから</h3>
+                    <p class="mini-copy">年間パスポートなら通常より<strong>年間272,000円お得</strong>。月2回講座＋月1回もくもく会＋動画見放題で、継続しやすい環境です。</p>
+                    <ul>
+                        <li>月2回の講座 + 月1回のもくもく開発会</li>
+                        <li>チャット質問サポート + 受講者コミュニティ</li>
+                        <li>月額換算 約12,300円（年間148,000円）</li>
+                    </ul>
+                    <div class="btn-row">
+                        <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="cta-button">無料相談する</a>
+                        <a href="#contact" class="cta-button ghost">問い合わせる</a>
+                    </div>
+                </section>
+
+                <section class="ai-mobile-screen">
+                    <h3>講座内容・ロードマップ</h3>
+                    <p class="mini-copy">Lv.1〜Lv.7まで段階的に、体験→仕事術→開発まで成長。</p>
+                    <div class="roadmap-wrap">
+                        <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ">
+                    </div>
+                    <p class="screen-note">Lv.1 AI体験 / Lv.2 爆速仕事術 / Lv.3 売れるLP / Lv.4 LINEミニアプリ / Lv.5 AI秘書 / Lv.6 オリジナルアプリ / Lv.7 本格AIアプリ開発</p>
+                </section>
+
+                <section class="ai-mobile-screen">
+                    <h3>料金比較 + 研究会</h3>
+                    <div class="price-mini-grid">
+                        <div class="price-mini normal">
+                            <p class="label">単発参加</p>
+                            <p>講座 15,000円/回</p>
+                            <p>もくもく会 5,000円/回</p>
+                            <p class="old"><del>年間 420,000円</del></p>
+                        </div>
+                        <div class="price-mini pass">
+                            <p class="label">年間パスポート</p>
+                            <p class="big">148,000円/年</p>
+                            <p>月額換算 約12,300円</p>
+                        </div>
+                    </div>
+                    <div class="gpts-banner-mini">
+                        <p><i class="fab fa-facebook"></i> GPTs研究会コミュニティ（6,953人）</p>
+                        <a href="https://www.facebook.com/groups/gptslabo" target="_blank">研究会バナーを開く</a>
+                    </div>
+                </section>
+            </div>
+
             <!-- 画像 + 料金 2カラム -->
             <div class="course-price-row" style="display: flex; gap: 2rem; align-items: center; max-width: 960px; margin: 0 auto 2rem;">
                 <!-- 左: 画像 -->
@@ -5692,7 +5795,7 @@
             </div>
 
             <!-- 講座ラインナップ -->
-            <h3 style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
+            <h3 class="course-lineup-title" style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
             <div class="course-lineup">
                 <div class="course-lineup-featured">
                     <div class="course-lineup-item">
