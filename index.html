@@ -5024,20 +5024,20 @@
             .ai-mobile-screen .roadmap-wrap { border-radius:10px; overflow:hidden; border:1px solid rgba(250,204,21,.35); margin:.25rem 0; }
             .ai-mobile-screen .roadmap-wrap img { width:100%; height:auto; display:block; }
             .ai-mobile-screen .screen-note { margin:.35rem 0 0; font-size:.72rem; line-height:1.35; color:rgba(255,255,255,.86); }
-            .price-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; }
-            .price-mini { border-radius:10px; padding:.55rem; }
+            .price-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; }
+            .price-mini { border-radius:10px; padding:.42rem; }
             .price-mini.normal { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); }
             .price-mini.pass { background:linear-gradient(135deg, rgba(127,29,29,.28), rgba(153,27,27,.42)); border:1px solid rgba(248,113,113,.6); }
             .price-mini .label { margin:0 0 .25rem; color:#fde68a; font-size:.78rem; font-weight:700; }
-            .price-mini p { margin:0 0 .18rem; font-size:.74rem; line-height:1.3; }
+            .price-mini p { margin:0 0 .14rem; font-size:.7rem; line-height:1.25; }
             .price-mini .big { font-size:1rem; color:#fecaca; font-weight:800; }
             .price-mini .save-big { color:#fde047; font-weight:900; font-size:.9rem; }
             .save-badge { margin:0 0 .38rem; text-align:center; font-size:.76rem; font-weight:800; color:#fff; background:linear-gradient(135deg,#dc2626,#f59e0b); border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:.32rem .5rem; }
             .price-mini .old { color:#cbd5e1; }
-            .gpts-banner-mini { margin-top:.45rem; padding:.55rem; border-radius:10px; border:1px solid rgba(59,130,246,.36); background:rgba(59,130,246,.12); }
-            .gpts-banner-mini p { margin:0 0 .2rem; font-size:.78rem; color:#dbeafe; }
-            .gpts-banner-mini span { display:block; margin:0 0 .35rem; font-size:.72rem; color:rgba(219,234,254,.85); }
-            .gpts-banner-mini a { display:inline-block; font-size:.76rem; color:#93c5fd; text-decoration:none; border:1px solid rgba(147,197,253,.35); padding:.34rem .48rem; border-radius:8px; }
+            .gpts-banner-mini { margin-top:.3rem; padding:.42rem; border-radius:10px; border:1px solid rgba(59,130,246,.36); background:rgba(59,130,246,.12); }
+            .gpts-banner-mini p { margin:0 0 .12rem; font-size:.72rem; color:#dbeafe; }
+            .gpts-banner-mini span { display:block; margin:0 0 .22rem; font-size:.68rem; color:rgba(219,234,254,.85); }
+            .gpts-banner-mini a { display:inline-block; font-size:.7rem; color:#93c5fd; text-decoration:none; border:1px solid rgba(147,197,253,.35); padding:.28rem .4rem; border-radius:8px; }
             .mobile-lineup-scroll { margin-top:.35rem; overflow:hidden; border:1px solid rgba(250,204,21,.25); border-radius:10px; background:rgba(250,204,21,.08); }
             .mobile-lineup-track { display:flex; gap:.35rem; padding:.35rem; width:max-content; animation: mobileLineupMarquee 24s linear infinite; }
             .mobile-lineup-track span { display:inline-block; white-space:nowrap; font-size:.72rem; color:#fde68a; padding:.24rem .46rem; border-radius:999px; border:1px solid rgba(250,204,21,.35); background:rgba(2,6,23,.42); }
@@ -5087,7 +5087,10 @@
 
         /* Mobile fit fixes (2026-02-23) */
         @media (max-width: 768px) {
-            .hero-section { min-height: auto; padding-top: 4.8rem; padding-bottom: 2rem; }
+            .hero-section { min-height: calc(100dvh - 52px); padding-top: 4.8rem; padding-bottom: 2rem; }
+            .service-nav-section,
+            #courses,
+            .grant-section { min-height: calc(100dvh - 52px); }
             .hero-content { padding: 1rem 0.9rem; max-width: 100%; }
             .hero-ainovation { font-size: clamp(2.2rem, 13vw, 3.6rem); letter-spacing: 0.08em; line-height: 1.08; margin-bottom: 0.9rem; }
             .hero-text-1 { font-size: clamp(1.25rem, 7vw, 1.7rem); margin-bottom: 0.6rem; }
@@ -5152,14 +5155,14 @@
         }
 
         @media (max-width: 480px) {
-            .hero-section { padding-top: 4.2rem; padding-bottom: 1.4rem; }
+            .hero-section { min-height: calc(100dvh - 48px); padding-top: 4.2rem; padding-bottom: 1.4rem; }
             .hero-ainovation { font-size: clamp(1.8rem, 11.8vw, 2.65rem); letter-spacing: 0.06em; margin-bottom: 0.6rem; }
             .hero-text-1 { font-size: 1.95rem; line-height: 1.28; }
             .hero-text-2, .hero-text-3 { font-size: 0.98rem; line-height: 1.45; padding: 0.48rem 0.58rem; }
             .hero-buttons-wrap { display: grid; gap: 0.5rem; }
             .hero-cta-sapphire, .hero-cta-mech { width: 100%; text-align: center; font-size: 0.9rem; padding: 0.75rem 0.75rem; }
 
-            .service-nav-section { padding: 1.45rem 0.62rem; }
+            .service-nav-section { min-height: calc(100dvh - 48px); padding: 1.45rem 0.62rem; }
             .service-nav-section .section-title { font-size: clamp(1.35rem, 8.2vw, 1.9rem); line-height: 1.25; }
             .service-nav-section .section-subtitle { font-size: 0.92rem; line-height: 1.45; }
 
@@ -5746,7 +5749,8 @@
             <div class="ai-mobile-3screens">
                 <section class="ai-mobile-screen">
                     <h3>AI講座 まずはここから</h3>
-                    <div class="roadmap-wrap" style="margin-bottom:.38rem;">
+                    <p class="mini-copy">初学者向けAI体験講座からスタートできます。</p>
+                    <div class="roadmap-wrap" style="margin-bottom:.3rem;">
                         <img src="images/comic10.png" alt="AI講座イメージ">
                     </div>
                     <p class="mini-copy">年間パスポートなら <span class="old-strong"><del>通常420,000円</del></span> → <span class="new-strong">148,000円</span>。<strong class="save-strong">年間272,000円お得</strong>で、めっちゃ安く始められます。</p>
@@ -5755,19 +5759,6 @@
                         <li>チャット質問サポート + 受講者コミュニティ</li>
                         <li>月額換算 約12,300円（動画見放題込み）</li>
                     </ul>
-                    <div class="btn-row">
-                        <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="cta-button">無料相談する</a>
-                        <a href="#contact" class="cta-button ghost">問い合わせる</a>
-                    </div>
-                </section>
-
-                <section class="ai-mobile-screen">
-                    <h3>講座内容・ロードマップ</h3>
-                    <p class="mini-copy">Lv.1〜Lv.7まで段階的に、体験→仕事術→開発まで成長。</p>
-                    <div class="roadmap-wrap">
-                        <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ">
-                    </div>
-                    <p class="screen-note">Lv.1 AI体験 / Lv.2 爆速仕事術 / Lv.3 売れるLP / Lv.4 LINEミニアプリ / Lv.5 AI秘書 / Lv.6 オリジナルアプリ / Lv.7 本格AIアプリ開発</p>
                     <div class="mobile-lineup-scroll">
                         <div class="mobile-lineup-track">
                             <span>初学者向けAI体験講座</span>
@@ -5782,12 +5773,24 @@
                             <span>高成約率LP作成講座</span>
                         </div>
                     </div>
+                    <div class="btn-row">
+                        <a href="https://forms.gle/zAY4shrBUGxttssN6" target="_blank" class="cta-button">無料相談する</a>
+                        <a href="#contact" class="cta-button ghost">問い合わせる</a>
+                    </div>
+                </section>
+
+                <section class="ai-mobile-screen">
+                    <h3>講座内容・ロードマップ</h3>
+                    <p class="mini-copy">Lv.1〜Lv.7まで段階的に、体験→仕事術→開発まで成長。</p>
+                    <div class="roadmap-wrap">
+                        <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ">
+                    </div>
+                    <p class="screen-note">Lv.1 AI体験 / Lv.2 爆速仕事術 / Lv.3 売れるLP / Lv.4 LINEミニアプリ / Lv.5 AI秘書 / Lv.6 オリジナルアプリ / Lv.7 本格AIアプリ開発</p>
                 </section>
 
                 <section class="ai-mobile-screen">
                     <h3>料金比較 + 研究会</h3>
-                    <div class="save-badge">通常420,000円 → 148,000円（年間272,000円お得）</div>
-                    <div class="price-mini-grid">
+                                        <div class="price-mini-grid">
                         <div class="price-mini normal">
                             <p class="label">通常（単発参加）</p>
                             <p>講座 15,000円/回</p>
@@ -5797,8 +5800,7 @@
                         <div class="price-mini pass">
                             <p class="label">年間パスポート</p>
                             <p class="big">148,000円/年</p>
-                            <p class="save-big">272,000円お得</p>
-                            <p>月額換算 約12,300円</p>
+                                                        <p>月額換算 約12,300円</p>
                         </div>
                     </div>
                     <div class="gpts-banner-mini">
