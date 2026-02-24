@@ -5027,17 +5027,22 @@
             .question-options { gap: 0.55rem; }
             .option-btn { padding: 0.85rem 0.8rem; }
 
-            .plans-unified-section { padding: 2rem 0.75rem; }
-            .plan-unified-card { padding: 0.75rem; border-radius: 16px; }
-            .plan-unified-grid { gap: 0.7rem; }
-            .plan-unified-main { padding: 0.9rem; border-radius: 12px; }
-            .plan-unified-main h3 { font-size: 1.45rem; line-height: 1.35; }
-            .plan-unified-main p { font-size: 0.95rem; line-height: 1.65; }
-            .plan-unified-main li { font-size: 0.95rem; line-height: 1.6; }
-            .plan-unified-image { display: flex; align-items: center; justify-content: center; background: rgba(15,23,42,0.55); border-radius: 12px; padding: 0.35rem; }
-            .plan-unified-image img { width: 100%; height: auto !important; max-height: 46vh; min-height: 0; object-fit: contain; border-radius: 10px; }
-            .plan-unified-tabs { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.45rem; }
-            .plan-tab { padding: 0.6rem 0.45rem; font-size: 0.86rem; }
+            .plans-unified-section { padding: 1.6rem 0.7rem 3.2rem; }
+            .plans-unified-section .section-title { font-size: clamp(1.4rem, 7.2vw, 1.9rem); line-height: 1.25; letter-spacing: 0.01em; word-break: keep-all; overflow-wrap: anywhere; }
+            .plans-unified-section .section-subtitle { font-size: 0.94rem; line-height: 1.45; }
+            .plan-unified-card { padding: 0.7rem; border-radius: 14px; }
+            .plan-unified-grid { gap: 0.6rem; }
+            .plan-unified-main { padding: 0.85rem; border-radius: 10px; }
+            .plan-unified-main h3 { font-size: 1.34rem; line-height: 1.3; }
+            .plan-unified-main p { font-size: 0.9rem; line-height: 1.55; }
+            .plan-unified-main li { font-size: 0.88rem; line-height: 1.5; }
+            .plan-unified-main li:nth-child(n+3) { display: none; }
+            .plan-unified-image { display: flex; align-items: center; justify-content: center; background: rgba(15,23,42,0.55); border-radius: 12px; padding: 0.3rem; }
+            .plan-unified-image img { width: 100%; height: auto !important; max-height: 36vh; min-height: 0; object-fit: contain; border-radius: 10px; }
+            .plan-unified-tabs { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.4rem; }
+            .plan-tab { padding: 0.55rem 0.4rem; font-size: 0.82rem; }
+            .plan-unified-cta { display:grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
+            .plan-unified-cta .cta-button { width: 100%; text-align: center; padding: .62rem .4rem; font-size: .86rem; }
 
             .implementation-section,
             .faq-section,
@@ -5086,14 +5091,17 @@
             .option-btn { padding: 0.72rem 0.62rem; border-radius: 10px; }
             .option-text { font-size: 0.93rem; line-height: 1.4; }
 
-            .plan-unified-main h3 { font-size: 1.22rem; margin-bottom: 0.35rem; }
-            .plan-unified-main .price { font-size: 1rem; margin-bottom: 0.45rem; }
-            .plan-unified-main p { font-size: 0.89rem; line-height: 1.52; margin-bottom: 0.45rem; }
-            .plan-unified-main ul { margin-top: 0.45rem; }
-            .plan-unified-main li { font-size: 0.88rem; line-height: 1.45; margin-bottom: 0.22rem; }
+            .plans-unified-section .section-title { font-size: clamp(1.22rem, 6.6vw, 1.55rem) !important; line-height: 1.2 !important; }
+            .plans-unified-section .section-subtitle { font-size: .84rem !important; line-height: 1.4 !important; }
+            .plan-unified-main h3 { font-size: 1.12rem; margin-bottom: 0.28rem; }
+            .plan-unified-main .price { font-size: 0.92rem; margin-bottom: 0.35rem; }
+            .plan-unified-main p { font-size: 0.83rem; line-height: 1.44; margin-bottom: 0.35rem; }
+            .plan-unified-main ul { margin-top: 0.3rem; }
+            .plan-unified-main li { font-size: 0.8rem; line-height: 1.35; margin-bottom: 0.18rem; }
             .plan-unified-main li:nth-child(n+3) { display: none; }
-            .plan-unified-image img { max-height: 30vh; }
-            .plan-tab { font-size: 0.8rem; padding: 0.5rem 0.35rem; }
+            .plan-unified-image img { max-height: 25vh; }
+            .plan-tab { font-size: 0.74rem; padding: 0.46rem 0.26rem; }
+            .plan-unified-cta .cta-button { font-size: .78rem !important; padding: .54rem .2rem !important; }
 
             .section-title { font-size: clamp(1.45rem, 8vw, 1.95rem) !important; line-height: 1.28 !important; }
             .section-subtitle { font-size: 0.92rem !important; line-height: 1.5 !important; }
