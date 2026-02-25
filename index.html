@@ -172,13 +172,37 @@
             background: #0a0a1a;
         }
 
+        .hero-bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 0;
+            animation: bgFadeIn 1.5s ease 4s forwards;
+            z-index: -3;
+        }
+
+        .hero-bg-image.desktop {
+            background-image: url('images/hero-bg-desktop.jpg');
+            background-position: center center;
+        }
+
+        .hero-bg-image.mobile {
+            display: none;
+            background-image: url('images/hero-bg-mobile.jpg');
+            background-position: center top;
+        }
+
         .hero-bg-gradient {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #0a0a2e 0%, #1a0a3e 25%, #0a1a4e 50%, #0e2a5e 75%, #1a0a3e 100%);
+            background: linear-gradient(135deg, rgba(10,10,46,0.62) 0%, rgba(26,10,62,0.42) 25%, rgba(10,26,78,0.52) 50%, rgba(14,42,94,0.46) 75%, rgba(26,10,62,0.4) 100%);
             z-index: -2;
             opacity: 0;
             animation: bgFadeIn 1.5s ease 4s forwards;
@@ -3289,6 +3313,9 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .hero-bg-image.desktop { display: none; }
+            .hero-bg-image.mobile { display: block; }
+
             .two-column-layout,
             .contact-container {
                 flex-direction: column;
@@ -5312,6 +5339,8 @@
 
     <!-- Hero Section -->
     <section id="hero" class="hero-section">
+        <div class="hero-bg-image desktop"></div>
+        <div class="hero-bg-image mobile"></div>
         <div class="hero-bg-gradient"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content" id="heroContent">
