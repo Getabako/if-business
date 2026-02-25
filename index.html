@@ -5197,6 +5197,7 @@
             .price-compare-grid { grid-template-columns: 1fr; }
             .big-price { font-size: 1.45rem; }
             #grant iframe { height: 620px !important; }
+            .ai-consultation-embed-wrap iframe { height: 760px !important; margin-top: -110px !important; }
 
             .company-card { padding: 1rem !important; }
             .company-card-title { font-size: 1.4rem !important; }
@@ -5267,6 +5268,7 @@
             .footer-links a { font-size: .58rem !important; }
             .footer-bottom p { font-size: .5rem !important; }
             #grant iframe { height: 520px !important; }
+            .ai-consultation-embed-wrap iframe { height: 690px !important; margin-top: -96px !important; }
         }
 
     </style>
@@ -6062,11 +6064,11 @@
 
             </div>
 
-            <!-- AI相談室（iframe埋め込み・固定高さ） -->
-            <div style="margin-top: 2rem;">
+            <!-- AI相談室（iframe埋め込み・上部重複文言をクロップ） -->
+            <div class="ai-consultation-embed-wrap" style="margin-top: 2rem; border: 1px solid rgba(59,130,246,0.25); border-radius: 16px; overflow: hidden;">
                 <iframe
                     src="https://ai-consultation-beryl.vercel.app/?embed=1"
-                    style="width: 100%; height: 700px; border: 1px solid rgba(59,130,246,0.25); border-radius: 16px; background: transparent;"
+                    style="width: 100%; height: 820px; border: 0; background: transparent; margin-top: -120px;"
                     frameborder="0"
                     scrolling="no"
                     allow="clipboard-write"
