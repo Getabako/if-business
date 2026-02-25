@@ -4450,18 +4450,43 @@
             margin-bottom: 2rem;
         }
 
-        .gpts-community-header h3 {
-            font-size: 1.6rem;
-            color: #fde047;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .gpts-hero-banner {
+            position: relative;
+            display: block;
+            margin-bottom: 1rem;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,.16);
+            min-height: 420px;
+            text-align: left;
         }
 
-        .gpts-community-header h3 i {
-            color: #1877f2;
+        .gpts-hero-banner img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.48);
+            display: block;
+        }
+
+        .gpts-hero-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(2,6,23,.55) 0%, rgba(2,6,23,.25) 45%, rgba(2,6,23,.45) 100%);
+        }
+
+        .gpts-hero-copy {
+            position: absolute;
+            left: 1.6rem;
+            right: 1.6rem;
+            bottom: 1.2rem;
+            z-index: 2;
+            color: #fff;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            text-shadow: 0 2px 12px rgba(0,0,0,.55);
         }
 
         .gpts-community-header p {
@@ -4729,12 +4754,21 @@
                 margin-bottom: 2rem;
             }
 
-            .gpts-community-header h3 {
-                font-size: 1.3rem;
+            .gpts-hero-banner {
+                min-height: 280px;
             }
 
-            .gpts-community-header p {
-                font-size: 0.85rem;
+            .gpts-hero-banner img {
+                height: 280px;
+                object-position: center;
+            }
+
+            .gpts-hero-copy {
+                left: .9rem;
+                right: .9rem;
+                bottom: .75rem;
+                font-size: .82rem;
+                line-height: 1.6;
             }
 
             .gpts-live-card {
@@ -6074,11 +6108,10 @@
             <!-- GPTs研究会コミュニティ -->
             <div class="gpts-community" style="margin-top: 2rem;">
                 <div class="gpts-community-header">
-                    <a href="https://www.facebook.com/groups/gptslabo" target="_blank" style="display:block; margin-bottom:1rem; border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.16);">
-                        <img src="images/gpts-research-banner.jpg" alt="GPTs研究会バナー" style="display:block; width:100%; height:auto;">
+                    <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-hero-banner">
+                        <img src="images/gpts-research-banner.jpg" alt="GPTs研究会バナー">
+                        <p class="gpts-hero-copy">メンバー6,953人の公開コミュニティ。生成AIを研究して、人にしかできないことを探求。毎日のライブ配信で最新AI情報をキャッチアップし、メンバー同士で学び合います。<br>弊社の高崎・山﨑も毎週水曜日にレギュラーライブ配信を担当しています。</p>
                     </a>
-                    <h3><i class="fab fa-facebook"></i> GPTs研究会コミュニティ</h3>
-                    <p>メンバー6,953人の公開コミュニティ。生成AIを研究して、人にしかできないことを探求。毎日のライブ配信で最新AI情報をキャッチアップし、メンバー同士で学び合います。<br>弊社の高崎・山﨑も毎週水曜日にレギュラーライブ配信を担当しています。</p>
                     <div class="gpts-community-buttons">
                         <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-join"><i class="fab fa-facebook"></i> 参加する</a>
                         <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-share"><i class="fas fa-share-alt"></i> シェアする</a>
