@@ -4303,6 +4303,7 @@
         }
 
         .course-lineup-item {
+            position: relative;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(250, 204, 21, 0.2);
             border-radius: 12px;
@@ -4311,13 +4312,32 @@
             min-width: 280px;
             max-width: 280px;
             flex-shrink: 0;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-lineup-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(2,6,23,0.45) 0%, rgba(2,6,23,0.80) 70%, rgba(2,6,23,0.92) 100%);
+        }
+
+        .course-lineup-item > * {
+            position: relative;
+            z-index: 1;
         }
 
         .course-lineup-item:hover {
-            background: rgba(255, 255, 255, 0.1);
             border-color: rgba(250, 204, 21, 0.4);
             transform: translateY(-3px);
         }
+
+        .course-thumb-workflow { background-image: url('https://i.ytimg.com/vi/sEvnW2j9n18/maxresdefault.jpg'); }
+        .course-thumb-line { background-image: url('https://i.ytimg.com/vi/0rvQCe_Qmpw/maxresdefault.jpg'); }
+        .course-thumb-aiapp { background-image: url('https://i.ytimg.com/vi/6DPaBkY0hPg/maxresdefault.jpg'); }
+        .course-thumb-lp { background-image: url('https://i.ytimg.com/vi/ZJybwuwXPaQ/maxresdefault.jpg'); }
 
         .course-lineup-item h5 {
             font-size: 1rem;
@@ -6028,36 +6048,36 @@
                 <div class="course-lineup-marquee">
                     <div class="course-lineup-track">
                         <!-- 1セット目 -->
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-workflow">
                             <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
                             <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-line">
                             <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
                             <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-aiapp">
                             <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
                             <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-lp">
                             <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
                             <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
                         </div>
                         <!-- 2セット目（シームレスループ用複製） -->
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-workflow">
                             <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
                             <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-line">
                             <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
                             <p>LINEプラットフォーム上で動くミニアプリの企画・開発・実装を学びます。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-aiapp">
                             <h5><i class="fas fa-laptop-code"></i> AIアプリ開発実践講座</h5>
                             <p>AIを活用したWebアプリケーションの開発手法を実践的に学びます。</p>
                         </div>
-                        <div class="course-lineup-item">
+                        <div class="course-lineup-item course-thumb-lp">
                             <h5><i class="fas fa-bullseye"></i> 高成約率LP作成講座</h5>
                             <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
                         </div>
