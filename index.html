@@ -4202,6 +4202,21 @@
             line-height: 1.4;
         }
 
+        .course-mini-card.beginner-visual {
+            position: relative;
+            background-image: linear-gradient(135deg, rgba(3,7,18,.72), rgba(15,23,42,.52)), url('images/course-beginner-bg-desktop.jpg');
+            background-size: cover;
+            background-position: center;
+            border-color: rgba(147, 197, 253, 0.55) !important;
+            overflow: hidden;
+        }
+        .course-mini-card.beginner-visual strong,
+        .course-mini-card.beginner-visual span {
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 8px rgba(0,0,0,.45);
+        }
+
         .course-lineup {
             margin-top: 2rem;
         }
@@ -5081,6 +5096,7 @@
             .course-two-cards .course-mini-card:last-child::before { content:'⚡'; }
             .course-mini-card strong { display:block; font-size:.66rem; color:#fde68a; margin-bottom:.12rem; line-height:1.2; }
             .course-mini-card span { display:block; font-size:.58rem; color:rgba(255,255,255,.9); line-height:1.2; }
+            .course-mini-card.beginner-visual { background-image: linear-gradient(135deg, rgba(3,7,18,.68), rgba(15,23,42,.55)), url('images/course-beginner-bg-mobile.jpg'); background-size: cover; background-position: center; border-color: rgba(147, 197, 253, 0.62) !important; }
             .dev-community-cta { margin-top:.24rem; border:1px solid rgba(147,197,253,.45); background:linear-gradient(135deg, rgba(30,58,138,.36), rgba(15,23,42,.72)); border-radius:10px; padding:.45rem; box-shadow: 0 8px 18px rgba(2,6,23,.28); }
             .dev-community-cta h4 { margin:0 0 .18rem; font-size:.78rem; color:#93c5fd; text-shadow:0 0 12px rgba(59,130,246,.25); }
             .dev-community-cta p { margin:0 0 .28rem; font-size:.68rem; line-height:1.35; color:rgba(255,255,255,.92); }
@@ -5892,7 +5908,7 @@
                         </div>
                     </div>
                     <div class="course-two-cards">
-                        <div class="course-mini-card"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
+                        <div class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
                         <div class="course-mini-card"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></div>
                     </div>
                     <div class="mobile-lineup-scroll" style="margin-top:.22rem;">
@@ -5953,7 +5969,7 @@
             <!-- 講座ラインナップ -->
             <h3 class="course-lineup-title" style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
             <div class="course-two-cards-desktop">
-                <div class="course-mini-card"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
+                <div class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
                 <div class="course-mini-card"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></div>
             </div>
 
