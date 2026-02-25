@@ -5048,12 +5048,15 @@
             .ai-mobile-screen ul { margin:0 0 .25rem; padding-left:1rem; }
             .ai-mobile-screen li { font-size:.76rem; line-height:1.3; margin-bottom:.12rem; }
             .course-two-cards { display:grid; grid-template-columns:1fr 1fr; gap:.28rem; margin:.18rem 0 .28rem; }
-            .course-mini-card { border:1px solid rgba(250,204,21,.35); background:rgba(250,204,21,.08); border-radius:10px; padding:.34rem .38rem; min-height:52px; }
+            .course-mini-card { position:relative; border:1px solid rgba(250,204,21,.45); background:linear-gradient(135deg, rgba(250,204,21,.12), rgba(15,23,42,.72)); border-radius:10px; padding:.36rem .38rem .34rem 1.36rem; min-height:52px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 14px rgba(0,0,0,.22); }
+            .course-mini-card::before { position:absolute; left:.42rem; top:.47rem; font-size:.56rem; opacity:.92; }
+            .course-two-cards .course-mini-card:first-child::before { content:'🎯'; }
+            .course-two-cards .course-mini-card:last-child::before { content:'⚡'; }
             .course-mini-card strong { display:block; font-size:.66rem; color:#fde68a; margin-bottom:.12rem; line-height:1.2; }
-            .course-mini-card span { display:block; font-size:.58rem; color:rgba(255,255,255,.88); line-height:1.2; }
-            .dev-community-cta { margin-top:.24rem; border:1px solid rgba(147,197,253,.45); background:linear-gradient(135deg, rgba(30,58,138,.35), rgba(15,23,42,.65)); border-radius:10px; padding:.45rem; }
-            .dev-community-cta h4 { margin:0 0 .18rem; font-size:.78rem; color:#93c5fd; }
-            .dev-community-cta p { margin:0 0 .28rem; font-size:.68rem; line-height:1.35; color:rgba(255,255,255,.9); }
+            .course-mini-card span { display:block; font-size:.58rem; color:rgba(255,255,255,.9); line-height:1.2; }
+            .dev-community-cta { margin-top:.24rem; border:1px solid rgba(147,197,253,.45); background:linear-gradient(135deg, rgba(30,58,138,.36), rgba(15,23,42,.72)); border-radius:10px; padding:.45rem; box-shadow: 0 8px 18px rgba(2,6,23,.28); }
+            .dev-community-cta h4 { margin:0 0 .18rem; font-size:.78rem; color:#93c5fd; text-shadow:0 0 12px rgba(59,130,246,.25); }
+            .dev-community-cta p { margin:0 0 .28rem; font-size:.68rem; line-height:1.35; color:rgba(255,255,255,.92); }
             .dev-community-cta .cta-button { width:100%; text-align:center; font-size:.72rem; padding:.42rem .3rem; }
             .dev-community-cta.compact { margin-top:.18rem; }
             .ai-mobile-screen .btn-row { display:grid; grid-template-columns:1fr 1fr; gap:.4rem; margin-top:auto; }
@@ -5065,21 +5068,21 @@
             .ai-mobile-screen .screen-note { margin:.35rem 0 0; font-size:.72rem; line-height:1.35; color:rgba(255,255,255,.86); }
             .price-mini-grid { display:grid; grid-template-columns:1fr 1fr; gap:.3rem; }
             .price-mini { border-radius:10px; padding:.42rem; }
-            .price-mini.normal { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); }
-            .price-mini.pass { background:linear-gradient(135deg, rgba(127,29,29,.28), rgba(153,27,27,.42)); border:1px solid rgba(248,113,113,.6); }
-            .price-mini .label { margin:0 0 .25rem; color:#fde68a; font-size:.78rem; font-weight:700; }
+            .price-mini.normal { background:linear-gradient(135deg, rgba(255,255,255,.1), rgba(15,23,42,.62)); border:1px solid rgba(255,255,255,.2); box-shadow: 0 6px 14px rgba(2,6,23,.24); }
+            .price-mini.pass { background:linear-gradient(135deg, rgba(127,29,29,.35), rgba(153,27,27,.5)); border:1px solid rgba(248,113,113,.7); box-shadow: 0 8px 16px rgba(127,29,29,.28); }
+            .price-mini .label { margin:0 0 .25rem; color:#fde68a; font-size:.78rem; font-weight:700; letter-spacing:.01em; }
             .price-mini p { margin:0 0 .14rem; font-size:.7rem; line-height:1.25; }
             .price-mini .big { font-size:1rem; color:#fecaca; font-weight:800; }
             .price-mini .save-big { color:#fde047; font-weight:900; font-size:.9rem; }
             .save-badge { margin:0 0 .38rem; text-align:center; font-size:.76rem; font-weight:800; color:#fff; background:linear-gradient(135deg,#dc2626,#f59e0b); border:1px solid rgba(255,255,255,.3); border-radius:999px; padding:.32rem .5rem; }
             .price-mini .old { color:#cbd5e1; }
-            .gpts-banner-mini { margin-top:.3rem; padding:.42rem; border-radius:10px; border:1px solid rgba(59,130,246,.36); background:rgba(59,130,246,.12); }
-            .gpts-banner-mini p { margin:0 0 .12rem; font-size:.72rem; color:#dbeafe; }
-            .gpts-banner-mini span { display:block; margin:0 0 .22rem; font-size:.68rem; color:rgba(219,234,254,.85); }
-            .gpts-banner-mini a { display:inline-block; font-size:.7rem; color:#93c5fd; text-decoration:none; border:1px solid rgba(147,197,253,.35); padding:.28rem .4rem; border-radius:8px; }
-            .mobile-lineup-scroll { margin-top:.35rem; overflow:hidden; border:1px solid rgba(250,204,21,.25); border-radius:10px; background:rgba(250,204,21,.08); }
+            .gpts-banner-mini { margin-top:.3rem; padding:.42rem; border-radius:10px; border:1px solid rgba(59,130,246,.42); background:linear-gradient(135deg, rgba(59,130,246,.16), rgba(30,58,138,.26)); box-shadow: 0 8px 16px rgba(30,58,138,.2); }
+            .gpts-banner-mini p { margin:0 0 .12rem; font-size:.72rem; color:#dbeafe; font-weight:700; }
+            .gpts-banner-mini span { display:block; margin:0 0 .22rem; font-size:.68rem; color:rgba(219,234,254,.9); }
+            .gpts-banner-mini a { display:inline-block; font-size:.7rem; color:#bfdbfe; text-decoration:none; border:1px solid rgba(147,197,253,.42); background:rgba(15,23,42,.45); padding:.28rem .4rem; border-radius:8px; }
+            .mobile-lineup-scroll { margin-top:.35rem; overflow:hidden; border:1px solid rgba(250,204,21,.3); border-radius:10px; background:linear-gradient(135deg, rgba(250,204,21,.12), rgba(15,23,42,.62)); box-shadow: inset 0 1px 0 rgba(255,255,255,.08); }
             .mobile-lineup-track { display:flex; gap:.35rem; padding:.35rem; width:max-content; animation: mobileLineupMarquee 24s linear infinite; }
-            .mobile-lineup-track span { display:inline-block; white-space:nowrap; font-size:.72rem; color:#fde68a; padding:.24rem .46rem; border-radius:999px; border:1px solid rgba(250,204,21,.35); background:rgba(2,6,23,.42); }
+            .mobile-lineup-track span { display:inline-block; white-space:nowrap; font-size:.72rem; color:#fde68a; padding:.24rem .46rem; border-radius:999px; border:1px solid rgba(250,204,21,.42); background:rgba(2,6,23,.54); }
             @keyframes mobileLineupMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 
