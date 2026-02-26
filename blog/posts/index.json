@@ -1,6 +1,20 @@
 {
   "posts": [
     {
+      "slug": "youtube-to-practical-ops-training",
+      "title": "YouTube視聴で終わらせない。業務実装まで落とし込むAI講座の進め方",
+      "date": "2026-02-26",
+      "category": "AI",
+      "introduction": "YouTubeは導入イメージに有効ですが、現場導入は業務設計が不可欠です。動画視聴を実務運用に変える4ステップを解説します。"
+    },
+    {
+      "slug": "ai-secretary-morning-decision-ops",
+      "title": "AI秘書で毎朝の意思決定を固定化する運用（予定・株・開発・広告）",
+      "date": "2026-02-25",
+      "category": "AI",
+      "introduction": "毎朝の判断をその場の気分で行うと、優先順位が日ごとにぶれます。そこでif(Business)では、AI秘書を使って「予定・株・開発・広告」の4領域を同じ順番で確認する運用を導入しています。"
+    },
+    {
       "slug": "ai-consultation-one-day",
       "title": "AI相談サイトを1日で構築した話",
       "date": "2026-02-20",
