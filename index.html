@@ -4191,6 +4191,9 @@
             background: rgba(15, 23, 42, 0.5);
             border-radius: 14px;
             padding: 0.75rem 0.9rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .course-two-cards-desktop .course-mini-card strong {
@@ -4341,6 +4344,7 @@
         .course-thumb-line { background-image: url('images/course-thumbs/line.jpg'); }
         .course-thumb-aiapp { background-image: url('images/course-thumbs/aiapp.jpg'); }
         .course-thumb-lp { background-image: url('images/course-thumbs/lp.jpg'); }
+        .course-thumb-secret { background-image: url('images/course-thumbs/secret.jpg'); }
 
         .course-lineup-item h5 {
             font-size: 1rem;
@@ -5162,7 +5166,7 @@
             .ai-mobile-screen ul { margin:0 0 .25rem; padding-left:1rem; }
             .ai-mobile-screen li { font-size:.76rem; line-height:1.3; margin-bottom:.12rem; }
             .course-two-cards { display:grid; grid-template-columns:1fr 1fr; gap:.28rem; margin:.18rem 0 .28rem; }
-            .course-mini-card { position:relative; border:1px solid rgba(250,204,21,.45); background:linear-gradient(135deg, rgba(250,204,21,.12), rgba(15,23,42,.72)); border-radius:10px; padding:.36rem .38rem .34rem 1.36rem; min-height:52px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 14px rgba(0,0,0,.22); }
+            .course-mini-card { position:relative; border:1px solid rgba(250,204,21,.45); background:linear-gradient(135deg, rgba(250,204,21,.12), rgba(15,23,42,.72)); border-radius:10px; padding:.36rem .38rem .34rem 1.36rem; min-height:52px; box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 6px 14px rgba(0,0,0,.22); text-decoration:none; color:inherit; display:block; }
             .course-mini-card::before { position:absolute; left:.42rem; top:.47rem; font-size:.56rem; opacity:.92; }
             .course-two-cards .course-mini-card:first-child::before { content:'🎯'; }
             .course-two-cards .course-mini-card:last-child::before { content:'⚡'; }
@@ -5982,8 +5986,8 @@
                         </div>
                     </div>
                     <div class="course-two-cards">
-                        <div class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
-                        <div class="course-mini-card practical-visual"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></div>
+                        <a href="https://www.youtube.com/watch?v=z52MkWOOuOo" target="_blank" rel="noopener noreferrer" class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></a>
+                        <a href="https://www.youtube.com/watch?v=g9V7gPD7JHM" target="_blank" rel="noopener noreferrer" class="course-mini-card practical-visual"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></a>
                     </div>
                     <div class="mobile-lineup-scroll" style="margin-top:.22rem;">
                         <div class="mobile-lineup-track">
@@ -6043,17 +6047,21 @@
             <!-- 講座ラインナップ -->
             <h3 class="course-lineup-title" style="text-align: center; font-size: 1.5rem; margin-bottom: 2rem; color: #fde047;">講座ラインナップ</h3>
             <div class="course-two-cards-desktop">
-                <div class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></div>
-                <div class="course-mini-card practical-visual"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></div>
+                <a href="https://www.youtube.com/watch?v=z52MkWOOuOo" target="_blank" rel="noopener noreferrer" class="course-mini-card beginner-visual"><strong>初学者向けAI体験講座</strong><span>AI概論 / 画像生成 / バナー作成 / SNS投稿</span></a>
+                <a href="https://www.youtube.com/watch?v=g9V7gPD7JHM" target="_blank" rel="noopener noreferrer" class="course-mini-card practical-visual"><strong>3時間 実践講座</strong><span>ディープリサーチ → ドキュメント・スプレッドシート・スライド化</span></a>
             </div>
 
             <div class="course-lineup">
                 <div class="course-lineup-marquee">
                     <div class="course-lineup-track">
                         <!-- 1セット目 -->
-                        <a class="course-lineup-item course-thumb-workflow" href="https://www.youtube.com/watch?v=sEvnW2j9n18" target="_blank" rel="noopener noreferrer">
+                        <a class="course-lineup-item course-thumb-workflow" href="https://www.youtube.com/watch?v=NHH1LSPsDXI" target="_blank" rel="noopener noreferrer">
                             <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
-                            <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                            <p>GitHub ActionsとGemini APIで、AIブログ投稿を毎日完全自動化する実践講座です。</p>
+                        </a>
+                        <a class="course-lineup-item course-thumb-secret" href="https://www.youtube.com/watch?v=sEvnW2j9n18" target="_blank" rel="noopener noreferrer">
+                            <h5><i class="fas fa-robot"></i> AIバイブコーディングで秘書AI作り</h5>
+                            <p>日々のタスク整理・提案・運用を支える秘書AIを作る実践講座です。</p>
                         </a>
                         <a class="course-lineup-item course-thumb-line" href="https://www.youtube.com/watch?v=0rvQCe_Qmpw" target="_blank" rel="noopener noreferrer">
                             <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
@@ -6068,9 +6076,13 @@
                             <p>AIを活用した高コンバージョンなランディングページの設計・制作スキルを習得します。</p>
                         </a>
                         <!-- 2セット目（シームレスループ用複製） -->
-                        <a class="course-lineup-item course-thumb-workflow" href="https://www.youtube.com/watch?v=sEvnW2j9n18" target="_blank" rel="noopener noreferrer">
+                        <a class="course-lineup-item course-thumb-workflow" href="https://www.youtube.com/watch?v=NHH1LSPsDXI" target="_blank" rel="noopener noreferrer">
                             <h5><i class="fas fa-cogs"></i> 業務効率化AIワークフロー作成講座</h5>
-                            <p>日常業務を自動化・効率化するためのAIワークフロー構築スキルを習得します。</p>
+                            <p>GitHub ActionsとGemini APIで、AIブログ投稿を毎日完全自動化する実践講座です。</p>
+                        </a>
+                        <a class="course-lineup-item course-thumb-secret" href="https://www.youtube.com/watch?v=sEvnW2j9n18" target="_blank" rel="noopener noreferrer">
+                            <h5><i class="fas fa-robot"></i> AIバイブコーディングで秘書AI作り</h5>
+                            <p>日々のタスク整理・提案・運用を支える秘書AIを作る実践講座です。</p>
                         </a>
                         <a class="course-lineup-item course-thumb-line" href="https://www.youtube.com/watch?v=0rvQCe_Qmpw" target="_blank" rel="noopener noreferrer">
                             <h5><i class="fab fa-line"></i> LINEミニアプリ開発講座</h5>
