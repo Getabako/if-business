@@ -4520,6 +4520,173 @@
             animation: fadeInUp 0.5s ease;
         }
 
+        /* === AI講座キューブスライダー === */
+        .ai-cube-slider {
+            margin-top: 2.2rem;
+            max-width: 1040px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .ai-cube-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+        .ai-cube-tab {
+            position: relative;
+            padding: 0.65rem 1.5rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            clip-path: polygon(12px 0%, calc(100% - 12px) 0%, 100% 50%, calc(100% - 12px) 100%, 12px 100%, 0% 50%);
+            letter-spacing: 0.03em;
+        }
+        .ai-cube-tab:hover {
+            background: rgba(250,204,21,0.1);
+            color: rgba(255,255,255,0.85);
+        }
+        .ai-cube-tab.active {
+            background: linear-gradient(135deg, rgba(250,204,21,0.25), rgba(245,158,11,0.2));
+            border-color: rgba(250,204,21,0.5);
+            color: #fde047;
+            box-shadow: 0 0 20px rgba(250,204,21,0.15);
+        }
+        .ai-cube-tab i {
+            margin-right: 0.4rem;
+            font-size: 0.9rem;
+        }
+        .ai-cube-tab .tab-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            width: 0%;
+            transition: none;
+        }
+        .ai-cube-tab.active .tab-progress {
+            animation: cubeTabProgress 6s linear forwards;
+        }
+        @keyframes cubeTabProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        .ai-cube-viewport {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(250,204,21,0.35);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.35);
+            background: rgba(2,6,23,0.45);
+            perspective: 1000px;
+        }
+        .ai-cube-scene {
+            position: relative;
+            width: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.68,-0.35,0.265,1.35);
+        }
+        .ai-cube-face {
+            width: 100%;
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: rotateX(90deg) scale(0.85);
+            transition: all 0.8s cubic-bezier(0.68,-0.35,0.265,1.35);
+            pointer-events: none;
+        }
+        .ai-cube-face.active {
+            position: relative;
+            opacity: 1;
+            transform: rotateX(0deg) scale(1);
+            pointer-events: auto;
+        }
+        .ai-cube-face.exit-up {
+            opacity: 0;
+            transform: rotateX(-90deg) scale(0.85);
+        }
+        .ai-cube-face.exit-down {
+            opacity: 0;
+            transform: rotateX(90deg) scale(0.85);
+        }
+        .ai-cube-face img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .ai-cube-face .cube-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .ai-cube-face .cube-overlay a {
+            pointer-events: auto;
+        }
+        .ai-cube-face .gpts-inner {
+            padding: 2rem 2rem 1.5rem;
+        }
+        .ai-cube-face .gpts-inner .gpts-hero-banner {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .ai-cube-face .gpts-inner .gpts-hero-banner img {
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .ai-cube-face .gpts-inner .gpts-hero-copy {
+            font-size: 0.92rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+        }
+        .ai-cube-face .gpts-community-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .ai-cube-face .gpts-community-buttons a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .ai-cube-face .gpts-btn-join {
+            background: #1877f2;
+            color: white;
+        }
+        .ai-cube-face .gpts-btn-join:hover {
+            background: #1565c0;
+            box-shadow: 0 4px 15px rgba(24,119,242,0.4);
+            transform: translateY(-2px);
+        }
+        .ai-cube-face .gpts-btn-share {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+        }
+        .ai-cube-face .gpts-btn-share:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
         /* GPTs研究会コミュニティ */
         .gpts-community {
             margin-top: 3rem;
@@ -5274,6 +5441,7 @@
             #courses .ai-master-roadmap,
             #courses .ai-community-box,
             #courses .ai-price-compare,
+            #courses .ai-cube-slider,
             #courses .gpts-community { display:none !important; }
         }
 
@@ -6161,31 +6329,51 @@
                 </div>
             </div>
 
-            <!-- AI講座マスターロードマップ（画像版） -->
-            <div class="ai-master-roadmap" style="margin-top:2.2rem;">
-                <div style="max-width: 1040px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 2px solid rgba(250,204,21,0.35); box-shadow: 0 14px 40px rgba(0,0,0,0.35); background: rgba(2,6,23,0.45);">
-                    <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ" style="display:block; width:100%; height:auto;">
+            <!-- AI講座キューブスライダー（ロードマップ・料金・GPTs研究会） -->
+            <div class="ai-cube-slider" id="aiCubeSlider">
+                <!-- ヘキサゴン型タブナビ -->
+                <div class="ai-cube-nav">
+                    <button class="ai-cube-tab active" data-cube="0" onclick="goToCubeFace(0)">
+                        <i class="fas fa-route"></i>ロードマップ
+                        <span class="tab-progress"></span>
+                    </button>
+                    <button class="ai-cube-tab" data-cube="1" onclick="goToCubeFace(1)">
+                        <i class="fas fa-gem"></i>料金プラン
+                        <span class="tab-progress"></span>
+                    </button>
+                    <button class="ai-cube-tab" data-cube="2" onclick="goToCubeFace(2)">
+                        <i class="fas fa-flask"></i>GPTs研究会
+                        <span class="tab-progress"></span>
+                    </button>
                 </div>
-            </div>
 
-            <!-- 料金・定着イメージ（画像） -->
-            <div class="ai-price-visual" style="margin-top:1.6rem; max-width:1040px; margin-left:auto; margin-right:auto; position:relative; border-radius:16px; overflow:hidden; border:2px solid rgba(250,204,21,0.35); box-shadow:0 14px 40px rgba(0,0,0,0.35);">
-                <img src="images/ai-pricing-plan.jpg" alt="if(塾) AIマスターロードマップ＆料金プラン" style="display:block; width:100%; height:auto;">
-                <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-                    <a href="https://forms.gle/eCvTd8cTkfYyiVZw5" target="_blank" class="cta-button gold-lux-btn" style="pointer-events:auto; background:linear-gradient(135deg,rgba(251,191,36,0.75),rgba(245,158,11,0.75),rgba(217,119,6,0.75)); color:#fffbe8; box-shadow:0 12px 32px rgba(245,158,11,.35); border:1px solid rgba(251,191,36,.5); opacity:0.8; backdrop-filter:blur(2px);">✦ 講座に申し込む</a>
-                </div>
-            </div>
-
-            <!-- GPTs研究会コミュニティ -->
-            <div class="gpts-community" style="margin-top: 2rem;">
-                <div class="gpts-community-header">
-                    <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-hero-banner">
-                        <img src="images/gpts-research-banner.jpg" alt="GPTs研究会バナー">
-                        <p class="gpts-hero-copy">メンバー6,953人の公開コミュニティ。生成AIを研究して、人にしかできないことを探求。毎日のライブ配信で最新AI情報をキャッチアップし、メンバー同士で学び合います。<br>弊社の高崎・山﨑も毎週水曜日にレギュラーライブ配信を担当しています。</p>
-                    </a>
-                    <div class="gpts-community-buttons">
-                        <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-join"><i class="fab fa-facebook"></i> 参加する</a>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-share"><i class="fas fa-share-alt"></i> シェアする</a>
+                <!-- キューブビューポート -->
+                <div class="ai-cube-viewport">
+                    <div class="ai-cube-scene" id="aiCubeScene">
+                        <!-- Face 0: ロードマップ -->
+                        <div class="ai-cube-face active" data-face="0">
+                            <img src="images/ai-master-roadmap.png" alt="if(塾) 究極のAIマスターロードマップ">
+                        </div>
+                        <!-- Face 1: 料金プラン -->
+                        <div class="ai-cube-face" data-face="1">
+                            <img src="images/ai-pricing-plan.jpg" alt="if(塾) AIマスターロードマップ＆料金プラン">
+                            <div class="cube-overlay">
+                                <a href="https://forms.gle/eCvTd8cTkfYyiVZw5" target="_blank" class="cta-button gold-lux-btn" style="background:linear-gradient(135deg,rgba(251,191,36,0.75),rgba(245,158,11,0.75),rgba(217,119,6,0.75)); color:#fffbe8; box-shadow:0 12px 32px rgba(245,158,11,.35); border:1px solid rgba(251,191,36,.5); opacity:0.8; backdrop-filter:blur(2px);">✦ 講座に申し込む</a>
+                            </div>
+                        </div>
+                        <!-- Face 2: GPTs研究会 -->
+                        <div class="ai-cube-face" data-face="2">
+                            <div class="gpts-inner">
+                                <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-hero-banner">
+                                    <img src="images/gpts-research-banner.jpg" alt="GPTs研究会バナー">
+                                    <p class="gpts-hero-copy">メンバー6,953人の公開コミュニティ。生成AIを研究して、人にしかできないことを探求。毎日のライブ配信で最新AI情報をキャッチアップし、メンバー同士で学び合います。<br>弊社の高崎・山﨑も毎週水曜日にレギュラーライブ配信を担当しています。</p>
+                                </a>
+                                <div class="gpts-community-buttons">
+                                    <a href="https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-join"><i class="fab fa-facebook"></i> 参加する</a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.facebook.com/groups/gptslabo" target="_blank" class="gpts-btn-share"><i class="fas fa-share-alt"></i> シェアする</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -7852,6 +8040,54 @@
         window.changeGrantSlide = changeGrantSlide;
 
         resetGrantAuto();
+    })();
+    </script>
+
+    <!-- AI講座キューブスライダー -->
+    <script>
+    (function() {
+        var cubeCurrent = 0;
+        var cubeTotal = 3;
+        var cubeAnimating = false;
+        var cubeAutoTimer;
+
+        function goToCubeFace(idx) {
+            if (cubeAnimating || idx === cubeCurrent) return;
+            cubeAnimating = true;
+
+            var faces = document.querySelectorAll('.ai-cube-face');
+            var tabs = document.querySelectorAll('.ai-cube-tab');
+            var prev = faces[cubeCurrent];
+            var next = faces[idx];
+            var direction = idx > cubeCurrent ? 'up' : 'down';
+
+            prev.classList.remove('active');
+            prev.classList.add(direction === 'up' ? 'exit-up' : 'exit-down');
+            next.classList.add('active');
+
+            tabs.forEach(function(t) { t.classList.remove('active'); });
+            tabs[idx].classList.add('active');
+
+            setTimeout(function() {
+                prev.classList.remove('exit-up', 'exit-down');
+                cubeCurrent = idx;
+                cubeAnimating = false;
+            }, 800);
+
+            resetCubeAuto();
+        }
+
+        function nextCubeFace() {
+            goToCubeFace((cubeCurrent + 1) % cubeTotal);
+        }
+
+        function resetCubeAuto() {
+            clearInterval(cubeAutoTimer);
+            cubeAutoTimer = setInterval(nextCubeFace, 6000);
+        }
+
+        window.goToCubeFace = goToCubeFace;
+        resetCubeAuto();
     })();
     </script>
 </body>
