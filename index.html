@@ -8648,8 +8648,50 @@
                 <p class="section-subtitle">最新のAI活用ノウハウ・導入事例・運用アイデアを更新中</p>
             </div>
 
-            <div id="topBlogList"
-                style="max-width: 980px; margin: 0 auto 1rem; display:grid; grid-template-columns: 1fr; gap: .8rem;">
+            <style>
+                .blog-marquee-container {
+                    width: 100%;
+                    overflow: hidden;
+                    position: relative;
+                    padding: 0.5rem 0 1.5rem;
+                    max-width: 100%;
+                    margin: 0 auto;
+                }
+
+                .blog-marquee-track {
+                    display: flex;
+                    width: fit-content;
+                    animation: blog-marquee 35s linear infinite;
+                }
+
+                .blog-marquee-track:hover {
+                    animation-play-state: paused;
+                }
+
+                .blog-marquee-track>a {
+                    flex: 0 0 320px;
+                    margin-right: 1.2rem;
+                }
+
+                @media (max-width: 768px) {
+                    .blog-marquee-track>a {
+                        flex: 0 0 280px;
+                    }
+                }
+
+                @keyframes blog-marquee {
+                    0% {
+                        transform: translateX(0);
+                    }
+
+                    100% {
+                        transform: translateX(-50%);
+                    }
+                }
+            </style>
+            <div class="blog-marquee-container">
+                <div id="topBlogList" class="blog-marquee-track">
+                </div>
             </div>
 
             <div style="max-width: 980px; margin: 0 auto; display:grid; grid-template-columns: 1fr; gap: .8rem;">
@@ -10087,26 +10129,30 @@
                 if (!container) return;
                 var isMobile = window.innerWidth <= 768;
                 var maxItems = isMobile ? 3 : 6;
-                // Use auto-fit for a clean responsive grid that neatly fills the screen
-                container.style.gridTemplateColumns = isMobile ? '1fr' : 'repeat(auto-fit, minmax(320px, 1fr))';
                 var top = (posts || []).slice().sort(function (a, b) { return String(b.date).localeCompare(String(a.date)); }).slice(0, maxItems);
-                container.innerHTML = top.map(function (post, index) {
-                    var d = new Date(post.date);
-                    var ds = d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
-                    var thumbId = (index % 2) + 1; // Alternating generic tech banners
-                    var thumbUrl = 'images/blog_thumb_' + thumbId + '.png';
 
-                    return '<a href="blog-post.html?slug=' + post.slug + '" class="company-card" style="text-decoration:none; display:flex; flex-direction:column; padding:0; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s;">'
-                        + '<img src="' + thumbUrl + '" alt="Blog Thumbnail" style="width:100%; height:160px; object-fit:cover; border-bottom:1px solid rgba(255,255,255,0.08);">'
-                        + '<div style="padding: 1.25rem;">'
-                        + '<h3 class="company-card-title" style="margin:0 0 0.8rem 0; color:#eaf2ff; font-size:1.05rem; line-height:1.5;"><i class="fas fa-file-alt" style="color:#60a5fa; margin-right:4px;"></i>' + post.title + '</h3>'
-                        + '<p class="company-card-content" style="margin:0; color:rgba(234,242,255,.7); font-size:0.85rem; display:flex; justify-content:space-between; align-items:center;">'
-                        + '<span><i class="far fa-calendar-alt"></i> ' + ds + '</span>'
-                        + '<span style="background:rgba(59,130,246,0.25); color:#93c5fd; padding:3px 10px; border-radius:12px; font-weight:bold; font-size:0.75rem;">' + (post.category || 'AI') + '</span>'
-                        + '</p>'
-                        + '</div>'
-                        + '</a>';
-                }).join('');
+                var renderCards = function (postList) {
+                    return postList.map(function (post, index) {
+                        var d = new Date(post.date);
+                        var ds = d.getFullYear() + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + String(d.getDate()).padStart(2, '0');
+                        var thumbId = (index % 2) + 1; // Alternating generic tech banners
+                        var thumbUrl = 'images/blog_thumb_' + thumbId + '.png';
+
+                        return '<a href="blog-post.html?slug=' + post.slug + '" class="company-card" style="text-decoration:none; display:flex; flex-direction:column; padding:0; overflow:hidden; transition:transform 0.3s, box-shadow 0.3s;">'
+                            + '<img src="' + thumbUrl + '" alt="Blog Thumbnail" style="width:100%; height:160px; object-fit:cover; border-bottom:1px solid rgba(255,255,255,0.08);">'
+                            + '<div style="padding: 1.25rem;">'
+                            + '<h3 class="company-card-title" style="margin:0 0 0.8rem 0; color:#eaf2ff; font-size:1.05rem; line-height:1.5;"><i class="fas fa-file-alt" style="color:#60a5fa; margin-right:4px;"></i>' + post.title + '</h3>'
+                            + '<p class="company-card-content" style="margin:0; color:rgba(234,242,255,.7); font-size:0.85rem; display:flex; justify-content:space-between; align-items:center;">'
+                            + '<span><i class="far fa-calendar-alt"></i> ' + ds + '</span>'
+                            + '<span style="background:rgba(59,130,246,0.25); color:#93c5fd; padding:3px 10px; border-radius:12px; font-weight:bold; font-size:0.75rem;">' + (post.category || 'AI') + '</span>'
+                            + '</p>'
+                            + '</div>'
+                            + '</a>';
+                    }).join('');
+                };
+
+                // Duplicate cards for seamless infinite marquee loop
+                container.innerHTML = renderCards(top) + renderCards(top);
             }
 
             fetch('blog/posts/index.json', { cache: 'no-store' })
