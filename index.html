@@ -104,6 +104,42 @@
             padding-left: 1rem;
         }
 
+        /* 親子メニュー */
+        .nav-menu .nav-parent > a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-menu .nav-parent > a .nav-arrow {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+            margin-left: 0.5rem;
+        }
+        .nav-menu .nav-parent.open > a .nav-arrow {
+            transform: rotate(90deg);
+        }
+        .nav-menu .nav-children {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease;
+        }
+        .nav-menu .nav-parent.open .nav-children {
+            max-height: 300px;
+        }
+        .nav-menu .nav-children li {
+            margin-bottom: 0;
+        }
+        .nav-menu .nav-children a {
+            font-size: 0.95rem;
+            padding: 0.6rem 0 0.6rem 1.5rem;
+            color: rgba(255,255,255,0.7);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-menu .nav-children a:hover {
+            color: #fbbf24;
+            padding-left: 2rem;
+        }
+
         .mobile-menu-toggle {
             display: flex;
             flex-direction: column;
@@ -5643,10 +5679,15 @@
         <ul class="nav-menu" id="navMenu">
             <li><a href="blog.html"><i class="fas fa-pen-nib"></i> ブログ</a></li>
             <li><a href="#ai-diagnosis">AIプラン診断</a></li>
-            <li><a href="#ai-system-dev">AIシステム開発</a></li>
-            <li><a href="#ai-advisor">AIパーソナル顧問</a></li>
-            <li><a href="#ai-training">AI人材育成</a></li>
-            <li><a href="#ai-marketing">AIマーケティング</a></li>
+            <li class="nav-parent" id="navPlanParent">
+                <a href="#plans-unified"><i class="fas fa-briefcase" style="margin-right:0.4rem;"></i>AIプラン <span class="nav-arrow"><i class="fas fa-chevron-right"></i></span></a>
+                <ul class="nav-children">
+                    <li><a href="#plans-unified" data-switch-plan="advisor"><i class="fas fa-user-tie" style="margin-right:0.3rem; color:#fbbf24;"></i>顧問</a></li>
+                    <li><a href="#plans-unified" data-switch-plan="training"><i class="fas fa-user-graduate" style="margin-right:0.3rem; color:#fbbf24;"></i>人材育成</a></li>
+                    <li><a href="#plans-unified" data-switch-plan="marketing"><i class="fas fa-bullhorn" style="margin-right:0.3rem; color:#fbbf24;"></i>マーケティング</a></li>
+                    <li><a href="#plans-unified" data-switch-plan="system"><i class="fas fa-cogs" style="margin-right:0.3rem; color:#fbbf24;"></i>システム開発</a></li>
+                </ul>
+            </li>
             <li><a href="#courses">AI講座</a></li>
             <li><a href="#grant">助成金のご案内</a></li>
             <li><a href="#implementation">AI導入事例</a></li>
@@ -6770,6 +6811,17 @@
             window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
         }
 
+        // 親メニュー開閉
+        var navParent = document.getElementById('navPlanParent');
+        if (navParent) {
+            var parentLink = navParent.querySelector(':scope > a');
+            parentLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                navParent.classList.toggle('open');
+            });
+        }
+
         // Close menu when clicking on a link (including icon children)
         navMenu.addEventListener('click', function(e) {
             var el = e.target;
@@ -6779,7 +6831,10 @@
                 el = el.parentElement;
             }
             if (!anchor) return;
+            // 親メニューリンクは上で処理済み
+            if (anchor.parentElement === navParent) return;
             var href = anchor.getAttribute('href');
+            var planKey = anchor.getAttribute('data-switch-plan');
             if (href && href.startsWith('#')) {
                 e.preventDefault();
                 e.stopPropagation();
@@ -6787,10 +6842,16 @@
                 mobileMenuToggle.classList.remove('active');
                 navMenu.classList.remove('active');
                 menuOverlay.classList.remove('active');
-                // メニュー閉じアニメーション後にスクロール
+                if (navParent) navParent.classList.remove('open');
+                // メニュー閉じアニメーション後にタブ切替＋スクロール
                 var target = document.querySelector(href);
                 if (target) {
-                    setTimeout(function() { smoothScrollTo(target); }, 350);
+                    setTimeout(function() {
+                        if (planKey && window.switchPlanTab) {
+                            window.switchPlanTab(planKey);
+                        }
+                        smoothScrollTo(target);
+                    }, 350);
                 }
             } else {
                 toggleMenu();
@@ -7927,6 +7988,14 @@
                     setUnifiedPlan(tab.getAttribute('data-plan'));
                 });
             });
+
+            // タブ切替をグローバルに公開（メニューから呼べるように）
+            window.switchPlanTab = function(key) {
+                tabs.forEach(function(t){ t.classList.remove('active'); });
+                var target = document.querySelector('.plan-tab[data-plan="' + key + '"]');
+                if (target) target.classList.add('active');
+                setUnifiedPlan(key);
+            };
 
             setUnifiedPlan('advisor');
         })();
